@@ -1,0 +1,15 @@
+﻿<?xml version="1.0"?>
+<Application>
+  <NavigationItems>
+    <Items>
+      <Item Id="Default" IsNewNode="True">
+        <Items>
+          <Item Id="AboutInfo" ViewId="AboutInfo_DetailView" IsNewNode="True"/>
+        </Items>
+      </Item>
+    </Items>
+  </NavigationItems>
+  <Views>
+    <DetailView Id="AboutInfo_DetailView" MobileVisible="True"></DetailView>
+  </Views>
+</Application>
