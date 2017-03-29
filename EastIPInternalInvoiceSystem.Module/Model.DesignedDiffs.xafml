@@ -1,8 +1,212 @@
-﻿<?xml version="1.0" ?>
-<Application Title="EastIPInternalInvoiceSystem">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application Title="东方亿思草单管理系统" Logo="Action_EditModel" Copyright="Meng XIA" Company="EastIP">
+  <BOModel>
+    <Class Name="DevExpress.Persistent.BaseImpl.BaseObject">
+      <OwnMembers>
+        <Member Name="Oid" Caption="Id" />
+      </OwnMembers>
+    </Class>
+    <Class Name="EastIPInternalInvoiceSystem.Module.BusinessObjects.InternalAgent" Caption="代理人" ImageName="BO_Lead">
+      <OwnMembers>
+        <Member Name="Code" Caption="代码" />
+        <Member Name="CodeName" Caption="代码&amp;姓名" />
+        <Member Name="Name" Caption="姓名" />
+      </OwnMembers>
+    </Class>
+    <Class Name="EastIPInternalInvoiceSystem.Module.BusinessObjects.InternalInvoice" Caption="草单管理" ObjectCaptionFormat="{0:InternalNo}" DefaultListViewShowAutoFilterRow="True" ImageName="BO_Invoice">
+      <OwnMembers>
+        <Member Name="Agent1" Caption="代理人1" Size="20" DataSourceProperty="" LookupProperty="CodeName" LookupEditorMode="AllItemsWithSearch" />
+        <Member Name="Agent2" Caption="代理人2" Size="20" LookupProperty="CodeName" LookupEditorMode="AllItemsWithSearch" />
+        <Member Name="Agent3" Caption="代理人3" Size="20" LookupProperty="CodeName" LookupEditorMode="AllItemsWithSearch" />
+        <Member Name="Agent4" Caption="代理人4" Size="20" LookupProperty="CodeName" LookupEditorMode="AllItemsWithSearch" />
+        <Member Name="AppName" Caption="申请人" Size="200" />
+        <Member Name="AppNo" Caption="申请人编号" Size="20" />
+        <Member Name="ClientName" Caption="委托人" Size="200" />
+        <Member Name="ClientNo" Caption="委托人编号" Size="20" />
+        <Member Name="Content" Caption="草单项目" Size="200" />
+        <Member Name="CreateDate" Caption="记录日" AllowEdit="False" />
+        <Member Name="Deadline" Caption="账单发送期限" />
+        <Member Name="FirmNo" Caption="外所账单编号" />
+        <Member Name="InternalNo" Caption="草单编号" AllowEdit="False" />
+        <Member Name="InternalType" Caption="草单类型" />
+        <Member Name="InvoiceFile" Caption="电子件" />
+        <Member Name="InvoiceNo" Caption="账单编号" Size="50" />
+        <Member Name="InvoiceNote" Caption="账单备注" RowCount="3" Size="2000" />
+        <Member Name="IsFAgencyInvoice" Caption="第三方账单" />
+        <Member Name="IsInvalid" Caption="作废" />
+        <Member Name="NoNeedInvoice" Caption="无须开账单" />
+        <Member Name="Note" Caption="备注" RowCount="3" Size="2000" />
+        <Member Name="OurNo" Caption="我方卷号" Size="20" />
+        <Member Name="PermissionPolicyUser" Caption="登记人" AllowEdit="False" />
+        <Member Name="SendDate" Caption="草单发送期限" />
+        <Member Name="Type" Caption="账单归属" Size="1" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <CreatableItems>
+    <CreatableItem ClassName="EastIPInternalInvoiceSystem.Module.BusinessObjects.InternalAgent" Removed="True" />
+    <CreatableItem ClassName="EastIPInternalInvoiceSystem.Module.BusinessObjects.InternalInvoice" Removed="True" />
+  </CreatableItems>
+  <NavigationItems StartupNavigationItem="InternalInvoice_ListView">
+    <Items>
+      <Item Id="@ace9d82c-5c91-4745-94c6-286bdc5edb81" Caption="业务管理" IsNewNode="True">
+        <Items IsNewNode="True">
+          <Item Id="InternalInvoice_ListView" ViewId="InternalInvoice_ListView" ObjectKey="" Index="0" IsNewNode="True" />
+          <Item Id="InternalAgent_ListView" ViewId="InternalAgent_ListView" ObjectKey="" Index="1" IsNewNode="True" />
+        </Items>
+      </Item>
+      <Item Id="Default" Caption="配置管理" Visible="True">
+        <Items>
+          <Item Id="InternalAgent_ListView" Removed="True" />
+          <Item Id="InternalInvoice_ListView" Removed="True" />
+        </Items>
+      </Item>
+    </Items>
+  </NavigationItems>
   <Options>
     <LayoutManagerOptions RequiredFieldMark="*" />
   </Options>
+  <SchemaModules>
+    <SchemaModule Name="SystemModule" Version="16.2.3.0" IsNewNode="True" />
+  </SchemaModules>
   <Views>
+    <DetailView Id="InternalAgent_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="InternalAgent" RelativeSize="100">
+              <LayoutItem Id="Code" RelativeSize="4.2666666666666666" />
+              <LayoutItem Id="Name" RelativeSize="95.733333333333334" />
+              <LayoutItem Id="CodeName" Removed="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="InternalAgent_LookupListView" Caption="代理人" AllowDelete="False" AllowNew="False">
+      <Columns>
+        <ColumnInfo Id="Code" PropertyName="Code" Index="0" IsNewNode="True" />
+        <ColumnInfo Id="Name" PropertyName="Name" Index="1" />
+      </Columns>
+    </ListView>
+    <DetailView Id="InternalInvoice_DetailView" ObjectCaptionFormat="{0:InternalNo}" DefaultFocusedItem="OurNo">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="Item1" ShowCaption="True" Caption="草单信息" CaptionLocation="Top" Index="0" RelativeSize="51.334379905808476" IsNewNode="True">
+              <LayoutGroup Id="Autofa45d084-42de-464d-8d43-433aa8543640" ShowCaption="False" Caption="" Direction="Horizontal" Index="0" RelativeSize="54.109589041095887" IsNewNode="True">
+                <LayoutGroup Id="InternalInvoice_col1" ShowCaption="False" Caption="基本信息" Index="0" RelativeSize="43.428571428571431" IsNewNode="True">
+                  <LayoutItem Id="InternalNo" ViewItem="InternalNo" Index="0" RelativeSize="20.253164556962027" IsNewNode="True" />
+                  <LayoutItem Id="OurNo" ViewItem="OurNo" Index="1" RelativeSize="15.189873417721518" IsNewNode="True" />
+                  <LayoutItem Id="ClientNo" ViewItem="ClientNo" Index="2" RelativeSize="15.189873417721518" IsNewNode="True" />
+                  <LayoutItem Id="ClientName" ViewItem="ClientName" Index="3" RelativeSize="15.189873417721518" IsNewNode="True" />
+                  <LayoutItem Id="AppNo" ViewItem="AppNo" Index="4" RelativeSize="15.189873417721518" IsNewNode="True" />
+                  <LayoutItem Id="AppName" ViewItem="AppName" Index="5" RelativeSize="18.9873417721519" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutGroup Id="InternalInvoice_col2" ShowCaption="False" Caption="草单信息" Direction="Horizontal" Index="1" RelativeSize="56.571428571428569" IsNewNode="True">
+                  <LayoutGroup Id="Auto086b5846-0c5d-4411-8cfc-6a5f53aab403" ShowCaption="False" Caption="Auto086b5846-0c5d-4411-8cfc-6a5f53aab403(19)" Index="0" RelativeSize="53.535353535353536" IsNewNode="True">
+                    <LayoutItem Id="SendDate" ViewItem="SendDate" Index="0" RelativeSize="20.253164556962027" IsNewNode="True" />
+                    <LayoutItem Id="InternalType" ViewItem="InternalType" Index="1" RelativeSize="15.189873417721518" IsNewNode="True" />
+                    <LayoutItem Id="Content" ViewItem="Content" Index="2" RelativeSize="15.189873417721518" IsNewNode="True" />
+                    <LayoutItem Id="Type" ViewItem="Type" Index="3" RelativeSize="15.189873417721518" IsNewNode="True" />
+                    <LayoutItem Id="IsFAgencyInvoice" ViewItem="IsFAgencyInvoice" Index="4" RelativeSize="15.189873417721518" IsNewNode="True" />
+                    <LayoutItem Id="FirmNo" ViewItem="FirmNo" Index="5" RelativeSize="18.9873417721519" IsNewNode="True" />
+                  </LayoutGroup>
+                  <LayoutGroup Id="Autoffba691f-3b4f-4cd1-8eed-c496d60c5bc9" ShowCaption="False" Caption="Autoffba691f-3b4f-4cd1-8eed-c496d60c5bc9(23)" Index="1" RelativeSize="46.464646464646464" IsNewNode="True">
+                    <LayoutItem Id="Agent1" ViewItem="Agent1" Index="0" RelativeSize="20.253164556962027" IsNewNode="True" />
+                    <LayoutItem Id="Agent2" ViewItem="Agent2" Index="1" RelativeSize="15.189873417721518" IsNewNode="True" />
+                    <LayoutItem Id="Agent3" ViewItem="Agent3" Index="2" RelativeSize="15.189873417721518" IsNewNode="True" />
+                    <LayoutItem Id="Agent4" ViewItem="Agent4" Index="3" RelativeSize="15.189873417721518" IsNewNode="True" />
+                    <LayoutItem Id="IsInvalid" ViewItem="IsInvalid" Index="4" RelativeSize="15.189873417721518" IsNewNode="True" />
+                    <LayoutItem Id="InvoiceFile" ViewItem="InvoiceFile" Index="5" RelativeSize="18.9873417721519" IsNewNode="True" />
+                  </LayoutGroup>
+                </LayoutGroup>
+              </LayoutGroup>
+              <LayoutItem Id="Note" ViewItem="Note" Index="1" RelativeSize="45.890410958904113" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="Auto61596e9f-4d9d-4952-853f-1f023d13ec4e" ShowCaption="True" Caption="账单信息" Direction="Vertical" Index="1" RelativeSize="36.891679748822604" IsNewNode="True">
+              <LayoutGroup Id="Auto859b7d5d-7444-4808-a7a1-fdc73cc0c6f7" ShowCaption="False" Caption="" Direction="Horizontal" Index="0" RelativeSize="15.384615384615385" IsNewNode="True">
+                <LayoutItem Id="Deadline" ViewItem="Deadline" Index="0" RelativeSize="24.914285714285715" IsNewNode="True" />
+                <LayoutItem Id="InvoiceNo" ViewItem="InvoiceNo" Index="1" RelativeSize="25.028571428571428" IsNewNode="True" />
+                <LayoutItem Id="NoNeedInvoice" ViewItem="NoNeedInvoice" Index="2" RelativeSize="25.028571428571428" IsNewNode="True" />
+                <LayoutItem Id="Item3" Index="3" RelativeSize="25.028571428571428" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutItem Id="InvoiceNote" ViewItem="InvoiceNote" Index="1" RelativeSize="84.615384615384613" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="Item2" ShowCaption="True" CaptionLocation="Top" Direction="Horizontal" Index="2" RelativeSize="11.773940345368917" Caption="记录" IsNewNode="True">
+              <LayoutItem Id="CreateDate" ViewItem="CreateDate" Index="0" RelativeSize="49.942857142857143" IsNewNode="True" />
+              <LayoutItem Id="PermissionPolicyUser" ViewItem="PermissionPolicyUser" Index="1" RelativeSize="50.057142857142857" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="XPObject" Index="2" RelativeSize="5.4961832061068705" Removed="True">
+              <LayoutItem Id="Oid" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="InternalInvoice" RelativeSize="28.4" Removed="True">
+              <LayoutGroup Id="InternalInvoice_col1" RelativeSize="49.862258953168045">
+                <LayoutItem Id="FirmNo" RelativeSize="26.923076923076923" Index="6" Removed="True" />
+                <LayoutItem Id="Content" RelativeSize="15.384615384615385" Index="7" Removed="True" />
+                <LayoutItem Id="AppName" RelativeSize="28.089887640449437" />
+                <LayoutItem Id="AppNo" RelativeSize="13.48314606741573" />
+                <LayoutItem Id="ClientName" RelativeSize="13.48314606741573" />
+                <LayoutItem Id="ClientNo" RelativeSize="13.48314606741573" />
+                <LayoutItem Id="CreateDate" RelativeSize="17.977528089887642" />
+                <LayoutItem Id="InternalNo" RelativeSize="10.344827586206897" Removed="True" />
+                <LayoutItem Id="OurNo" RelativeSize="13.48314606741573" />
+              </LayoutGroup>
+              <LayoutGroup Id="InternalInvoice_col2" RelativeSize="50.137741046831955" Caption="InternalInvoice_col2">
+                <LayoutItem Id="SendDate" RelativeSize="17.977528089887642" Index="0" />
+                <LayoutGroup Id="Auto126ea3cf-3641-44de-bd60-fb7321f32ba2" ShowCaption="False" Caption="Auto126ea3cf-3641-44de-bd60-fb7321f32ba2(13)" Direction="Horizontal" Index="1" RelativeSize="18.539325842696631" IsNewNode="True">
+                  <LayoutItem Id="InternalNo" ViewItem="InternalNo" Index="0" RelativeSize="49.725274725274723" IsNewNode="True" />
+                  <LayoutItem Id="FirmNo" ViewItem="FirmNo" Index="1" RelativeSize="50.274725274725277" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutGroup Id="Auto878b1675-0dd7-46b9-873a-ba9b1c52916e" ShowCaption="False" Caption="Auto878b1675-0dd7-46b9-873a-ba9b1c52916e(16)" Index="2" RelativeSize="63.483146067415731" IsNewNode="True">
+                  <LayoutItem Id="Content" ViewItem="Content" Index="0" RelativeSize="23.893805309734514" IsNewNode="True" />
+                  <LayoutGroup Id="Autocb032205-d304-472c-82df-3764f55c6527" ShowCaption="False" Caption="Autocb032205-d304-472c-82df-3764f55c6527(18)" Direction="Horizontal" Index="1" RelativeSize="76.106194690265482" IsNewNode="True">
+                    <LayoutGroup Id="Auto2250a22a-ae42-4603-99ee-93af718b9561" ShowCaption="False" Caption="Auto2250a22a-ae42-4603-99ee-93af718b9561(19)" Index="0" RelativeSize="49.725274725274723" IsNewNode="True">
+                      <LayoutItem Id="Type" ViewItem="Type" Index="0" RelativeSize="34.883720930232556" IsNewNode="True" />
+                      <LayoutItem Id="Agent1" ViewItem="Agent1" Index="1" RelativeSize="27.906976744186046" IsNewNode="True" />
+                      <LayoutItem Id="Agent2" ViewItem="Agent2" Index="2" RelativeSize="37.2093023255814" IsNewNode="True" />
+                    </LayoutGroup>
+                    <LayoutGroup Id="Auto45be61a7-f5db-4ef6-a60c-c05a96f5d08b" ShowCaption="False" Caption="Auto45be61a7-f5db-4ef6-a60c-c05a96f5d08b(23)" Index="1" RelativeSize="50.274725274725277" IsNewNode="True">
+                      <LayoutItem Id="File" ViewItem="File" Index="0" RelativeSize="34.883720930232556" IsNewNode="True" />
+                      <LayoutItem Id="Agent3" ViewItem="Agent3" Index="1" RelativeSize="27.906976744186046" IsNewNode="True" />
+                      <LayoutItem Id="Agent4" ViewItem="Agent4" Index="2" RelativeSize="37.2093023255814" IsNewNode="True" />
+                    </LayoutGroup>
+                  </LayoutGroup>
+                </LayoutGroup>
+                <LayoutItem Id="Agent1" RelativeSize="11.538461538461538" Index="3" Removed="True" />
+                <LayoutItem Id="Agent2" RelativeSize="13.043478260869565" Index="3" Removed="True" />
+                <LayoutItem Id="Agent4" RelativeSize="17.391304347826086" Index="4" Removed="True" />
+                <LayoutItem Id="Agent3" RelativeSize="11.538461538461538" Index="5" Removed="True" />
+                <LayoutItem Id="InvoiceNo" RelativeSize="34.482758620689658" Index="6" Removed="True" />
+                <LayoutItem Id="Deadline" RelativeSize="10.344827586206897" Removed="True" />
+                <LayoutItem Id="Note" RelativeSize="51.690821256038646" Removed="True" />
+                <LayoutItem Id="Type" RelativeSize="13.008130081300813" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="InternalInvoice_ListView" AllowLink="False" AllowUnlink="False" IsFooterVisible="True">
+      <Columns>
+        <ColumnInfo Id="CreateDate" Index="0" SortIndex="0" SortOrder="Descending" />
+        <ColumnInfo Id="SendDate" Index="2" />
+        <ColumnInfo Id="Content" Index="3" />
+        <ColumnInfo Id="InternalNo" Index="4" />
+        <ColumnInfo Id="Type" Index="5" />
+        <ColumnInfo Id="Deadline" Index="6" />
+        <ColumnInfo Id="InvoiceNo" Index="7" />
+        <ColumnInfo Id="FirmNo" Index="8" />
+        <ColumnInfo Id="ClientName" Index="9" />
+        <ColumnInfo Id="ClientNo" Index="10" />
+        <ColumnInfo Id="AppName" Index="11" />
+        <ColumnInfo Id="AppNo" Index="12" />
+        <ColumnInfo Id="Agent1" Index="13" />
+        <ColumnInfo Id="Agent2" Index="14" />
+        <ColumnInfo Id="Agent3" Index="15" />
+        <ColumnInfo Id="Agent4" Index="16" />
+        <ColumnInfo Id="Note" Index="17" />
+      </Columns>
+    </ListView>
   </Views>
 </Application>
