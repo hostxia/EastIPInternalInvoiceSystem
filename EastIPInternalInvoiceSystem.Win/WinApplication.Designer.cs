@@ -35,6 +35,7 @@
             this.validationWindowsFormsModule = new DevExpress.ExpressApp.Validation.Win.ValidationWindowsFormsModule();
             this.fileAttachmentsWindowsFormsModule1 = new DevExpress.ExpressApp.FileAttachments.Win.FileAttachmentsWindowsFormsModule();
             this.auditTrailModule1 = new DevExpress.ExpressApp.AuditTrail.AuditTrailModule();
+            this.dashboardsWindowsFormsModule1 = new DevExpress.ExpressApp.Dashboards.Win.DashboardsWindowsFormsModule();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // securityStrategyComplex1
@@ -71,6 +72,31 @@
             this.Modules.Add(this.fileAttachmentsWindowsFormsModule1);
             this.Modules.Add(this.module4);
             this.Modules.Add(this.securityModule1);
+            this.Modules.Add(this.dashboardsWindowsFormsModule1);
+            this.ResourcesExportedToModel.Add(typeof(DevExpress.ExpressApp.Localization.PreviewControlLocalizer));
+            this.ResourcesExportedToModel.Add(typeof(DevExpress.ExpressApp.Win.Localization.GridControlLocalizer));
+            this.ResourcesExportedToModel.Add(typeof(DevExpress.ExpressApp.Win.Localization.LayoutControlLocalizer));
+            this.ResourcesExportedToModel.Add(typeof(DevExpress.ExpressApp.Win.Localization.NavBarControlLocalizer));
+            this.ResourcesExportedToModel.Add(typeof(DevExpress.ExpressApp.Win.Localization.BarControlLocalizer));
+            this.ResourcesExportedToModel.Add(typeof(DevExpress.ExpressApp.Win.Localization.DocumentManagerControlLocalizer));
+            this.ResourcesExportedToModel.Add(typeof(DevExpress.ExpressApp.Win.Localization.DockManagerLocalizer));
+            this.ResourcesExportedToModel.Add(typeof(DevExpress.ExpressApp.Win.Localization.RichEditControlLocalizer));
+            this.ResourcesExportedToModel.Add(typeof(DevExpress.ExpressApp.Win.Localization.TreeListControlLocalizer));
+            this.ResourcesExportedToModel.Add(typeof(DevExpress.ExpressApp.Win.Localization.VerticalGridControlLocalizer));
+            this.ResourcesExportedToModel.Add(typeof(DevExpress.ExpressApp.Win.Localization.XtraEditorsLocalizer));
+            this.ResourcesExportedToModel.Add(typeof(DevExpress.ExpressApp.Win.Localization.LargeStringEditFindFormLocalizer));
+            this.ResourcesExportedToModel.Add(typeof(DevExpress.ExpressApp.Win.Templates.MainFormTemplateLocalizer));
+            this.ResourcesExportedToModel.Add(typeof(DevExpress.ExpressApp.Win.Templates.DetailViewFormTemplateLocalizer));
+            this.ResourcesExportedToModel.Add(typeof(DevExpress.ExpressApp.Win.Templates.MainFormV2TemplateLocalizer));
+            this.ResourcesExportedToModel.Add(typeof(DevExpress.ExpressApp.Win.Templates.DetailFormV2TemplateLocalizer));
+            this.ResourcesExportedToModel.Add(typeof(DevExpress.ExpressApp.Win.Templates.MainRibbonFormV2TemplateLocalizer));
+            this.ResourcesExportedToModel.Add(typeof(DevExpress.ExpressApp.Win.Templates.OutlookStyleMainRibbonFormTemplateLocalizer));
+            this.ResourcesExportedToModel.Add(typeof(DevExpress.ExpressApp.Win.Templates.DetailRibbonFormV2TemplateLocalizer));
+            this.ResourcesExportedToModel.Add(typeof(DevExpress.ExpressApp.Win.Templates.NestedFrameTemplateLocalizer));
+            this.ResourcesExportedToModel.Add(typeof(DevExpress.ExpressApp.Win.Templates.NestedFrameTemplateV2Localizer));
+            this.ResourcesExportedToModel.Add(typeof(DevExpress.ExpressApp.Win.Templates.LookupControlTemplateLocalizer));
+            this.ResourcesExportedToModel.Add(typeof(DevExpress.ExpressApp.Win.Templates.PopupFormTemplateLocalizer));
+            this.ResourcesExportedToModel.Add(typeof(DevExpress.ExpressApp.Security.ServerDataLogLocalizer));
             this.Security = this.securityStrategyComplex1;
             this.UseOldTemplates = false;
             this.DatabaseVersionMismatch += new System.EventHandler<DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs>(this.EastIPInternalInvoiceSystemWindowsFormsApplication_DatabaseVersionMismatch);
@@ -93,5 +119,6 @@
         private DevExpress.ExpressApp.Validation.Win.ValidationWindowsFormsModule validationWindowsFormsModule;
         private DevExpress.ExpressApp.FileAttachments.Win.FileAttachmentsWindowsFormsModule fileAttachmentsWindowsFormsModule1;
         private DevExpress.ExpressApp.AuditTrail.AuditTrailModule auditTrailModule1;
+        private DevExpress.ExpressApp.Dashboards.Win.DashboardsWindowsFormsModule dashboardsWindowsFormsModule1;
     }
 }

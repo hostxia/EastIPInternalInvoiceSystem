@@ -1,22 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Web.UI;
+﻿using System.Web.UI;
 using DevExpress.ExpressApp.Templates;
-using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Web.Templates;
-using DevExpress.ExpressApp.Web.Templates.ActionContainers;
 
-public partial class Default : BaseXafPage
+namespace EastIPInternalInvoiceSystem.Web
 {
-    protected override ContextActionsMenu CreateContextActionsMenu()
+    public partial class Default : BaseXafPage
     {
-        return new ContextActionsMenu(this, "Edit", "RecordEdit", "ObjectsCreation", "ListView", "Reports");
-    }
-    public override Control InnerContentPlaceHolder
-    {
-        get
+        public override Control InnerContentPlaceHolder
         {
-            return Content;
+            get { return Content; }
+        }
+
+        protected override ContextActionsMenu CreateContextActionsMenu()
+        {
+            return new ContextActionsMenu(this, "Edit", "RecordEdit", "ObjectsCreation", "ListView", "Reports");
         }
     }
 }

@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Linq;
-using DevExpress.ExpressApp;
 using DevExpress.Data.Filtering;
-using DevExpress.Persistent.Base;
-using DevExpress.ExpressApp.Updating;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
-using DevExpress.ExpressApp.SystemModule;
-using DevExpress.ExpressApp.Security.Strategy;
-using DevExpress.Xpo;
-using DevExpress.ExpressApp.Xpo;
+using DevExpress.ExpressApp.Updating;
+using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.BaseImpl.PermissionPolicy;
 using EastIPInternalInvoiceSystem.Module.BusinessObjects;
@@ -22,6 +17,7 @@ namespace EastIPInternalInvoiceSystem.Module.DatabaseUpdate
             base(objectSpace, currentDBVersion)
         {
         }
+
         public override void UpdateDatabaseAfterUpdateSchema()
         {
             base.UpdateDatabaseAfterUpdateSchema();
@@ -31,17 +27,17 @@ namespace EastIPInternalInvoiceSystem.Module.DatabaseUpdate
             //    theObject = ObjectSpace.CreateObject<DomainObject1>();
             //    theObject.Name = name;
             //}
-            PermissionPolicyUser sampleUser = ObjectSpace.FindObject<PermissionPolicyUser>(new BinaryOperator("UserName", "User"));
+            var sampleUser = ObjectSpace.FindObject<PermissionPolicyUser>(new BinaryOperator("UserName", "User"));
             if (sampleUser == null)
             {
                 sampleUser = ObjectSpace.CreateObject<PermissionPolicyUser>();
                 sampleUser.UserName = "User";
                 sampleUser.SetPassword("");
             }
-            PermissionPolicyRole defaultRole = CreateDefaultRole();
+            var defaultRole = CreateDefaultRole();
             sampleUser.Roles.Add(defaultRole);
 
-            PermissionPolicyUser userAdmin = ObjectSpace.FindObject<PermissionPolicyUser>(new BinaryOperator("UserName", "Admin"));
+            var userAdmin = ObjectSpace.FindObject<PermissionPolicyUser>(new BinaryOperator("UserName", "Admin"));
             if (userAdmin == null)
             {
                 userAdmin = ObjectSpace.CreateObject<PermissionPolicyUser>();
@@ -50,7 +46,7 @@ namespace EastIPInternalInvoiceSystem.Module.DatabaseUpdate
                 userAdmin.SetPassword("");
             }
             // If a role with the Administrators name doesn't exist in the database, create this role
-            PermissionPolicyRole adminRole = ObjectSpace.FindObject<PermissionPolicyRole>(new BinaryOperator("Name", "Administrators"));
+            var adminRole = ObjectSpace.FindObject<PermissionPolicyRole>(new BinaryOperator("Name", "Administrators"));
             if (adminRole == null)
             {
                 adminRole = ObjectSpace.CreateObject<PermissionPolicyRole>();
@@ -60,6 +56,7 @@ namespace EastIPInternalInvoiceSystem.Module.DatabaseUpdate
             userAdmin.Roles.Add(adminRole);
 
             #region 增加成员
+
             CreateAgent("YCJ", "叶朝君");
             CreateAgent("LIL", "李丽");
             CreateAgent("TYY", "谭营营");
@@ -131,10 +128,12 @@ namespace EastIPInternalInvoiceSystem.Module.DatabaseUpdate
             CreateAgent("LOD", "龙丹");
             CreateAgent("YZB", "杨志博");
             CreateAgent("ZAJ", "臧静");
+
             #endregion
 
             ObjectSpace.CommitChanges(); //This line persists created object(s).
         }
+
         public override void UpdateDatabaseBeforeUpdateSchema()
         {
             base.UpdateDatabaseBeforeUpdateSchema();
@@ -142,23 +141,33 @@ namespace EastIPInternalInvoiceSystem.Module.DatabaseUpdate
             //    RenameColumn("DomainObject1Table", "OldColumnName", "NewColumnName");
             //}
         }
+
         private PermissionPolicyRole CreateDefaultRole()
         {
-            PermissionPolicyRole defaultRole = ObjectSpace.FindObject<PermissionPolicyRole>(new BinaryOperator("Name", "Default"));
+            var defaultRole = ObjectSpace.FindObject<PermissionPolicyRole>(new BinaryOperator("Name", "Default"));
             if (defaultRole == null)
             {
                 defaultRole = ObjectSpace.CreateObject<PermissionPolicyRole>();
                 defaultRole.Name = "Default";
 
-                defaultRole.AddObjectPermission<PermissionPolicyUser>(SecurityOperations.Read, "[Oid] = CurrentUserId()", SecurityPermissionState.Allow);
-                defaultRole.AddNavigationPermission(@"Application/NavigationItems/Items/Default/Items/MyDetails", SecurityPermissionState.Allow);
-                defaultRole.AddMemberPermission<PermissionPolicyUser>(SecurityOperations.Write, "ChangePasswordOnFirstLogon", "[Oid] = CurrentUserId()", SecurityPermissionState.Allow);
-                defaultRole.AddMemberPermission<PermissionPolicyUser>(SecurityOperations.Write, "StoredPassword", "[Oid] = CurrentUserId()", SecurityPermissionState.Allow);
-                defaultRole.AddTypePermissionsRecursively<PermissionPolicyRole>(SecurityOperations.Read, SecurityPermissionState.Allow);
-                defaultRole.AddTypePermissionsRecursively<ModelDifference>(SecurityOperations.ReadWriteAccess, SecurityPermissionState.Allow);
-                defaultRole.AddTypePermissionsRecursively<ModelDifferenceAspect>(SecurityOperations.ReadWriteAccess, SecurityPermissionState.Allow);
-                defaultRole.AddTypePermissionsRecursively<ModelDifference>(SecurityOperations.Create, SecurityPermissionState.Allow);
-                defaultRole.AddTypePermissionsRecursively<ModelDifferenceAspect>(SecurityOperations.Create, SecurityPermissionState.Allow);
+                defaultRole.AddObjectPermission<PermissionPolicyUser>(SecurityOperations.Read, "[Oid] = CurrentUserId()",
+                    SecurityPermissionState.Allow);
+                defaultRole.AddNavigationPermission(@"Application/NavigationItems/Items/Default/Items/MyDetails",
+                    SecurityPermissionState.Allow);
+                defaultRole.AddMemberPermission<PermissionPolicyUser>(SecurityOperations.Write,
+                    "ChangePasswordOnFirstLogon", "[Oid] = CurrentUserId()", SecurityPermissionState.Allow);
+                defaultRole.AddMemberPermission<PermissionPolicyUser>(SecurityOperations.Write, "StoredPassword",
+                    "[Oid] = CurrentUserId()", SecurityPermissionState.Allow);
+                defaultRole.AddTypePermissionsRecursively<PermissionPolicyRole>(SecurityOperations.Read,
+                    SecurityPermissionState.Allow);
+                defaultRole.AddTypePermissionsRecursively<ModelDifference>(SecurityOperations.ReadWriteAccess,
+                    SecurityPermissionState.Allow);
+                defaultRole.AddTypePermissionsRecursively<ModelDifferenceAspect>(SecurityOperations.ReadWriteAccess,
+                    SecurityPermissionState.Allow);
+                defaultRole.AddTypePermissionsRecursively<ModelDifference>(SecurityOperations.Create,
+                    SecurityPermissionState.Allow);
+                defaultRole.AddTypePermissionsRecursively<ModelDifferenceAspect>(SecurityOperations.Create,
+                    SecurityPermissionState.Allow);
             }
             return defaultRole;
         }

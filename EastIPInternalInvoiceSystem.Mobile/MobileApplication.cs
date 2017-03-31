@@ -1,130 +1,148 @@
 ﻿using System;
-using System.Configuration;
-using DevExpress.ExpressApp;
-using DevExpress.Persistent.Base;
 using System.ComponentModel;
+using System.Configuration;
+using System.Data;
+using System.Diagnostics;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Mobile;
-using System.Collections.Generic;
-using DevExpress.ExpressApp.Xpo;
+using DevExpress.ExpressApp.Mobile.SystemModule;
+using DevExpress.ExpressApp.Objects;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Security.ClientServer;
+using DevExpress.ExpressApp.SystemModule;
+using DevExpress.ExpressApp.Validation;
+using DevExpress.ExpressApp.Xpo;
+using DevExpress.Persistent.Base;
+using DevExpress.Persistent.BaseImpl.PermissionPolicy;
+using EastIPInternalInvoiceSystem.Module;
+using EastIPInternalInvoiceSystem.Module.Mobile;
 
-namespace EastIPInternalInvoiceSystem.Mobile {
+namespace EastIPInternalInvoiceSystem.Mobile
+{
     // For more typical usage scenarios, be sure to check out https://documentation.devexpress.com/eXpressAppFramework/DevExpressExpressAppWebWebApplicationMembersTopicAll.aspx
-    public partial class EastIPInternalInvoiceSystemMobileApplication : MobileApplication {
-        private DevExpress.ExpressApp.SystemModule.SystemModule module1;
-        private DevExpress.ExpressApp.Mobile.SystemModule.SystemMobileModule module2;
-        private EastIPInternalInvoiceSystem.Module.EastIPInternalInvoiceSystemModule module3;
-        private EastIPInternalInvoiceSystem.Module.Mobile.EastIPInternalInvoiceSystemMobileModule module4;
-        private DevExpress.ExpressApp.Security.SecurityModule securityModule1;
-        private DevExpress.ExpressApp.Security.SecurityStrategyComplex securityStrategyComplex1;
-        private DevExpress.ExpressApp.Security.AuthenticationStandard authenticationStandard1;
-        private DevExpress.ExpressApp.Objects.BusinessClassLibraryCustomizationModule objectsModule;
-        private DevExpress.ExpressApp.Validation.ValidationModule validationModule;
+    public class EastIPInternalInvoiceSystemMobileApplication : MobileApplication
+    {
+        private AuthenticationStandard authenticationStandard1;
+        private SystemModule module1;
+        private SystemMobileModule module2;
+        private EastIPInternalInvoiceSystemModule module3;
+        private EastIPInternalInvoiceSystemMobileModule module4;
+        private BusinessClassLibraryCustomizationModule objectsModule;
+        private SecurityModule securityModule1;
+        private SecurityStrategyComplex securityStrategyComplex1;
+        private ValidationModule validationModule;
 
-        public EastIPInternalInvoiceSystemMobileApplication() {
-			SecurityAdapterHelper.Enable();
-		    Tracing.Initialize();
-            if(ConfigurationManager.ConnectionStrings["ConnectionString"] != null) {
+        public EastIPInternalInvoiceSystemMobileApplication()
+        {
+            SecurityAdapterHelper.Enable();
+            Tracing.Initialize();
+            if (ConfigurationManager.ConnectionStrings["ConnectionString"] != null)
                 ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
-            }
 #if EASYTEST
             if(ConfigurationManager.ConnectionStrings["EasyTestConnectionString"] != null) {
                 ConnectionString = ConfigurationManager.ConnectionStrings["EasyTestConnectionString"].ConnectionString;
             }
 #endif
-            if(System.Diagnostics.Debugger.IsAttached && CheckCompatibilityType == CheckCompatibilityType.DatabaseSchema) {
+            if (Debugger.IsAttached && CheckCompatibilityType == CheckCompatibilityType.DatabaseSchema)
                 DatabaseUpdateMode = DatabaseUpdateMode.UpdateDatabaseAlways;
-            }
             InitializeComponent();
         }
-        protected override void SetLogonParametersForUIBuilder(object logonParameters) {
+
+        protected override void SetLogonParametersForUIBuilder(object logonParameters)
+        {
             base.SetLogonParametersForUIBuilder(logonParameters);
-            ((AuthenticationStandardLogonParameters)logonParameters).UserName = "Admin";
-            ((AuthenticationStandardLogonParameters)logonParameters).Password = "";
+            ((AuthenticationStandardLogonParameters) logonParameters).UserName = "Admin";
+            ((AuthenticationStandardLogonParameters) logonParameters).Password = "";
         }
-        protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
-            args.ObjectSpaceProvider = new SecuredObjectSpaceProvider((SecurityStrategyComplex)Security, GetDataStoreProvider(args.ConnectionString, args.Connection), true);
+
+        protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args)
+        {
+            args.ObjectSpaceProvider = new SecuredObjectSpaceProvider((SecurityStrategyComplex) Security,
+                GetDataStoreProvider(args.ConnectionString, args.Connection), true);
             args.ObjectSpaceProviders.Add(new NonPersistentObjectSpaceProvider(TypesInfo, null));
         }
-        private IXpoDataStoreProvider GetDataStoreProvider(string connectionString, System.Data.IDbConnection connection) {
+
+        private IXpoDataStoreProvider GetDataStoreProvider(string connectionString, IDbConnection connection)
+        {
             IXpoDataStoreProvider dataStoreProvider = null;
-            if(!String.IsNullOrEmpty(connectionString)) {
+            if (!string.IsNullOrEmpty(connectionString))
                 dataStoreProvider = new ConnectionStringDataStoreProvider(connectionString);
-            }
-            else if(connection != null) {
-                dataStoreProvider = new ConnectionDataStoreProvider(connection);
-            }
-			return dataStoreProvider;
+            else if (connection != null) dataStoreProvider = new ConnectionDataStoreProvider(connection);
+            return dataStoreProvider;
         }
-        private void EastIPInternalInvoiceSystemMobileApplication_DatabaseVersionMismatch(object sender, DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs e) {
+
+        private void EastIPInternalInvoiceSystemMobileApplication_DatabaseVersionMismatch(object sender,
+            DatabaseVersionMismatchEventArgs e)
+        {
 #if EASYTEST
             e.Updater.Update();
             e.Handled = true;
 #else
-            if(System.Diagnostics.Debugger.IsAttached) {
+            if (Debugger.IsAttached)
+            {
                 e.Updater.Update();
                 e.Handled = true;
             }
-            else {
-				string message = "The application cannot connect to the specified database, " +
-					"because the database doesn't exist, its version is older " +
-					"than that of the application or its schema does not match " +
-					"the ORM data model structure. To avoid this error, use one " +
-					"of the solutions from the https://www.devexpress.com/kb=T367835 KB Article.";
+            else
+            {
+                var message = "The application cannot connect to the specified database, " +
+                              "because the database doesn't exist, its version is older " +
+                              "than that of the application or its schema does not match " +
+                              "the ORM data model structure. To avoid this error, use one " +
+                              "of the solutions from the https://www.devexpress.com/kb=T367835 KB Article.";
 
-                if(e.CompatibilityError != null && e.CompatibilityError.Exception != null) {
+                if (e.CompatibilityError != null && e.CompatibilityError.Exception != null)
                     message += "\r\n\r\nInner exception: " + e.CompatibilityError.Exception.Message;
-                }
                 throw new InvalidOperationException(message);
             }
 #endif
         }
-        private void InitializeComponent() {
-            this.module1 = new DevExpress.ExpressApp.SystemModule.SystemModule();
-            this.module2 = new DevExpress.ExpressApp.Mobile.SystemModule.SystemMobileModule();
-            this.module3 = new EastIPInternalInvoiceSystem.Module.EastIPInternalInvoiceSystemModule();
-            this.module4 = new EastIPInternalInvoiceSystem.Module.Mobile.EastIPInternalInvoiceSystemMobileModule();
-            this.securityModule1 = new DevExpress.ExpressApp.Security.SecurityModule();
-            this.securityStrategyComplex1 = new DevExpress.ExpressApp.Security.SecurityStrategyComplex();
-            this.authenticationStandard1 = new DevExpress.ExpressApp.Security.AuthenticationStandard();
-            this.objectsModule = new DevExpress.ExpressApp.Objects.BusinessClassLibraryCustomizationModule();
-            this.validationModule = new DevExpress.ExpressApp.Validation.ValidationModule();
-            ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
+
+        private void InitializeComponent()
+        {
+            module1 = new SystemModule();
+            module2 = new SystemMobileModule();
+            module3 = new EastIPInternalInvoiceSystemModule();
+            module4 = new EastIPInternalInvoiceSystemMobileModule();
+            securityModule1 = new SecurityModule();
+            securityStrategyComplex1 = new SecurityStrategyComplex();
+            authenticationStandard1 = new AuthenticationStandard();
+            objectsModule = new BusinessClassLibraryCustomizationModule();
+            validationModule = new ValidationModule();
+            ((ISupportInitialize) this).BeginInit();
             // 
             // securityStrategyComplex1
             // 
-            this.securityStrategyComplex1.Authentication = this.authenticationStandard1;
-            this.securityStrategyComplex1.RoleType = typeof(DevExpress.Persistent.BaseImpl.PermissionPolicy.PermissionPolicyRole);
-            this.securityStrategyComplex1.UserType = typeof(DevExpress.Persistent.BaseImpl.PermissionPolicy.PermissionPolicyUser);
+            securityStrategyComplex1.Authentication = authenticationStandard1;
+            securityStrategyComplex1.RoleType = typeof(PermissionPolicyRole);
+            securityStrategyComplex1.UserType = typeof(PermissionPolicyUser);
             // 
             // securityModule1
             // 
-            this.securityModule1.UserType = typeof(DevExpress.Persistent.BaseImpl.PermissionPolicy.PermissionPolicyUser);
+            securityModule1.UserType = typeof(PermissionPolicyUser);
             // 
             // authenticationStandard1
             // 
-            this.authenticationStandard1.LogonParametersType = typeof(DevExpress.ExpressApp.Security.AuthenticationStandardLogonParameters);
+            authenticationStandard1.LogonParametersType = typeof(AuthenticationStandardLogonParameters);
             //
             // validationModule
             //
-            this.validationModule.AllowValidationDetailsAccess = true;
+            validationModule.AllowValidationDetailsAccess = true;
             // 
             // EastIPInternalInvoiceSystemMobileApplication
             // 
-            this.ApplicationName = "EastIPInternalInvoiceSystem";
-            this.CheckCompatibilityType = DevExpress.ExpressApp.CheckCompatibilityType.DatabaseSchema;
-            this.Modules.Add(this.module1);
-            this.Modules.Add(this.module2);
-            this.Modules.Add(this.module3);
-            this.Modules.Add(this.module4);
-            this.Modules.Add(this.securityModule1);
-            this.Security = this.securityStrategyComplex1;
-            this.Modules.Add(this.objectsModule);
-            this.Modules.Add(this.validationModule);
-            this.DatabaseVersionMismatch += new System.EventHandler<DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs>(this.EastIPInternalInvoiceSystemMobileApplication_DatabaseVersionMismatch);
-            ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
-
+            ApplicationName = "EastIPInternalInvoiceSystem";
+            CheckCompatibilityType = CheckCompatibilityType.DatabaseSchema;
+            Modules.Add(module1);
+            Modules.Add(module2);
+            Modules.Add(module3);
+            Modules.Add(module4);
+            Modules.Add(securityModule1);
+            Security = securityStrategyComplex1;
+            Modules.Add(objectsModule);
+            Modules.Add(validationModule);
+            DatabaseVersionMismatch += EastIPInternalInvoiceSystemMobileApplication_DatabaseVersionMismatch;
+            ((ISupportInitialize) this).EndInit();
         }
     }
 }

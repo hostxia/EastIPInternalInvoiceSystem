@@ -1,16 +1,6 @@
-﻿using System;
-using System.Linq;
-using System.Text;
-using DevExpress.Xpo;
-using DevExpress.ExpressApp;
-using System.ComponentModel;
-using DevExpress.ExpressApp.DC;
-using DevExpress.Data.Filtering;
-using DevExpress.Persistent.Base;
-using System.Collections.Generic;
-using DevExpress.ExpressApp.Model;
+﻿using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
-using DevExpress.Persistent.Validation;
+using DevExpress.Xpo;
 
 namespace EastIPInternalInvoiceSystem.Module.BusinessObjects
 {
@@ -21,16 +11,7 @@ namespace EastIPInternalInvoiceSystem.Module.BusinessObjects
     //[Persistent("DatabaseTableName")]
     // Specify more UI options using a declarative approach (https://documentation.devexpress.com/#eXpressAppFramework/CustomDocument112701).
     public class InternalAgent : BaseObject
-    { // Inherit from a different class to provide a custom primary key, concurrency and deletion behavior, etc. (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument113146.aspx).
-        public InternalAgent(Session session)
-            : base(session)
-        {
-        }
-        public override void AfterConstruction()
-        {
-            base.AfterConstruction();
-            // Place your initialization code here (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument112834.aspx).
-        }
+    {
         //private string _PersistentProperty;
         //[XafDisplayName("My display name"), ToolTip("My hint message")]
         //[ModelDefault("EditMask", "(000)-00"), Index(0), VisibleInListView(false)]
@@ -46,13 +27,21 @@ namespace EastIPInternalInvoiceSystem.Module.BusinessObjects
         //    this.PersistentProperty = "Paid";
         //}
         private string _sCode;
+
+        private string _sName;
+        // Inherit from a different class to provide a custom primary key, concurrency and deletion behavior, etc. (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument113146.aspx).
+
+        public InternalAgent(Session session)
+            : base(session)
+        {
+        }
+
         public string Code
         {
             get { return _sCode; }
             set { SetPropertyValue("s_Code", ref _sCode, value); }
         }
 
-        private string _sName;
         public string Name
         {
             get { return _sName; }
@@ -60,5 +49,11 @@ namespace EastIPInternalInvoiceSystem.Module.BusinessObjects
         }
 
         public string CodeName => _sCode + " | " + _sName;
+
+        public override void AfterConstruction()
+        {
+            base.AfterConstruction();
+            // Place your initialization code here (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument112834.aspx).
+        }
     }
 }

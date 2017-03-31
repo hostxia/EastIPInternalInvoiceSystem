@@ -44,7 +44,10 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevExpress.Dashboard.v16.2.Core, Version=16.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.DataAccess.v16.2, Version=16.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.ExpressApp.AuditTrail.v16.2, Version=16.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.Dashboards.v16.2, Version=16.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.ExpressApp.Objects.v16.2, Version=16.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -76,6 +79,7 @@
     <Reference Include="DevExpress.Persistent.BaseImpl.v16.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.Utils.v16.2, Version=16.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Xpo.v16.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -95,6 +99,7 @@
       <Name>System.XML</Name>
       <Private>False</Private>
     </Reference>
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessObjects\EnumsAll.cs" />
@@ -105,6 +110,12 @@
     </Compile>
     <Compile Include="Controllers\VCDetailInternalInvoice.Designer.cs">
       <DependentUpon>VCDetailInternalInvoice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\VCListInternalInvoice.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\VCListInternalInvoice.Designer.cs">
+      <DependentUpon>VCListInternalInvoice.cs</DependentUpon>
     </Compile>
     <Compile Include="DatabaseUpdate\Updater.cs" />
     <Compile Include="DBUtility\DbHelperOra.cs" />
@@ -119,6 +130,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Controllers\VCDetailInternalInvoice.resx">
       <DependentUpon>VCDetailInternalInvoice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\VCListInternalInvoice.resx">
+      <DependentUpon>VCListInternalInvoice.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml" />
     <EmbeddedResource Include="Module.resx">

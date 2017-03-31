@@ -1,7 +1,87 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Application Logo="ExpressAppLogo">
+<Application>
+  <NavigationItems>
+    <Items>
+      <Item Id="Reports" Caption="统计分析">
+        <Items>
+          <Item Id="Dashboards" Caption="统计" />
+        </Items>
+      </Item>
+    </Items>
+  </NavigationItems>
   <SchemaModules>
     <SchemaModule Name="SystemModule" Version="16.2.3.0" IsNewNode="True" />
     <SchemaModule Name="SystemWindowsFormsModule" Version="16.2.3.0" IsNewNode="True" />
   </SchemaModules>
+  <Views>
+    <DetailView Id="InternalInvoice_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Item1" RelativeSize="54.631083202511775">
+              <LayoutGroup Id="Autofa45d084-42de-464d-8d43-433aa8543640" RelativeSize="50.47923322683706">
+                <LayoutGroup Id="InternalInvoice_col1" RelativeSize="33.333333333333336">
+                  <LayoutItem Id="InternalNo" ViewItem="InternalNo" Index="0" RelativeSize="20.253164556962027" IsNewNode="True" Removed="True" />
+                  <LayoutItem Id="OurNo" RelativeSize="15.189873417721518" />
+                  <LayoutItem Id="ClientNo" RelativeSize="15.189873417721518" />
+                  <LayoutItem Id="ClientName" RelativeSize="15.189873417721518" />
+                  <LayoutItem Id="AppNo" RelativeSize="15.189873417721518" />
+                  <LayoutItem Id="AppName" RelativeSize="18.9873417721519" />
+                </LayoutGroup>
+                <LayoutGroup Id="Auto086b5846-0c5d-4411-8cfc-6a5f53aab403" ShowCaption="False" Caption="Auto086b5846-0c5d-4411-8cfc-6a5f53aab403(19)" Index="1" RelativeSize="33.333333333333336" IsNewNode="True">
+                  <LayoutItem Id="SendDate" ViewItem="SendDate" Index="0" RelativeSize="20.253164556962027" IsNewNode="True" />
+                  <LayoutItem Id="InternalType" ViewItem="InternalType" Index="1" RelativeSize="15.189873417721518" IsNewNode="True" />
+                  <LayoutItem Id="Content" ViewItem="Content" Index="2" RelativeSize="15.189873417721518" IsNewNode="True" />
+                  <LayoutItem Id="Type" ViewItem="Type" Index="3" RelativeSize="15.189873417721518" IsNewNode="True" />
+                  <LayoutItem Id="IsFAgencyInvoice" TextAlignMode="CustomSize" ViewItem="IsFAgencyInvoice" Index="4" RelativeSize="13.924050632911392" IsNewNode="True" />
+                  <LayoutItem Id="FirmNo" ViewItem="FirmNo" Index="5" RelativeSize="20.253164556962027" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutGroup Id="Autoffba691f-3b4f-4cd1-8eed-c496d60c5bc9" ShowCaption="False" Caption="Autoffba691f-3b4f-4cd1-8eed-c496d60c5bc9(23)" Index="2" RelativeSize="33.333333333333336" IsNewNode="True">
+                  <LayoutItem Id="Agent1" ViewItem="Agent1" Index="0" RelativeSize="20.253164556962027" IsNewNode="True" />
+                  <LayoutItem Id="Agent2" ViewItem="Agent2" Index="1" RelativeSize="15.189873417721518" IsNewNode="True" />
+                  <LayoutItem Id="Agent3" ViewItem="Agent3" Index="2" RelativeSize="15.189873417721518" IsNewNode="True" />
+                  <LayoutItem Id="Agent4" ViewItem="Agent4" Index="3" RelativeSize="15.189873417721518" IsNewNode="True" />
+                  <LayoutItem Id="InvoiceFile" ViewItem="InvoiceFile" Index="4" RelativeSize="15.189873417721518" IsNewNode="True" />
+                  <LayoutItem Id="IsInvalid" TextAlignMode="UseParentOptions" ViewItem="IsInvalid" Index="5" RelativeSize="18.9873417721519" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutGroup Id="InternalInvoice_col2" RelativeSize="66.666666666666671" Removed="True">
+                  <LayoutGroup Id="Auto086b5846-0c5d-4411-8cfc-6a5f53aab403" RelativeSize="50">
+                    <LayoutItem Id="IsFAgencyInvoice" TextAlignMode="CustomSize" ViewItem="IsFAgencyInvoice" Index="4" RelativeSize="13.924050632911392" IsNewNode="True" Removed="True" />
+                    <LayoutItem Id="FirmNo" ViewItem="FirmNo" Index="5" RelativeSize="20.253164556962027" IsNewNode="True" Removed="True" />
+                    <LayoutItem Id="Content" RelativeSize="15.189873417721518" />
+                    <LayoutItem Id="InternalType" RelativeSize="15.189873417721518" />
+                    <LayoutItem Id="SendDate" RelativeSize="20.253164556962027" />
+                    <LayoutItem Id="Type" RelativeSize="15.189873417721518" />
+                  </LayoutGroup>
+                  <LayoutGroup Id="Autoffba691f-3b4f-4cd1-8eed-c496d60c5bc9" RelativeSize="50">
+                    <LayoutItem Id="IsInvalid" TextAlignMode="CustomSize" ViewItem="IsInvalid" SizeConstraintsType="Default" MinSize="54, 30" MaxSize="54, 30" Index="5" RelativeSize="18.9873417721519" IsNewNode="True" Removed="True" />
+                    <LayoutItem Id="Agent1" RelativeSize="20.253164556962027" />
+                    <LayoutItem Id="Agent2" RelativeSize="15.189873417721518" />
+                    <LayoutItem Id="Agent3" RelativeSize="15.189873417721518" />
+                    <LayoutItem Id="Agent4" RelativeSize="15.189873417721518" />
+                    <LayoutItem Id="InvoiceFile" RelativeSize="15.189873417721518" />
+                  </LayoutGroup>
+                </LayoutGroup>
+              </LayoutGroup>
+              <LayoutItem Id="Note" RelativeSize="49.52076677316294" />
+            </LayoutGroup>
+            <SplitterItem Id="SplitterItem1" Index="1" RelativeSize="0.9419152276295133" IsNewNode="True" />
+            <LayoutGroup Id="Auto61596e9f-4d9d-4952-853f-1f023d13ec4e" RelativeSize="32.6530612244898" Index="2">
+              <LayoutGroup Id="Auto859b7d5d-7444-4808-a7a1-fdc73cc0c6f7" RelativeSize="20.994475138121548">
+                <LayoutItem Id="Deadline" RelativeSize="24.88425925925926" />
+                <LayoutItem Id="InvoiceNo" RelativeSize="25" />
+                <LayoutItem Id="InvoiceLogDate" RelativeSize="24.88425925925926" />
+                <LayoutItem Id="NoNeedInvoice" RelativeSize="25.231481481481481" TextAlignMode="CustomSize" />
+              </LayoutGroup>
+              <LayoutItem Id="InvoiceNote" RelativeSize="79.005524861878456" />
+            </LayoutGroup>
+            <LayoutGroup Id="Item2" RelativeSize="11.773940345368917" Index="3">
+              <LayoutItem Id="CreateDate" RelativeSize="50" />
+              <LayoutItem Id="PermissionPolicyUser" RelativeSize="50" />
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
 </Application>

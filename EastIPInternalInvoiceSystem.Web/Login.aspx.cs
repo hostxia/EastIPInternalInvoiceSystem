@@ -1,15 +1,13 @@
-﻿using System;
-
-using DevExpress.ExpressApp.Web;
+﻿using System.Web.UI;
 using DevExpress.ExpressApp.Web.Templates;
 
-public partial class LoginPage : BaseXafPage
+namespace EastIPInternalInvoiceSystem.Web
 {
-    public override System.Web.UI.Control InnerContentPlaceHolder
+    public partial class LoginPage : BaseXafPage
     {
-        get
+        public override Control InnerContentPlaceHolder
         {
-            return Content;
+            get { return Content; }
         }
     }
 }

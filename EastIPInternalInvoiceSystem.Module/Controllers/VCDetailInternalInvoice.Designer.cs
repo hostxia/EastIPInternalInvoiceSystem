@@ -28,12 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.saGetCaseInfo = new DevExpress.ExpressApp.Actions.SimpleAction(this.components);
+            this.saGetCaseInfo = new DevExpress.ExpressApp.Actions.SimpleAction();
+            this.saGenerateInternalNo = new DevExpress.ExpressApp.Actions.SimpleAction();
             // 
             // saGetCaseInfo
             // 
-            this.saGetCaseInfo.Caption = "填充案件&相关信息";
+            this.saGetCaseInfo.Caption = "填充案件相关信息";
             this.saGetCaseInfo.Category = "OpenObject";
             this.saGetCaseInfo.ConfirmationMessage = null;
             this.saGetCaseInfo.Id = "saGetCaseInfo";
@@ -45,9 +45,24 @@
             this.saGetCaseInfo.TypeOfView = typeof(DevExpress.ExpressApp.DetailView);
             this.saGetCaseInfo.Execute += new DevExpress.ExpressApp.Actions.SimpleActionExecuteEventHandler(this.saGetCaseInfo_Execute);
             // 
+            // saGenerateInternalNo
+            // 
+            this.saGenerateInternalNo.Caption = "生成草单编号";
+            this.saGenerateInternalNo.Category = "OpenObject";
+            this.saGenerateInternalNo.ConfirmationMessage = null;
+            this.saGenerateInternalNo.Id = "saGenerateInternalNo";
+            this.saGenerateInternalNo.ImageName = "BO_Task";
+            this.saGenerateInternalNo.Shortcut = "CtrlW";
+            this.saGenerateInternalNo.TargetObjectType = typeof(EastIPInternalInvoiceSystem.Module.BusinessObjects.InternalInvoice);
+            this.saGenerateInternalNo.TargetViewType = DevExpress.ExpressApp.ViewType.DetailView;
+            this.saGenerateInternalNo.ToolTip = null;
+            this.saGenerateInternalNo.TypeOfView = typeof(DevExpress.ExpressApp.DetailView);
+            this.saGenerateInternalNo.Execute += new DevExpress.ExpressApp.Actions.SimpleActionExecuteEventHandler(this.saGenerateInternalNo_Execute);
+            // 
             // VCDetailInternalInvoice
             // 
             this.Actions.Add(this.saGetCaseInfo);
+            this.Actions.Add(this.saGenerateInternalNo);
             this.TargetObjectType = typeof(EastIPInternalInvoiceSystem.Module.BusinessObjects.InternalInvoice);
             this.TargetViewType = DevExpress.ExpressApp.ViewType.DetailView;
             this.TypeOfView = typeof(DevExpress.ExpressApp.DetailView);
@@ -57,5 +72,6 @@
         #endregion
 
         private DevExpress.ExpressApp.Actions.SimpleAction saGetCaseInfo;
+        private DevExpress.ExpressApp.Actions.SimpleAction saGenerateInternalNo;
     }
 }

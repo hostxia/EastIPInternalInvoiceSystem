@@ -1,129 +1,156 @@
 ﻿using System;
-using DevExpress.ExpressApp;
 using System.ComponentModel;
-using DevExpress.ExpressApp.Web;
-using System.Collections.Generic;
-using DevExpress.ExpressApp.Xpo;
+using System.Data;
+using System.Diagnostics;
+using System.Web;
+using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Objects;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Security.ClientServer;
+using DevExpress.ExpressApp.SystemModule;
+using DevExpress.ExpressApp.Validation;
+using DevExpress.ExpressApp.Validation.Web;
+using DevExpress.ExpressApp.Web;
+using DevExpress.ExpressApp.Web.Editors.ASPx;
+using DevExpress.ExpressApp.Web.SystemModule;
+using DevExpress.ExpressApp.Xpo;
+using DevExpress.Persistent.BaseImpl.PermissionPolicy;
+using DevExpress.Xpo;
+using EastIPInternalInvoiceSystem.Module;
+using EastIPInternalInvoiceSystem.Module.Web;
 
-namespace EastIPInternalInvoiceSystem.Web {
+namespace EastIPInternalInvoiceSystem.Web
+{
     // For more typical usage scenarios, be sure to check out https://documentation.devexpress.com/eXpressAppFramework/DevExpressExpressAppWebWebApplicationMembersTopicAll.aspx
-    public partial class EastIPInternalInvoiceSystemAspNetApplication : WebApplication {
-        private DevExpress.ExpressApp.SystemModule.SystemModule module1;
-        private DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule module2;
-        private EastIPInternalInvoiceSystem.Module.EastIPInternalInvoiceSystemModule module3;
-        private EastIPInternalInvoiceSystem.Module.Web.EastIPInternalInvoiceSystemAspNetModule module4;
-        private DevExpress.ExpressApp.Security.SecurityModule securityModule1;
-        private DevExpress.ExpressApp.Security.SecurityStrategyComplex securityStrategyComplex1;
-        private DevExpress.ExpressApp.Security.AuthenticationStandard authenticationStandard1;
-        private DevExpress.ExpressApp.Objects.BusinessClassLibraryCustomizationModule objectsModule;
-        private DevExpress.ExpressApp.Validation.ValidationModule validationModule;
-        private DevExpress.ExpressApp.Validation.Web.ValidationAspNetModule validationAspNetModule;
+    public class EastIPInternalInvoiceSystemAspNetApplication : WebApplication
+    {
+        private AuthenticationStandard authenticationStandard1;
+        private SystemModule module1;
+        private SystemAspNetModule module2;
+        private EastIPInternalInvoiceSystemModule module3;
+        private EastIPInternalInvoiceSystemAspNetModule module4;
+        private BusinessClassLibraryCustomizationModule objectsModule;
+        private SecurityModule securityModule1;
+        private SecurityStrategyComplex securityStrategyComplex1;
+        private ValidationAspNetModule validationAspNetModule;
+        private ValidationModule validationModule;
 
-        public EastIPInternalInvoiceSystemAspNetApplication() {
+        public EastIPInternalInvoiceSystemAspNetApplication()
+        {
             InitializeComponent();
             LinkNewObjectToParentImmediately = false;
-            DevExpress.ExpressApp.Web.Editors.ASPx.ASPxGridListEditor.AllowFilterControlHierarchy = true;
-            DevExpress.ExpressApp.Web.Editors.ASPx.ASPxGridListEditor.MaxFilterControlHierarchyDepth = 3;
-            DevExpress.ExpressApp.Web.Editors.ASPx.ASPxCriteriaPropertyEditor.AllowFilterControlHierarchyDefault = true;
-            DevExpress.ExpressApp.Web.Editors.ASPx.ASPxCriteriaPropertyEditor.MaxHierarchyDepthDefault = 3;
+            ASPxGridListEditor.AllowFilterControlHierarchy = true;
+            ASPxGridListEditor.MaxFilterControlHierarchyDepth = 3;
+            ASPxCriteriaPropertyEditor.AllowFilterControlHierarchyDefault = true;
+            ASPxCriteriaPropertyEditor.MaxHierarchyDepthDefault = 3;
         }
-        protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
-            args.ObjectSpaceProvider = new SecuredObjectSpaceProvider((SecurityStrategyComplex)Security, GetDataStoreProvider(args.ConnectionString, args.Connection), true);
+
+        protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args)
+        {
+            args.ObjectSpaceProvider = new SecuredObjectSpaceProvider((SecurityStrategyComplex) Security,
+                GetDataStoreProvider(args.ConnectionString, args.Connection), true);
             args.ObjectSpaceProviders.Add(new NonPersistentObjectSpaceProvider(TypesInfo, null));
         }
-        private IXpoDataStoreProvider GetDataStoreProvider(string connectionString, System.Data.IDbConnection connection) {
-            System.Web.HttpApplicationState application = (System.Web.HttpContext.Current != null) ? System.Web.HttpContext.Current.Application : null;
+
+        private IXpoDataStoreProvider GetDataStoreProvider(string connectionString, IDbConnection connection)
+        {
+            var application = HttpContext.Current != null ? HttpContext.Current.Application : null;
             IXpoDataStoreProvider dataStoreProvider = null;
-            if(application != null && application["DataStoreProvider"] != null) {
+            if (application != null && application["DataStoreProvider"] != null)
+            {
                 dataStoreProvider = application["DataStoreProvider"] as IXpoDataStoreProvider;
             }
-            else {
-                if(!String.IsNullOrEmpty(connectionString)) {
-                    connectionString = DevExpress.Xpo.XpoDefault.GetConnectionPoolString(connectionString);
+            else
+            {
+                if (!string.IsNullOrEmpty(connectionString))
+                {
+                    connectionString = XpoDefault.GetConnectionPoolString(connectionString);
                     dataStoreProvider = new ConnectionStringDataStoreProvider(connectionString, true);
                 }
-                else if(connection != null) {
+                else if (connection != null)
+                {
                     dataStoreProvider = new ConnectionDataStoreProvider(connection);
                 }
-                if(application != null) {
-                    application["DataStoreProvider"] = dataStoreProvider;
-                }
+                if (application != null) application["DataStoreProvider"] = dataStoreProvider;
             }
-			return dataStoreProvider;
+            return dataStoreProvider;
         }
-        private void EastIPInternalInvoiceSystemAspNetApplication_DatabaseVersionMismatch(object sender, DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs e) {
+
+        private void EastIPInternalInvoiceSystemAspNetApplication_DatabaseVersionMismatch(object sender,
+            DatabaseVersionMismatchEventArgs e)
+        {
 #if EASYTEST
             e.Updater.Update();
             e.Handled = true;
 #else
-            if(System.Diagnostics.Debugger.IsAttached) {
+            if (Debugger.IsAttached)
+            {
                 e.Updater.Update();
                 e.Handled = true;
             }
-            else {
-				string message = "The application cannot connect to the specified database, " +
-					"because the database doesn't exist, its version is older " +
-					"than that of the application or its schema does not match " +
-					"the ORM data model structure. To avoid this error, use one " +
-					"of the solutions from the https://www.devexpress.com/kb=T367835 KB Article.";
+            else
+            {
+                var message = "The application cannot connect to the specified database, " +
+                              "because the database doesn't exist, its version is older " +
+                              "than that of the application or its schema does not match " +
+                              "the ORM data model structure. To avoid this error, use one " +
+                              "of the solutions from the https://www.devexpress.com/kb=T367835 KB Article.";
 
-                if(e.CompatibilityError != null && e.CompatibilityError.Exception != null) {
+                if (e.CompatibilityError != null && e.CompatibilityError.Exception != null)
                     message += "\r\n\r\nInner exception: " + e.CompatibilityError.Exception.Message;
-                }
                 throw new InvalidOperationException(message);
             }
 #endif
         }
-        private void InitializeComponent() {
-            this.module1 = new DevExpress.ExpressApp.SystemModule.SystemModule();
-            this.module2 = new DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule();
-            this.module3 = new EastIPInternalInvoiceSystem.Module.EastIPInternalInvoiceSystemModule();
-            this.module4 = new EastIPInternalInvoiceSystem.Module.Web.EastIPInternalInvoiceSystemAspNetModule();
-            this.securityModule1 = new DevExpress.ExpressApp.Security.SecurityModule();
-            this.securityStrategyComplex1 = new DevExpress.ExpressApp.Security.SecurityStrategyComplex();
-            this.securityStrategyComplex1.SupportNavigationPermissionsForTypes = false;
-            this.authenticationStandard1 = new DevExpress.ExpressApp.Security.AuthenticationStandard();
-            this.objectsModule = new DevExpress.ExpressApp.Objects.BusinessClassLibraryCustomizationModule();
-            this.validationModule = new DevExpress.ExpressApp.Validation.ValidationModule();
-            this.validationAspNetModule = new DevExpress.ExpressApp.Validation.Web.ValidationAspNetModule();
-            ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
+
+        private void InitializeComponent()
+        {
+            module1 = new SystemModule();
+            module2 = new SystemAspNetModule();
+            module3 = new EastIPInternalInvoiceSystemModule();
+            module4 = new EastIPInternalInvoiceSystemAspNetModule();
+            securityModule1 = new SecurityModule();
+            securityStrategyComplex1 = new SecurityStrategyComplex();
+            securityStrategyComplex1.SupportNavigationPermissionsForTypes = false;
+            authenticationStandard1 = new AuthenticationStandard();
+            objectsModule = new BusinessClassLibraryCustomizationModule();
+            validationModule = new ValidationModule();
+            validationAspNetModule = new ValidationAspNetModule();
+            ((ISupportInitialize) this).BeginInit();
             // 
             // securityStrategyComplex1
             // 
-            this.securityStrategyComplex1.Authentication = this.authenticationStandard1;
-            this.securityStrategyComplex1.RoleType = typeof(DevExpress.Persistent.BaseImpl.PermissionPolicy.PermissionPolicyRole);
-            this.securityStrategyComplex1.UserType = typeof(DevExpress.Persistent.BaseImpl.PermissionPolicy.PermissionPolicyUser);
+            securityStrategyComplex1.Authentication = authenticationStandard1;
+            securityStrategyComplex1.RoleType = typeof(PermissionPolicyRole);
+            securityStrategyComplex1.UserType = typeof(PermissionPolicyUser);
             // 
             // securityModule1
             // 
-            this.securityModule1.UserType = typeof(DevExpress.Persistent.BaseImpl.PermissionPolicy.PermissionPolicyUser);
+            securityModule1.UserType = typeof(PermissionPolicyUser);
             // 
             // authenticationStandard1
             // 
-            this.authenticationStandard1.LogonParametersType = typeof(DevExpress.ExpressApp.Security.AuthenticationStandardLogonParameters);
+            authenticationStandard1.LogonParametersType = typeof(AuthenticationStandardLogonParameters);
             //
             // validationModule
             //
-            this.validationModule.AllowValidationDetailsAccess = true;
+            validationModule.AllowValidationDetailsAccess = true;
             // 
             // EastIPInternalInvoiceSystemAspNetApplication
             // 
-            this.ApplicationName = "EastIPInternalInvoiceSystem";
-            this.CheckCompatibilityType = DevExpress.ExpressApp.CheckCompatibilityType.DatabaseSchema;
-            this.Modules.Add(this.module1);
-            this.Modules.Add(this.module2);
-            this.Modules.Add(this.module3);
-            this.Modules.Add(this.module4);
-            this.Modules.Add(this.securityModule1);
-            this.Security = this.securityStrategyComplex1;
-            this.Modules.Add(this.objectsModule);
-            this.Modules.Add(this.validationModule);
-            this.Modules.Add(this.validationAspNetModule);
-            this.DatabaseVersionMismatch += new System.EventHandler<DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs>(this.EastIPInternalInvoiceSystemAspNetApplication_DatabaseVersionMismatch);
-            ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
-
+            ApplicationName = "EastIPInternalInvoiceSystem";
+            CheckCompatibilityType = CheckCompatibilityType.DatabaseSchema;
+            Modules.Add(module1);
+            Modules.Add(module2);
+            Modules.Add(module3);
+            Modules.Add(module4);
+            Modules.Add(securityModule1);
+            Security = securityStrategyComplex1;
+            Modules.Add(objectsModule);
+            Modules.Add(validationModule);
+            Modules.Add(validationAspNetModule);
+            DatabaseVersionMismatch += EastIPInternalInvoiceSystemAspNetApplication_DatabaseVersionMismatch;
+            ((ISupportInitialize) this).EndInit();
         }
     }
 }

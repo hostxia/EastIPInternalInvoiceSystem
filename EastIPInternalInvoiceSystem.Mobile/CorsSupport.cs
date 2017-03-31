@@ -1,26 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Web;
 
 namespace EastIPInternalInvoiceSystem.Mobile
 {
-
     // NOTE
     // The following change to web.config is required
     // <system.serviceModel>
     //    <serviceHostingEnvironment aspNetCompatibilityEnabled="true" /> 
 
-    static class CorsSupport
+    internal static class CorsSupport
     {
-
         public static void HandlePreflightRequest(HttpContext context)
         {
             var req = context.Request;
             var res = context.Response;
             var origin = req.Headers["Origin"];
 
-            if (!String.IsNullOrEmpty(origin))
+            if (!string.IsNullOrEmpty(origin))
             {
                 res.AddHeader("Access-Control-Allow-Origin", origin);
                 res.AddHeader("Access-Control-Allow-Credentials", "true");
@@ -29,10 +24,10 @@ namespace EastIPInternalInvoiceSystem.Mobile
                 var methods = req.Headers["Access-Control-Request-Method"];
                 var headers = req.Headers["Access-Control-Request-Headers"];
 
-                if (!String.IsNullOrEmpty(methods))
+                if (!string.IsNullOrEmpty(methods))
                     res.AddHeader("Access-Control-Allow-Methods", methods);
 
-                if (!String.IsNullOrEmpty(headers))
+                if (!string.IsNullOrEmpty(headers))
                     res.AddHeader("Access-Control-Allow-Headers", headers);
 
                 if (req.HttpMethod == "OPTIONS")
@@ -42,6 +37,5 @@ namespace EastIPInternalInvoiceSystem.Mobile
                 }
             }
         }
-
     }
 }
