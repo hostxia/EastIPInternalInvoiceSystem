@@ -1,5 +1,4 @@
-﻿using System.Windows.Forms;
-using DevExpress.ExpressApp;
+﻿using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Security;
 using EastIPInternalInvoiceSystem.Module.BusinessObjects;
@@ -23,9 +22,7 @@ namespace EastIPInternalInvoiceSystem.Module.Win.Controllers
 
         private void saImportData_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
-            var frm = new XFrmImport(Frame.View.ObjectSpace);
-            if (frm.ShowDialog() != DialogResult.OK) return;
-            Frame.View.Refresh(true);
+            new XFrmImport(Frame.View.ObjectSpace).Show();
         }
     }
 }

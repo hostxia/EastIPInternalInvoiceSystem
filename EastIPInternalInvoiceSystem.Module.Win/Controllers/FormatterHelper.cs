@@ -79,58 +79,69 @@ namespace EastIPInternalInvoiceSystem.Module.Win.Controllers
                         drData["相关信息"] = "日期为空";
                         continue;
                     }
-                    if (string.IsNullOrWhiteSpace(drData["开草单日期"]?.ToString()))
+                    string sInterNo = null;
+                    var internalType = EnumsAll.InternalType.其他;
+                    if (!string.IsNullOrWhiteSpace(drData["开草单日期"]?.ToString()) && !string.IsNullOrWhiteSpace(drData["草单编号"]?.ToString()))
                     {
-                        drData["导入结果"] = "失败";
-                        drData["相关信息"] = "开草单日期为空";
-                        continue;
-                    }
-                    if (string.IsNullOrWhiteSpace(drData["草单编号"]?.ToString()))
-                    {
-                        drData["导入结果"] = "失败";
-                        drData["相关信息"] = "草单编号为空";
-                        continue;
-                    }
-                    var sInterNo = drData["开草单日期"].ToString() + drData["草单编号"];
-                    if (sInterNo.Length < 8)
-                    {
-                        drData["导入结果"] = "失败";
-                        drData["相关信息"] = "草单编号不合法";
-                        continue;
-                    }
-                    var oldInterNo = objectSpace.FindObject<InternalInvoice>(new BinaryOperator("InternalNo", sInterNo));
-                    if (oldInterNo != null)
-                    {
-                        drData["导入结果"] = "失败";
-                        drData["相关信息"] = "存在相同编号的草单";
-                        continue;
-                    }
-                    var sCondition = $"OurNo = '{drData["卷号"]}' And Content = '{drData["内容"]}' ";
-                    switch (sInterNo[6].ToString())
-                    {
-                        case "1":
-                            sCondition += $" And InternalType = '{(int) EnumsAll.InternalType.中间}'";
-                            break;
-                        case "2":
-                            sCondition += $" And InternalType = '{(int) EnumsAll.InternalType.OA}'";
-                            break;
-                        case "3":
-                            sCondition += $" And InternalType = '{(int) EnumsAll.InternalType.年费}'";
-                            break;
-                        case "4":
-                            sCondition += $" And InternalType = '{(int) EnumsAll.InternalType.新申请}'";
-                            break;
-                        default:
+                        sInterNo = drData["开草单日期"].ToString() + drData["草单编号"];
+                        if (sInterNo.Length < 8)
+                        {
                             drData["导入结果"] = "失败";
-                            drData["相关信息"] = "草单类型解析错误";
+                            drData["相关信息"] = "草单编号不合法";
                             continue;
-                    }
-                    oldInterNo = objectSpace.FindObject<InternalInvoice>(CriteriaOperator.Parse(sCondition));
-                    if (oldInterNo != null)
-                    {
-                        drData["导入结果"] = "失败";
-                        drData["相关信息"] = "存在相同案卷&内容&类型的草单";
-                        continue;
+                        }
+                        var oldInterNo = objectSpace.FindObject<InternalInvoice>(new BinaryOperator("InternalNo", sInterNo));
+                        if (oldInterNo != null)
+                        {
+                            drData["导入结果"] = "失败";
+                            drData["相关信息"] = "存在相同编号的草单";
+                            continue;
+                        }
+                        var sCondition = $"OurNo = '{drData["卷号"]}' And Content = '{drData["内容"]}' ";
+                        switch (sInterNo[6].ToString())
+                        {
+                            case "1":
+                                sCondition += $" And InternalType = '{(int)EnumsAll.InternalType.中间}'";
+                                break;
+                            case "2":
+                                sCondition += $" And InternalType = '{(int)EnumsAll.InternalType.OA}'";
+                                break;
+                            case "3":
+                                sCondition += $" And InternalType = '{(int)EnumsAll.InternalType.年费}'";
+                                break;
+                            case "4":
+                                sCondition += $" And InternalType = '{(int)EnumsAll.InternalType.新申请}'";
+                                break;
+                            case "7":
+                                sCondition += $" And InternalType = '{(int)EnumsAll.InternalType.其他}'";
+                                break;
+                            default:
+                                drData["导入结果"] = "失败";
+                                drData["相关信息"] = "草单类型解析错误";
+                                continue;
+                        }
+                        oldInterNo = objectSpace.FindObject<InternalInvoice>(CriteriaOperator.Parse(sCondition));
+                        if (oldInterNo != null)
+                        {
+                            drData["导入结果"] = "失败";
+                            drData["相关信息"] = "存在相同案卷&内容&类型的草单";
+                            continue;
+                        }
+                        switch (sInterNo[6].ToString())
+                        {
+                            case "1":
+                                internalType = EnumsAll.InternalType.中间;
+                                break;
+                            case "2":
+                                internalType = EnumsAll.InternalType.OA;
+                                break;
+                            case "3":
+                                internalType = EnumsAll.InternalType.年费;
+                                break;
+                            case "4":
+                                internalType = EnumsAll.InternalType.新申请;
+                                break;
+                        }
                     }
                     var internalInvoice = objectSpace.CreateObject<InternalInvoice>();
                     internalInvoice.InternalNo = sInterNo;
@@ -143,21 +154,7 @@ namespace EastIPInternalInvoiceSystem.Module.Win.Controllers
                     internalInvoice.Content = drData["内容"].ToString();
                     internalInvoice.PermissionPolicyUser =
                         objectSpace.GetObjectByKey<PermissionPolicyUser>(SecuritySystem.CurrentUserId);
-                    switch (sInterNo[6].ToString())
-                    {
-                        case "1":
-                            internalInvoice.InternalType = EnumsAll.InternalType.中间;
-                            break;
-                        case "2":
-                            internalInvoice.InternalType = EnumsAll.InternalType.OA;
-                            break;
-                        case "3":
-                            internalInvoice.InternalType = EnumsAll.InternalType.年费;
-                            break;
-                        case "4":
-                            internalInvoice.InternalType = EnumsAll.InternalType.新申请;
-                            break;
-                    }
+                    internalInvoice.InternalType = internalType;
                     internalInvoice.Save();
                     objectSpace.CommitChanges();
                     drData["导入结果"] = "成功";
@@ -229,7 +226,7 @@ namespace EastIPInternalInvoiceSystem.Module.Win.Controllers
                         continue;
                     }
                     var sCondition =
-                        $"OurNo = '{drData["卷号"]}' And Content = '{drData["项目"]}' And InternalType = '{(int) internalType}'";
+                        $"OurNo = '{drData["卷号"]}' And Content = '{drData["项目"]}' And InternalType = '{(int)internalType}'";
                     oldInterNo = objectSpace.FindObject<InternalInvoice>(CriteriaOperator.Parse(sCondition));
                     if (oldInterNo != null)
                     {

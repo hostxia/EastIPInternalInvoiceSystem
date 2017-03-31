@@ -54,6 +54,8 @@
         <Items IsNewNode="True">
           <Item Id="InternalInvoice_ListView" ViewId="InternalInvoice_ListView" ObjectKey="" Index="0" IsNewNode="True" />
           <Item Id="InternalAgent_ListView" ViewId="InternalAgent_ListView" ObjectKey="" Index="1" IsNewNode="True" />
+          <DashboardNavigationItem Id="NewInternalInvoice" Caption="未开草单统计" DashboardTitle="未开草单统计" IsNewNode="True" />
+          <DashboardNavigationItem Id="NewInvoice" Caption="未开账单统计" DashboardTitle="未开账单统计" IsNewNode="True" />
         </Items>
       </Item>
       <Item Id="Default" Caption="配置管理" Visible="True">

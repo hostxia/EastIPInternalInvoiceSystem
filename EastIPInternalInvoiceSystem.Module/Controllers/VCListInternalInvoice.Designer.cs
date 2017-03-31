@@ -39,12 +39,12 @@
             this.scaFilter.Category = "Filters";
             this.scaFilter.ConfirmationMessage = null;
             this.scaFilter.Id = "scaFilter";
-            choiceActionItem1.Caption = "未填账单编号";
+            choiceActionItem1.Caption = "未开账单";
             choiceActionItem1.Data = "1";
             choiceActionItem1.ImageName = null;
             choiceActionItem1.Shortcut = null;
             choiceActionItem1.ToolTip = null;
-            choiceActionItem2.Caption = "未填草单编号";
+            choiceActionItem2.Caption = "未生成草单";
             choiceActionItem2.Data = "2";
             choiceActionItem2.ImageName = null;
             choiceActionItem2.Shortcut = null;

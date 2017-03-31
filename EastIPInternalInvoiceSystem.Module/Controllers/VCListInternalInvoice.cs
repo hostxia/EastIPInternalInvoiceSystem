@@ -48,7 +48,7 @@ namespace EastIPInternalInvoiceSystem.Module.Controllers
                 switch (e.SelectedChoiceActionItem.Data.ToString())
                 {
                     case "1":
-                        sCondtion = $"IsNullOrEmpty(InvoiceNo)";
+                        sCondtion = $"IsNullOrEmpty(InvoiceNo) And NoNeedInvoice = False";
                         break;
                     case "2":
                         sCondtion = $"IsNullOrEmpty(InternalNo)";
