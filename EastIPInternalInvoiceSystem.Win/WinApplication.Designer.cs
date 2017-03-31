@@ -36,6 +36,7 @@
             this.fileAttachmentsWindowsFormsModule1 = new DevExpress.ExpressApp.FileAttachments.Win.FileAttachmentsWindowsFormsModule();
             this.auditTrailModule1 = new DevExpress.ExpressApp.AuditTrail.AuditTrailModule();
             this.dashboardsWindowsFormsModule1 = new DevExpress.ExpressApp.Dashboards.Win.DashboardsWindowsFormsModule();
+            this.dashboardsModule1 = new DevExpress.ExpressApp.Dashboards.DashboardsModule();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // securityStrategyComplex1
@@ -58,6 +59,10 @@
             // 
             this.auditTrailModule1.AuditDataItemPersistentType = typeof(DevExpress.Persistent.BaseImpl.AuditDataItemPersistent);
             // 
+            // dashboardsModule1
+            // 
+            this.dashboardsModule1.DashboardDataType = typeof(DevExpress.Persistent.BaseImpl.DashboardData);
+            // 
             // EastIPInternalInvoiceSystemWindowsFormsApplication
             // 
             this.ApplicationName = "EastIPInternalInvoiceSystem";
@@ -67,6 +72,7 @@
             this.Modules.Add(this.objectsModule);
             this.Modules.Add(this.validationModule);
             this.Modules.Add(this.auditTrailModule1);
+            this.Modules.Add(this.dashboardsModule1);
             this.Modules.Add(this.module3);
             this.Modules.Add(this.validationWindowsFormsModule);
             this.Modules.Add(this.fileAttachmentsWindowsFormsModule1);
@@ -120,5 +126,6 @@
         private DevExpress.ExpressApp.FileAttachments.Win.FileAttachmentsWindowsFormsModule fileAttachmentsWindowsFormsModule1;
         private DevExpress.ExpressApp.AuditTrail.AuditTrailModule auditTrailModule1;
         private DevExpress.ExpressApp.Dashboards.Win.DashboardsWindowsFormsModule dashboardsWindowsFormsModule1;
+        private DevExpress.ExpressApp.Dashboards.DashboardsModule dashboardsModule1;
     }
 }

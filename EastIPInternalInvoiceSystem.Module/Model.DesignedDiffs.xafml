@@ -48,7 +48,7 @@
     <CreatableItem ClassName="EastIPInternalInvoiceSystem.Module.BusinessObjects.InternalAgent" Removed="True" />
     <CreatableItem ClassName="EastIPInternalInvoiceSystem.Module.BusinessObjects.InternalInvoice" Removed="True" />
   </CreatableItems>
-  <NavigationItems StartupNavigationItem="InternalInvoice_ListView">
+  <NavigationItems StartupNavigationItem="">
     <Items>
       <Item Id="@ace9d82c-5c91-4745-94c6-286bdc5edb81" Caption="业务管理" IsNewNode="True">
         <Items IsNewNode="True">

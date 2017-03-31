@@ -286,7 +286,7 @@ namespace EastIPInternalInvoiceSystem.Module.BusinessObjects
                     .FirstOrDefault();
             if (string.IsNullOrWhiteSpace(sInternalNo))
                 return CreateDate.ToString("yyMMdd") + 1.ToString("0000");
-            return CreateDate.ToString("yyMMdd") + (Convert.ToInt32(sInternalNo.Substring(6)) + 1).ToString("0000");
+            return CreateDate.ToString("yyMMdd") + (Convert.ToInt32(sInternalNo.Substring(6, 4)) + 1).ToString("0000");
         }
 
         public void SetCaseInfo(string sCaseNo)

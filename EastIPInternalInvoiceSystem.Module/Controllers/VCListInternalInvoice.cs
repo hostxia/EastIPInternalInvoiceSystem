@@ -6,12 +6,14 @@ using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Editors;
+using DevExpress.ExpressApp.Filtering;
 using DevExpress.ExpressApp.Layout;
 using DevExpress.ExpressApp.Model.NodeGenerators;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Templates;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
+using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 
 namespace EastIPInternalInvoiceSystem.Module.Controllers
@@ -32,30 +34,34 @@ namespace EastIPInternalInvoiceSystem.Module.Controllers
         protected override void OnViewControlsCreated()
         {
             base.OnViewControlsCreated();
+            scaFilter.SelectedIndex = 2;
+            Frame.GetController<FilterController>().FullTextSearchTargetPropertiesMode = FullTextSearchTargetPropertiesMode.VisibleColumns;
+            Frame.GetController<FilterController>().FullTextFilterAction.Execute += FullTextFilterAction_Execute;
             // Access and customize the target View control.
         }
-        protected override void OnDeactivated()
-        {
-            // Unsubscribe from previously subscribed events and release other references and resources.
-            base.OnDeactivated();
-        }
 
-        private void scaFilter_Execute(object sender, SingleChoiceActionExecuteEventArgs e)
+        private void FullTextFilterAction_Execute(object sender, ParametrizedActionExecuteEventArgs e)
         {
-            string sCondtion = null;
-            if (e.SelectedChoiceActionItem.Data != null)
+            if (scaFilter.SelectedItem != null)
             {
-                switch (e.SelectedChoiceActionItem.Data.ToString())
+                switch (scaFilter.SelectedItem.Data.ToString())
                 {
                     case "1":
-                        sCondtion = $"IsNullOrEmpty(InvoiceNo) And NoNeedInvoice = False";
+                        View.CollectionSource.SetCriteria("Custom", $"IsNullOrEmpty(InvoiceNo) And NoNeedInvoice = False");
                         break;
                     case "2":
-                        sCondtion = $"IsNullOrEmpty(InternalNo)";
+                        View.CollectionSource.SetCriteria("Custom", $"IsNullOrEmpty(InternalNo)");
+                        break;
+                    default:
+                        View.CollectionSource.SetCriteria("Custom", null);
                         break;
                 }
             }
-            View.CollectionSource.SetCriteria("1", sCondtion);
+            else
+            {
+                View.CollectionSource.SetCriteria("Custom", null);
+            }
+
         }
     }
 }

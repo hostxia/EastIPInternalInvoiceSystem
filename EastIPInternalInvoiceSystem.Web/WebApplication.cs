@@ -33,6 +33,10 @@ namespace EastIPInternalInvoiceSystem.Web
         private SecurityModule securityModule1;
         private SecurityStrategyComplex securityStrategyComplex1;
         private ValidationAspNetModule validationAspNetModule;
+        private DevExpress.ExpressApp.AuditTrail.AuditTrailModule auditTrailModule1;
+        private DevExpress.ExpressApp.Dashboards.DashboardsModule dashboardsModule1;
+        private DevExpress.ExpressApp.FileAttachments.Web.FileAttachmentsAspNetModule fileAttachmentsAspNetModule1;
+        private DevExpress.ExpressApp.Dashboards.Web.DashboardsAspNetModule dashboardsAspNetModule1;
         private ValidationModule validationModule;
 
         public EastIPInternalInvoiceSystemAspNetApplication()
@@ -105,52 +109,65 @@ namespace EastIPInternalInvoiceSystem.Web
 
         private void InitializeComponent()
         {
-            module1 = new SystemModule();
-            module2 = new SystemAspNetModule();
-            module3 = new EastIPInternalInvoiceSystemModule();
-            module4 = new EastIPInternalInvoiceSystemAspNetModule();
-            securityModule1 = new SecurityModule();
-            securityStrategyComplex1 = new SecurityStrategyComplex();
-            securityStrategyComplex1.SupportNavigationPermissionsForTypes = false;
-            authenticationStandard1 = new AuthenticationStandard();
-            objectsModule = new BusinessClassLibraryCustomizationModule();
-            validationModule = new ValidationModule();
-            validationAspNetModule = new ValidationAspNetModule();
-            ((ISupportInitialize) this).BeginInit();
+            this.module1 = new DevExpress.ExpressApp.SystemModule.SystemModule();
+            this.module2 = new DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule();
+            this.module3 = new EastIPInternalInvoiceSystem.Module.EastIPInternalInvoiceSystemModule();
+            this.module4 = new EastIPInternalInvoiceSystem.Module.Web.EastIPInternalInvoiceSystemAspNetModule();
+            this.securityModule1 = new DevExpress.ExpressApp.Security.SecurityModule();
+            this.securityStrategyComplex1 = new DevExpress.ExpressApp.Security.SecurityStrategyComplex();
+            this.authenticationStandard1 = new DevExpress.ExpressApp.Security.AuthenticationStandard();
+            this.objectsModule = new DevExpress.ExpressApp.Objects.BusinessClassLibraryCustomizationModule();
+            this.validationModule = new DevExpress.ExpressApp.Validation.ValidationModule();
+            this.validationAspNetModule = new DevExpress.ExpressApp.Validation.Web.ValidationAspNetModule();
+            this.auditTrailModule1 = new DevExpress.ExpressApp.AuditTrail.AuditTrailModule();
+            this.dashboardsModule1 = new DevExpress.ExpressApp.Dashboards.DashboardsModule();
+            this.fileAttachmentsAspNetModule1 = new DevExpress.ExpressApp.FileAttachments.Web.FileAttachmentsAspNetModule();
+            this.dashboardsAspNetModule1 = new DevExpress.ExpressApp.Dashboards.Web.DashboardsAspNetModule();
+            ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // securityStrategyComplex1
             // 
-            securityStrategyComplex1.Authentication = authenticationStandard1;
-            securityStrategyComplex1.RoleType = typeof(PermissionPolicyRole);
-            securityStrategyComplex1.UserType = typeof(PermissionPolicyUser);
-            // 
-            // securityModule1
-            // 
-            securityModule1.UserType = typeof(PermissionPolicyUser);
+            this.securityStrategyComplex1.Authentication = this.authenticationStandard1;
+            this.securityStrategyComplex1.RoleType = typeof(DevExpress.Persistent.BaseImpl.PermissionPolicy.PermissionPolicyRole);
+            this.securityStrategyComplex1.SupportNavigationPermissionsForTypes = false;
+            this.securityStrategyComplex1.UserType = typeof(DevExpress.Persistent.BaseImpl.PermissionPolicy.PermissionPolicyUser);
             // 
             // authenticationStandard1
             // 
-            authenticationStandard1.LogonParametersType = typeof(AuthenticationStandardLogonParameters);
-            //
+            this.authenticationStandard1.LogonParametersType = typeof(DevExpress.ExpressApp.Security.AuthenticationStandardLogonParameters);
+            // 
             // validationModule
-            //
-            validationModule.AllowValidationDetailsAccess = true;
+            // 
+            this.validationModule.AllowValidationDetailsAccess = true;
+            this.validationModule.IgnoreWarningAndInformationRules = false;
+            // 
+            // auditTrailModule1
+            // 
+            this.auditTrailModule1.AuditDataItemPersistentType = typeof(DevExpress.Persistent.BaseImpl.AuditDataItemPersistent);
+            // 
+            // dashboardsModule1
+            // 
+            this.dashboardsModule1.DashboardDataType = typeof(DevExpress.Persistent.BaseImpl.DashboardData);
             // 
             // EastIPInternalInvoiceSystemAspNetApplication
             // 
-            ApplicationName = "EastIPInternalInvoiceSystem";
-            CheckCompatibilityType = CheckCompatibilityType.DatabaseSchema;
-            Modules.Add(module1);
-            Modules.Add(module2);
-            Modules.Add(module3);
-            Modules.Add(module4);
-            Modules.Add(securityModule1);
-            Security = securityStrategyComplex1;
-            Modules.Add(objectsModule);
-            Modules.Add(validationModule);
-            Modules.Add(validationAspNetModule);
-            DatabaseVersionMismatch += EastIPInternalInvoiceSystemAspNetApplication_DatabaseVersionMismatch;
-            ((ISupportInitialize) this).EndInit();
+            this.ApplicationName = "EastIPInternalInvoiceSystem";
+            this.CheckCompatibilityType = DevExpress.ExpressApp.CheckCompatibilityType.DatabaseSchema;
+            this.Modules.Add(this.module1);
+            this.Modules.Add(this.module2);
+            this.Modules.Add(this.objectsModule);
+            this.Modules.Add(this.validationModule);
+            this.Modules.Add(this.auditTrailModule1);
+            this.Modules.Add(this.dashboardsModule1);
+            this.Modules.Add(this.module3);
+            this.Modules.Add(this.validationAspNetModule);
+            this.Modules.Add(this.fileAttachmentsAspNetModule1);
+            this.Modules.Add(this.module4);
+            this.Modules.Add(this.securityModule1);
+            this.Modules.Add(this.dashboardsAspNetModule1);
+            this.Security = this.securityStrategyComplex1;
+            ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
+
         }
     }
 }

@@ -30,6 +30,8 @@ namespace EastIPInternalInvoiceSystem.Mobile
         private BusinessClassLibraryCustomizationModule objectsModule;
         private SecurityModule securityModule1;
         private SecurityStrategyComplex securityStrategyComplex1;
+        private DevExpress.ExpressApp.AuditTrail.AuditTrailModule auditTrailModule1;
+        private DevExpress.ExpressApp.Dashboards.DashboardsModule dashboardsModule1;
         private ValidationModule validationModule;
 
         public EastIPInternalInvoiceSystemMobileApplication()
@@ -100,49 +102,58 @@ namespace EastIPInternalInvoiceSystem.Mobile
 
         private void InitializeComponent()
         {
-            module1 = new SystemModule();
-            module2 = new SystemMobileModule();
-            module3 = new EastIPInternalInvoiceSystemModule();
-            module4 = new EastIPInternalInvoiceSystemMobileModule();
-            securityModule1 = new SecurityModule();
-            securityStrategyComplex1 = new SecurityStrategyComplex();
-            authenticationStandard1 = new AuthenticationStandard();
-            objectsModule = new BusinessClassLibraryCustomizationModule();
-            validationModule = new ValidationModule();
-            ((ISupportInitialize) this).BeginInit();
+            this.module1 = new DevExpress.ExpressApp.SystemModule.SystemModule();
+            this.module2 = new DevExpress.ExpressApp.Mobile.SystemModule.SystemMobileModule();
+            this.module3 = new EastIPInternalInvoiceSystem.Module.EastIPInternalInvoiceSystemModule();
+            this.module4 = new EastIPInternalInvoiceSystem.Module.Mobile.EastIPInternalInvoiceSystemMobileModule();
+            this.securityModule1 = new DevExpress.ExpressApp.Security.SecurityModule();
+            this.securityStrategyComplex1 = new DevExpress.ExpressApp.Security.SecurityStrategyComplex();
+            this.authenticationStandard1 = new DevExpress.ExpressApp.Security.AuthenticationStandard();
+            this.objectsModule = new DevExpress.ExpressApp.Objects.BusinessClassLibraryCustomizationModule();
+            this.validationModule = new DevExpress.ExpressApp.Validation.ValidationModule();
+            this.auditTrailModule1 = new DevExpress.ExpressApp.AuditTrail.AuditTrailModule();
+            this.dashboardsModule1 = new DevExpress.ExpressApp.Dashboards.DashboardsModule();
+            ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // securityStrategyComplex1
             // 
-            securityStrategyComplex1.Authentication = authenticationStandard1;
-            securityStrategyComplex1.RoleType = typeof(PermissionPolicyRole);
-            securityStrategyComplex1.UserType = typeof(PermissionPolicyUser);
-            // 
-            // securityModule1
-            // 
-            securityModule1.UserType = typeof(PermissionPolicyUser);
+            this.securityStrategyComplex1.Authentication = this.authenticationStandard1;
+            this.securityStrategyComplex1.RoleType = typeof(DevExpress.Persistent.BaseImpl.PermissionPolicy.PermissionPolicyRole);
+            this.securityStrategyComplex1.UserType = typeof(DevExpress.Persistent.BaseImpl.PermissionPolicy.PermissionPolicyUser);
             // 
             // authenticationStandard1
             // 
-            authenticationStandard1.LogonParametersType = typeof(AuthenticationStandardLogonParameters);
-            //
+            this.authenticationStandard1.LogonParametersType = typeof(DevExpress.ExpressApp.Security.AuthenticationStandardLogonParameters);
+            // 
             // validationModule
-            //
-            validationModule.AllowValidationDetailsAccess = true;
+            // 
+            this.validationModule.AllowValidationDetailsAccess = true;
+            this.validationModule.IgnoreWarningAndInformationRules = false;
+            // 
+            // auditTrailModule1
+            // 
+            this.auditTrailModule1.AuditDataItemPersistentType = typeof(DevExpress.Persistent.BaseImpl.AuditDataItemPersistent);
+            // 
+            // dashboardsModule1
+            // 
+            this.dashboardsModule1.DashboardDataType = typeof(DevExpress.Persistent.BaseImpl.DashboardData);
             // 
             // EastIPInternalInvoiceSystemMobileApplication
             // 
-            ApplicationName = "EastIPInternalInvoiceSystem";
-            CheckCompatibilityType = CheckCompatibilityType.DatabaseSchema;
-            Modules.Add(module1);
-            Modules.Add(module2);
-            Modules.Add(module3);
-            Modules.Add(module4);
-            Modules.Add(securityModule1);
-            Security = securityStrategyComplex1;
-            Modules.Add(objectsModule);
-            Modules.Add(validationModule);
-            DatabaseVersionMismatch += EastIPInternalInvoiceSystemMobileApplication_DatabaseVersionMismatch;
-            ((ISupportInitialize) this).EndInit();
+            this.ApplicationName = "EastIPInternalInvoiceSystem";
+            this.CheckCompatibilityType = DevExpress.ExpressApp.CheckCompatibilityType.DatabaseSchema;
+            this.Modules.Add(this.module1);
+            this.Modules.Add(this.securityModule1);
+            this.Modules.Add(this.module2);
+            this.Modules.Add(this.objectsModule);
+            this.Modules.Add(this.validationModule);
+            this.Modules.Add(this.auditTrailModule1);
+            this.Modules.Add(this.dashboardsModule1);
+            this.Modules.Add(this.module3);
+            this.Modules.Add(this.module4);
+            this.Security = this.securityStrategyComplex1;
+            ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
+
         }
     }
 }

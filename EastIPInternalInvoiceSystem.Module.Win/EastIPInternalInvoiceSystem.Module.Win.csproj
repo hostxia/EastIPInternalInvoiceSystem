@@ -150,6 +150,12 @@
     <Compile Include="Controllers\VCImportFromExcel.Designer.cs">
       <DependentUpon>VCImportFromExcel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\VCListViewInternalInvoice.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\VCListViewInternalInvoice.Designer.cs">
+      <DependentUpon>VCListViewInternalInvoice.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\XFrmImport.cs">
       <SubType>Form</SubType>
     </Compile>

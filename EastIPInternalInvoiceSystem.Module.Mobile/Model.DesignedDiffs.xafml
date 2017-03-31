@@ -1,15 +1,9 @@
-﻿<?xml version="1.0"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
-  <NavigationItems>
-    <Items>
-      <Item Id="Default" IsNewNode="True">
-        <Items>
-          <Item Id="AboutInfo" ViewId="AboutInfo_DetailView" IsNewNode="True"/>
-        </Items>
-      </Item>
-    </Items>
-  </NavigationItems>
+  <SchemaModules>
+    <SchemaModule Name="SystemModule" Version="16.2.3.0" IsNewNode="True" />
+  </SchemaModules>
   <Views>
-    <DetailView Id="AboutInfo_DetailView" MobileVisible="True"></DetailView>
+    <DetailView Id="AboutInfo_DetailView" MobileVisible="True" />
   </Views>
 </Application>

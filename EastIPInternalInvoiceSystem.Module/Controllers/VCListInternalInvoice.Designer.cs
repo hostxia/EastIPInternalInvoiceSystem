@@ -36,20 +36,20 @@
             // scaFilter
             // 
             this.scaFilter.Caption = "筛选";
-            this.scaFilter.Category = "Filters";
+            this.scaFilter.Category = "FullTextSearch";
             this.scaFilter.ConfirmationMessage = null;
             this.scaFilter.Id = "scaFilter";
-            choiceActionItem1.Caption = "未开账单";
+            choiceActionItem1.Caption = "仅查询未开账单的数据";
             choiceActionItem1.Data = "1";
             choiceActionItem1.ImageName = null;
             choiceActionItem1.Shortcut = null;
             choiceActionItem1.ToolTip = null;
-            choiceActionItem2.Caption = "未生成草单";
+            choiceActionItem2.Caption = "仅查询未生成草单的数据";
             choiceActionItem2.Data = "2";
             choiceActionItem2.ImageName = null;
             choiceActionItem2.Shortcut = null;
             choiceActionItem2.ToolTip = null;
-            choiceActionItem3.Caption = "所有";
+            choiceActionItem3.Caption = "所有数据";
             choiceActionItem3.Data = "0";
             choiceActionItem3.ImageName = null;
             choiceActionItem3.Shortcut = null;
@@ -59,7 +59,6 @@
             this.scaFilter.Items.Add(choiceActionItem3);
             this.scaFilter.ItemType = DevExpress.ExpressApp.Actions.SingleChoiceActionItemType.ItemIsMode;
             this.scaFilter.ToolTip = null;
-            this.scaFilter.Execute += new DevExpress.ExpressApp.Actions.SingleChoiceActionExecuteEventHandler(this.scaFilter_Execute);
             // 
             // VCListInternalInvoice
             // 
