@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Linq;
+using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
@@ -63,6 +64,8 @@ namespace EastIPInternalInvoiceSystem.Module.BusinessObjects
         private string _sInternalNo;
 
         private FileData _sInvoiceFile;
+
+        private FileData _sFInvoiceFile;
 
         private string _sInvoiceNo;
 
@@ -243,6 +246,14 @@ namespace EastIPInternalInvoiceSystem.Module.BusinessObjects
             set { SetPropertyValue("s_InvoiceFile", ref _sInvoiceFile, value); }
         }
 
+        [Aggregated]
+        [ExpandObjectMembers(ExpandObjectMembers.Never)]
+        public FileData FInvoiceFile
+        {
+            get { return _sFInvoiceFile; }
+            set { SetPropertyValue("s_FInvoiceFile", ref _sFInvoiceFile, value); }
+        }
+
         public override void AfterConstruction()
         {
             base.AfterConstruction();
@@ -267,26 +278,32 @@ namespace EastIPInternalInvoiceSystem.Module.BusinessObjects
         //    this.PersistentProperty = "Paid";
         //}
 
+        protected override void OnSaving()
+        {
+            base.OnSaving();
+            if (!string.IsNullOrWhiteSpace(_sInternalNo))
+                if (new XPQuery<InternalInvoice>(new UnitOfWork(Session.DataLayer)).Any(i => i.InternalNo == _sInternalNo && i.Oid != Oid))
+                    this.Invalidate(true);
+        }
+
         public void GenerateInternalNo()
         {
-            if (string.IsNullOrWhiteSpace(_sInternalNo))
-            {
-                InternalNo = GetMaxFlow();
-                PermissionPolicyUser = Session.GetObjectByKey<PermissionPolicyUser>(SecuritySystem.CurrentUserId);
-            }
+            if (!string.IsNullOrWhiteSpace(_sInvoiceNo)) return;
+            InternalNo = GetMaxFlow();
+            PermissionPolicyUser = Session.GetObjectByKey<PermissionPolicyUser>(SecuritySystem.CurrentUserId);
         }
 
         public string GetMaxFlow()
         {
+            var dtNow = DateTime.Now;
             var sInternalNo =
-                new XPQuery<InternalInvoice>(Session).Where(
-                        i => i.CreateDate >= CreateDate.Date && i.CreateDate < CreateDate.AddDays(1).Date)
+                new XPCollection<InternalInvoice>(new UnitOfWork(Session.DataLayer), CriteriaOperator.Parse($"InternalNo Like '{dtNow:yyMMdd}%' And Oid != {Oid}"))
                     .Select(i => i.InternalNo)
                     .OrderByDescending(i => i)
                     .FirstOrDefault();
             if (string.IsNullOrWhiteSpace(sInternalNo))
-                return CreateDate.ToString("yyMMdd") + 1.ToString("0000");
-            return CreateDate.ToString("yyMMdd") + (Convert.ToInt32(sInternalNo.Substring(6, 4)) + 1).ToString("0000");
+                return dtNow.ToString("yyMMdd") + 1.ToString("0000");
+            return dtNow.ToString("yyMMdd") + (Convert.ToInt32(sInternalNo.Substring(6, 4)) + 1).ToString("0000");
         }
 
         public void SetCaseInfo(string sCaseNo)
@@ -307,7 +324,7 @@ namespace EastIPInternalInvoiceSystem.Module.BusinessObjects
                 }
                 var dtFResult =
                     DbHelperOra.Query(
-                            $"select eid,role,orig_name from fcase_ent_rel where ourno = '{sCaseNo.Replace("'", "''")}' order by ent_order asc")
+                            $"select eid,role,orig_name,tran_name from fcase_ent_rel where ourno = '{sCaseNo.Replace("'", "''")}' order by ent_order asc")
                         .Tables[0];
                 if (dtFResult.Rows.Count > 0)
                 {
@@ -317,11 +334,15 @@ namespace EastIPInternalInvoiceSystem.Module.BusinessObjects
                     {
                         ClientNo = drsClient[0]["eid"]?.ToString();
                         ClientName = drsClient[0]["orig_name"]?.ToString();
+                        if (string.IsNullOrWhiteSpace(ClientName))
+                            ClientName = drsClient[0]["tran_name"]?.ToString();
                     }
                     if (drsApp.Length > 0)
                     {
-                        AppName = drsApp[0]?["orig_name"].ToString();
-                        AppNo = drsApp[0]?["eid"].ToString();
+                        AppNo = drsApp[0]["eid"]?.ToString();
+                        AppName = drsApp[0]["orig_name"]?.ToString();
+                        if (string.IsNullOrWhiteSpace(AppName))
+                            AppName = drsApp[0]["tran_name"]?.ToString();
                     }
                     return;
                 }

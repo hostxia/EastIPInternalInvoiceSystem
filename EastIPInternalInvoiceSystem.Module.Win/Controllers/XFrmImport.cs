@@ -21,6 +21,7 @@ namespace EastIPInternalInvoiceSystem.Module.Win.Controllers
             InitializeComponent();
             _listSheetsName = new List<string>();
             xlueFormatType.Properties.DataSource = FormatterHelper.FormatterType;
+            xlueFormatType.ItemIndex = 0;
             _objectSpace = objectSpace;
         }
 
@@ -95,11 +96,12 @@ namespace EastIPInternalInvoiceSystem.Module.Win.Controllers
                     xgcResult.DataSource = FormatterHelper.ImportData(_dtExcelData, _objectSpace);
                     break;
                 case "B":
-                    xgcResult.DataSource = FormatterHelper.ImportFData(_dtExcelData, _objectSpace);
+                    xgcResult.DataSource = FormatterHelper.ImportDataOld(_dtExcelData, _objectSpace);
                     break;
                 default:
                     break;
             }
+            xgvResult.BestFitColumns(true);
         }
     }
 }

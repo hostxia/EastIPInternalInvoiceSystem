@@ -144,6 +144,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\FormatterHelper.cs" />
+    <Compile Include="Controllers\VCImportFile.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\VCImportFile.Designer.cs">
+      <DependentUpon>VCImportFile.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\VCImportFromExcel.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -155,6 +161,12 @@
     </Compile>
     <Compile Include="Controllers\VCListViewInternalInvoice.Designer.cs">
       <DependentUpon>VCListViewInternalInvoice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\XFrmImportFile.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controllers\XFrmImportFile.Designer.cs">
+      <DependentUpon>XFrmImportFile.cs</DependentUpon>
     </Compile>
     <Compile Include="Controllers\XFrmImport.cs">
       <SubType>Form</SubType>
@@ -171,8 +183,14 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Controllers\VCImportFile.resx">
+      <DependentUpon>VCImportFile.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controllers\VCImportFromExcel.resx">
       <DependentUpon>VCImportFromExcel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\XFrmImportFile.resx">
+      <DependentUpon>XFrmImportFile.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controllers\XFrmImport.resx">
       <DependentUpon>XFrmImport.cs</DependentUpon>
