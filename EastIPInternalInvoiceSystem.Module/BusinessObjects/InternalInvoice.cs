@@ -281,14 +281,11 @@ namespace EastIPInternalInvoiceSystem.Module.BusinessObjects
         protected override void OnSaving()
         {
             base.OnSaving();
-            if (!string.IsNullOrWhiteSpace(_sInternalNo))
-                if (new XPQuery<InternalInvoice>(new UnitOfWork(Session.DataLayer)).Any(i => i.InternalNo == _sInternalNo && i.Oid != Oid))
-                    this.Invalidate(true);
         }
 
         public void GenerateInternalNo()
         {
-            if (!string.IsNullOrWhiteSpace(_sInvoiceNo)) return;
+            //if (!string.IsNullOrWhiteSpace(_sInvoiceNo)) return;
             InternalNo = GetMaxFlow();
             PermissionPolicyUser = Session.GetObjectByKey<PermissionPolicyUser>(SecuritySystem.CurrentUserId);
         }

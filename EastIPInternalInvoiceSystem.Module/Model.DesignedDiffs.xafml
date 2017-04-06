@@ -81,8 +81,8 @@
   <Validation>
     <Rules>
       <RuleRequiredField Id="InternalInvoice_ContentRequired" TargetType="EastIPInternalInvoiceSystem.Module.BusinessObjects.InternalInvoice" TargetPropertyName="Content" TargetContextIDs="Save" IsNewNode="True" />
-      <RuleCombinationOfPropertiesIsUnique Id="InternalInvoice_InternalInvoiceCombinUnique" TargetType="EastIPInternalInvoiceSystem.Module.BusinessObjects.InternalInvoice" TargetProperties="OurNo,Content,InternalType" TargetContextIDs="Save" SkipNullOrEmptyValues="False" IsNewNode="True" />
-      <RuleUniqueValue Id="InternalInvoice_InternalNoUnique" TargetType="EastIPInternalInvoiceSystem.Module.BusinessObjects.InternalInvoice" TargetPropertyName="InternalNo" TargetContextIDs="Save" IsNewNode="True" />
+      <RuleCombinationOfPropertiesIsUnique Id="InternalInvoice_InternalInvoiceCombinUnique" TargetType="EastIPInternalInvoiceSystem.Module.BusinessObjects.InternalInvoice" TargetProperties="OurNo,Content,InternalType" TargetContextIDs="Save" SkipNullOrEmptyValues="False" CriteriaEvaluationBehavior="BeforeTransaction" IsNewNode="True" />
+      <RuleUniqueValue Id="InternalInvoice_InternalNoUnique" TargetType="EastIPInternalInvoiceSystem.Module.BusinessObjects.InternalInvoice" TargetPropertyName="InternalNo" TargetContextIDs="Save" CriteriaEvaluationBehavior="BeforeTransaction" IsNewNode="True" />
       <RuleRequiredField Id="InternalInvoice_InternalTypeRequired" TargetType="EastIPInternalInvoiceSystem.Module.BusinessObjects.InternalInvoice" TargetPropertyName="InternalType" TargetContextIDs="Save" IsNewNode="True" />
       <RuleRequiredField Id="InternalInvoice_OurNoRequired" TargetType="EastIPInternalInvoiceSystem.Module.BusinessObjects.InternalInvoice" TargetPropertyName="OurNo" TargetContextIDs="Save" IsNewNode="True" />
     </Rules>
@@ -208,23 +208,33 @@
     </DetailView>
     <ListView Id="InternalInvoice_ListView" AllowLink="False" AllowUnlink="False" IsFooterVisible="True" TopReturnedObjects="0" Filter="">
       <Columns>
-        <ColumnInfo Id="CreateDate" Index="0" SortIndex="0" SortOrder="Descending" />
-        <ColumnInfo Id="SendDate" Index="2" />
-        <ColumnInfo Id="Content" Index="3" />
-        <ColumnInfo Id="InternalNo" Index="4" />
-        <ColumnInfo Id="Type" Index="5" />
-        <ColumnInfo Id="Deadline" Index="6" />
-        <ColumnInfo Id="InvoiceNo" Index="7" />
-        <ColumnInfo Id="FirmNo" Index="8" />
-        <ColumnInfo Id="ClientName" Index="9" />
-        <ColumnInfo Id="ClientNo" Index="10" />
-        <ColumnInfo Id="AppName" Index="11" />
-        <ColumnInfo Id="AppNo" Index="12" />
-        <ColumnInfo Id="Agent1" Index="13" />
-        <ColumnInfo Id="Agent2" Index="14" />
-        <ColumnInfo Id="Agent3" Index="15" />
-        <ColumnInfo Id="Agent4" Index="16" />
-        <ColumnInfo Id="Note" Index="17" />
+        <ColumnInfo Id="InternalNo" Index="0" Width="102" />
+        <ColumnInfo Id="CreateDate" Index="1" SortIndex="-1" SortOrder="None" Width="59" />
+        <ColumnInfo Id="OurNo" Width="123" />
+        <ColumnInfo Id="SendDate" Index="3" Width="92" />
+        <ColumnInfo Id="Content" Index="4" Width="68" />
+        <ColumnInfo Id="Type" Index="5" Width="68" />
+        <ColumnInfo Id="Deadline" Index="6" Width="92" />
+        <ColumnInfo Id="InvoiceNo" Index="7" Width="119" />
+        <ColumnInfo Id="FirmNo" Index="8" Width="117" />
+        <ColumnInfo Id="ClientName" Index="9" Width="174" />
+        <ColumnInfo Id="ClientNo" Index="10" Width="80" />
+        <ColumnInfo Id="AppName" Index="11" Width="159" />
+        <ColumnInfo Id="AppNo" Index="12" Width="80" />
+        <ColumnInfo Id="Agent1" Index="13" Width="63" />
+        <ColumnInfo Id="Agent2" Index="14" Width="63" />
+        <ColumnInfo Id="Agent3" Index="15" Width="63" />
+        <ColumnInfo Id="Agent4" Index="16" Width="63" />
+        <ColumnInfo Id="Note" Index="17" Width="45" />
+        <ColumnInfo Id="InvoiceNote" Width="84" />
+        <ColumnInfo Id="IsInvalid" Width="44" />
+        <ColumnInfo Id="NoNeedInvoice" Width="80" />
+        <ColumnInfo Id="IsFAgencyInvoice" Width="80" />
+        <ColumnInfo Id="InvoiceLogDate" Width="80" />
+        <ColumnInfo Id="InternalType" Width="68" />
+        <ColumnInfo Id="PermissionPolicyUser" Width="56" />
+        <ColumnInfo Id="InvoiceFile" Width="56" />
+        <ColumnInfo Id="FInvoiceFile" Width="92" />
       </Columns>
     </ListView>
   </Views>

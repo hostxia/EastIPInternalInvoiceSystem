@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Application>
+<Application Logo="BO_Unknown">
   <Options CollectionsEditMode="Edit" />
   <SchemaModules>
     <SchemaModule Name="SystemAspNetModule" Version="16.2.3.0" IsNewNode="True" />

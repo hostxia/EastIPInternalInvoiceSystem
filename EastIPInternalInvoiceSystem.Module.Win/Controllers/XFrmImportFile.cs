@@ -5,6 +5,7 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.XtraEditors;
@@ -73,7 +74,7 @@ namespace EastIPInternalInvoiceSystem.Module.Win.Controllers
                         var sCondition = xlueImportType.EditValue.ToString() == "A"
                             ? $"InternalNo = '{Path.GetFileNameWithoutExtension(sFilePath)}'"
                             : $"FirmNo = '{Path.GetFileNameWithoutExtension(sFilePath)}'";
-                        var internalInvoice = _objectSpace.FindObject<InternalInvoice>(sCondition);
+                        var internalInvoice = _objectSpace.FindObject<InternalInvoice>(CriteriaOperator.Parse(sCondition));
                         if (internalInvoice == null)
                         {
                             _htFiles[sFilePath] = "导入失败，未找到对应的草单。";

@@ -47,6 +47,7 @@ namespace EastIPInternalInvoiceSystem.Web
             ASPxGridListEditor.MaxFilterControlHierarchyDepth = 3;
             ASPxCriteriaPropertyEditor.AllowFilterControlHierarchyDefault = true;
             ASPxCriteriaPropertyEditor.MaxHierarchyDepthDefault = 3;
+            DatabaseUpdateMode = DatabaseUpdateMode.Never;
             this.DatabaseVersionMismatch += new System.EventHandler<DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs>(this.EastIPInternalInvoiceSystemAspNetApplication_DatabaseVersionMismatch);
         }
 
@@ -88,23 +89,23 @@ namespace EastIPInternalInvoiceSystem.Web
             e.Updater.Update();
             e.Handled = true;
 #else
-            //if (Debugger.IsAttached)
-            //{
-            //    e.Updater.Update();
-            //    e.Handled = true;
-            //}
-            //else
-            //{
-            //    var message = "The application cannot connect to the specified database, " +
-            //                  "because the database doesn't exist, its version is older " +
-            //                  "than that of the application or its schema does not match " +
-            //                  "the ORM data model structure. To avoid this error, use one " +
-            //                  "of the solutions from the https://www.devexpress.com/kb=T367835 KB Article.111";
+            if (Debugger.IsAttached)
+            {
+                e.Updater.Update();
+                e.Handled = true;
+            }
+            else
+            {
+                var message = "The application cannot connect to the specified database, " +
+                              "because the database doesn't exist, its version is older " +
+                              "than that of the application or its schema does not match " +
+                              "the ORM data model structure. To avoid this error, use one " +
+                              "of the solutions from the https://www.devexpress.com/kb=T367835 KB Article.111";
 
-            //    if (e.CompatibilityError != null && e.CompatibilityError.Exception != null)
-            //        message += "\r\n\r\nInner exception: " + e.CompatibilityError.Exception.Message;
-            //    throw new InvalidOperationException(message);
-            //}
+                if (e.CompatibilityError != null && e.CompatibilityError.Exception != null)
+                    message += "\r\n\r\nInner exception: " + e.CompatibilityError.Exception.Message;
+                throw new InvalidOperationException(message);
+            }
 #endif
         }
 

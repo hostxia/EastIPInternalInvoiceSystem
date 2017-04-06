@@ -4,4 +4,14 @@
     <SchemaModule Name="SystemAspNetModule" Version="16.2.3.0" IsNewNode="True" />
     <SchemaModule Name="SystemModule" Version="16.2.3.0" IsNewNode="True" />
   </SchemaModules>
+  <Views>
+    <ListView Id="InternalInvoice_ListView">
+      <Columns>
+        <ColumnInfo Id="InternalNo" Width="97" Index="0" />
+        <ColumnInfo Id="CreateDate" SortIndex="-1" SortOrder="None" Index="1" />
+        <ColumnInfo Id="SendDate" Index="3" />
+        <ColumnInfo Id="Content" Index="4" />
+      </Columns>
+    </ListView>
+  </Views>
 </Application>
