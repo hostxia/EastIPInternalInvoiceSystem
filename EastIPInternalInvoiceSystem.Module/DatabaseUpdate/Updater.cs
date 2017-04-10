@@ -1,11 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Updating;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.BaseImpl.PermissionPolicy;
+using DevExpress.XtraPrinting.Native;
 using EastIPInternalInvoiceSystem.Module.BusinessObjects;
 
 namespace EastIPInternalInvoiceSystem.Module.DatabaseUpdate
@@ -16,6 +20,57 @@ namespace EastIPInternalInvoiceSystem.Module.DatabaseUpdate
         public Updater(IObjectSpace objectSpace, Version currentDBVersion) :
             base(objectSpace, currentDBVersion)
         {
+    //        ((XPObjectSpace)objectSpace).Session.ExecuteQuery(
+    //"select 账单号,记账日期,指定请款日,卷号,币种,官费,服务费,代理费,小时数,翻译,杂费,总计,债方,核准日 from 2017").ResultSet[0].Rows.ForEach(r =>
+    //{
+    //    //((XPObjectSpace)objectSpace).Session.ExecuteQuery($"select 1 from internalInvoice where OurNo = '{r.Values[3]}' And FirmNo = '{r.Values[0]}'");
+    //    var str = new List<string>();
+    //    if (r.Values[4] != null)
+    //        str.Add(string.Format("s_Currency = '{0}'", r.Values[4]?.ToString()));
+    //    if (r.Values[1] != null)
+    //        str.Add(string.Format("dt_DateForeignInvoice = '{0}'", r.Values[1]?.ToString()));
+    //    if (r.Values[2] != null)
+    //        str.Add(string.Format("dt_DateApplication = '{0}'", r.Values[2]?.ToString()));
+    //    if (r.Values[13] != null)
+    //        str.Add(string.Format("dt_DateApproval = '{0}'", r.Values[13]?.ToString()));
+    //    if (r.Values[5] != null)
+    //        str.Add(string.Format("n_FeeOfficial = '{0}'", r.Values[5]?.ToString()));
+    //    if (r.Values[6] != null)
+    //        str.Add(string.Format("n_FeeService = '{0}'", r.Values[6]?.ToString()));
+    //    if (r.Values[7] != null)
+    //        str.Add(string.Format("n_FeeAgent = '{0}'", r.Values[7]?.ToString()));
+    //    if (r.Values[8] != null)
+    //        str.Add(string.Format("n_Hour = '{0}'", r.Values[8]?.ToString()));
+    //    if (r.Values[9] != null)
+    //        str.Add(string.Format("n_FeeTranslation = '{0}'", r.Values[9]?.ToString()));
+    //    if (r.Values[10] != null)
+    //        str.Add(string.Format("n_FeeDistribution = '{0}'", r.Values[10]?.ToString()));
+    //    if (r.Values[11] != null)
+    //        str.Add(string.Format("n_FeeTotal = '{0}'", r.Values[11]?.ToString()));
+    //    if (r.Values[12] != null)
+    //        str.Add(string.Format("s_ForeignAgency = '{0}'", r.Values[12]?.ToString()));
+
+    //    var scondition = $"update internalInvoice set {string.Join(",", str)} where OurNo = '{r.Values[3]}' And FirmNo = '{r.Values[0]}'";
+    //    var b = ((XPObjectSpace)objectSpace).Session.ExecuteNonQuery(scondition);
+    //});
+            //var a = ObjectSpace.FindObject<InternalInvoice>(CriteriaOperator.Parse($"OurNo = '{r.Values[3]}' And FirmNo = '{r.Values[0]}'"));
+            //if (a == null) return;
+            //a.s_Currency = r.Values[4]?.ToString();
+            //a.dt_DateForeignInvoice = Convert.ToDateTime(r.Values[1]);
+            //a.dt_DateApplication = Convert.ToDateTime(r.Values[2]);
+            //a.dt_DateApproval = Convert.ToDateTime(r.Values[13]);
+            //a.n_FeeOfficial = Convert.ToDecimal(r.Values[5]);
+            //a.n_FeeService = Convert.ToDecimal(r.Values[6]);
+            //a.n_FeeAgent = Convert.ToDecimal(r.Values[7]);
+            //a.n_Hour = Convert.ToSingle(r.Values[8]);
+            //a.n_FeeTranslation = Convert.ToDecimal(r.Values[9]);
+            //a.n_FeeDistribution = Convert.ToDecimal(r.Values[10]);
+            //a.n_FeeTotal = Convert.ToDecimal(r.Values[11]);
+            //a.s_ForeignAgency = r.Values[12]?.ToString();
+            //a.Save();
+            //ObjectSpace.CommitChanges();
+
+
         }
 
         public override void UpdateDatabaseAfterUpdateSchema()

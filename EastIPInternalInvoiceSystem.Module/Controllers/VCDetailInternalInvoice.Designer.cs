@@ -64,6 +64,7 @@
             this.Actions.Add(this.saGetCaseInfo);
             this.Actions.Add(this.saGenerateInternalNo);
             this.TargetObjectType = typeof(EastIPInternalInvoiceSystem.Module.BusinessObjects.InternalInvoice);
+            this.TargetViewId = "InternalInvoice_DetailView";
             this.TargetViewType = DevExpress.ExpressApp.ViewType.DetailView;
             this.TypeOfView = typeof(DevExpress.ExpressApp.DetailView);
 

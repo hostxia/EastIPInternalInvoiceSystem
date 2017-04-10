@@ -1,7 +1,9 @@
 ﻿using System;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
+using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Editors;
+using DevExpress.Persistent.Validation;
 using EastIPInternalInvoiceSystem.Module.BusinessObjects;
 
 namespace EastIPInternalInvoiceSystem.Module.Controllers
@@ -29,10 +31,10 @@ namespace EastIPInternalInvoiceSystem.Module.Controllers
             saGetCaseInfo.Active.SetItemValue("Security",
                 ((PropertyEditor)((CompositeView)View).FindItem("OurNo")).AllowEdit);
             saGenerateInternalNo.Active.SetItemValue("Security", string.IsNullOrWhiteSpace(_internalInvoice.InternalNo));
-            ((PropertyEditor)((CompositeView)View).FindItem("FirmNo")).AllowEdit.SetItemValue(string.Empty,
-                _internalInvoice.IsFAgencyInvoice);
-            ((PropertyEditor)((CompositeView)View).FindItem("IsFAgencyInvoice")).ControlValueChanged +=
-                VCDetailInternalInvoice_ControlValueChanged;
+            //((PropertyEditor)((CompositeView)View).FindItem("FirmNo")).AllowEdit.SetItemValue(string.Empty,
+            //    _internalInvoice.IsFAgencyInvoice);
+            //((PropertyEditor)((CompositeView)View).FindItem("IsFAgencyInvoice")).ControlValueChanged +=
+            //    VCDetailInternalInvoice_ControlValueChanged;
             ((PropertyEditor)((CompositeView)View).FindItem("InvoiceNo")).ControlValueChanged +=
                 VCDetailInternalInvoice_ControlValueChanged1;
             Frame.GetController<DevExpress.ExpressApp.SystemModule.ModificationsController>().SaveAction.ExecuteCompleted += SaveAction_ExecuteCompleted;

@@ -125,12 +125,6 @@ namespace EastIPInternalInvoiceSystem.Module.BusinessObjects
             set { SetPropertyValue("s_InternalNo", ref _sInternalNo, value); }
         }
 
-        public string FirmNo
-        {
-            get { return _sFirmNo; }
-            set { SetPropertyValue("s_FirmNo", ref _sFirmNo, value); }
-        }
-
         public string Content
         {
             get { return _sContent; }
@@ -183,22 +177,10 @@ namespace EastIPInternalInvoiceSystem.Module.BusinessObjects
             set { SetPropertyValue("s_Deadline", ref _dtDeadline, value); }
         }
 
-        public string InvoiceNo
-        {
-            get { return _sInvoiceNo; }
-            set { SetPropertyValue("s_InvoiceNo", ref _sInvoiceNo, value); }
-        }
-
         public string Note
         {
             get { return _sNote; }
             set { SetPropertyValue("s_Note", ref _sNote, value); }
-        }
-
-        public string InvoiceNote
-        {
-            get { return _sInvoiceNote; }
-            set { SetPropertyValue("s_InvoiceNote", ref _sInvoiceNote, value); }
         }
 
         public bool IsInvalid
@@ -207,23 +189,31 @@ namespace EastIPInternalInvoiceSystem.Module.BusinessObjects
             set { SetPropertyValue("b_IsInvalid", ref _bIsInvalid, value); }
         }
 
+        #region 账单信息
+        public string InvoiceNo
+        {
+            get { return _sInvoiceNo; }
+            set { SetPropertyValue("s_InvoiceNo", ref _sInvoiceNo, value); }
+        }
+
+        public string InvoiceNote
+        {
+            get { return _sInvoiceNote; }
+            set { SetPropertyValue("s_InvoiceNote", ref _sInvoiceNote, value); }
+        }
+
         public bool NoNeedInvoice
         {
             get { return _bNoNeedInvoice; }
             set { SetPropertyValue("b_NoNeedInvoice", ref _bNoNeedInvoice, value); }
         }
 
-        public bool IsFAgencyInvoice
-        {
-            get { return _bIsFAgencyInvoice; }
-            set { SetPropertyValue("b_IsFAgencyInvoice", ref _bIsFAgencyInvoice, value); }
-        }
-
         public DateTime InvoiceLogDate
         {
             get { return _dtInvoiceLogDate; }
             set { SetPropertyValue("s_InvoiceLogDate", ref _dtInvoiceLogDate, value); }
-        }
+        } 
+        #endregion
 
         public EnumsAll.InternalType InternalType
         {
@@ -246,6 +236,105 @@ namespace EastIPInternalInvoiceSystem.Module.BusinessObjects
             set { SetPropertyValue("s_InvoiceFile", ref _sInvoiceFile, value); }
         }
 
+        #region 第三方账单信息
+        //public bool IsFAgencyInvoice
+        //{
+        //    get { return _bIsFAgencyInvoice; }
+        //    set { SetPropertyValue("b_IsFAgencyInvoice", ref _bIsFAgencyInvoice, value); }
+        //}
+
+        public string FirmNo
+        {
+            get { return _sFirmNo; }
+            set { SetPropertyValue("s_FirmNo", ref _sFirmNo, value); }
+        }
+
+        string fs_Currency;
+        [Size(255)]
+        public string s_Currency
+        {
+            get { return fs_Currency; }
+            set { SetPropertyValue<string>("s_Currency", ref fs_Currency, value); }
+        }
+
+        decimal fn_FeeTotal;
+        public decimal n_FeeTotal
+        {
+            get { return fn_FeeTotal; }
+            set { SetPropertyValue<decimal>("n_FeeTotal", ref fn_FeeTotal, value); }
+        }
+
+        float fn_Hour;
+        public float n_Hour
+        {
+            get { return fn_Hour; }
+            set { SetPropertyValue<float>("n_Hour", ref fn_Hour, value); }
+        }
+
+        decimal fn_FeeAgent;
+        public decimal n_FeeAgent
+        {
+            get { return fn_FeeAgent; }
+            set { SetPropertyValue<decimal>("n_FeeAgent", ref fn_FeeAgent, value); }
+        }
+
+        decimal fn_FeeTranslation;
+        public decimal n_FeeTranslation
+        {
+            get { return fn_FeeTranslation; }
+            set { SetPropertyValue<decimal>("n_FeeTranslation", ref fn_FeeTranslation, value); }
+        }
+
+        decimal fn_FeeService;
+        public decimal n_FeeService
+        {
+            get { return fn_FeeService; }
+            set { SetPropertyValue<decimal>("n_FeeService", ref fn_FeeService, value); }
+        }
+
+        decimal fn_FeeDistribution;
+        public decimal n_FeeDistribution
+        {
+            get { return fn_FeeDistribution; }
+            set { SetPropertyValue<decimal>("n_FeeDistribution", ref fn_FeeDistribution, value); }
+        }
+
+        decimal fn_FeeOfficial;
+        public decimal n_FeeOfficial
+        {
+            get { return fn_FeeOfficial; }
+            set { SetPropertyValue<decimal>("n_FeeOfficial", ref fn_FeeOfficial, value); }
+        }
+
+        string fs_ForeignAgency;
+        [Size(255)]
+        public string s_ForeignAgency
+        {
+            get { return fs_ForeignAgency; }
+            set { SetPropertyValue<string>("s_ForeignAgency", ref fs_ForeignAgency, value); }
+        }
+
+        DateTime fdt_DateApplication;
+        public DateTime dt_DateApplication
+        {
+            get { return fdt_DateApplication; }
+            set { SetPropertyValue<DateTime>("dt_DateApplication", ref fdt_DateApplication, value); }
+        }
+
+        DateTime fdt_DateApproval;
+        public DateTime dt_DateApproval
+        {
+            get { return fdt_DateApproval; }
+            set { SetPropertyValue<DateTime>("dt_DateApproval", ref fdt_DateApproval, value); }
+        }
+
+        DateTime fdt_DateForeignInvoice;
+        public DateTime dt_DateForeignInvoice
+        {
+            get { return fdt_DateForeignInvoice; }
+            set { SetPropertyValue<DateTime>("dt_DateForeignInvoice", ref fdt_DateForeignInvoice, value); }
+        }
+
         [Aggregated]
         [ExpandObjectMembers(ExpandObjectMembers.Never)]
         public FileData FInvoiceFile
@@ -253,6 +342,7 @@ namespace EastIPInternalInvoiceSystem.Module.BusinessObjects
             get { return _sFInvoiceFile; }
             set { SetPropertyValue("s_FInvoiceFile", ref _sFInvoiceFile, value); }
         }
+        #endregion
 
         public override void AfterConstruction()
         {

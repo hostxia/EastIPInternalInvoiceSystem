@@ -189,7 +189,7 @@ namespace EastIPInternalInvoiceSystem.Module.Win.Controllers
                     if (dcFInvoiceNo != null && !string.IsNullOrWhiteSpace(drData["外所账单编号"]?.ToString()))
                     {
                         internalInvoice.FirmNo = drData["外所账单编号"].ToString();
-                        internalInvoice.IsFAgencyInvoice = true;
+                        //internalInvoice.IsFAgencyInvoice = true;
                     }
                     internalInvoice.Save();
                     objectSpace.CommitChanges();

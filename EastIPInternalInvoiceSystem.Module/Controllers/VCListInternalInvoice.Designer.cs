@@ -66,6 +66,7 @@
             this.TargetObjectType = typeof(EastIPInternalInvoiceSystem.Module.BusinessObjects.InternalInvoice);
             this.TargetViewType = DevExpress.ExpressApp.ViewType.ListView;
             this.TypeOfView = typeof(DevExpress.ExpressApp.ListView);
+            this.TargetViewId = "InternalInvoice_ListView";
 
         }
 

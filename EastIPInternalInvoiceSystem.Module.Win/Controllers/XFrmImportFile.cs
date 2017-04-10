@@ -15,7 +15,7 @@ using EastIPInternalInvoiceSystem.Module.BusinessObjects;
 
 namespace EastIPInternalInvoiceSystem.Module.Win.Controllers
 {
-    public partial class XFrmImportFile : Form
+    public partial class XFrmImportFile : XtraForm
     {
         public static List<KeyValuePair<string, string>> ImportType => new List<KeyValuePair<string, string>>
         {

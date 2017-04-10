@@ -144,6 +144,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\FormatterHelper.cs" />
+    <Compile Include="Controllers\VCDetailForeignInvoice.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controllers\VCImportFile.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -162,6 +165,12 @@
     <Compile Include="Controllers\VCListViewInternalInvoice.Designer.cs">
       <DependentUpon>VCListViewInternalInvoice.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\VCWinList.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\VCWinList.Designer.cs">
+      <DependentUpon>VCWinList.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\XFrmImportFile.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -174,6 +183,7 @@
     <Compile Include="Controllers\XFrmImport.Designer.cs">
       <DependentUpon>XFrmImport.cs</DependentUpon>
     </Compile>
+    <Compile Include="Editors\MRUStringEditor.cs" />
     <Compile Include="WinModule.cs">
       <SubType>Component</SubType>
     </Compile>

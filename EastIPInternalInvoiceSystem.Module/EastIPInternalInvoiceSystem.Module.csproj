@@ -105,11 +105,23 @@
     <Compile Include="BusinessObjects\EnumsAll.cs" />
     <Compile Include="BusinessObjects\InternalAgent.cs" />
     <Compile Include="BusinessObjects\InternalInvoice.cs" />
+    <Compile Include="Controllers\VCDetailForeignInvoice.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\VCDetailForeignInvoice.Designer.cs">
+      <DependentUpon>VCDetailForeignInvoice.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\VCDetailInternalInvoice.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controllers\VCDetailInternalInvoice.Designer.cs">
       <DependentUpon>VCDetailInternalInvoice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\VCListForeignInvoice.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\VCListForeignInvoice.Designer.cs">
+      <DependentUpon>VCListForeignInvoice.cs</DependentUpon>
     </Compile>
     <Compile Include="Controllers\VCListInternalInvoice.cs">
       <SubType>Component</SubType>
@@ -128,8 +140,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Controllers\VCDetailForeignInvoice.resx">
+      <DependentUpon>VCDetailForeignInvoice.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controllers\VCDetailInternalInvoice.resx">
       <DependentUpon>VCDetailInternalInvoice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\VCListForeignInvoice.resx">
+      <DependentUpon>VCListForeignInvoice.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controllers\VCListInternalInvoice.resx">
       <DependentUpon>VCListInternalInvoice.cs</DependentUpon>

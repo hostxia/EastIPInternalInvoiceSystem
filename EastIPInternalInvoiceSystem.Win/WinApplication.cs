@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading;
-using System.Windows.Forms;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Security.ClientServer;
 using DevExpress.ExpressApp.Win;
-using DevExpress.XtraEditors;
 
 namespace EastIPInternalInvoiceSystem.Win
 {
@@ -21,7 +19,7 @@ namespace EastIPInternalInvoiceSystem.Win
 
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args)
         {
-            args.ObjectSpaceProviders.Add(new SecuredObjectSpaceProvider((SecurityStrategyComplex)Security,
+            args.ObjectSpaceProviders.Add(new SecuredObjectSpaceProvider((SecurityStrategyComplex) Security,
                 args.ConnectionString, args.Connection, false));
             args.ObjectSpaceProviders.Add(new NonPersistentObjectSpaceProvider(TypesInfo, null));
             DatabaseUpdateMode = DatabaseUpdateMode.Never;

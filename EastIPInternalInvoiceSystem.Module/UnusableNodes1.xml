@@ -1,23 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-
 <Application>
-  <BOModel Id="BOModel">
-    <Class Name="DevExpress.Persistent.BaseImpl.FileAttachmentBase">
-      <OwnMembers Id="OwnMembers">
-        <Member Name="File" Caption="电子件" />
-      </OwnMembers>
-    </Class>
-  </BOModel>
   <Views Id="Views">
     <DetailView Id="InternalInvoice_DetailView">
       <Layout Id="Layout">
         <LayoutGroup Id="Main">
           <LayoutGroup Id="SimpleEditors">
-            <LayoutGroup Id="FileAttachmentBase" Removed="True" />
-            <LayoutGroup Id="Auto689ae23c-1f2b-42cc-8510-a4cb4335dbbe">
-              <LayoutGroup Id="InternalInvoice_col2">
-                <LayoutGroup Id="Auto086b5846-0c5d-4411-8cfc-6a5f53aab403">
-                  <LayoutItem Id="File" ViewItem="File" />
+            <LayoutGroup Id="Item1">
+              <LayoutGroup Id="Autofa45d084-42de-464d-8d43-433aa8543640">
+                <LayoutGroup Id="InternalInvoice_col2">
+                  <LayoutGroup Id="Auto086b5846-0c5d-4411-8cfc-6a5f53aab403">
+                    <LayoutItem Id="IsFAgencyInvoice" ViewItem="IsFAgencyInvoice" />
+                  </LayoutGroup>
                 </LayoutGroup>
               </LayoutGroup>
             </LayoutGroup>
@@ -25,10 +18,5 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <ListView Id="InternalInvoice_ListView">
-      <Columns Id="Columns">
-        <ColumnInfo Id="File" Index="18" Width="50" SortIndex="-1" SortOrder="None" />
-      </Columns>
-    </ListView>
   </Views>
 </Application>

@@ -9,7 +9,7 @@ using DevExpress.XtraSplashScreen;
 
 namespace EastIPInternalInvoiceSystem.Module.Win.Controllers
 {
-    public partial class XFrmImport : Form
+    public partial class XFrmImport : XtraForm
     {
         private DataTable _dtExcelData;
 
