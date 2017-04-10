@@ -30,6 +30,9 @@ namespace EastIPInternalInvoiceSystem.Module.Controllers
             base.OnActivated();
             // Perform various tasks depending on the target View.
             Frame.GetController<NewObjectViewController>().NewObjectAction.Items[0].Caption = View.Caption;
+            var internalInvoice = View.CurrentObject as InternalInvoice;
+            if (internalInvoice != null && internalInvoice.Oid < 1)
+                internalInvoice.InternalType = EnumsAll.InternalType.国外申请;
         }
         protected override void OnViewControlsCreated()
         {
