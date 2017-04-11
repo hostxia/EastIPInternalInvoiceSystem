@@ -37,6 +37,7 @@
             this.auditTrailModule1 = new DevExpress.ExpressApp.AuditTrail.AuditTrailModule();
             this.dashboardsWindowsFormsModule1 = new DevExpress.ExpressApp.Dashboards.Win.DashboardsWindowsFormsModule();
             this.dashboardsModule1 = new DevExpress.ExpressApp.Dashboards.DashboardsModule();
+            this.conditionalAppearanceModule1 = new DevExpress.ExpressApp.ConditionalAppearance.ConditionalAppearanceModule();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // securityStrategyComplex1
@@ -73,6 +74,7 @@
             this.Modules.Add(this.validationModule);
             this.Modules.Add(this.auditTrailModule1);
             this.Modules.Add(this.dashboardsModule1);
+            this.Modules.Add(this.conditionalAppearanceModule1);
             this.Modules.Add(this.module3);
             this.Modules.Add(this.validationWindowsFormsModule);
             this.Modules.Add(this.fileAttachmentsWindowsFormsModule1);
@@ -103,6 +105,7 @@
             this.ResourcesExportedToModel.Add(typeof(DevExpress.ExpressApp.Win.Templates.LookupControlTemplateLocalizer));
             this.ResourcesExportedToModel.Add(typeof(DevExpress.ExpressApp.Win.Templates.PopupFormTemplateLocalizer));
             this.ResourcesExportedToModel.Add(typeof(DevExpress.ExpressApp.Security.ServerDataLogLocalizer));
+            this.ResourcesExportedToModel.Add(typeof(DevExpress.ExpressApp.Dashboards.Win.DashboardControlLocalizer));
             this.Security = this.securityStrategyComplex1;
             this.UseOldTemplates = false;
             this.DatabaseVersionMismatch += new System.EventHandler<DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs>(this.EastIPInternalInvoiceSystemWindowsFormsApplication_DatabaseVersionMismatch);
@@ -127,5 +130,6 @@
         private DevExpress.ExpressApp.AuditTrail.AuditTrailModule auditTrailModule1;
         private DevExpress.ExpressApp.Dashboards.Win.DashboardsWindowsFormsModule dashboardsWindowsFormsModule1;
         private DevExpress.ExpressApp.Dashboards.DashboardsModule dashboardsModule1;
+        private DevExpress.ExpressApp.ConditionalAppearance.ConditionalAppearanceModule conditionalAppearanceModule1;
     }
 }

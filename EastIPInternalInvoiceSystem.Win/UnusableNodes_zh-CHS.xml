@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Localization Id="Localization">
+    <LocalizationGroup Name="Controls">
+      <LocalizationGroup Name="DevExpress.Printing">
+        <LocalizationItem Name="Button_Cancel" Value="取消" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="DevExpress.XtraBars">
+        <LocalizationItem Name="CancelButton" Value="取消" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="DevExpress.XtraEditors">
+        <LocalizationItem Name="Cancel" Value="取消" />
+        <LocalizationItem Name="ProgressCancel" Value="取消" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="DevExpress.XtraGrid">
+        <LocalizationItem Name="EditFormCancelButton" Value="取消" />
+        <LocalizationItem Name="GroupSummaryEditorFormCancelButton" Value="取消" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="DevExpress.XtraNavBar">
+        <LocalizationItem Name="NavPaneOptionsFormCancel" Value="取消" />
+      </LocalizationGroup>
+    </LocalizationGroup>
+  </Localization>
+</Application>

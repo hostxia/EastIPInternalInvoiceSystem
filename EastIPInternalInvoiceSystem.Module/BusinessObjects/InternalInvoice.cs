@@ -212,7 +212,7 @@ namespace EastIPInternalInvoiceSystem.Module.BusinessObjects
         {
             get { return _dtInvoiceLogDate; }
             set { SetPropertyValue("s_InvoiceLogDate", ref _dtInvoiceLogDate, value); }
-        } 
+        }
         #endregion
 
         public EnumsAll.InternalType InternalType
@@ -237,11 +237,13 @@ namespace EastIPInternalInvoiceSystem.Module.BusinessObjects
         }
 
         #region 第三方账单信息
-        //public bool IsFAgencyInvoice
-        //{
-        //    get { return _bIsFAgencyInvoice; }
-        //    set { SetPropertyValue("b_IsFAgencyInvoice", ref _bIsFAgencyInvoice, value); }
-        //}
+
+        private bool fb_IsNotInternalInvoice;
+        public bool b_IsNotInternalInvoice
+        {
+            get { return fb_IsNotInternalInvoice; }
+            set { SetPropertyValue("b_IsNotInternalInvoice", ref fb_IsNotInternalInvoice, value); }
+        }
 
         public string FirmNo
         {
@@ -264,11 +266,11 @@ namespace EastIPInternalInvoiceSystem.Module.BusinessObjects
             set { SetPropertyValue<decimal>("n_FeeTotal", ref fn_FeeTotal, value); }
         }
 
-        float fn_Hour;
-        public float n_Hour
+        decimal fn_Hour;
+        public decimal n_Hour
         {
             get { return fn_Hour; }
-            set { SetPropertyValue<float>("n_Hour", ref fn_Hour, value); }
+            set { SetPropertyValue<decimal>("n_Hour", ref fn_Hour, value); }
         }
 
         decimal fn_FeeAgent;
@@ -334,6 +336,8 @@ namespace EastIPInternalInvoiceSystem.Module.BusinessObjects
             get { return fdt_DateForeignInvoice; }
             set { SetPropertyValue<DateTime>("dt_DateForeignInvoice", ref fdt_DateForeignInvoice, value); }
         }
+
+
 
         [Aggregated]
         [ExpandObjectMembers(ExpandObjectMembers.Never)]

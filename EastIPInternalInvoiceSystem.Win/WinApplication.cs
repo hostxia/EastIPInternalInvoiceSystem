@@ -22,7 +22,7 @@ namespace EastIPInternalInvoiceSystem.Win
             args.ObjectSpaceProviders.Add(new SecuredObjectSpaceProvider((SecurityStrategyComplex) Security,
                 args.ConnectionString, args.Connection, false));
             args.ObjectSpaceProviders.Add(new NonPersistentObjectSpaceProvider(TypesInfo, null));
-            DatabaseUpdateMode = DatabaseUpdateMode.Never;
+            DatabaseUpdateMode = DatabaseUpdateMode.UpdateOldDatabase;
         }
 
         private void EastIPInternalInvoiceSystemWindowsFormsApplication_CustomizeLanguagesList(object sender,

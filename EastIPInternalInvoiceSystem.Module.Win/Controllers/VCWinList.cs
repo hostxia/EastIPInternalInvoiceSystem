@@ -38,7 +38,11 @@ namespace EastIPInternalInvoiceSystem.Module.Win.Controllers
             // Access and customize the target View control.
             var control = View.Control as GridControl;
             var gridView = control?.MainView as GridView;
-            gridView?.Columns.ToList().ForEach(c => c.OptionsFilter.AutoFilterCondition = AutoFilterCondition.Contains);
+            if (gridView != null)
+            {
+                gridView.OptionsView.ColumnAutoWidth = false;
+                gridView.Columns.ToList().ForEach(c => c.OptionsFilter.AutoFilterCondition = AutoFilterCondition.Contains);
+            }
         }
         protected override void OnDeactivated()
         {

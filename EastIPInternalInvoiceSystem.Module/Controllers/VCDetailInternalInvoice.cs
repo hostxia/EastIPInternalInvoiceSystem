@@ -56,12 +56,12 @@ namespace EastIPInternalInvoiceSystem.Module.Controllers
             }
         }
 
-        private void VCDetailInternalInvoice_ControlValueChanged(object sender, EventArgs e)
-        {
-            var value = ((PropertyEditor)((CompositeView)View).FindItem("IsFAgencyInvoice")).ControlValue;
-            ((PropertyEditor)((CompositeView)View).FindItem("FirmNo")).AllowEdit.SetItemValue(string.Empty,
-                value != null && value.ToString().ToLower() == "true");
-        }
+        //private void VCDetailInternalInvoice_ControlValueChanged(object sender, EventArgs e)
+        //{
+        //    var value = ((PropertyEditor)((CompositeView)View).FindItem("IsFAgencyInvoice")).ControlValue;
+        //    ((PropertyEditor)((CompositeView)View).FindItem("FirmNo")).AllowEdit.SetItemValue(string.Empty,
+        //        value != null && value.ToString().ToLower() == "true");
+        //}
 
         protected override void OnDeactivated()
         {

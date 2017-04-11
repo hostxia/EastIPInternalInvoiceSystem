@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
@@ -20,39 +22,75 @@ namespace EastIPInternalInvoiceSystem.Module.DatabaseUpdate
         public Updater(IObjectSpace objectSpace, Version currentDBVersion) :
             base(objectSpace, currentDBVersion)
         {
-    //        ((XPObjectSpace)objectSpace).Session.ExecuteQuery(
-    //"select 账单号,记账日期,指定请款日,卷号,币种,官费,服务费,代理费,小时数,翻译,杂费,总计,债方,核准日 from 2017").ResultSet[0].Rows.ForEach(r =>
-    //{
-    //    //((XPObjectSpace)objectSpace).Session.ExecuteQuery($"select 1 from internalInvoice where OurNo = '{r.Values[3]}' And FirmNo = '{r.Values[0]}'");
-    //    var str = new List<string>();
-    //    if (r.Values[4] != null)
-    //        str.Add(string.Format("s_Currency = '{0}'", r.Values[4]?.ToString()));
-    //    if (r.Values[1] != null)
-    //        str.Add(string.Format("dt_DateForeignInvoice = '{0}'", r.Values[1]?.ToString()));
-    //    if (r.Values[2] != null)
-    //        str.Add(string.Format("dt_DateApplication = '{0}'", r.Values[2]?.ToString()));
-    //    if (r.Values[13] != null)
-    //        str.Add(string.Format("dt_DateApproval = '{0}'", r.Values[13]?.ToString()));
-    //    if (r.Values[5] != null)
-    //        str.Add(string.Format("n_FeeOfficial = '{0}'", r.Values[5]?.ToString()));
-    //    if (r.Values[6] != null)
-    //        str.Add(string.Format("n_FeeService = '{0}'", r.Values[6]?.ToString()));
-    //    if (r.Values[7] != null)
-    //        str.Add(string.Format("n_FeeAgent = '{0}'", r.Values[7]?.ToString()));
-    //    if (r.Values[8] != null)
-    //        str.Add(string.Format("n_Hour = '{0}'", r.Values[8]?.ToString()));
-    //    if (r.Values[9] != null)
-    //        str.Add(string.Format("n_FeeTranslation = '{0}'", r.Values[9]?.ToString()));
-    //    if (r.Values[10] != null)
-    //        str.Add(string.Format("n_FeeDistribution = '{0}'", r.Values[10]?.ToString()));
-    //    if (r.Values[11] != null)
-    //        str.Add(string.Format("n_FeeTotal = '{0}'", r.Values[11]?.ToString()));
-    //    if (r.Values[12] != null)
-    //        str.Add(string.Format("s_ForeignAgency = '{0}'", r.Values[12]?.ToString()));
+            //        ((XPObjectSpace)objectSpace).Session.ExecuteQuery(
+            //"select 账单号,记账日期,指定请款日,卷号,币种,官费,服务费,代理费,小时数,翻译,杂费,总计,债方,核准日 from 2017").ResultSet[0].Rows.ForEach(r =>
+            //{
+            //    if (
+            //        ((XPObjectSpace) objectSpace).Session.ExecuteScalar(
+            //            $"select 1 from internalInvoice where OurNo = '{r.Values[3]}' And FirmNo = '{r.Values[0]}'") == null)
+            //    {
+            //        var str = new Hashtable();
+            //        str.Add("OurNo", r.Values[3]?.ToString());
+            //        str.Add("FirmNo", r.Values[0]?.ToString());
+            //        if (r.Values[4] != null)
+            //            str.Add("s_Currency", r.Values[4]?.ToString());
+            //        if (r.Values[1] != null)
+            //            str.Add("dt_DateForeignInvoice", r.Values[1]?.ToString());
+            //        if (r.Values[2] != null)
+            //            str.Add("dt_DateApplication", r.Values[2]?.ToString());
+            //        if (r.Values[13] != null)
+            //            str.Add("dt_DateApproval", r.Values[13]?.ToString());
+            //        if (r.Values[5] != null)
+            //            str.Add("n_FeeOfficial", r.Values[5]?.ToString());
+            //        if (r.Values[6] != null)
+            //            str.Add("n_FeeService", r.Values[6]?.ToString());
+            //        if (r.Values[7] != null)
+            //            str.Add("n_FeeAgent", r.Values[7]?.ToString());
+            //        if (r.Values[8] != null)
+            //            str.Add("n_Hour", r.Values[8]?.ToString());
+            //        if (r.Values[9] != null)
+            //            str.Add("n_FeeTranslation", r.Values[9]?.ToString());
+            //        if (r.Values[10] != null)
+            //            str.Add("n_FeeDistribution", r.Values[10]?.ToString());
+            //        if (r.Values[11] != null)
+            //            str.Add("n_FeeTotal", r.Values[11]?.ToString());
+            //        if (r.Values[12] != null)
+            //            str.Add("s_ForeignAgency", r.Values[12]?.ToString());
+            //        var scondition = $"insert into internalInvoice ({string.Join(",", str.Keys.Cast<string>().ToList())}) values ({string.Join(",", str.Values.Cast<string>().Select(s => "'" + s + "'"))})";
+            //        var b = ((XPObjectSpace)objectSpace).Session.ExecuteNonQuery(scondition);
+            //    }
 
-    //    var scondition = $"update internalInvoice set {string.Join(",", str)} where OurNo = '{r.Values[3]}' And FirmNo = '{r.Values[0]}'";
-    //    var b = ((XPObjectSpace)objectSpace).Session.ExecuteNonQuery(scondition);
-    //});
+
+
+            //var str = new List<string>();
+            //if (r.Values[4] != null)
+            //    str.Add(string.Format("s_Currency = '{0}'", r.Values[4]?.ToString()));
+            //if (r.Values[1] != null)
+            //    str.Add(string.Format("dt_DateForeignInvoice = '{0}'", r.Values[1]?.ToString()));
+            //if (r.Values[2] != null)
+            //    str.Add(string.Format("dt_DateApplication = '{0}'", r.Values[2]?.ToString()));
+            //if (r.Values[13] != null)
+            //    str.Add(string.Format("dt_DateApproval = '{0}'", r.Values[13]?.ToString()));
+            //if (r.Values[5] != null)
+            //    str.Add(string.Format("n_FeeOfficial = '{0}'", r.Values[5]?.ToString()));
+            //if (r.Values[6] != null)
+            //    str.Add(string.Format("n_FeeService = '{0}'", r.Values[6]?.ToString()));
+            //if (r.Values[7] != null)
+            //    str.Add(string.Format("n_FeeAgent = '{0}'", r.Values[7]?.ToString()));
+            //if (r.Values[8] != null)
+            //    str.Add(string.Format("n_Hour = '{0}'", r.Values[8]?.ToString()));
+            //if (r.Values[9] != null)
+            //    str.Add(string.Format("n_FeeTranslation = '{0}'", r.Values[9]?.ToString()));
+            //if (r.Values[10] != null)
+            //    str.Add(string.Format("n_FeeDistribution = '{0}'", r.Values[10]?.ToString()));
+            //if (r.Values[11] != null)
+            //    str.Add(string.Format("n_FeeTotal = '{0}'", r.Values[11]?.ToString()));
+            //if (r.Values[12] != null)
+            //    str.Add(string.Format("s_ForeignAgency = '{0}'", r.Values[12]?.ToString()));
+
+            //var scondition = $"update internalInvoice set {string.Join(",", str)} where OurNo = '{r.Values[3]}' And FirmNo = '{r.Values[0]}'";
+            //var b = ((XPObjectSpace)objectSpace).Session.ExecuteNonQuery(scondition);
+            //});
             //var a = ObjectSpace.FindObject<InternalInvoice>(CriteriaOperator.Parse($"OurNo = '{r.Values[3]}' And FirmNo = '{r.Values[0]}'"));
             //if (a == null) return;
             //a.s_Currency = r.Values[4]?.ToString();
