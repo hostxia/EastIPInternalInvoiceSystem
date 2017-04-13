@@ -98,6 +98,9 @@ namespace EastIPInternalInvoiceSystem.Module.Win.Controllers
                 case "B":
                     xgcResult.DataSource = FormatterHelper.ImportDataOld(_dtExcelData, _objectSpace);
                     break;
+                case "C":
+                    xgcResult.DataSource = FormatterHelper.ImportInvoiceNo(_dtExcelData, _objectSpace);
+                    break;
                 default:
                     break;
             }

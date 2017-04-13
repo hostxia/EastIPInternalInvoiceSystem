@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
 using System.Linq;
+using System.Windows.Forms;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.BaseImpl.PermissionPolicy;
+using DevExpress.XtraEditors;
 using EastIPInternalInvoiceSystem.Module.BusinessObjects;
 
 namespace EastIPInternalInvoiceSystem.Module.Win.Controllers
@@ -15,7 +17,8 @@ namespace EastIPInternalInvoiceSystem.Module.Win.Controllers
         public static List<KeyValuePair<string, string>> FormatterType => new List<KeyValuePair<string, string>>
         {
             new KeyValuePair<string, string>("A", "1. 导入草单"),
-            new KeyValuePair<string, string>("B", "2. 导入草单(旧)")
+            new KeyValuePair<string, string>("B", "2. 导入草单(旧)"),
+            new KeyValuePair<string, string>("C", "3. 导入账单号"),
         };
 
         public static void LoadExcel(string sFilePath, int nIndex, ref List<string> listSheetsName,
@@ -327,6 +330,91 @@ namespace EastIPInternalInvoiceSystem.Module.Win.Controllers
                     drData["相关信息"] = e.ToString();
                     objectSpace.Rollback();
                 }
+            return dtFormatData;
+        }
+
+        public static DataTable ImportInvoiceNo(DataTable dtExcelData, IObjectSpace objectSpace)
+        {
+            var dtFormatData = dtExcelData.Copy();
+
+            dtFormatData.Columns.Add("导入结果");
+            dtFormatData.Columns.Add("相关信息");
+
+            if (!dtFormatData.Columns.Contains("草单编号"))
+            {
+                var drData = dtFormatData.NewRow();
+                drData["导入结果"] = "失败";
+                drData["相关信息"] = "导入表中不存在草单编号列";
+                dtFormatData.Rows.InsertAt(drData, 0);
+                return dtFormatData;
+            }
+            if (!dtFormatData.Columns.Contains("账单编号"))
+            {
+                var drData = dtFormatData.NewRow();
+                drData["导入结果"] = "失败";
+                drData["相关信息"] = "导入表中不存在账单编号列";
+                dtFormatData.Rows.InsertAt(drData, 0);
+                return dtFormatData;
+            }
+            if (!dtFormatData.Columns.Contains("账单记录日"))
+            {
+                var drData = dtFormatData.NewRow();
+                drData["导入结果"] = "失败";
+                drData["相关信息"] = "导入表中不存在账单记录日列";
+                dtFormatData.Rows.InsertAt(drData, 0);
+                return dtFormatData;
+            }
+            foreach (DataRow drData in dtFormatData.Rows)
+            {
+                try
+                {
+                    if (string.IsNullOrWhiteSpace(drData["草单编号"]?.ToString()))
+                    {
+                        drData["导入结果"] = "失败";
+                        drData["相关信息"] = "草单编号为空";
+                        continue;
+                    }
+                    if (string.IsNullOrWhiteSpace(drData["账单编号"]?.ToString()))
+                    {
+                        drData["导入结果"] = "失败";
+                        drData["相关信息"] = "账单编号为空";
+                        continue;
+                    }
+
+                    var internalNo = objectSpace.FindObject<InternalInvoice>(CriteriaOperator.Parse($"InternalNo = '{drData["草单编号"]}'"));
+                    if (internalNo == null)
+                    {
+                        drData["导入结果"] = "失败";
+                        drData["相关信息"] = "系统中不存在该草单。";
+                        continue;
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(internalNo.InvoiceNo) &&
+                        internalNo.InvoiceNo != drData["账单编号"].ToString())
+                    {
+                        var messageResult = XtraMessageBox.Show($"{drData["草单编号"]}该草单下已存在账单编号,原账单编号：{internalNo.InvoiceNo}；新账单编号：{drData["账单编号"]}，是否执行覆盖？", "提示", MessageBoxButtons.OKCancel);
+                        if (messageResult != DialogResult.OK)
+                        {
+                            drData["导入结果"] = "失败";
+                            drData["相关信息"] = $"{drData["草单编号"]}该草单下已存在账单编号,原账单编号：{internalNo.InvoiceNo}；新账单编号：{drData["账单编号"]}，已执行跳过";
+                            continue;
+                        }
+                    }
+
+                    internalNo.InvoiceNo = drData["账单编号"].ToString();
+                    internalNo.InvoiceLogDate = string.IsNullOrWhiteSpace(drData["账单记录日"]?.ToString()) ? DateTime.Now : Convert.ToDateTime(drData["账单记录日"]);
+                    internalNo.NoNeedInvoice = false;
+                    internalNo.Save();
+                    objectSpace.CommitChanges();
+                    drData["导入结果"] = "成功";
+                }
+                catch (Exception e)
+                {
+                    drData["导入结果"] = "失败";
+                    drData["相关信息"] = e.ToString();
+                    objectSpace.Rollback();
+                }
+            }
             return dtFormatData;
         }
 

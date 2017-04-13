@@ -295,17 +295,22 @@
         <LocalizationItem Name="NewToolbarName" Value="工具" />
       </LocalizationGroup>
       <LocalizationGroup Name="DevExpress.XtraBars.Docking">
+        <LocalizationItem Name="CommandAutoHide" Value="自动隐藏" />
         <LocalizationItem Name="CommandClose" Value="关闭" />
+        <LocalizationItem Name="CommandDock" Value="停靠" />
+        <LocalizationItem Name="CommandFloat" Value="浮动" />
       </LocalizationGroup>
       <LocalizationGroup Name="DevExpress.XtraBars.Docking2010">
         <LocalizationItem Name="CommandClose" Value="关闭" />
         <LocalizationItem Name="CommandDetail" Value="详细" />
+        <LocalizationItem Name="CommandDockWidget" Value="停靠" />
         <LocalizationItem Name="CommandExit" Value="退出" />
+        <LocalizationItem Name="CommandFloat" Value="浮动" />
         <LocalizationItem Name="CommandHome" Value="首页" />
       </LocalizationGroup>
       <LocalizationGroup Name="DevExpress.XtraEditors">
         <LocalizationItem Name="DefaultBooleanDefault" Value="默认" />
-        <LocalizationItem Name="FilterToolTipNodeAction" Value="行动" />
+        <LocalizationItem Name="FilterToolTipNodeAction" Value="功能" />
         <LocalizationItem Name="ManageRuleCommonType" Value="类型︰" />
         <LocalizationItem Name="NavigatorEditButtonHint" Value="编辑" />
         <LocalizationItem Name="NavigatorRemoveButtonHint" Value="删除" />
@@ -678,7 +683,7 @@
         <LocalizationItem Name="barMdiChildrenListItem.Caption" Value="窗口列表" />
         <LocalizationItem Name="barSubItemPanels.Caption" Value="面板" />
         <LocalizationItem Name="defaultPage.Text" Value="首页" />
-        <LocalizationItem Name="defaultPageGroup.Text" Value="行动" />
+        <LocalizationItem Name="defaultPageGroup.Text" Value="功能" />
         <LocalizationItem Name="dockPanelNavigation.Text" Value="导航" />
         <LocalizationItem Name="ribbonGallerySkins.Caption" Value="外观" />
         <LocalizationItem Name="ribbonGroupAppearance.Text" Value="外观" />
@@ -733,7 +738,7 @@
         <LocalizationItem Name="barContainerViewsNavigation.Caption" Value="导航" />
         <LocalizationItem Name="barSubItemPanels.Caption" Value="面板" />
         <LocalizationItem Name="defaultPage.Text" Value="首页" />
-        <LocalizationItem Name="defaultPageGroup.Text" Value="行动" />
+        <LocalizationItem Name="defaultPageGroup.Text" Value="功能" />
         <LocalizationItem Name="ribbonGallerySkins.Caption" Value="外观" />
         <LocalizationItem Name="ribbonGroupAppearance.Text" Value="外观" />
         <LocalizationItem Name="ribbonGroupDefault.Text" Value="默认" />
@@ -794,7 +799,7 @@
       <LocalizationItem Name="XlsxFiles" Value="Xlsx 文件" />
     </LocalizationGroup>
     <LocalizationGroup Name="Ribbon">
-      <LocalizationItem Name="ActionsPageGroup" Value="行动" />
+      <LocalizationItem Name="ActionsPageGroup" Value="功能" />
       <LocalizationItem Name="HomePage" Value="首页" />
     </LocalizationGroup>
     <LocalizationGroup Name="Security">
