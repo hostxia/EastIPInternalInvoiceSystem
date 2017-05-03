@@ -187,7 +187,7 @@ namespace EastIPInternalInvoiceSystem.Module.Win.Controllers
                     internalInvoice.Deadline = internalInvoice.CreateDate.AddDays(7);
                     internalInvoice.Content = " ";
                     internalInvoice.PermissionPolicyUser =
-                        objectSpace.GetObjectByKey<PermissionPolicyUser>(SecuritySystem.CurrentUserId);
+                        objectSpace.GetObjectByKey<SysUser>(SecuritySystem.CurrentUserId);
                     internalInvoice.InternalType = sInternalType;
                     if (dcFInvoiceNo != null && !string.IsNullOrWhiteSpace(drData["外所账单编号"]?.ToString()))
                     {
@@ -318,7 +318,7 @@ namespace EastIPInternalInvoiceSystem.Module.Win.Controllers
                     internalInvoice.Type = drData["类别"].ToString();
                     internalInvoice.Content = drData["内容"].ToString();
                     internalInvoice.PermissionPolicyUser =
-                        objectSpace.GetObjectByKey<PermissionPolicyUser>(SecuritySystem.CurrentUserId);
+                        objectSpace.GetObjectByKey<SysUser>(SecuritySystem.CurrentUserId);
                     internalInvoice.InternalType = internalType;
                     internalInvoice.Save();
                     objectSpace.CommitChanges();

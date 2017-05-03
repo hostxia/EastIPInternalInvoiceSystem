@@ -2,7 +2,9 @@
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
+using DevExpress.ExpressApp.FileAttachments.Win;
 using DevExpress.ExpressApp.Xpo;
+using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using DevExpress.XtraEditors;
 using EastIPInternalInvoiceSystem.Module.BusinessObjects;
@@ -22,6 +24,7 @@ namespace EastIPInternalInvoiceSystem.Module.Win.Controllers
                 if (xpDataView != null)
                     ((MRUEdit)i.Control).Properties.Items.AddRange(xpDataView.Cast<XpoDataViewRecord>().Where(r => r[i.Id] != null && !string.IsNullOrWhiteSpace(r[i.Id].ToString())).Select(r => r[i.Id]).Distinct().ToList());
             });
+
         }
     }
 }

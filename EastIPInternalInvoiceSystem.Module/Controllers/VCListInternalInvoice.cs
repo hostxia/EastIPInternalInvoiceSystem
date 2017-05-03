@@ -15,6 +15,7 @@ using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
+using EastIPInternalInvoiceSystem.Module.BusinessObjects;
 
 namespace EastIPInternalInvoiceSystem.Module.Controllers
 {
@@ -62,6 +63,16 @@ namespace EastIPInternalInvoiceSystem.Module.Controllers
                 View.CollectionSource.SetCriteria("Custom", null);
             }
 
+        }
+
+        private void saGetCaseInfo_Execute(object sender, SimpleActionExecuteEventArgs e)
+        {
+            foreach (InternalInvoice internalInvoice in e.SelectedObjects)
+            {
+                if (string.IsNullOrWhiteSpace(internalInvoice.OurNo)) continue;
+                internalInvoice.SetCaseInfo(internalInvoice.OurNo);
+                View.ObjectSpace.CommitChanges();
+            }
         }
     }
 }

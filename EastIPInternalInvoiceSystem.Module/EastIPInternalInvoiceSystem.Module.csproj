@@ -58,6 +58,7 @@
     <Reference Include="DevExpress.ExpressApp.Security.Xpo.v16.2, Version=16.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.ExpressApp.StateMachine.v16.2, Version=16.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.ExpressApp.Validation.v16.2, Version=16.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -88,6 +89,7 @@
       <Name>System</Name>
       <Private>False</Private>
     </Reference>
+    <Reference Include="System.Activities" />
     <Reference Include="System.Data">
       <Name>System.Data</Name>
       <Private>False</Private>
@@ -96,6 +98,8 @@
     <Reference Include="System.Drawing">
       <Private>False</Private>
     </Reference>
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Activities" />
     <Reference Include="System.Xml">
       <Name>System.XML</Name>
       <Private>False</Private>
@@ -103,9 +107,30 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessObjects\CaseBase.cs" />
+    <Compile Include="BusinessObjects\CaseExtension.cs" />
+    <Compile Include="BusinessObjects\CommonFunction.cs" />
+    <Compile Include="BusinessObjects\Corporation.cs" />
     <Compile Include="BusinessObjects\EnumsAll.cs" />
-    <Compile Include="BusinessObjects\InternalAgent.cs" />
+    <Compile Include="BusinessObjects\Expense.cs" />
+    <Compile Include="BusinessObjects\Fee.cs" />
     <Compile Include="BusinessObjects\InternalInvoice.cs" />
+    <Compile Include="BusinessObjects\Invoice.cs" />
+    <Compile Include="BusinessObjects\SysUser.cs" />
+    <Compile Include="BusinessObjects\WorkItem.cs" />
+    <Compile Include="BusinessObjects\TimeSheet.cs" />
+    <Compile Include="Controllers\VCCaseBase.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\VCCaseBase.Designer.cs">
+      <DependentUpon>VCCaseBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\VCCaseExtension.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\VCCaseExtension.Designer.cs">
+      <DependentUpon>VCCaseExtension.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\VCDetailForeignInvoice.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -141,6 +166,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Controllers\VCCaseBase.resx">
+      <DependentUpon>VCCaseBase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\VCCaseExtension.resx">
+      <DependentUpon>VCCaseExtension.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controllers\VCDetailForeignInvoice.resx">
       <DependentUpon>VCDetailForeignInvoice.cs</DependentUpon>
     </EmbeddedResource>
@@ -166,9 +197,6 @@
     <None Include="DatabaseUpdate\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="BusinessObjects\ReadMe.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Controllers\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -187,14 +215,6 @@
     <None Include="FunctionalTests\config.xml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="UnusableNodes.xml">
-      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="UnusableNodes1.xml">
-      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
-      <SubType>Designer</SubType>
-    </None>
     <Content Include="Welcome.html" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

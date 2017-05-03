@@ -3,6 +3,7 @@
   <ActionDesign>
     <Actions>
       <Action Id="Cancel" Caption="取消" />
+      <Action Id="ChangeStateAction" Caption="更改状态" ToolTip="更改当前对象的状态" />
       <Action Id="CopyModelDifference" Caption="复制模型的区别" />
       <Action Id="CreateDashboard" Caption="创建仪表板" />
       <Action Id="CreateModelDifferences" Caption="创建模式的差异" />
@@ -69,6 +70,18 @@
       <OwnMembers>
         <Member Name="FilteredObjectsType" Caption="经过筛选的对象类型" />
         <Member Name="FilterString" Caption="筛选器字符串" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.ExpressApp.StateMachine.Xpo.StateMachineObjectBase" Caption="状态机对象基础" />
+    <Class Name="DevExpress.ExpressApp.StateMachine.Xpo.XpoState" Caption="状态">
+      <OwnMembers>
+        <Member Name="StateMachine" Caption="状态机" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.ExpressApp.StateMachine.Xpo.XpoStateMachine" Caption="状态机">
+      <OwnMembers>
+        <Member Name="Name" Caption="名称" />
+        <Member Name="StatePropertyName" Caption="状态属性名称" />
       </OwnMembers>
     </Class>
     <Class Name="DevExpress.ExpressApp.SystemModule.AboutInfo" Caption="关于信息">
@@ -153,6 +166,11 @@
         <Member Name="ViewDescriptor" Caption="视图" />
       </OwnMembers>
     </Class>
+    <Class Name="DevExpress.ExpressApp.Utils.StringObject">
+      <OwnMembers>
+        <Member Name="Name" Caption="用户姓名" />
+      </OwnMembers>
+    </Class>
     <Class Name="DevExpress.ExpressApp.Validation.AllContextsView.ContextValidationResult" Caption="上下文验证结果">
       <OwnMembers>
         <Member Name="BrokenRules" Caption="不满足的规则" />
@@ -194,7 +212,7 @@
         <Member Name="OldValue" Caption="旧值" />
         <Member Name="OperationType" Caption="操作类型" />
         <Member Name="PropertyName" Caption="属性名称" />
-        <Member Name="UserName" Caption="可显示验证结果项" />
+        <Member Name="UserName" Caption="账号" />
       </OwnMembers>
     </Class>
     <Class Name="DevExpress.Persistent.BaseImpl.AuditedObjectWeakReference" Caption="审核对象的弱引用">
@@ -223,7 +241,7 @@
       <OwnMembers>
         <Member Name="Aspects" Caption="方面" />
         <Member Name="ContextId" Caption="上下文 Id" />
-        <Member Name="UserName" Caption="可显示验证结果项" />
+        <Member Name="UserName" Caption="账号" />
       </OwnMembers>
     </Class>
     <Class Name="DevExpress.Persistent.BaseImpl.ModelDifferenceAspect" Caption="模型的不同方面">
@@ -292,7 +310,7 @@
         <Member Name="ChangePasswordOnFirstLogon" Caption="在第一次登录时更改密码" />
         <Member Name="IsActive" Caption="处于活动状态" />
         <Member Name="Roles" Caption="角色" />
-        <Member Name="UserName" Caption="可显示验证结果项" />
+        <Member Name="UserName" Caption="账号" />
       </OwnMembers>
     </Class>
     <Class Name="DevExpress.Persistent.Validation.IRuleBaseProperties" Caption="作用">
@@ -567,9 +585,62 @@
     <Class Name="DevExpress.Xpo.XPCustomObject" Caption="XPCustom 对象" />
     <Class Name="DevExpress.Xpo.XPObjectType" Caption="XPObject 型" />
     <Class Name="DevExpress.Xpo.XPWeakReference" Caption="XPWeak 的引用" />
+    <Class Name="EastIPInternalInvoiceSystem.Module.BusinessObjects.CaseBase" Caption="案件信息">
+      <OwnMembers>
+        <Member Name="Agency" Caption="外代理" />
+        <Member Name="ApplicantCodes" Caption="申请人代码" />
+        <Member Name="ApplicantNames" Caption="申请人名称" />
+        <Member Name="Applicants" Caption="申请人" />
+        <Member Name="Client" Caption="委托人" />
+        <Member Name="IsMiddle" Caption="中间转入案" />
+        <Member Name="IsSpecified" Caption="申请人指定" />
+        <Member Name="Note" Caption="备注" />
+        <Member Name="OurNo" Caption="我方卷号" />
+        <Member Name="ReceiveDate" Caption="返回日" />
+        <Member Name="TransferDate" Caption="发出日" />
+      </OwnMembers>
+    </Class>
+    <Class Name="EastIPInternalInvoiceSystem.Module.BusinessObjects.CaseExtension" Caption="延期">
+      <OwnMembers>
+        <Member Name="ConfirmApprover" Caption="确认人" />
+        <Member Name="Creator" Caption="创建人" />
+        <Member Name="DepartApprover" Caption="部门审批人" />
+        <Member Name="dt_ConfirmApprovalDate" Caption="确认审批时间" />
+        <Member Name="dt_Created" Caption="创建日期" />
+        <Member Name="dt_DepartApprovalDate" Caption="部门审批时间" />
+        <Member Name="dt_ExtendDate" Caption="延至日期" />
+        <Member Name="dt_ModifyApprovalDate" Caption="修改期限审批时间" />
+        <Member Name="ModifyApprover" Caption="修改期限人" />
+        <Member Name="n_DepartApprovalState" Caption="部门审批状态" />
+        <Member Name="n_ModifyApprovalState" Caption="修改期限审批状态" />
+        <Member Name="n_State" Caption="审批状态" />
+        <Member Name="Owner" Caption="延期负责人" />
+        <Member Name="s_AlertWay" Caption="提醒方式" PredefinedValues="邮件;电话;微信;其他" />
+        <Member Name="s_Applicant" Caption="申请人" />
+        <Member Name="s_ApplicantNo" Caption="申请人编号" />
+        <Member Name="s_Client" Caption="委托人" />
+        <Member Name="s_ClientNo" Caption="委托人编号" />
+        <Member Name="s_DepartReason" Caption="部门未通过原因" />
+        <Member Name="s_ExtendNote" Caption="延期原因" />
+        <Member Name="s_ModifyReason" Caption="未修改原因" />
+        <Member Name="s_OurNo" Caption="我方卷号" />
+      </OwnMembers>
+    </Class>
+    <Class Name="EastIPInternalInvoiceSystem.Module.BusinessObjects.Corporation" Caption="联系信息">
+      <OwnMembers>
+        <Member Name="Code" Caption="代码" />
+        <Member Name="Name" Caption="名称" />
+      </OwnMembers>
+    </Class>
     <Class Name="EastIPInternalInvoiceSystem.Module.BusinessObjects.InternalInvoice">
       <OwnMembers>
         <Member Name="b_IsNotInternalInvoice" Caption="不开草单" />
+      </OwnMembers>
+    </Class>
+    <Class Name="EastIPInternalInvoiceSystem.Module.BusinessObjects.SysUser" Caption="用户" ObjectCaptionFormat="{0:Name}">
+      <OwnMembers>
+        <Member Name="Code" Caption="用户代码" />
+        <Member Name="Name" Caption="名称" />
       </OwnMembers>
     </Class>
   </BOModel>
@@ -637,9 +708,6 @@
         <LocalizationItem Name="PermissionIsDenied" Value="权限被拒绝" />
       </LocalizationGroup>
       <LocalizationGroup Name="UserVisibleExceptions">
-        <LocalizationGroup Name="Security">
-          <LocalizationItem Name="LoginFailed" Value="登陆失败。原因 '{0}'. {1}" />
-        </LocalizationGroup>
         <LocalizationItem Name="TheFollowingErrorOccurred" Value="出现了以下错误︰" />
         <LocalizationItem Name="UserFriendlyConnectionFailedException" Value="到数据库的连接失败。请与系统管理员联系。" />
       </LocalizationGroup>
@@ -653,6 +721,12 @@
       <LocalizationItem Name="Warning" Value="错误" />
     </LocalizationGroup>
   </Localization>
+  <NavigationItems>
+    <Items>
+      <Item Id="@727079be-78de-4f2b-b8e6-261e45d1021c" Caption="财务管理" />
+      <Item Id="State Machine" Caption="状态机" />
+    </Items>
+  </NavigationItems>
   <Validation>
     <Contexts>
       <ValidationContext Id="Save" Caption="保存" />
@@ -675,6 +749,77 @@
   </Validation>
   <Views>
     <DetailView Id="AboutInfo_DetailView" Caption="关于" />
+    <DetailView Id="CaseBase_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="CaseBase" Caption="案件信息">
+              <LayoutGroup Id="Auto8a957290-bc5d-4418-a716-8ac7af0ff3fa" Caption="Auto8a957290-bc5d-4418-a716-8ac7af0ff3fa(4)" />
+              <LayoutGroup Id="CaseBase_col1" Caption="CaseBase_col1">
+                <LayoutGroup Id="Autob76fef52-5c3a-47ef-b0cf-5e9e9b18d657" Caption="" />
+                <LayoutGroup Id="Auto40445710-8d28-4b4a-a39e-cc19d803a2f7" Caption="" />
+              </LayoutGroup>
+              <LayoutGroup Id="CaseBase_col2" Caption="CaseBase_col2" />
+            </LayoutGroup>
+            <LayoutGroup Id="Item1" Caption="来案信息" />
+            <LayoutGroup Id="Item2" Caption="去案信息">
+              <LayoutGroup Id="Auto25700d50-5531-4479-8d6a-7cd63030417d" Caption="Auto25700d50-5531-4479-8d6a-7cd63030417d(12)" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="Applicants_Group" Caption="申请人" />
+          <LayoutGroup Id="Item3" Caption="备注" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="CaseExtension_DetailView">
+      <Items>
+        <PropertyEditor Id="dt_ConfirmApprovalDate" Caption="确认时间" />
+        <PropertyEditor Id="dt_DepartApprovalDate" Caption="审批时间" />
+        <PropertyEditor Id="dt_ModifyApprovalDate" Caption="审批时间" />
+        <PropertyEditor Id="n_DepartApprovalState" Caption="审批状态" />
+        <PropertyEditor Id="n_ModifyApprovalState" Caption="审批状态" />
+        <PropertyEditor Id="n_State" Caption="审核状态" />
+        <PropertyEditor Id="s_DepartReason" Caption="未通过原因" />
+        <PropertyEditor Id="s_ModifyReason" Caption="未通过原因" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="CaseExtension" Caption="延期申请">
+              <LayoutGroup Id="CaseExtension_col1" Caption="CaseExtension_col1">
+                <LayoutGroup Id="Autof712a1b3-3b59-49d8-8e4c-be651099acfd" Caption="Autof712a1b3-3b59-49d8-8e4c-be651099acfd(5)" />
+                <LayoutGroup Id="Auto5a571db8-cabb-48e0-9414-1706fb76eea0" Caption="Auto5a571db8-cabb-48e0-9414-1706fb76eea0(11)" />
+              </LayoutGroup>
+              <LayoutGroup Id="CaseExtension_col2" Caption="CaseExtension_col2" />
+            </LayoutGroup>
+            <LayoutGroup Id="Auto07ac49f8-35e0-417d-b884-6a2bad47da41" Caption="Auto07ac49f8-35e0-417d-b884-6a2bad47da41(18)">
+              <LayoutGroup Id="Item1" Caption="部门审核">
+                <LayoutGroup Id="Autob27bbca5-4af7-4621-9ed4-15ce228535d3" Caption="Autob27bbca5-4af7-4621-9ed4-15ce228535d3(19)">
+                  <LayoutGroup Id="Auto74d0b3d7-9e9b-4275-9429-3063fbe36747" Caption="Auto74d0b3d7-9e9b-4275-9429-3063fbe36747(21)">
+                    <LayoutGroup Id="Auto606dd59b-c9ff-43dd-a575-126ed0f3bc19">
+                      <LayoutGroup Id="Autof4bba2ca-f336-4078-a82b-1ac5030e5441" Caption="Autof4bba2ca-f336-4078-a82b-1ac5030e5441(24)" />
+                    </LayoutGroup>
+                  </LayoutGroup>
+                </LayoutGroup>
+              </LayoutGroup>
+              <LayoutGroup Id="Item2" Caption="审核&amp;&amp;修改期限">
+                <LayoutGroup Id="Autof805b47a-a0d3-4735-9e9d-6577fe689711" Caption="Autof805b47a-a0d3-4735-9e9d-6577fe689711(26)">
+                  <LayoutGroup Id="Auto460d818c-0073-4f8d-92d4-ebe9744a7d68" Caption="Auto460d818c-0073-4f8d-92d4-ebe9744a7d68(29)">
+                    <LayoutGroup Id="Auto70ddcd4e-e2df-441c-bcdd-579cb7c8b722">
+                      <LayoutGroup Id="Auto3a76b0fa-102f-490d-bc79-c2b43d0751d0" Caption="Auto3a76b0fa-102f-490d-bc79-c2b43d0751d0(32)" />
+                    </LayoutGroup>
+                  </LayoutGroup>
+                </LayoutGroup>
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="Autoc22320ed-e14f-4ff5-9750-a41e71e04bbd">
+              <LayoutGroup Id="Item3" Caption="确认修改" />
+              <LayoutGroup Id="Item4" Caption="创建信息" />
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
     <DetailView Id="DashboardCreationInfo_DetailView">
       <Layout>
         <LayoutGroup Id="Main">
@@ -701,6 +846,21 @@
     <ListView Id="ModelDifference_Aspects_ListView">
       <Columns>
         <ColumnInfo Id="DisplayName" Caption="规则值比较属性" />
+      </Columns>
+    </ListView>
+    <DetailView Id="PermissionPolicyUser_DetailView">
+      <Items>
+        <PropertyEditor Id="UserName" Caption="账号" />
+      </Items>
+    </DetailView>
+    <ListView Id="PermissionPolicyUser_ListView">
+      <Columns>
+        <ColumnInfo Id="UserName" Caption="账号" />
+      </Columns>
+    </ListView>
+    <ListView Id="PermissionPolicyUser_LookupListView">
+      <Columns>
+        <ColumnInfo Id="UserName" Caption="账号" />
       </Columns>
     </ListView>
     <DetailView Id="RuleBaseProperties_DetailView">
@@ -840,6 +1000,33 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
+    <DetailView Id="StringObject_DetailView">
+      <Items>
+        <PropertyEditor Id="Name" Caption="名称" />
+      </Items>
+    </DetailView>
+    <ListView Id="StringObject_ListView">
+      <Columns>
+        <ColumnInfo Id="Name" Caption="名称" />
+      </Columns>
+    </ListView>
+    <ListView Id="StringObject_LookupListView">
+      <Columns>
+        <ColumnInfo Id="Name" Caption="名称" />
+      </Columns>
+    </ListView>
+    <DetailView Id="SysUser_DetailView">
+      <Items>
+        <PropertyEditor Id="Name" Caption="用户姓名" />
+        <PropertyEditor Id="UserName" Caption="账号" />
+      </Items>
+    </DetailView>
+    <ListView Id="SysUser_ListView">
+      <Columns>
+        <ColumnInfo Id="UserName" Caption="账号" />
+        <ColumnInfo Id="Name" Caption="用户姓名" />
+      </Columns>
+    </ListView>
     <DetailView Id="ValidationResults_Passed_DetailView">
       <Layout>
         <LayoutGroup Id="Main">

@@ -1,12 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
-  <BOModel Id="BOModel">
-    <Class Name="EastIPInternalInvoiceSystem.Module.BusinessObjects.WorkItem">
-      <OwnMembers Id="OwnMembers">
-        <Member Name="Note" Caption="备注" />
-      </OwnMembers>
-    </Class>
-  </BOModel>
   <Views Id="Views">
     <DetailView Id="Invoice_DetailView">
       <Layout Id="Layout">

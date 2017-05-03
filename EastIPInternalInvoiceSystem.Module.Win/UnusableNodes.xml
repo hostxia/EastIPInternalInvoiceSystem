@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views Id="Views">
+    <ListView Id="InternalAgent_LookupListView" ShowAutoFilterRow="True" ShowFindPanel="True">
+      <Columns Id="Columns">
+        <ColumnInfo Id="Code" Width="46" SortIndex="0" SortOrder="Ascending" />
+        <ColumnInfo Id="Name" Width="67" SortIndex="-1" SortOrder="None" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

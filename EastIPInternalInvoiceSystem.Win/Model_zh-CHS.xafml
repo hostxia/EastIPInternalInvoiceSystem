@@ -89,7 +89,7 @@
     <Class Name="DevExpress.ExpressApp.Security.AuthenticationStandardLogonParameters" Caption="身份验证标准登录参数">
       <OwnMembers>
         <Member Name="Password" Caption="密码" />
-        <Member Name="UserName" Caption="用户名称" />
+        <Member Name="UserName" Caption="账号" />
       </OwnMembers>
     </Class>
     <Class Name="DevExpress.ExpressApp.Security.ChangePasswordOnLogonParameters" Caption="更改密码登录参数">
@@ -129,7 +129,7 @@
     </Class>
     <Class Name="DevExpress.Persistent.BaseImpl.AuditDataItemPersistent">
       <OwnMembers>
-        <Member Name="UserName" Caption="用户名称" />
+        <Member Name="UserName" Caption="账号" />
       </OwnMembers>
     </Class>
     <Class Name="DevExpress.Persistent.BaseImpl.BaseObject">
@@ -139,7 +139,7 @@
     </Class>
     <Class Name="DevExpress.Persistent.BaseImpl.ModelDifference">
       <OwnMembers>
-        <Member Name="UserName" Caption="用户名称" />
+        <Member Name="UserName" Caption="账号" />
       </OwnMembers>
     </Class>
     <Class Name="DevExpress.Persistent.BaseImpl.ModelDifferenceAspect">
@@ -170,7 +170,7 @@
     </Class>
     <Class Name="DevExpress.Persistent.BaseImpl.PermissionPolicy.PermissionPolicyUser">
       <OwnMembers>
-        <Member Name="UserName" Caption="用户名称" />
+        <Member Name="UserName" Caption="账号" />
       </OwnMembers>
     </Class>
     <Class Name="DevExpress.Persistent.Validation.IRuleBaseProperties" Caption="规则基本属性">
@@ -841,7 +841,7 @@
     </DetailView>
     <DetailView Id="AuditDataItemPersistent_DetailView">
       <Items>
-        <PropertyEditor Id="UserName" Caption="用户名称" />
+        <PropertyEditor Id="UserName" Caption="账号" />
       </Items>
       <Layout>
         <LayoutGroup Id="Main" Caption="主要" />
@@ -849,17 +849,17 @@
     </DetailView>
     <ListView Id="AuditDataItemPersistent_ListView">
       <Columns>
-        <ColumnInfo Id="UserName" Caption="用户名称" />
+        <ColumnInfo Id="UserName" Caption="账号" />
       </Columns>
     </ListView>
     <ListView Id="AuditDataItemPersistent_LookupListView">
       <Columns>
-        <ColumnInfo Id="UserName" Caption="用户名称" />
+        <ColumnInfo Id="UserName" Caption="账号" />
       </Columns>
     </ListView>
     <ListView Id="AuditedObjectWeakReference_AuditDataItems_ListView">
       <Columns>
-        <ColumnInfo Id="UserName" Caption="用户名称" />
+        <ColumnInfo Id="UserName" Caption="账号" />
       </Columns>
     </ListView>
     <DetailView Id="AuditedObjectWeakReference_DetailView">
@@ -973,15 +973,6 @@
         <LayoutGroup Id="Main" Caption="主要" />
       </Layout>
     </DetailView>
-    <DetailView Id="InternalAgent_DetailView">
-      <Layout>
-        <LayoutGroup Id="Main" Caption="主要">
-          <LayoutGroup Id="SimpleEditors">
-            <LayoutGroup Id="InternalAgent" Caption="代理人" />
-          </LayoutGroup>
-        </LayoutGroup>
-      </Layout>
-    </DetailView>
     <DetailView Id="InternalInvoice_DetailView">
       <Layout>
         <LayoutGroup Id="Main" Caption="主要" />
@@ -1069,7 +1060,7 @@
     </DetailView>
     <DetailView Id="ModelDifference_DetailView">
       <Items>
-        <PropertyEditor Id="UserName" Caption="用户名称" />
+        <PropertyEditor Id="UserName" Caption="账号" />
       </Items>
       <Layout>
         <LayoutGroup Id="Main" Caption="主要" />
@@ -1077,12 +1068,12 @@
     </DetailView>
     <ListView Id="ModelDifference_ListView">
       <Columns>
-        <ColumnInfo Id="UserName" Caption="用户名称" />
+        <ColumnInfo Id="UserName" Caption="账号" />
       </Columns>
     </ListView>
     <ListView Id="ModelDifference_LookupListView">
       <Columns>
-        <ColumnInfo Id="UserName" Caption="用户名称" />
+        <ColumnInfo Id="UserName" Caption="账号" />
       </Columns>
     </ListView>
     <DetailView Id="ModelDifferenceAspect_DetailView">
@@ -1124,7 +1115,7 @@
     <ListView Id="PermissionPolicyRole_LookupListView" Caption="角色" />
     <ListView Id="PermissionPolicyRole_Users_ListView">
       <Columns>
-        <ColumnInfo Id="UserName" Caption="用户名称" />
+        <ColumnInfo Id="UserName" Caption="账号" />
       </Columns>
     </ListView>
     <DetailView Id="PermissionPolicyRoleBase_DetailView">
@@ -1154,7 +1145,7 @@
     </ListView>
     <DetailView Id="PermissionPolicyUser_DetailView">
       <Items>
-        <PropertyEditor Id="UserName" Caption="用户名称" />
+        <PropertyEditor Id="UserName" Caption="账号" />
       </Items>
       <Layout>
         <LayoutGroup Id="Main" Caption="主要" />
@@ -1162,12 +1153,12 @@
     </DetailView>
     <ListView Id="PermissionPolicyUser_ListView">
       <Columns>
-        <ColumnInfo Id="UserName" Caption="用户名称" />
+        <ColumnInfo Id="UserName" Caption="账号" />
       </Columns>
     </ListView>
     <ListView Id="PermissionPolicyUser_LookupListView">
       <Columns>
-        <ColumnInfo Id="UserName" Caption="用户名称" />
+        <ColumnInfo Id="UserName" Caption="账号" />
       </Columns>
     </ListView>
     <ListView Id="PermissionPolicyUser_Roles_ListView" Caption="角色" />

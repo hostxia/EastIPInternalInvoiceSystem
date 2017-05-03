@@ -29,7 +29,9 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>36</ApplicationRevision>
+    <ProductName>北京东方亿思管理系统</ProductName>
+    <SuiteName>北京东方亿思管理系统</SuiteName>
+    <ApplicationRevision>37</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -103,6 +105,7 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
     </Reference>
+    <Reference Include="DevExpress.ExpressApp.StateMachine.v16.2, Version=16.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.ExpressApp.Validation.v16.2, Version=16.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
@@ -111,6 +114,8 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
     </Reference>
+    <Reference Include="DevExpress.ExpressApp.Workflow.v16.2, Version=16.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.Workflow.Win.v16.2, Version=16.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.ExpressApp.Xpo.v16.2">
       <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
@@ -162,6 +167,8 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
     </Reference>
+    <Reference Include="DevExpress.Workflow.Activities.v16.2, Version=16.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Workflow.Activities.v16.2.Design, Version=16.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Xpo.v16.2">
       <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
@@ -202,10 +209,15 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
     </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System">
       <Name>System</Name>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Activities" />
+    <Reference Include="System.Activities.Core.Presentation" />
+    <Reference Include="System.Activities.Presentation" />
     <Reference Include="System.configuration">
       <Private>True</Private>
     </Reference>
@@ -218,6 +230,8 @@
       <Name>System.Drawing</Name>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Activities" />
     <Reference Include="System.Web.Extensions">
       <Private>True</Private>
     </Reference>
@@ -225,11 +239,14 @@
       <Name>System.Windows.Forms</Name>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml">
       <Name>System.XML</Name>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
@@ -240,10 +257,6 @@
     <Compile Include="WinApplication.Designer.cs">
       <DependentUpon>WinApplication.cs</DependentUpon>
     </Compile>
-    <None Include="UnusableNodes_zh-CHS.xml">
-      <DependentUpon>Model.xafml</DependentUpon>
-      <SubType>Designer</SubType>
-    </None>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

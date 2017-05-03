@@ -25,8 +25,6 @@
         private void InitializeComponent() {
             this.module1 = new DevExpress.ExpressApp.SystemModule.SystemModule();
             this.module2 = new DevExpress.ExpressApp.Win.SystemModule.SystemWindowsFormsModule();
-            this.module3 = new EastIPInternalInvoiceSystem.Module.EastIPInternalInvoiceSystemModule();
-            this.module4 = new EastIPInternalInvoiceSystem.Module.Win.EastIPInternalInvoiceSystemWindowsFormsModule();
             this.securityModule1 = new DevExpress.ExpressApp.Security.SecurityModule();
             this.securityStrategyComplex1 = new DevExpress.ExpressApp.Security.SecurityStrategyComplex();
             this.authenticationStandard1 = new DevExpress.ExpressApp.Security.AuthenticationStandard();
@@ -38,6 +36,9 @@
             this.dashboardsWindowsFormsModule1 = new DevExpress.ExpressApp.Dashboards.Win.DashboardsWindowsFormsModule();
             this.dashboardsModule1 = new DevExpress.ExpressApp.Dashboards.DashboardsModule();
             this.conditionalAppearanceModule1 = new DevExpress.ExpressApp.ConditionalAppearance.ConditionalAppearanceModule();
+            this.stateMachineModule1 = new DevExpress.ExpressApp.StateMachine.StateMachineModule();
+            this.module3 = new EastIPInternalInvoiceSystem.Module.EastIPInternalInvoiceSystemModule();
+            this.module4 = new EastIPInternalInvoiceSystem.Module.Win.EastIPInternalInvoiceSystemWindowsFormsModule();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // securityStrategyComplex1
@@ -45,7 +46,7 @@
             this.securityStrategyComplex1.Authentication = this.authenticationStandard1;
             this.securityStrategyComplex1.RoleType = typeof(DevExpress.Persistent.BaseImpl.PermissionPolicy.PermissionPolicyRole);
             this.securityStrategyComplex1.SupportNavigationPermissionsForTypes = false;
-            this.securityStrategyComplex1.UserType = typeof(DevExpress.Persistent.BaseImpl.PermissionPolicy.PermissionPolicyUser);
+            this.securityStrategyComplex1.UserType = typeof(EastIPInternalInvoiceSystem.Module.BusinessObjects.SysUser);
             // 
             // authenticationStandard1
             // 
@@ -64,6 +65,10 @@
             // 
             this.dashboardsModule1.DashboardDataType = typeof(DevExpress.Persistent.BaseImpl.DashboardData);
             // 
+            // stateMachineModule1
+            // 
+            this.stateMachineModule1.StateMachineStorageType = typeof(DevExpress.ExpressApp.StateMachine.Xpo.XpoStateMachine);
+            // 
             // EastIPInternalInvoiceSystemWindowsFormsApplication
             // 
             this.ApplicationName = "EastIPInternalInvoiceSystem";
@@ -75,6 +80,7 @@
             this.Modules.Add(this.auditTrailModule1);
             this.Modules.Add(this.dashboardsModule1);
             this.Modules.Add(this.conditionalAppearanceModule1);
+            this.Modules.Add(this.stateMachineModule1);
             this.Modules.Add(this.module3);
             this.Modules.Add(this.validationWindowsFormsModule);
             this.Modules.Add(this.fileAttachmentsWindowsFormsModule1);
@@ -131,5 +137,6 @@
         private DevExpress.ExpressApp.Dashboards.Win.DashboardsWindowsFormsModule dashboardsWindowsFormsModule1;
         private DevExpress.ExpressApp.Dashboards.DashboardsModule dashboardsModule1;
         private DevExpress.ExpressApp.ConditionalAppearance.ConditionalAppearanceModule conditionalAppearanceModule1;
+        private DevExpress.ExpressApp.StateMachine.StateMachineModule stateMachineModule1;
     }
 }

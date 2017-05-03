@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <NavigationItems Id="NavigationItems">
+    <Items Id="Items">
+      <Item Id="@ace9d82c-5c91-4745-94c6-286bdc5edb81">
+        <Items Id="Items">
+          <Item Id="InternalAgent_ListView" ViewId="InternalAgent_ListView" />
+        </Items>
+      </Item>
+    </Items>
+  </NavigationItems>
+</Application>

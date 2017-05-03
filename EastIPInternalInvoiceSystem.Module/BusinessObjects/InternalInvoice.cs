@@ -12,11 +12,6 @@ using EastIPInternalInvoiceSystem.Module.DBUtility;
 namespace EastIPInternalInvoiceSystem.Module.BusinessObjects
 {
     [DefaultClassOptions]
-    //[ImageName("BO_Contact")]
-    //[DefaultProperty("DisplayMemberNameForLookupEditorsOfThisType")]
-    //[DefaultListViewOptions(MasterDetailMode.ListViewOnly, false, NewItemRowPosition.None)]
-    //[Persistent("DatabaseTableName")]
-    // Specify more UI options using a declarative approach (https://documentation.devexpress.com/#eXpressAppFramework/CustomDocument112701).
     [FileAttachment("InvoiceFile")]
     [DefaultProperty("InternalNo")]
     public class InternalInvoice : XPObject
@@ -37,15 +32,15 @@ namespace EastIPInternalInvoiceSystem.Module.BusinessObjects
 
         private EnumsAll.InternalType _nInternalType;
 
-        private PermissionPolicyUser _permissionPolicyUser;
+        private SysUser _permissionPolicyUser;
 
-        private InternalAgent _sAgent1;
+        private SysUser _sAgent1;
 
-        private InternalAgent _sAgent2;
+        private SysUser _sAgent2;
 
-        private InternalAgent _sAgent3;
+        private SysUser _sAgent3;
 
-        private InternalAgent _sAgent4;
+        private SysUser _sAgent4;
 
         private string _sAppName;
 
@@ -76,11 +71,18 @@ namespace EastIPInternalInvoiceSystem.Module.BusinessObjects
         private string _sOurNo;
 
         private string _sType;
-        // Inherit from a different class to provide a custom primary key, concurrency and deletion behavior, etc. (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument113146.aspx).
 
         public InternalInvoice(Session session)
             : base(session)
         {
+        }
+
+        private Invoice invoice;
+        [Association]
+        public Invoice Invoice
+        {
+            get { return invoice; }
+            set { SetPropertyValue("n_InvoiceId", ref invoice, value); }
         }
 
         public DateTime CreateDate
@@ -138,28 +140,28 @@ namespace EastIPInternalInvoiceSystem.Module.BusinessObjects
         }
 
         [NoForeignKey]
-        public InternalAgent Agent1
+        public SysUser Agent1
         {
             get { return _sAgent1; }
             set { SetPropertyValue("s_Agent1", ref _sAgent1, value); }
         }
 
         [NoForeignKey]
-        public InternalAgent Agent2
+        public SysUser Agent2
         {
             get { return _sAgent2; }
             set { SetPropertyValue("s_Agent2", ref _sAgent2, value); }
         }
 
         [NoForeignKey]
-        public InternalAgent Agent3
+        public SysUser Agent3
         {
             get { return _sAgent3; }
             set { SetPropertyValue("s_Agent3", ref _sAgent3, value); }
         }
 
         [NoForeignKey]
-        public InternalAgent Agent4
+        public SysUser Agent4
         {
             get { return _sAgent4; }
             set { SetPropertyValue("s_Agent4", ref _sAgent4, value); }
@@ -222,7 +224,7 @@ namespace EastIPInternalInvoiceSystem.Module.BusinessObjects
         }
 
         [NoForeignKey]
-        public PermissionPolicyUser PermissionPolicyUser
+        public SysUser PermissionPolicyUser
         {
             get { return _permissionPolicyUser; }
             set { SetPropertyValue("s_User", ref _permissionPolicyUser, value); }
@@ -351,27 +353,11 @@ namespace EastIPInternalInvoiceSystem.Module.BusinessObjects
         public override void AfterConstruction()
         {
             base.AfterConstruction();
-            // Place your initialization code here (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument112834.aspx).
+
             CreateDate = DateTime.Now;
             SendDate = CreateDate.AddDays(3);
             Deadline = CreateDate.AddDays(7);
         }
-
-        //private string _PersistentProperty;
-        //[XafDisplayName("My display name"), ToolTip("My hint message")]
-        //[ModelDefault("EditMask", "(000)-00"), Index(0), VisibleInListView(false)]
-        //[Persistent("DatabaseColumnName"), RuleRequiredField(DefaultContexts.Save)]
-        //public string PersistentProperty {
-        //    get { return _PersistentProperty; }
-        //    set { SetPropertyValue("PersistentProperty", ref _PersistentProperty, value); }
-        //}
-
-        //[Action(Caption = "My UI Action", ConfirmationMessage = "Are you sure?", ImageName = "Attention", AutoCommit = true)]
-        //public void ActionMethod() {
-        //    // Trigger a custom business logic for the current record in the UI (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument112619.aspx).
-        //    this.PersistentProperty = "Paid";
-        //}
-
         protected override void OnSaving()
         {
             base.OnSaving();
@@ -381,7 +367,7 @@ namespace EastIPInternalInvoiceSystem.Module.BusinessObjects
         {
             //if (!string.IsNullOrWhiteSpace(_sInvoiceNo)) return;
             InternalNo = GetMaxFlow();
-            PermissionPolicyUser = Session.GetObjectByKey<PermissionPolicyUser>(SecuritySystem.CurrentUserId);
+            PermissionPolicyUser = Session.GetObjectByKey<SysUser>(SecuritySystem.CurrentUserId);
         }
 
         public string GetMaxFlow()

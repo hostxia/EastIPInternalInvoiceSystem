@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Localization Id="Localization">
+    <LocalizationGroup Name="Exceptions">
+      <LocalizationGroup Name="UserVisibleExceptions">
+        <LocalizationGroup Name="Security">
+          <LocalizationItem Name="LoginFailed" Value="登陆失败。原因 '{0}'. {1}" />
+        </LocalizationGroup>
+      </LocalizationGroup>
+    </LocalizationGroup>
+  </Localization>
+</Application>

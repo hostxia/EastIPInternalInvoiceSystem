@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel Id="BOModel">
+    <Class Name="EastIPInternalInvoiceSystem.Module.BusinessObjects.SearchCondition" Caption="查询条件">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="s_Condition" Caption="条件" />
+        <Member Name="s_Name" Caption="名称" />
+        <Member Name="SysUser" Caption="所属用户" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+</Application>
