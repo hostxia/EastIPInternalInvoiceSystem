@@ -1,0 +1,907 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application Title="东方亿思管理系统" Logo="BO_Sale_v92" Copyright="Meng XIA" Company="EastIP">
+  <BOModel>
+    <Class Name="DevExpress.Persistent.BaseImpl.BaseObject">
+      <OwnMembers>
+        <Member Name="Oid" Caption="Id" />
+      </OwnMembers>
+    </Class>
+    <Class Name="EastIPSystem.Module.BusinessObjects.CaseBase" ImageName="Action_Navigation">
+      <OwnMembers>
+        <Member Name="ApplicantCodes" AllowEdit="False" />
+        <Member Name="ApplicantNames" AllowEdit="False" />
+        <Member Name="Note" RowCount="4" Size="2000" />
+      </OwnMembers>
+    </Class>
+    <Class Name="EastIPSystem.Module.BusinessObjects.CaseExtension" Caption="延期" ImageName="BO_Note">
+      <OwnMembers>
+        <Member Name="b_OurProblem" Caption="责任方" />
+        <Member Name="ConfirmApprover" AllowEdit="False" />
+        <Member Name="Creator" AllowEdit="False" />
+        <Member Name="DepartApprover" AllowEdit="False" />
+        <Member Name="dt_ConfirmApprovalDate" AllowEdit="False" />
+        <Member Name="dt_Created" AllowEdit="False" />
+        <Member Name="dt_DepartApprovalDate" AllowEdit="False" />
+        <Member Name="dt_ModifyApprovalDate" AllowEdit="False" />
+        <Member Name="ModifyApprover" AllowEdit="False" />
+        <Member Name="n_ExtendItem" Caption="延期项目" />
+        <Member Name="n_State" AllowEdit="False" />
+        <Member Name="s_DepartReason" RowCount="4" />
+        <Member Name="s_ModifyReason" RowCount="4" />
+      </OwnMembers>
+    </Class>
+    <Class Name="EastIPSystem.Module.BusinessObjects.Corporation" ImageName="BO_Contact" />
+    <Class Name="EastIPSystem.Module.BusinessObjects.Expense" Caption="报销" ImageName="BO_Sale_Item_v92">
+      <OwnMembers>
+        <Member Name="dt_ExpenseDate" Caption="发生时间" />
+        <Member Name="dt_PaidDate" Caption="支付时间" />
+        <Member Name="ExpenseFile" Caption="电子件" />
+        <Member Name="InvoiceNo" Caption="正式账单号" />
+        <Member Name="n_Amount" Caption="金额" EditMask="n2" DisplayFormat="{0:n2}" />
+        <Member Name="PerNo" Caption="预账单号" />
+        <Member Name="s_CertificateNo" Caption="凭证号" />
+        <Member Name="s_Description" Caption="费用明细" />
+        <Member Name="s_ExpenseNo" Caption="编号" />
+        <Member Name="s_Note" Caption="备注" />
+        <Member Name="s_OurNo" Caption="我方卷号" />
+      </OwnMembers>
+    </Class>
+    <Class Name="EastIPSystem.Module.BusinessObjects.Fee" Caption="第三方费用" ImageName="BO_Sale_v92">
+      <OwnMembers>
+        <Member Name="FeeType" Caption="类型" />
+        <Member Name="Invoice" Caption="账单" />
+        <Member Name="n_Amount" Caption="金额" />
+        <Member Name="s_Description" Caption="名称" />
+      </OwnMembers>
+    </Class>
+    <Class Name="EastIPSystem.Module.BusinessObjects.InternalInvoice" Caption="草单管理" ObjectCaptionFormat="{0:InternalNo}" DefaultListViewShowAutoFilterRow="True" ImageName="BO_Invoice">
+      <OwnMembers>
+        <Member Name="Agent1" Caption="代理人1" Size="20" DataSourceProperty="" LookupProperty="CodeName" LookupEditorMode="AllItemsWithSearch" />
+        <Member Name="Agent2" Caption="代理人2" Size="20" LookupProperty="CodeName" LookupEditorMode="AllItemsWithSearch" />
+        <Member Name="Agent3" Caption="代理人3" Size="20" LookupProperty="CodeName" LookupEditorMode="AllItemsWithSearch" />
+        <Member Name="Agent4" Caption="代理人4" Size="20" LookupProperty="CodeName" LookupEditorMode="AllItemsWithSearch" />
+        <Member Name="AppName" Caption="申请人" Size="200" />
+        <Member Name="AppNo" Caption="申请人编号" Size="20" />
+        <Member Name="ClientName" Caption="委托人" Size="200" />
+        <Member Name="ClientNo" Caption="委托人编号" Size="20" />
+        <Member Name="Content" Caption="草单内容" Size="200" />
+        <Member Name="CreateDate" Caption="记录日" AllowEdit="False" />
+        <Member Name="Deadline" Caption="账单发送期限" />
+        <Member Name="dt_DateApplication" Caption="请款日" />
+        <Member Name="dt_DateApproval" Caption="核准日" />
+        <Member Name="dt_DateForeignInvoice" Caption="记账日" />
+        <Member Name="FInvoiceFile" Caption="第三方电子件" />
+        <Member Name="FirmNo" Caption="外所账单编号" />
+        <Member Name="InternalNo" Caption="草单编号" AllowEdit="False" />
+        <Member Name="InternalType" Caption="草单类型" />
+        <Member Name="InvoiceFile" Caption="电子件" />
+        <Member Name="InvoiceLogDate" Caption="账单记录日" />
+        <Member Name="InvoiceNo" Caption="账单编号" Size="50" />
+        <Member Name="InvoiceNote" Caption="账单备注" RowCount="3" Size="2000" />
+        <Member Name="IsInvalid" Caption="作废" />
+        <Member Name="n_FeeAgent" Caption="代理费" DisplayFormat="{0:n2}" EditMask="n2" />
+        <Member Name="n_FeeDistribution" Caption="杂费" DisplayFormat="{0:n2}" EditMask="n2" />
+        <Member Name="n_FeeOfficial" Caption="官费" DisplayFormat="{0:n2}" EditMask="n2" />
+        <Member Name="n_FeeService" Caption="服务费" DisplayFormat="{0:n2}" EditMask="n2" />
+        <Member Name="n_FeeTotal" Caption="合计" DisplayFormat="{0:n2}" EditMask="n2" />
+        <Member Name="n_FeeTranslation" Caption="翻译费" DisplayFormat="{0:n2}" EditMask="n2" />
+        <Member Name="n_Hour" Caption="小时数" EditMask="n2" DisplayFormat="{0:n2}" />
+        <Member Name="NoNeedInvoice" Caption="无须开账单" />
+        <Member Name="Note" Caption="备注" RowCount="3" Size="2000" />
+        <Member Name="OurNo" Caption="我方卷号" Size="20" />
+        <Member Name="PermissionPolicyUser" Caption="登记人" AllowEdit="False" />
+        <Member Name="s_Currency" Caption="币种" />
+        <Member Name="s_ForeignAgency" Caption="债方" />
+        <Member Name="SendDate" Caption="草单发送期限" />
+        <Member Name="Type" Caption="账单归属" Size="1" />
+      </OwnMembers>
+    </Class>
+    <Class Name="EastIPSystem.Module.BusinessObjects.Invoice" Caption="账单" ImageName="BO_Sale_Item">
+      <OwnMembers>
+        <Member Name="Creator" Caption="创建人" />
+        <Member Name="dt_Created" Caption="创建时间" />
+        <Member Name="dt_InvoiceLogDate" Caption="账单登记日" />
+        <Member Name="Expenses" Caption="报销" />
+        <Member Name="Fees" Caption="第三方费用" />
+        <Member Name="InternalInvoices" Caption="草单" />
+        <Member Name="s_Description" Caption="说明" RowCount="4" />
+        <Member Name="s_InvoiceNo" Caption="正式账单号" />
+        <Member Name="s_OurNo" Caption="我方卷号" />
+        <Member Name="s_PreNo" Caption="预账单号" />
+        <Member Name="State" Caption="状态" />
+        <Member Name="TimeSheets" Caption="工时" />
+      </OwnMembers>
+    </Class>
+    <Class Name="EastIPSystem.Module.BusinessObjects.SysUser">
+      <OwnMembers>
+        <Member Name="Department" Caption="部门" />
+      </OwnMembers>
+    </Class>
+    <Class Name="EastIPSystem.Module.BusinessObjects.TimeSheet" Caption="工时" ImageName="Action_Inline_New">
+      <OwnMembers>
+        <Member Name="dt_WorkDate" Caption="工作日期" />
+        <Member Name="Invoice" Caption="账单" />
+        <Member Name="n_Hour" Caption="小时/字数" EditMask="n2" DisplayFormat="{0:n2}" />
+        <Member Name="s_Description" Caption="描述" />
+        <Member Name="TimeKeeper" Caption="代理人" />
+      </OwnMembers>
+    </Class>
+    <Class Name="EastIPSystem.Module.BusinessObjects.WorkItem" Caption="工作项" ImageName="Action_Inline_Edit">
+      <OwnMembers>
+        <Member Name="Creator" Caption="创建人" AllowEdit="False" />
+        <Member Name="DepartApprover" Caption="部门审批人" AllowEdit="False" />
+        <Member Name="dt_Created" Caption="创建时间" AllowEdit="False" EditMask="G" DisplayFormat="{0:G}" />
+        <Member Name="dt_DepartApprovalDate" Caption="部门审批时间" EditMask="G" DisplayFormat="{0:G}" AllowEdit="False" />
+        <Member Name="dt_SubmitDate" Caption="提交时间" AllowEdit="False" EditMask="G" DisplayFormat="{0:G}" />
+        <Member Name="dt_WorkDate" Caption="工作日期" EditMask="d" />
+        <Member Name="n_BillingQuantity" Caption="账单数量" DisplayFormat="{0:n2}" EditMask="n2" />
+        <Member Name="n_Quantity" Caption="数量" DisplayFormat="{0:n2}" EditMask="n2" />
+        <Member Name="n_RewardQuantity" Caption="报酬数量" DisplayFormat="{0:n2}" EditMask="n2" />
+        <Member Name="s_Description" Caption="工作描述" />
+        <Member Name="s_Note" Caption="备注" RowCount="4" Size="2000" />
+        <Member Name="s_OurNo" Caption="我方卷号" />
+        <Member Name="State" Caption="状态" AllowEdit="False" />
+        <Member Name="Worker" Caption="人员" AllowEdit="False" />
+        <Member Name="WorkType" Caption="类型" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <NavigationItems StartupNavigationItem="InternalInvoice_ListView">
+    <Items>
+      <Item Id="@727079be-78de-4f2b-b8e6-261e45d1021c" IsNewNode="True">
+        <Items IsNewNode="True">
+          <Item Id="InternalInvoice_ListView" ViewId="InternalInvoice_ListView" ObjectKey="" Index="0" IsNewNode="True" />
+          <Item Id="ForeignInvoice_ListView" ViewId="ForeignInvoice_ListView" Index="1" IsNewNode="True" />
+          <Item Id="Expense_ListView" ViewId="Expense_ListView" ObjectKey="" IsNewNode="True" />
+          <Item Id="Fee_ListView" ViewId="Fee_ListView" ObjectKey="" IsNewNode="True" />
+          <Item Id="Invoice_ListView" ViewId="Invoice_ListView" ObjectKey="" IsNewNode="True" />
+        </Items>
+      </Item>
+      <Item Id="@ace9d82c-5c91-4745-94c6-286bdc5edb81" Caption="业务管理" IsNewNode="True">
+        <Items IsNewNode="True">
+          <Item Id="Corporation_ListView" ViewId="Corporation_ListView" ObjectKey="" Index="0" IsNewNode="True" />
+          <Item Id="CaseBase_ListView" ViewId="CaseBase_ListView" ObjectKey="" Index="1" IsNewNode="True" />
+          <Item Id="WorkItem_ListView" ViewId="WorkItem_ListView" ObjectKey="" Index="2" IsNewNode="True" />
+          <Item Id="TimeSheet_ListView" ViewId="TimeSheet_ListView" ObjectKey="" Index="3" IsNewNode="True" />
+          <Item Id="CaseExtension_ListView" ViewId="CaseExtension_ListView" ObjectKey="" Index="4" IsNewNode="True" />
+        </Items>
+      </Item>
+      <Item Id="Default" Caption="配置管理" Visible="True">
+        <Items>
+          <Item Id="CaseBase_ListView" Removed="True" />
+          <Item Id="CaseExtension_ListView" Removed="True" />
+          <Item Id="Corporation_ListView" Removed="True" />
+          <Item Id="Expense_ListView" Removed="True" />
+          <Item Id="Fee_ListView" Removed="True" />
+          <Item Id="InternalInvoice_ListView" Removed="True" />
+          <Item Id="Invoice_ListView" Removed="True" />
+          <Item Id="TimeSheet_ListView" Removed="True" />
+          <Item Id="WorkItem_ListView" Removed="True" />
+          <Item Id="XpoStateMachine_ListView" ViewId="XpoStateMachine_ListView" ObjectKey="" IsNewNode="True" />
+        </Items>
+      </Item>
+      <Item Id="Reports" Caption="统计分析">
+        <Items>
+          <DashboardNavigationItem Id="NewInternalInvoice" Caption="未开草单统计" DashboardTitle="未开草单统计" Index="3" IsNewNode="True" />
+          <DashboardNavigationItem Id="NewInvoice" Caption="未开账单统计" DashboardTitle="未开账单统计" Index="4" IsNewNode="True" />
+          <Item Id="Dashboards" Caption="统计" />
+        </Items>
+      </Item>
+      <Item Id="State Machine" Removed="True">
+        <Items>
+          <Item Id="XpoStateMachine_ListView" Removed="True" />
+        </Items>
+      </Item>
+    </Items>
+  </NavigationItems>
+  <Options>
+    <LayoutManagerOptions RequiredFieldMark="*" />
+  </Options>
+  <SchemaModules>
+    <SchemaModule Name="SystemModule" Version="16.2.3.0" IsNewNode="True" />
+  </SchemaModules>
+  <Validation>
+    <Rules>
+      <RuleUniqueValue Id="CaseBase_OurNoUnique" TargetType="EastIPSystem.Module.BusinessObjects.CaseBase" TargetPropertyName="OurNo" TargetContextIDs="Save" IsNewNode="True" />
+      <RuleCombinationOfPropertiesIsUnique Id="ForeignInvoice_CombinUnique" TargetType="EastIPSystem.Module.BusinessObjects.InternalInvoice" TargetContextIDs="Save" CriteriaEvaluationBehavior="BeforeTransaction" TargetProperties="FirmNo,OurNo" IsNewNode="True" />
+      <RuleRequiredField Id="InternalInvoice_ContentRequired" TargetType="EastIPSystem.Module.BusinessObjects.InternalInvoice" TargetPropertyName="Content" TargetContextIDs="Save" IsNewNode="True" />
+      <RuleCombinationOfPropertiesIsUnique Id="InternalInvoice_InternalInvoiceCombinUnique" TargetType="EastIPSystem.Module.BusinessObjects.InternalInvoice" TargetProperties="OurNo,Content,InternalType" TargetContextIDs="Save" SkipNullOrEmptyValues="False" CriteriaEvaluationBehavior="BeforeTransaction" IsNewNode="True" />
+      <RuleUniqueValue Id="InternalInvoice_InternalNoUnique" TargetType="EastIPSystem.Module.BusinessObjects.InternalInvoice" TargetPropertyName="InternalNo" TargetContextIDs="Save" CriteriaEvaluationBehavior="BeforeTransaction" IsNewNode="True" />
+      <RuleRequiredField Id="InternalInvoice_InternalTypeRequired" TargetType="EastIPSystem.Module.BusinessObjects.InternalInvoice" TargetPropertyName="InternalType" TargetContextIDs="Save" IsNewNode="True" />
+      <RuleRequiredField Id="InternalInvoice_OurNoRequired" TargetType="EastIPSystem.Module.BusinessObjects.InternalInvoice" TargetPropertyName="OurNo" TargetContextIDs="Save" IsNewNode="True" />
+    </Rules>
+  </Validation>
+  <Views>
+    <ListView Id="CaseBase_Applicants_ListView">
+      <Columns>
+        <ColumnInfo Id="Code" Index="0" SortIndex="-1" SortOrder="None" Width="91" />
+        <ColumnInfo Id="Name" Index="1" SortIndex="-1" SortOrder="None" />
+      </Columns>
+      <HiddenActions>
+        <ActionLink ActionId="Delete" IsNewNode="True" />
+        <ActionLink ActionId="New" IsNewNode="True" />
+      </HiddenActions>
+    </ListView>
+    <DetailView Id="CaseBase_DetailView">
+      <Items>
+        <PropertyEditor Id="ApplicantCodes" Removed="True" />
+        <PropertyEditor Id="ApplicantNames" Removed="True" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="29.912390488110137">
+            <LayoutGroup Id="CaseBase" RelativeSize="31.380753138075313" Direction="Vertical">
+              <LayoutGroup Id="Auto8a957290-bc5d-4418-a716-8ac7af0ff3fa" ShowCaption="False" Index="0" RelativeSize="100" Direction="Horizontal" IsNewNode="True">
+                <LayoutItem Id="OurNo" ViewItem="OurNo" Index="0" RelativeSize="49.938949938949939" IsNewNode="True" />
+                <LayoutItem Id="IsMiddle" ViewItem="IsMiddle" Index="1" RelativeSize="50.061050061050061" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="CaseBase_col1" RelativeSize="100" Direction="Horizontal" Removed="True">
+                <LayoutGroup Id="Autob76fef52-5c3a-47ef-b0cf-5e9e9b18d657" ShowCaption="False" Index="0" RelativeSize="50" IsNewNode="True">
+                  <LayoutItem Id="OurNo" ViewItem="OurNo" Index="0" RelativeSize="4.2328042328042326" IsNewNode="True" />
+                  <LayoutItem Id="ReceiveDate" ViewItem="ReceiveDate" Index="1" RelativeSize="3.1746031746031744" IsNewNode="True" />
+                  <LayoutItem Id="TransferDate" ViewItem="TransferDate" Index="2" RelativeSize="92.5925925925926" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutItem Id="Agency" ViewItem="Agency" Index="1" RelativeSize="89.417989417989418" Removed="True" />
+                <LayoutItem Id="Applicant" RelativeSize="3.1746031746031744" Index="1" Removed="True" />
+                <LayoutGroup Id="Auto40445710-8d28-4b4a-a39e-cc19d803a2f7" ShowCaption="False" Index="1" RelativeSize="50" IsNewNode="True">
+                  <LayoutItem Id="Applicant" ViewItem="Applicant" Index="0" RelativeSize="4.2328042328042326" IsNewNode="True" />
+                  <LayoutItem Id="Client" ViewItem="Client" Index="1" RelativeSize="3.1746031746031744" IsNewNode="True" />
+                  <LayoutItem Id="Agency" ViewItem="Agency" Index="2" RelativeSize="92.5925925925926" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutItem Id="Client" RelativeSize="3.1746031746031744" Index="1" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="CaseBase_col2" RelativeSize="50" Direction="Horizontal" Removed="True">
+                <LayoutItem Id="ReceiveDate" Index="0" RelativeSize="4.2328042328042326" Removed="True" />
+                <LayoutItem Id="TransferDate" Index="0" RelativeSize="100" Removed="True" />
+                <LayoutItem Id="OurNo" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="Item1" ShowCaption="True" CaptionLocation="Top" Direction="Horizontal" Index="1" RelativeSize="28.03347280334728" IsNewNode="True">
+              <LayoutItem Id="ReceiveDate" ViewItem="ReceiveDate" Index="0" RelativeSize="49.816849816849818" IsNewNode="True" />
+              <LayoutItem Id="Client" ViewItem="Client" Index="1" RelativeSize="50.183150183150182" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="Item2" ShowCaption="True" CaptionLocation="Top" Direction="Horizontal" Index="2" RelativeSize="40.585774058577407" IsNewNode="True">
+              <LayoutGroup Id="Auto25700d50-5531-4479-8d6a-7cd63030417d" ShowCaption="False" Index="0" RelativeSize="49.816849816849818" Direction="Vertical" IsNewNode="True">
+                <LayoutItem Id="TransferDate" ViewItem="TransferDate" Index="0" RelativeSize="50" IsNewNode="True" />
+                <LayoutItem Id="IsSpecified" ViewItem="IsSpecified" Index="1" RelativeSize="50" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutItem Id="Agency" ViewItem="Agency" Index="1" RelativeSize="50.183150183150182" IsNewNode="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="Applicants_Group" Direction="Vertical" RelativeSize="36.420525657071337">
+            <LayoutItem Id="Applicants" RelativeSize="100" />
+          </LayoutGroup>
+          <LayoutGroup Id="Item3" ShowCaption="True" CaptionLocation="Top" Index="2" RelativeSize="33.667083854818522" IsNewNode="True">
+            <LayoutItem Id="Note" ViewItem="Note" Index="0" RelativeSize="100" ShowCaption="False" IsNewNode="True" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="CaseExtension_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="CaseExtension" RelativeSize="26" Direction="Horizontal">
+              <LayoutGroup Id="Autof712a1b3-3b59-49d8-8e4c-be651099acfd" ShowCaption="False" Index="0" RelativeSize="50" IsNewNode="True">
+                <LayoutItem Id="s_OurNo" ViewItem="s_OurNo" Index="0" RelativeSize="20" IsNewNode="True" />
+                <LayoutItem Id="s_ClientNo" ViewItem="s_ClientNo" Index="1" RelativeSize="15" IsNewNode="True" />
+                <LayoutItem Id="s_Client" ViewItem="s_Client" Index="2" RelativeSize="15" IsNewNode="True" />
+                <LayoutItem Id="s_ApplicantNo" ViewItem="s_ApplicantNo" Index="3" RelativeSize="15" IsNewNode="True" />
+                <LayoutItem Id="s_Applicant" ViewItem="s_Applicant" Index="4" RelativeSize="15" IsNewNode="True" />
+                <LayoutItem Id="n_State" ViewItem="n_State" Index="5" RelativeSize="20" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Auto5a571db8-cabb-48e0-9414-1706fb76eea0" ShowCaption="False" Index="1" RelativeSize="50" IsNewNode="True">
+                <LayoutItem Id="dt_ExtendDate" ViewItem="dt_ExtendDate" Index="0" RelativeSize="20" IsNewNode="True" />
+                <LayoutItem Id="n_ExtendItem" ViewItem="n_ExtendItem" Index="1" RelativeSize="15" IsNewNode="True" />
+                <LayoutItem Id="b_OurProblem" ViewItem="b_OurProblem" Index="2" RelativeSize="15" IsNewNode="True" />
+                <LayoutItem Id="s_ExtendNote" ViewItem="s_ExtendNote" Index="3" RelativeSize="15" IsNewNode="True" />
+                <LayoutItem Id="s_AlertWay" ViewItem="s_AlertWay" Index="4" RelativeSize="15" IsNewNode="True" />
+                <LayoutItem Id="Owner" ViewItem="Owner" Index="5" RelativeSize="20" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="CaseExtension_col1" RelativeSize="100" Direction="Horizontal" Removed="True">
+                <LayoutGroup Id="Autof712a1b3-3b59-49d8-8e4c-be651099acfd" ShowCaption="False" Index="0" RelativeSize="49.947970863683665" IsNewNode="True">
+                  <LayoutItem Id="s_OurNo" ViewItem="s_OurNo" Index="0" RelativeSize="20" IsNewNode="True" />
+                  <LayoutItem Id="s_ClientNo" ViewItem="s_ClientNo" Index="1" RelativeSize="15" IsNewNode="True" />
+                  <LayoutItem Id="s_Client" ViewItem="s_Client" Index="2" RelativeSize="15" IsNewNode="True" />
+                  <LayoutItem Id="s_ApplicantNo" ViewItem="s_ApplicantNo" Index="3" RelativeSize="15" IsNewNode="True" />
+                  <LayoutItem Id="s_Applicant" ViewItem="s_Applicant" Index="4" RelativeSize="35" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutItem Id="dt_Created" Index="0" RelativeSize="12.5" Removed="True" />
+                <LayoutItem Id="s_OurNo" RelativeSize="13.793103448275861" Index="0" Removed="True" />
+                <LayoutGroup Id="Auto5a571db8-cabb-48e0-9414-1706fb76eea0" ShowCaption="False" Index="1" RelativeSize="50.052029136316335" IsNewNode="True">
+                  <LayoutItem Id="dt_ExtendDate" ViewItem="dt_ExtendDate" Index="0" RelativeSize="20" IsNewNode="True" />
+                  <LayoutItem Id="n_ExtendItem" ViewItem="n_ExtendItem" Index="1" RelativeSize="15" IsNewNode="True" />
+                  <LayoutItem Id="s_AlertWay" ViewItem="s_AlertWay" Index="2" RelativeSize="15" IsNewNode="True" />
+                  <LayoutItem Id="s_ExtendNote" ViewItem="s_ExtendNote" Index="3" RelativeSize="15" IsNewNode="True" />
+                  <LayoutItem Id="Owner" ViewItem="Owner" Index="4" RelativeSize="15" IsNewNode="True" />
+                  <LayoutItem Id="n_State" ViewItem="n_State" Index="5" RelativeSize="20" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutItem Id="s_Applicant" Index="1" RelativeSize="23.529411764705884" Removed="True" />
+                <LayoutItem Id="s_ApplicantNo" Index="1" RelativeSize="15" Removed="True" />
+                <LayoutItem Id="s_Client" Index="1" RelativeSize="13.043478260869565" Removed="True" />
+                <LayoutItem Id="s_ClientNo" ViewItem="s_ClientNo" Index="1" RelativeSize="11.538461538461538" Removed="True" />
+                <LayoutItem Id="Owner" Index="2" RelativeSize="33.501896333754743" Removed="True" />
+                <LayoutItem Id="s_AlertWay" ViewItem="s_AlertWay" Index="3" RelativeSize="20" Removed="True" />
+                <LayoutItem Id="s_ExtendNote" RelativeSize="13.043478260869565" Index="4" Removed="True" />
+                <LayoutItem Id="dt_ExtendDate" Index="5" RelativeSize="10.344827586206897" Removed="True" />
+                <LayoutItem Id="Creator" Removed="True" />
+                <LayoutItem Id="n_State" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="CaseExtension_col2" RelativeSize="50.063371356147023" Direction="Horizontal" Removed="True">
+                <LayoutItem Id="s_ConfirmApprover" RelativeSize="100" Index="0" Removed="True" />
+                <LayoutItem Id="s_DepartDefaultApprover" RelativeSize="4.2049934296977662" Index="0" Removed="True" />
+                <LayoutItem Id="s_ModifyApprover" RelativeSize="11.428571428571429" Index="0" Removed="True" />
+                <LayoutItem Id="s_DepartApprover" RelativeSize="3.1537450722733245" Index="1" Removed="True" />
+                <LayoutItem Id="s_ModifyApprovalState" RelativeSize="8.5714285714285712" Index="1" Removed="True" />
+                <LayoutItem Id="s_DepartApprovalState" RelativeSize="3.1537450722733245" Index="2" Removed="True" />
+                <LayoutItem Id="s_ModifyReason" RelativeSize="8.5714285714285712" Index="2" Removed="True" />
+                <LayoutItem Id="s_DepartReason" RelativeSize="3.1537450722733245" Index="3" Removed="True" />
+                <LayoutItem Id="s_State" RelativeSize="4.2049934296977662" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="Autof806f67f-f0a4-4b89-8c0e-68c3eb663e3c" ShowCaption="False" Direction="Horizontal" Index="1" RelativeSize="63.2" IsNewNode="True">
+              <LayoutGroup Id="Item1" ShowCaption="True" CaptionLocation="Top" Index="0" RelativeSize="50" IsNewNode="True">
+                <LayoutItem Id="s_DepartReason" ViewItem="s_DepartReason" Index="0" RelativeSize="91.498881431767344" IsNewNode="True" />
+                <LayoutGroup Id="Autof4bba2ca-f336-4078-a82b-1ac5030e5441" ShowCaption="False" Direction="Horizontal" Index="1" RelativeSize="8.5011185682326627" IsNewNode="True">
+                  <LayoutItem Id="DepartApprover" ViewItem="DepartApprover" Index="0" RelativeSize="50" IsNewNode="True" />
+                  <LayoutItem Id="dt_DepartApprovalDate" ViewItem="dt_DepartApprovalDate" Index="1" RelativeSize="50" IsNewNode="True" />
+                </LayoutGroup>
+              </LayoutGroup>
+              <LayoutGroup Id="Item2" ShowCaption="True" CaptionLocation="Top" Index="1" RelativeSize="50" IsNewNode="True">
+                <LayoutItem Id="s_ModifyReason" ViewItem="s_ModifyReason" Index="0" RelativeSize="91.498881431767344" IsNewNode="True" />
+                <LayoutGroup Id="Auto3a76b0fa-102f-490d-bc79-c2b43d0751d0" ShowCaption="False" Direction="Horizontal" Index="1" RelativeSize="8.5011185682326627" IsNewNode="True">
+                  <LayoutItem Id="ModifyApprover" ViewItem="ModifyApprover" Index="0" RelativeSize="49.307479224376735" IsNewNode="True" />
+                  <LayoutItem Id="dt_ModifyApprovalDate" ViewItem="dt_ModifyApprovalDate" Index="1" RelativeSize="50.692520775623265" IsNewNode="True" />
+                </LayoutGroup>
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="Autoc22320ed-e14f-4ff5-9750-a41e71e04bbd" ShowCaption="False" Caption="Autoc22320ed-e14f-4ff5-9750-a41e71e04bbd(33)" Direction="Horizontal" Index="2" RelativeSize="10.8" IsNewNode="True">
+              <LayoutGroup Id="Item3" ShowCaption="True" CaptionLocation="Top" Direction="Horizontal" Index="0" RelativeSize="50" IsNewNode="True">
+                <LayoutItem Id="ConfirmApprover" ViewItem="ConfirmApprover" Index="0" RelativeSize="49.438202247191015" IsNewNode="True" />
+                <LayoutItem Id="dt_ConfirmApprovalDate" ViewItem="dt_ConfirmApprovalDate" Index="1" RelativeSize="50.561797752808985" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Item4" ShowCaption="True" CaptionLocation="Top" Direction="Horizontal" Index="1" RelativeSize="50" IsNewNode="True">
+                <LayoutItem Id="Creator" ViewItem="Creator" Index="0" RelativeSize="50" IsNewNode="True" />
+                <LayoutItem Id="dt_Created" ViewItem="dt_Created" Index="1" RelativeSize="50" IsNewNode="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="CaseExtension_ListView" IsFooterVisible="True" />
+    <ListView Id="Corporation_ListView" IsFooterVisible="True" />
+    <ListView Id="Corporation_LookupListView">
+      <Columns>
+        <ColumnInfo Id="Code" PropertyName="Code" Index="0" SortIndex="0" SortOrder="Ascending" IsNewNode="True" />
+        <ColumnInfo Id="Name" Index="1" SortIndex="-1" SortOrder="None" Width="170" />
+      </Columns>
+    </ListView>
+    <DetailView Id="Expense_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="Expense" RelativeSize="100" Direction="Vertical" Caption="报销">
+              <LayoutGroup Id="Expense_col1" RelativeSize="100">
+                <LayoutItem Id="s_ExpenseNo" Index="0" RelativeSize="4.2328042328042326" />
+                <LayoutItem Id="s_OurNo" Index="1" RelativeSize="3.1746031746031744" />
+                <LayoutItem Id="s_Description" Index="2" RelativeSize="3.1746031746031744" ViewItem="s_Description" IsNewNode="True" />
+                <LayoutItem Id="ExpenseFile" ViewItem="ExpenseFile" Index="3" RelativeSize="3.1746031746031744" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Expense_col2" RelativeSize="50" Caption="Expense_col2" Direction="Horizontal" Removed="True">
+                <LayoutItem Id="ExpenseFile" RelativeSize="100" Index="0" Removed="True" />
+                <LayoutItem Id="s_Description" RelativeSize="4.2328042328042326" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="Expense_ListView" IsFooterVisible="True" />
+    <DetailView Id="Fee_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="Fee" RelativeSize="100" ShowCaption="True" Caption="第三方费用">
+              <LayoutItem Id="FeeType" Index="0" RelativeSize="4.5261669024045261" />
+              <LayoutItem Id="s_Description" Index="1" RelativeSize="3.3946251768033946" />
+              <LayoutItem Id="n_Amount" Index="2" RelativeSize="3.3946251768033946" />
+              <LayoutItem Id="Invoice" Index="3" RelativeSize="88.684582743988685" />
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="Fee_ListView" IsFooterVisible="True" />
+    <DetailView Id="ForeignInvoice_DetailView" ClassName="EastIPSystem.Module.BusinessObjects.InternalInvoice" Caption="第三方账单" ObjectCaptionFormat="{0:FirmNo}" ImageName="BO_Sale" DefaultFocusedItem="dt_DateForeignInvoice" IsNewNode="True">
+      <Items IsNewNode="True">
+        <PropertyEditor Id="b_IsNotInternalInvoice" PropertyName="b_IsNotInternalInvoice" IsNewNode="True" />
+        <PropertyEditor Id="Content" PropertyName="Content" Caption="项目" IsNewNode="True" />
+        <PropertyEditor Id="Deadline" PropertyName="Deadline" AllowEdit="False" IsNewNode="True" />
+        <PropertyEditor Id="dt_DateApplication" PropertyName="dt_DateApplication" IsNewNode="True" />
+        <PropertyEditor Id="dt_DateApproval" PropertyName="dt_DateApproval" IsNewNode="True" />
+        <PropertyEditor Id="dt_DateForeignInvoice" PropertyName="dt_DateForeignInvoice" IsNewNode="True" />
+        <PropertyEditor Id="FInvoiceFile" PropertyName="FInvoiceFile" IsNewNode="True" />
+        <PropertyEditor Id="FirmNo" PropertyName="FirmNo" IsNewNode="True" />
+        <PropertyEditor Id="InternalNo" PropertyName="InternalNo" IsNewNode="True" />
+        <PropertyEditor Id="InvoiceLogDate" PropertyName="InvoiceLogDate" AllowEdit="False" IsNewNode="True" />
+        <PropertyEditor Id="InvoiceNo" PropertyName="InvoiceNo" AllowEdit="False" IsNewNode="True" />
+        <PropertyEditor Id="IsInvalid" PropertyName="IsInvalid" AllowEdit="False" IsNewNode="True" />
+        <PropertyEditor Id="n_FeeAgent" PropertyName="n_FeeAgent" IsNewNode="True" />
+        <PropertyEditor Id="n_FeeDistribution" PropertyName="n_FeeDistribution" IsNewNode="True" />
+        <PropertyEditor Id="n_FeeOfficial" PropertyName="n_FeeOfficial" IsNewNode="True" />
+        <PropertyEditor Id="n_FeeService" PropertyName="n_FeeService" IsNewNode="True" />
+        <PropertyEditor Id="n_FeeTotal" PropertyName="n_FeeTotal" IsNewNode="True" />
+        <PropertyEditor Id="n_FeeTranslation" PropertyName="n_FeeTranslation" IsNewNode="True" />
+        <PropertyEditor Id="n_Hour" PropertyName="n_Hour" IsNewNode="True" />
+        <PropertyEditor Id="NoNeedInvoice" PropertyName="NoNeedInvoice" AllowEdit="False" IsNewNode="True" />
+        <PropertyEditor Id="Note" PropertyName="Note" IsNewNode="True" />
+        <PropertyEditor Id="Oid" PropertyName="Oid" IsNewNode="True" />
+        <PropertyEditor Id="OurNo" PropertyName="OurNo" IsNewNode="True" />
+        <PropertyEditor Id="s_Currency" PropertyName="s_Currency" IsNewNode="True" />
+        <PropertyEditor Id="s_ForeignAgency" PropertyName="s_ForeignAgency" IsNewNode="True" />
+      </Items>
+      <Layout IsNewNode="True">
+        <LayoutGroup Id="Main" Index="0" ShowCaption="False" RelativeSize="100" IsNewNode="True">
+          <LayoutGroup Id="SimpleEditors" Index="0" ShowCaption="False" RelativeSize="100" IsNewNode="True">
+            <LayoutGroup Id="Item1" ShowCaption="True" CaptionLocation="Top" Index="0" RelativeSize="90.613266583229034" Caption="第三方账单" IsNewNode="True">
+              <LayoutGroup Id="Autoeddbf3ca-6f0a-4666-9b0f-d6b6a6d210ef" ShowCaption="False" Caption="Autoeddbf3ca-6f0a-4666-9b0f-d6b6a6d210ef(4)" Direction="Horizontal" Index="0" RelativeSize="36.865021770682148" IsNewNode="True">
+                <LayoutGroup Id="Auto086b5846-0c5d-4411-8cfc-6a5f53aab403" ShowCaption="False" Caption="Auto086b5846-0c5d-4411-8cfc-6a5f53aab403(19)" Index="0" RelativeSize="49.497847919655669" IsNewNode="True">
+                  <LayoutItem Id="dt_DateForeignInvoice" ViewItem="dt_DateForeignInvoice" Index="0" RelativeSize="12.598425196850394" IsNewNode="True" />
+                  <LayoutItem Id="dt_DateApplication" ViewItem="dt_DateApplication" Index="1" RelativeSize="9.4488188976377945" IsNewNode="True" />
+                  <LayoutItem Id="FirmNo" ViewItem="FirmNo" Index="2" RelativeSize="9.4488188976377945" IsNewNode="True" />
+                  <LayoutItem Id="OurNo" ViewItem="OurNo" Index="3" RelativeSize="9.4488188976377945" IsNewNode="True" />
+                  <LayoutItem Id="s_ForeignAgency" ViewItem="s_ForeignAgency" Index="4" RelativeSize="9.4488188976377945" IsNewNode="True" />
+                  <LayoutItem Id="Content" ViewItem="Content" Index="5" RelativeSize="9.4488188976377945" IsNewNode="True" />
+                  <LayoutItem Id="s_Currency" ViewItem="s_Currency" Index="6" RelativeSize="9.4488188976377945" IsNewNode="True" />
+                  <LayoutItem Id="InternalNo" ViewItem="InternalNo" Index="7" RelativeSize="9.4488188976377945" IsNewNode="True" />
+                  <LayoutItem Id="b_IsNotInternalInvoice" ViewItem="b_IsNotInternalInvoice" Index="8" RelativeSize="9.4488188976377945" IsNewNode="True" />
+                  <LayoutItem Id="IsInvalid" ViewItem="IsInvalid" Index="9" RelativeSize="11.811023622047244" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutGroup Id="Autod5c8f163-713c-427d-9f21-20d16e0344d8" ShowCaption="False" Caption="Autod5c8f163-713c-427d-9f21-20d16e0344d8(15)" Index="1" RelativeSize="50.502152080344331" IsNewNode="True">
+                  <LayoutItem Id="n_FeeOfficial" ViewItem="n_FeeOfficial" Index="0" RelativeSize="12.598425196850394" IsNewNode="True" />
+                  <LayoutItem Id="n_FeeService" ViewItem="n_FeeService" Index="1" RelativeSize="9.4488188976377945" IsNewNode="True" />
+                  <LayoutItem Id="n_FeeAgent" ViewItem="n_FeeAgent" Index="2" RelativeSize="9.4488188976377945" IsNewNode="True" />
+                  <LayoutItem Id="n_Hour" ViewItem="n_Hour" Index="3" RelativeSize="9.4488188976377945" IsNewNode="True" />
+                  <LayoutItem Id="n_FeeTranslation" ViewItem="n_FeeTranslation" Index="4" RelativeSize="9.4488188976377945" IsNewNode="True" />
+                  <LayoutItem Id="n_FeeDistribution" ViewItem="n_FeeDistribution" Index="5" RelativeSize="9.4488188976377945" IsNewNode="True" />
+                  <LayoutItem Id="n_FeeTotal" ViewItem="n_FeeTotal" Index="6" RelativeSize="9.4488188976377945" IsNewNode="True" />
+                  <LayoutItem Id="FInvoiceFile" ViewItem="FInvoiceFile" Index="7" RelativeSize="9.4488188976377945" IsNewNode="True" />
+                  <LayoutItem Id="dt_DateApproval" ViewItem="dt_DateApproval" Index="8" RelativeSize="21.259842519685041" IsNewNode="True" />
+                </LayoutGroup>
+              </LayoutGroup>
+              <LayoutItem Id="Note" ViewItem="Note" Index="1" RelativeSize="63.134978229317852" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="Auto61596e9f-4d9d-4952-853f-1f023d13ec4e" ShowCaption="True" Caption="账单信息" Index="1" RelativeSize="9.386733416770964" IsNewNode="True">
+              <LayoutGroup Id="Auto859b7d5d-7444-4808-a7a1-fdc73cc0c6f7" ShowCaption="False" Caption="Auto859b7d5d-7444-4808-a7a1-fdc73cc0c6f7(29)" Direction="Horizontal" Index="0" RelativeSize="100" IsNewNode="True">
+                <LayoutItem Id="Deadline" ViewItem="Deadline" Index="0" RelativeSize="24.67718794835007" IsNewNode="True" />
+                <LayoutItem Id="InvoiceNo" ViewItem="InvoiceNo" Index="1" RelativeSize="24.67718794835007" IsNewNode="True" />
+                <LayoutItem Id="InvoiceLogDate" ViewItem="InvoiceLogDate" Index="2" RelativeSize="24.67718794835007" IsNewNode="True" />
+                <LayoutItem Id="NoNeedInvoice" ViewItem="NoNeedInvoice" Index="3" RelativeSize="25.968436154949785" IsNewNode="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="ForeignInvoice_ListView" ClassName="EastIPSystem.Module.BusinessObjects.InternalInvoice" AllowLink="False" AllowUnlink="False" IsFooterVisible="True" Caption="第三方账单" Criteria="Not IsNullOrEmpty([FirmNo])" MasterDetailView="ForeignInvoice_DetailView" DetailViewID="ForeignInvoice_DetailView" ImageName="BO_Sale" IsNewNode="True">
+      <Columns IsNewNode="True">
+        <ColumnInfo Id="NoNeedInvoice" PropertyName="NoNeedInvoice" Width="80" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="dt_DateForeignInvoice" PropertyName="dt_DateForeignInvoice" Index="0" Width="66" IsNewNode="True" />
+        <ColumnInfo Id="FirmNo" PropertyName="FirmNo" Width="92" Index="1" IsNewNode="True" />
+        <ColumnInfo Id="InternalNo" PropertyName="InternalNo" Width="0" SortIndex="-1" SortOrder="None" Index="2" IsNewNode="True" />
+        <ColumnInfo Id="InvoiceNo" PropertyName="InvoiceNo" Width="72" Index="3" IsNewNode="True" />
+        <ColumnInfo Id="InvoiceLogDate" PropertyName="InvoiceLogDate" Width="80" Index="4" IsNewNode="True" />
+        <ColumnInfo Id="OurNo" PropertyName="OurNo" Width="68" Index="5" IsNewNode="True" />
+        <ColumnInfo Id="Content" PropertyName="Content" Width="63" Index="6" Caption="项目" IsNewNode="True" />
+        <ColumnInfo Id="s_ForeignAgency" PropertyName="s_ForeignAgency" Width="111" Index="7" IsNewNode="True" />
+        <ColumnInfo Id="Note" PropertyName="Note" Width="45" Index="8" IsNewNode="True" />
+        <ColumnInfo Id="s_Currency" PropertyName="s_Currency" Width="78" Index="9" IsNewNode="True" />
+        <ColumnInfo Id="n_FeeTotal" PropertyName="n_FeeTotal" Width="44" Index="10" IsNewNode="True" />
+        <ColumnInfo Id="n_Hour" PropertyName="n_Hour" Width="56" Index="11" IsNewNode="True" />
+        <ColumnInfo Id="n_FeeAgent" PropertyName="n_FeeAgent" Width="56" Index="12" IsNewNode="True" />
+        <ColumnInfo Id="n_FeeTranslation" PropertyName="n_FeeTranslation" Width="56" Index="13" IsNewNode="True" />
+        <ColumnInfo Id="n_FeeService" PropertyName="n_FeeService" Width="56" Index="14" IsNewNode="True" />
+        <ColumnInfo Id="n_FeeDistribution" PropertyName="n_FeeDistribution" Width="44" Index="15" IsNewNode="True" />
+        <ColumnInfo Id="n_FeeOfficial" PropertyName="n_FeeOfficial" Width="44" Index="16" IsNewNode="True" />
+        <ColumnInfo Id="dt_DateApplication" PropertyName="dt_DateApplication" Width="66" Index="17" IsNewNode="True" />
+        <ColumnInfo Id="dt_DateApproval" PropertyName="dt_DateApproval" Width="66" Index="18" IsNewNode="True" />
+        <ColumnInfo Id="b_IsNotInternalInvoice" PropertyName="b_IsNotInternalInvoice" Width="68" Index="24" IsNewNode="True" />
+      </Columns>
+    </ListView>
+    <DetailView Id="InternalInvoice_DetailView" ObjectCaptionFormat="{0:InternalNo}" DefaultFocusedItem="OurNo">
+      <Items>
+        <PropertyEditor Id="b_IsNotInternalInvoice" Removed="True" />
+        <PropertyEditor Id="FirmNo" AllowEdit="False" />
+        <PropertyEditor Id="n_FeeAgent" Removed="True" />
+        <PropertyEditor Id="n_FeeDistribution" Removed="True" />
+        <PropertyEditor Id="n_FeeOfficial" Removed="True" />
+        <PropertyEditor Id="n_FeeService" Removed="True" />
+        <PropertyEditor Id="n_FeeTranslation" Removed="True" />
+        <PropertyEditor Id="n_Hour" Removed="True" />
+        <PropertyEditor Id="s_Currency" Removed="True" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="Item1" ShowCaption="True" CaptionLocation="Top" Index="0" RelativeSize="55.223880597014926" Caption="草单信息" IsNewNode="True">
+              <LayoutGroup Id="Autofa45d084-42de-464d-8d43-433aa8543640" ShowCaption="False" Caption="Autofa45d084-42de-464d-8d43-433aa8543640(4)" Direction="Horizontal" Index="0" RelativeSize="38.630806845965772" IsNewNode="True">
+                <LayoutGroup Id="InternalInvoice_col1" ShowCaption="False" Caption="基本信息" Index="0" RelativeSize="33.387622149837135" IsNewNode="True">
+                  <LayoutItem Id="InternalNo" ViewItem="InternalNo" Index="0" RelativeSize="20.253164556962027" IsNewNode="True" />
+                  <LayoutItem Id="OurNo" ViewItem="OurNo" Index="1" RelativeSize="15.189873417721518" IsNewNode="True" />
+                  <LayoutItem Id="ClientNo" ViewItem="ClientNo" Index="2" RelativeSize="15.189873417721518" IsNewNode="True" />
+                  <LayoutItem Id="ClientName" ViewItem="ClientName" Index="3" RelativeSize="15.189873417721518" IsNewNode="True" />
+                  <LayoutItem Id="AppNo" ViewItem="AppNo" Index="4" RelativeSize="15.189873417721518" IsNewNode="True" />
+                  <LayoutItem Id="AppName" ViewItem="AppName" Index="5" RelativeSize="18.9873417721519" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutGroup Id="InternalInvoice_col2" ShowCaption="False" Caption="草单信息" Direction="Horizontal" Index="1" RelativeSize="66.612377850162872" IsNewNode="True">
+                  <LayoutGroup Id="Auto086b5846-0c5d-4411-8cfc-6a5f53aab403" ShowCaption="False" Caption="Auto086b5846-0c5d-4411-8cfc-6a5f53aab403(19)" Index="0" RelativeSize="49.877750611246945" IsNewNode="True">
+                    <LayoutItem Id="SendDate" ViewItem="SendDate" Index="0" RelativeSize="20.253164556962027" IsNewNode="True" />
+                    <LayoutItem Id="InternalType" ViewItem="InternalType" Index="1" RelativeSize="15.189873417721518" IsNewNode="True" />
+                    <LayoutItem Id="Content" ViewItem="Content" Index="2" RelativeSize="15.189873417721518" IsNewNode="True" />
+                    <LayoutItem Id="Type" ViewItem="Type" Index="3" RelativeSize="15.189873417721518" IsNewNode="True" />
+                    <LayoutItem Id="FirmNo" ViewItem="FirmNo" Index="4" RelativeSize="15.189873417721518" IsNewNode="True" />
+                    <LayoutItem Id="FInvoiceFile" ViewItem="FInvoiceFile" Index="5" RelativeSize="18.9873417721519" IsNewNode="True" />
+                  </LayoutGroup>
+                  <LayoutGroup Id="Autoffba691f-3b4f-4cd1-8eed-c496d60c5bc9" ShowCaption="False" Caption="Autoffba691f-3b4f-4cd1-8eed-c496d60c5bc9(23)" Index="1" RelativeSize="50.122249388753055" IsNewNode="True">
+                    <LayoutItem Id="Agent1" ViewItem="Agent1" Index="0" RelativeSize="20.253164556962027" IsNewNode="True" />
+                    <LayoutItem Id="Agent2" ViewItem="Agent2" Index="1" RelativeSize="15.189873417721518" IsNewNode="True" />
+                    <LayoutItem Id="Agent3" ViewItem="Agent3" Index="2" RelativeSize="15.189873417721518" IsNewNode="True" />
+                    <LayoutItem Id="Agent4" ViewItem="Agent4" Index="3" RelativeSize="15.189873417721518" IsNewNode="True" />
+                    <LayoutItem Id="InvoiceFile" ViewItem="InvoiceFile" Index="4" RelativeSize="15.189873417721518" IsNewNode="True" />
+                    <LayoutItem Id="IsInvalid" ViewItem="IsInvalid" Index="5" RelativeSize="18.9873417721519" IsNewNode="True" />
+                  </LayoutGroup>
+                </LayoutGroup>
+              </LayoutGroup>
+              <LayoutItem Id="Note" ViewItem="Note" Index="1" RelativeSize="61.369193154034228" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="Auto61596e9f-4d9d-4952-853f-1f023d13ec4e" ShowCaption="True" Caption="账单信息" Direction="Vertical" Index="1" RelativeSize="35.447761194029852" IsNewNode="True">
+              <LayoutGroup Id="Auto859b7d5d-7444-4808-a7a1-fdc73cc0c6f7" ShowCaption="False" Caption="Auto859b7d5d-7444-4808-a7a1-fdc73cc0c6f7(29)" Direction="Horizontal" Index="0" RelativeSize="14.728682170542635" IsNewNode="True">
+                <LayoutItem Id="Deadline" ViewItem="Deadline" Index="0" RelativeSize="24.9185667752443" IsNewNode="True" />
+                <LayoutItem Id="InvoiceNo" ViewItem="InvoiceNo" Index="1" RelativeSize="24.9185667752443" IsNewNode="True" />
+                <LayoutItem Id="InvoiceLogDate" ViewItem="InvoiceLogDate" Index="2" RelativeSize="24.9185667752443" IsNewNode="True" />
+                <LayoutItem Id="NoNeedInvoice" ViewItem="NoNeedInvoice" Index="3" RelativeSize="25.2442996742671" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutItem Id="InvoiceNote" ViewItem="InvoiceNote" Index="1" RelativeSize="85.271317829457359" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="Item2" ShowCaption="True" CaptionLocation="Top" Direction="Horizontal" Index="2" RelativeSize="9.3283582089552244" Caption="登记信息" IsNewNode="True">
+              <LayoutItem Id="CreateDate" ViewItem="CreateDate" Index="0" RelativeSize="49.8371335504886" IsNewNode="True" />
+              <LayoutItem Id="PermissionPolicyUser" ViewItem="PermissionPolicyUser" Index="1" RelativeSize="50.1628664495114" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="XPObject" Index="2" RelativeSize="5.4961832061068705" Removed="True">
+              <LayoutItem Id="Oid" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="InternalInvoice" RelativeSize="28.4" Removed="True">
+              <LayoutGroup Id="InternalInvoice_col1" RelativeSize="49.862258953168045">
+                <LayoutItem Id="FirmNo" RelativeSize="26.923076923076923" Index="6" Removed="True" />
+                <LayoutItem Id="Content" RelativeSize="15.384615384615385" Index="7" Removed="True" />
+                <LayoutItem Id="AppName" RelativeSize="28.089887640449437" />
+                <LayoutItem Id="AppNo" RelativeSize="13.48314606741573" />
+                <LayoutItem Id="ClientName" RelativeSize="13.48314606741573" />
+                <LayoutItem Id="ClientNo" RelativeSize="13.48314606741573" />
+                <LayoutItem Id="CreateDate" RelativeSize="17.977528089887642" />
+                <LayoutItem Id="InternalNo" RelativeSize="10.344827586206897" Removed="True" />
+                <LayoutItem Id="OurNo" RelativeSize="13.48314606741573" />
+              </LayoutGroup>
+              <LayoutGroup Id="InternalInvoice_col2" RelativeSize="50.137741046831955" Caption="InternalInvoice_col2">
+                <LayoutItem Id="SendDate" RelativeSize="17.977528089887642" Index="0" />
+                <LayoutGroup Id="Auto126ea3cf-3641-44de-bd60-fb7321f32ba2" ShowCaption="False" Caption="Auto126ea3cf-3641-44de-bd60-fb7321f32ba2(13)" Direction="Horizontal" Index="1" RelativeSize="18.539325842696631" IsNewNode="True">
+                  <LayoutItem Id="InternalNo" ViewItem="InternalNo" Index="0" RelativeSize="49.725274725274723" IsNewNode="True" />
+                  <LayoutItem Id="FirmNo" ViewItem="FirmNo" Index="1" RelativeSize="50.274725274725277" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutGroup Id="Auto878b1675-0dd7-46b9-873a-ba9b1c52916e" ShowCaption="False" Caption="Auto878b1675-0dd7-46b9-873a-ba9b1c52916e(16)" Index="2" RelativeSize="63.483146067415731" IsNewNode="True">
+                  <LayoutItem Id="Content" ViewItem="Content" Index="0" RelativeSize="23.893805309734514" IsNewNode="True" />
+                  <LayoutGroup Id="Autocb032205-d304-472c-82df-3764f55c6527" ShowCaption="False" Caption="Autocb032205-d304-472c-82df-3764f55c6527(18)" Direction="Horizontal" Index="1" RelativeSize="76.106194690265482" IsNewNode="True">
+                    <LayoutGroup Id="Auto2250a22a-ae42-4603-99ee-93af718b9561" ShowCaption="False" Caption="Auto2250a22a-ae42-4603-99ee-93af718b9561(19)" Index="0" RelativeSize="49.725274725274723" IsNewNode="True">
+                      <LayoutItem Id="Type" ViewItem="Type" Index="0" RelativeSize="34.883720930232556" IsNewNode="True" />
+                      <LayoutItem Id="Agent1" ViewItem="Agent1" Index="1" RelativeSize="27.906976744186046" IsNewNode="True" />
+                      <LayoutItem Id="Agent2" ViewItem="Agent2" Index="2" RelativeSize="37.2093023255814" IsNewNode="True" />
+                    </LayoutGroup>
+                    <LayoutGroup Id="Auto45be61a7-f5db-4ef6-a60c-c05a96f5d08b" ShowCaption="False" Caption="Auto45be61a7-f5db-4ef6-a60c-c05a96f5d08b(23)" Index="1" RelativeSize="50.274725274725277" IsNewNode="True">
+                      <LayoutItem Id="File" ViewItem="File" Index="0" RelativeSize="34.883720930232556" IsNewNode="True" />
+                      <LayoutItem Id="Agent3" ViewItem="Agent3" Index="1" RelativeSize="27.906976744186046" IsNewNode="True" />
+                      <LayoutItem Id="Agent4" ViewItem="Agent4" Index="2" RelativeSize="37.2093023255814" IsNewNode="True" />
+                    </LayoutGroup>
+                  </LayoutGroup>
+                </LayoutGroup>
+                <LayoutItem Id="Agent1" RelativeSize="11.538461538461538" Index="3" Removed="True" />
+                <LayoutItem Id="Agent2" RelativeSize="13.043478260869565" Index="3" Removed="True" />
+                <LayoutItem Id="Agent4" RelativeSize="17.391304347826086" Index="4" Removed="True" />
+                <LayoutItem Id="Agent3" RelativeSize="11.538461538461538" Index="5" Removed="True" />
+                <LayoutItem Id="InvoiceNo" RelativeSize="34.482758620689658" Index="6" Removed="True" />
+                <LayoutItem Id="Deadline" RelativeSize="10.344827586206897" Removed="True" />
+                <LayoutItem Id="Note" RelativeSize="51.690821256038646" Removed="True" />
+                <LayoutItem Id="Type" RelativeSize="13.008130081300813" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="InternalInvoice_ListView" AllowLink="False" AllowUnlink="False" IsFooterVisible="True" TopReturnedObjects="0" Filter="" Criteria="[b_IsNotInternalInvoice] &lt;&gt; True">
+      <Columns>
+        <ColumnInfo Id="InternalNo" Index="0" Width="102" />
+        <ColumnInfo Id="CreateDate" Index="1" SortIndex="-1" SortOrder="None" Width="59" />
+        <ColumnInfo Id="OurNo" Width="123" />
+        <ColumnInfo Id="SendDate" Index="3" Width="92" />
+        <ColumnInfo Id="Content" Index="4" Width="68" />
+        <ColumnInfo Id="Type" Index="5" Width="68" />
+        <ColumnInfo Id="Deadline" Index="6" Width="92" />
+        <ColumnInfo Id="InvoiceNo" Index="7" Width="119" />
+        <ColumnInfo Id="FirmNo" Index="8" Width="117" />
+        <ColumnInfo Id="ClientName" Index="9" Width="174" />
+        <ColumnInfo Id="ClientNo" Index="10" Width="80" />
+        <ColumnInfo Id="AppName" Index="11" Width="159" />
+        <ColumnInfo Id="AppNo" Index="12" Width="80" />
+        <ColumnInfo Id="Agent1" Index="13" Width="63" />
+        <ColumnInfo Id="Agent2" Index="14" Width="63" />
+        <ColumnInfo Id="Agent3" Index="15" Width="63" />
+        <ColumnInfo Id="Agent4" Index="16" Width="63" />
+        <ColumnInfo Id="IsInvalid" Width="44" />
+        <ColumnInfo Id="Note" Index="17" Width="45" />
+        <ColumnInfo Id="InvoiceNote" Width="84" />
+        <ColumnInfo Id="NoNeedInvoice" Width="80" />
+        <ColumnInfo Id="InvoiceLogDate" Width="80" />
+        <ColumnInfo Id="InternalType" Width="68" />
+        <ColumnInfo Id="PermissionPolicyUser" Width="56" />
+        <ColumnInfo Id="InvoiceFile" Width="56" />
+        <ColumnInfo Id="n_FeeTotal" Caption="金额" />
+        <ColumnInfo Id="FInvoiceFile" Width="92" />
+        <ColumnInfo Id="b_IsNotInternalInvoice" Removed="True" />
+        <ColumnInfo Id="dt_DateApplication" Removed="True" />
+        <ColumnInfo Id="dt_DateApproval" Removed="True" />
+        <ColumnInfo Id="dt_DateForeignInvoice" Removed="True" />
+        <ColumnInfo Id="n_FeeAgent" Removed="True" />
+        <ColumnInfo Id="n_FeeDistribution" Removed="True" />
+        <ColumnInfo Id="n_FeeOfficial" Removed="True" />
+        <ColumnInfo Id="n_FeeService" Removed="True" />
+        <ColumnInfo Id="n_FeeTranslation" Removed="True" />
+        <ColumnInfo Id="n_Hour" Removed="True" />
+        <ColumnInfo Id="s_Currency" Removed="True" />
+      </Columns>
+    </ListView>
+    <DetailView Id="Invoice_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="Invoice" ShowCaption="True" Caption="预账单" Index="0" RelativeSize="21.766169154228855" IsNewNode="True">
+            <LayoutGroup Id="Invoice_col1" ShowCaption="False" Index="0" RelativeSize="100" Caption="Invoice_col1" IsNewNode="True">
+              <LayoutGroup Id="Auto77217815-b582-43e4-9fed-98810c57448f" ShowCaption="False" Caption="Auto77217815-b582-43e4-9fed-98810c57448f(4)" Direction="Horizontal" Index="0" RelativeSize="27.142857142857142" IsNewNode="True">
+                <LayoutItem Id="s_PreNo" ViewItem="s_PreNo" Index="0" RelativeSize="50" IsNewNode="True" />
+                <LayoutItem Id="s_OurNo" ViewItem="s_OurNo" Index="1" RelativeSize="50" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutItem Id="s_Description" ViewItem="s_Description" Index="1" RelativeSize="50" IsNewNode="True" />
+              <LayoutItem Id="State" ViewItem="State" Index="2" RelativeSize="22.857142857142858" IsNewNode="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Item2" CaptionLocation="Top" Index="1" RelativeSize="30.597014925373134" IsNewNode="True">
+            <LayoutGroup Id="Expenses" ShowCaption="True" Caption="报销" Index="0" RelativeSize="100" IsNewNode="True">
+              <LayoutItem Id="Expenses" ViewItem="Expenses" Index="0" RelativeSize="100" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="InternalInvoices" ShowCaption="True" Caption="草单" Index="1" RelativeSize="100" IsNewNode="True">
+              <LayoutItem Id="InternalInvoices" ViewItem="InternalInvoices" Index="0" RelativeSize="100" IsNewNode="True" />
+            </LayoutGroup>
+          </TabbedGroup>
+          <TabbedGroup Id="Tabs" RelativeSize="29.228855721393035" Index="2">
+            <LayoutGroup Id="TimeSheets" RelativeSize="100" Caption="工时">
+              <LayoutItem Id="TimeSheets" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="Fees" RelativeSize="100" Index="1">
+              <LayoutItem Id="Fees" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="Expenses" RelativeSize="100" Index="2" Removed="True">
+              <LayoutItem Id="Expenses" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="InternalInvoices" RelativeSize="100" Index="2" Removed="True">
+              <LayoutItem Id="InternalInvoices" RelativeSize="100" />
+            </LayoutGroup>
+          </TabbedGroup>
+          <LayoutGroup Id="Auto936f604a-5eda-4d9c-a3ad-30a38de335a5" ShowCaption="False" Caption="Auto936f604a-5eda-4d9c-a3ad-30a38de335a5(21)" Direction="Vertical" Index="3" RelativeSize="18.407960199004975" IsNewNode="True">
+            <LayoutGroup Id="Item1" ShowCaption="True" Caption="正式账单" CaptionLocation="Top" Direction="Horizontal" Index="0" RelativeSize="49.324324324324323" IsNewNode="True">
+              <LayoutItem Id="s_InvoiceNo" ViewItem="s_InvoiceNo" Index="0" RelativeSize="49.829351535836174" IsNewNode="True" />
+              <LayoutItem Id="dt_InvoiceLogDate" ViewItem="dt_InvoiceLogDate" Index="1" RelativeSize="50.170648464163826" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="Item3" ShowCaption="True" CaptionLocation="Top" Direction="Horizontal" Index="1" RelativeSize="50.675675675675677" Caption="创建信息" IsNewNode="True">
+              <LayoutItem Id="Creator" ViewItem="Creator" Index="0" RelativeSize="49.829351535836174" IsNewNode="True" />
+              <LayoutItem Id="dt_Created" ViewItem="dt_Created" Index="1" RelativeSize="50.170648464163826" IsNewNode="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="SimpleEditors" RelativeSize="21.393034825870647" Removed="True">
+            <LayoutGroup Id="Item1" ShowCaption="True" Caption="正式账单" CaptionLocation="Top" Direction="Horizontal" Index="1" RelativeSize="42.441860465116278" IsNewNode="True">
+              <LayoutItem Id="s_InvoiceNo" ViewItem="s_InvoiceNo" Index="0" RelativeSize="56.16" IsNewNode="True" />
+              <LayoutItem Id="dt_InvoiceLogDate" ViewItem="dt_InvoiceLogDate" Index="1" RelativeSize="43.84" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="Invoice" RelativeSize="57.558139534883722" Direction="Vertical" Caption="预账单">
+              <LayoutGroup Id="Invoice_col1" RelativeSize="100" Caption="Invoice_col1">
+                <LayoutGroup Id="Auto0146aa0b-760e-4878-b121-fd346e5bf485" ShowCaption="False" Caption="" Direction="Horizontal" Index="0" RelativeSize="50" IsNewNode="True">
+                  <LayoutItem Id="PreNo" ViewItem="PreNo" Index="0" RelativeSize="56" IsNewNode="True" />
+                  <LayoutItem Id="s_OurNo" ViewItem="s_OurNo" Index="1" RelativeSize="44" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutItem Id="State" RelativeSize="50" Index="1" />
+                <LayoutItem Id="Creator" Removed="True" />
+                <LayoutItem Id="PreNo" RelativeSize="36.363636363636367" Removed="True" />
+                <LayoutItem Id="s_OurNo" RelativeSize="27.272727272727273" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Invoice_col2" RelativeSize="50.08" Caption="Invoice_col2" Direction="Horizontal" Removed="True">
+                <LayoutItem Id="dt_InvoiceLogDate" RelativeSize="100" Index="0" Removed="True" />
+                <LayoutItem Id="s_InvoiceNo" RelativeSize="36.363636363636367" Index="0" Removed="True" />
+                <LayoutItem Id="dt_Created" RelativeSize="36.363636363636367" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="Invoice_Expenses_ListView" IsFooterVisible="True">
+      <Columns>
+        <ColumnInfo Id="s_ExpenseNo" Width="105" />
+        <ColumnInfo Id="s_Description" Width="138" Index="1" />
+        <ColumnInfo Id="ExpenseFile" Width="98" Index="2" />
+        <ColumnInfo Id="s_OurNo" Width="124" Index="3" />
+      </Columns>
+    </ListView>
+    <ListView Id="Invoice_Fees_ListView" IsFooterVisible="True">
+      <Columns>
+        <ColumnInfo Id="FeeType" Index="0" Width="80" />
+        <ColumnInfo Id="s_Description" Index="1" Width="339" />
+        <ColumnInfo Id="n_Amount" Width="73" />
+      </Columns>
+    </ListView>
+    <ListView Id="Invoice_InternalInvoices_ListView" IsFooterVisible="True">
+      <Columns>
+        <ColumnInfo Id="Agent1" Index="-1" Removed="True" />
+        <ColumnInfo Id="Agent2" Index="-1" Removed="True" />
+        <ColumnInfo Id="Agent3" Index="-1" Removed="True" />
+        <ColumnInfo Id="Agent4" Index="-1" Removed="True" />
+        <ColumnInfo Id="AppName" Index="-1" Removed="True" />
+        <ColumnInfo Id="AppNo" Index="-1" Removed="True" />
+        <ColumnInfo Id="b_IsNotInternalInvoice" Index="-1" Removed="True" />
+        <ColumnInfo Id="ClientName" Index="-1" Removed="True" />
+        <ColumnInfo Id="ClientNo" Index="-1" Removed="True" />
+        <ColumnInfo Id="CreateDate" Index="-1" Removed="True" />
+        <ColumnInfo Id="Deadline" Index="-1" Removed="True" />
+        <ColumnInfo Id="dt_DateApplication" Index="-1" Removed="True" />
+        <ColumnInfo Id="dt_DateApproval" Index="-1" Removed="True" />
+        <ColumnInfo Id="dt_DateForeignInvoice" Index="-1" Removed="True" />
+        <ColumnInfo Id="FirmNo" Index="-1" Removed="True" />
+        <ColumnInfo Id="InternalType" Index="-1" Removed="True" />
+        <ColumnInfo Id="InvoiceLogDate" Index="-1" Removed="True" />
+        <ColumnInfo Id="InvoiceNo" Index="-1" Removed="True" />
+        <ColumnInfo Id="InvoiceNote" Index="-1" Removed="True" />
+        <ColumnInfo Id="IsInvalid" Index="-1" Removed="True" />
+        <ColumnInfo Id="n_FeeAgent" Index="-1" Removed="True" />
+        <ColumnInfo Id="n_FeeDistribution" Index="-1" Removed="True" />
+        <ColumnInfo Id="n_FeeOfficial" Index="-1" Removed="True" />
+        <ColumnInfo Id="n_FeeService" Index="-1" Removed="True" />
+        <ColumnInfo Id="n_FeeTotal" Index="-1" Removed="True" />
+        <ColumnInfo Id="n_FeeTranslation" Index="-1" Removed="True" />
+        <ColumnInfo Id="n_Hour" Index="-1" Removed="True" />
+        <ColumnInfo Id="NoNeedInvoice" Index="-1" Removed="True" />
+        <ColumnInfo Id="Note" Index="-1" Removed="True" />
+        <ColumnInfo Id="PermissionPolicyUser" Index="-1" Removed="True" />
+        <ColumnInfo Id="s_Currency" Index="-1" Removed="True" />
+        <ColumnInfo Id="s_ForeignAgency" Index="-1" Removed="True" />
+        <ColumnInfo Id="Type" Index="-1" Removed="True" />
+        <ColumnInfo Id="InternalNo" Width="82" Index="0" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="Content" Index="1" Width="118" />
+        <ColumnInfo Id="SendDate" Index="2" Width="92" />
+        <ColumnInfo Id="InvoiceFile" Index="3" Width="56" />
+        <ColumnInfo Id="FInvoiceFile" Index="4" Width="92" />
+        <ColumnInfo Id="OurNo" Index="5" Width="131" />
+        <ColumnInfo Id="Invoice" Removed="True" />
+        <ColumnInfo Id="Oid" Removed="True" />
+      </Columns>
+    </ListView>
+    <ListView Id="Invoice_ListView" IsFooterVisible="True" />
+    <ListView Id="Invoice_TimeSheets_ListView">
+      <Columns>
+        <ColumnInfo Id="TimeKeeper" Width="81" Index="0" />
+        <ColumnInfo Id="dt_WorkDate" Width="95" Index="1" />
+        <ColumnInfo Id="n_Hour" Width="89" />
+        <ColumnInfo Id="s_Description" Width="258" />
+      </Columns>
+    </ListView>
+    <ListView Id="SysUser_ListView" IsFooterVisible="True" />
+    <ListView Id="SysUser_LookupListView" AllowNew="False" Criteria="">
+      <Columns>
+        <ColumnInfo Id="Code" PropertyName="Code" Index="0" IsNewNode="True" />
+        <ColumnInfo Id="Name" PropertyName="Name" Index="1" Width="163" IsNewNode="True" />
+      </Columns>
+    </ListView>
+    <DetailView Id="TimeSheet_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100" Direction="Vertical">
+            <LayoutGroup Id="TimeSheet" Caption="工时" RelativeSize="100" Direction="Vertical">
+              <LayoutGroup Id="TimeSheet_col1" RelativeSize="100">
+                <LayoutItem Id="dt_WorkDate" ViewItem="dt_WorkDate" Index="0" RelativeSize="4.2049934296977662" IsNewNode="True" Removed="True" />
+                <LayoutItem Id="TimeKeeper" RelativeSize="3.1537450722733245" Index="1" />
+                <LayoutItem Id="s_Description" ViewItem="s_Description" Index="2" RelativeSize="3.1537450722733245" IsNewNode="True" />
+                <LayoutItem Id="n_Hour" ViewItem="n_Hour" Index="3" RelativeSize="3.1537450722733245" IsNewNode="True" />
+                <LayoutItem Id="Invoice" RelativeSize="86.333771353482263" Index="4" />
+              </LayoutGroup>
+              <LayoutGroup Id="TimeSheet_col2" RelativeSize="50.08" Caption="TimeSheet_col2" Direction="Horizontal" Removed="True">
+                <LayoutItem Id="n_Hour" RelativeSize="100" Index="0" Removed="True" />
+                <LayoutItem Id="s_Description" ViewItem="s_Description" Index="2" RelativeSize="92.641261498028911" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="TimeSheet_ListView" IsFooterVisible="True" />
+    <DetailView Id="WorkItem_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="Auto54dc2311-ed11-4d74-b865-12f8694f9108" ShowCaption="False" Caption="" Direction="Horizontal" Index="0" RelativeSize="7.7114427860696519" IsNewNode="True">
+              <LayoutGroup Id="WorkItem_col1" ShowCaption="False" Index="0" RelativeSize="50" IsNewNode="True">
+                <LayoutItem Id="s_OurNo" ViewItem="s_OurNo" Index="0" RelativeSize="51.612903225806448" IsNewNode="True" />
+                <LayoutItem Id="dt_WorkDate" ViewItem="dt_WorkDate" Index="1" RelativeSize="48.387096774193552" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="WorkItem_col2" ShowCaption="False" Index="1" RelativeSize="50" IsNewNode="True">
+                <LayoutItem Id="WorkType" ViewItem="WorkType" Index="0" RelativeSize="51.612903225806448" IsNewNode="True" />
+                <LayoutItem Id="n_Quantity" ViewItem="n_Quantity" Index="1" RelativeSize="48.387096774193552" IsNewNode="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="WorkItem" ShowCaption="True" Caption="工作项" Direction="Horizontal" Index="0" RelativeSize="18.28358208955224" Removed="True">
+              <LayoutGroup Id="WorkItem_col1" ShowCaption="False" Index="0" RelativeSize="50" IsNewNode="True">
+                <LayoutItem Id="Worker" ViewItem="Worker" Index="0" RelativeSize="28.571428571428573" IsNewNode="True" />
+                <LayoutItem Id="s_OurNo" ViewItem="s_OurNo" Index="1" RelativeSize="21.428571428571427" IsNewNode="True" />
+                <LayoutItem Id="n_Quantity" ViewItem="n_Quantity" Index="2" RelativeSize="21.428571428571427" IsNewNode="True" />
+                <LayoutItem Id="State" ViewItem="State" Index="3" RelativeSize="28.571428571428573" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="WorkItem_col2" ShowCaption="False" Index="1" RelativeSize="50" IsNewNode="True">
+                <LayoutItem Id="dt_WorkDate" ViewItem="dt_WorkDate" Index="0" RelativeSize="28.571428571428573" IsNewNode="True" />
+                <LayoutItem Id="WorkType" ViewItem="WorkType" Index="1" RelativeSize="21.428571428571427" IsNewNode="True" />
+                <LayoutItem Id="s_Description" ViewItem="s_Description" Index="2" RelativeSize="21.428571428571427" IsNewNode="True" />
+                <LayoutItem Id="dt_SubmitDate" ViewItem="dt_SubmitDate" Index="3" RelativeSize="28.571428571428573" IsNewNode="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="Auto0819110e-6e27-4a0d-a0a2-316112e78b53" ShowCaption="False" Caption="" Index="1" RelativeSize="71.641791044776113" IsNewNode="True">
+              <LayoutItem Id="s_Description" ViewItem="s_Description" Index="0" RelativeSize="4.166666666666667" IsNewNode="True" />
+              <LayoutItem Id="s_Note" ViewItem="s_Note" Index="1" RelativeSize="87.5" IsNewNode="True" />
+              <LayoutItem Id="State" ViewItem="State" Index="2" RelativeSize="4.166666666666667" IsNewNode="True" />
+              <LayoutGroup Id="Auto97e3932e-9499-410e-91f3-3d53f9d04088" ShowCaption="False" Caption="" Direction="Horizontal" Index="3" RelativeSize="4.166666666666667" IsNewNode="True">
+                <LayoutItem Id="Worker" ViewItem="Worker" Index="0" RelativeSize="50" IsNewNode="True" />
+                <LayoutItem Id="dt_SubmitDate" ViewItem="dt_SubmitDate" Index="1" RelativeSize="50" IsNewNode="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="Item1" ShowCaption="True" CaptionLocation="Top" Direction="Horizontal" Index="2" RelativeSize="11.318407960199005" Caption="审批信息" IsNewNode="True">
+              <LayoutGroup Id="Auto91c04d45-928c-48f0-aba7-e904e1ed1157" ShowCaption="False" Caption="" Index="0" RelativeSize="50" IsNewNode="True">
+                <LayoutItem Id="n_BillingQuantity" ViewItem="n_BillingQuantity" Index="0" RelativeSize="50" IsNewNode="True" />
+                <LayoutItem Id="DepartApprover" ViewItem="DepartApprover" Index="1" RelativeSize="50" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Auto7d323b21-4f20-475b-a302-097b381a7f52" ShowCaption="False" Caption="" Index="1" RelativeSize="50" IsNewNode="True">
+                <LayoutItem Id="n_RewardQuantity" ViewItem="n_RewardQuantity" Index="0" RelativeSize="50" IsNewNode="True" />
+                <LayoutItem Id="dt_DepartApprovalDate" ViewItem="dt_DepartApprovalDate" Index="1" RelativeSize="50" IsNewNode="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="Item2" ShowCaption="True" CaptionLocation="Top" Direction="Horizontal" Index="3" RelativeSize="9.3283582089552244" Caption="创建信息" IsNewNode="True">
+              <LayoutItem Id="Creator" ViewItem="Creator" Index="0" RelativeSize="50" IsNewNode="True" />
+              <LayoutItem Id="dt_Created" ViewItem="dt_Created" Index="1" RelativeSize="50" IsNewNode="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="WorkItem_ListView" IsFooterVisible="True">
+      <Columns>
+        <ColumnInfo Id="Worker" Width="77" />
+        <ColumnInfo Id="s_OurNo" Index="1" Width="110" />
+        <ColumnInfo Id="dt_WorkDate" Index="2" Width="83" />
+        <ColumnInfo Id="WorkType" Index="3" Width="74" />
+        <ColumnInfo Id="s_Description" Index="4" Width="173" />
+        <ColumnInfo Id="n_Quantity" Index="5" Width="72" />
+        <ColumnInfo Id="State" Index="6" Width="77" />
+        <ColumnInfo Id="dt_SubmitDate" Index="7" Width="88" />
+        <ColumnInfo Id="DepartApprover" Index="8" Width="80" />
+        <ColumnInfo Id="dt_DepartApprovalDate" Index="9" Width="92" />
+        <ColumnInfo Id="n_BillingQuantity" Index="10" Width="64" />
+        <ColumnInfo Id="n_RewardQuantity" Index="11" Width="68" />
+        <ColumnInfo Id="s_Note" Index="12" Width="173" />
+        <ColumnInfo Id="Creator" Index="13" Width="84" />
+        <ColumnInfo Id="dt_Created" Index="14" Width="68" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

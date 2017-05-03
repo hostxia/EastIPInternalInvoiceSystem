@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <NavigationItems Id="NavigationItems">
+    <Items Id="Items">
+      <Item Id="@727079be-78de-4f2b-b8e6-261e45d1021c">
+        <Items Id="Items">
+          <Item Id="第三方账单" ViewId="ForeignInvoice_ListView" />
+        </Items>
+      </Item>
+    </Items>
+  </NavigationItems>
+</Application>

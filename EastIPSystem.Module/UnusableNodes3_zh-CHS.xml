@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel Id="BOModel">
+    <Class Name="EastIPSystem.Module.BusinessObjects.CaseExtension">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="n_DepartApprovalState" Caption="部门审批状态" />
+        <Member Name="n_ModifyApprovalState" Caption="修改期限审批状态" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views Id="Views">
+    <DetailView Id="CaseExtension_DetailView">
+      <Items Id="Items">
+        <PropertyEditor Id="n_DepartApprovalState" Caption="审批状态" />
+        <PropertyEditor Id="n_ModifyApprovalState" Caption="审批状态" />
+      </Items>
+    </DetailView>
+  </Views>
+</Application>

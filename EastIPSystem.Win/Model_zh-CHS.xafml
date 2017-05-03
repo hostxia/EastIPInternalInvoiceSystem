@@ -1,0 +1,1492 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <ActionDesign>
+    <Actions>
+      <Action Id="About Info" Caption="关于..." />
+      <Action Id="AddFromFile" Caption="从文件添加..." ToolTip="通过选择文件作为附件方式新建" />
+      <Action Id="CancelAction" Caption="取消" />
+      <Action Id="ChangePasswordByUser" Caption="更改我的密码" />
+      <Action Id="ChooseSkin" Caption="选择皮肤" ToolTip="选择外观">
+        <ChoiceActionItems>
+          <ChoiceActionItem Id="Skins" Caption="外观">
+            <ChoiceActionItems>
+              <ChoiceActionItem Id="High Contrast" Caption="高对比度" />
+            </ChoiceActionItems>
+          </ChoiceActionItem>
+        </ChoiceActionItems>
+      </Action>
+      <Action Id="Close" Caption="关闭" />
+      <Action Id="CopyCellValue" Caption="复制单元格的值" />
+      <Action Id="CopyModelDifference" ToolTip="副本的设置 （模型差异） 从一个用户到另一个。选择源设置 （模型的差异），单击此按钮然后选择目标在被调用的弹出窗口。用户重新启动应用程序后会被激活的变化。" />
+      <Action Id="CreateModelDifferences" ToolTip="初始化所有用户设置 （模型的差异）。" />
+      <Action Id="Deny_TypePermissionMatrixItem" Caption="否认">
+        <ChoiceActionItems>
+          <ChoiceActionItem Id="Create" Caption="创建" />
+          <ChoiceActionItem Id="Delete" Caption="删除" />
+          <ChoiceActionItem Id="Deny All" Caption="全部拒绝" />
+          <ChoiceActionItem Id="Deny Modification" Caption="拒绝修改" />
+          <ChoiceActionItem Id="Navigate" Caption="导航" />
+          <ChoiceActionItem Id="Read" Caption="读" />
+          <ChoiceActionItem Id="Write" Caption="写" />
+        </ChoiceActionItems>
+      </Action>
+      <Action Id="Diagnostic Info.EasyTest Control" Caption="诊断的 Info.EasyTest 控制" />
+      <Action Id="EditModel" Caption="编辑模型" />
+      <Action Id="Exit" Caption="退出" />
+      <Action Id="Export" Caption="导出到" />
+      <Action Id="ExportAnalysis" Caption="导出分析结果到" />
+      <Action Id="ExportDashboard" Caption="导出到">
+        <ChoiceActionItems>
+          <ChoiceActionItem Id="Image File" Caption="图像文件" />
+          <ChoiceActionItem Id="PDF File" Caption="PDF 文件" />
+        </ChoiceActionItems>
+      </Action>
+      <Action Id="ExportModelDifferences" ToolTip="出口到选定的设置 （模型的差异） {0} 文件夹。" />
+      <Action Id="Grant_TypePermissionMatrixItem" Caption="授权" ToolTip="授权" ShortCaption="授权">
+        <ChoiceActionItems>
+          <ChoiceActionItem Id="Create" Caption="创建" />
+          <ChoiceActionItem Id="Delete" Caption="删除" />
+          <ChoiceActionItem Id="Full Access" Caption="完全访问权限" />
+          <ChoiceActionItem Id="Navigate" Caption="导航" />
+          <ChoiceActionItem Id="Read" Caption="读" />
+          <ChoiceActionItem Id="Read Only Access" Caption="只读访问" />
+          <ChoiceActionItem Id="Write" Caption="写" />
+        </ChoiceActionItems>
+      </Action>
+      <Action Id="HideItemsFromDashboard" Caption="从仪表板隐藏" ToolTip="隐藏仪表板选定的项目" />
+      <Action Id="ImportSharedModelDifference" ToolTip="进口从共享设置 （模型的差异） {0} 位于应用程序文件夹中的文件。" />
+      <Action Id="ListViewShowObject" Caption="打开" />
+      <Action Id="MergeAction" Caption="合并" />
+      <Action Id="MyDetails" Caption="我的详细信息" />
+      <Action Id="NavigateBack" ToolTip="导航到上一个视图" />
+      <Action Id="NavigateForward" ToolTip="导航到下一个视图" />
+      <Action Id="Open" Caption="打开..." ToolTip="使用外部应用程序打开附加的文件" />
+      <Action Id="OpenObject" Caption="打开相关的记录" ToolTip="打开与选中的引用属性编辑器关联的记录（SHIFT + CTRL + 单击鼠标左键） " />
+      <Action Id="PageSetup" Caption="页面设置..." ToolTip="页面设置" />
+      <Action Id="Print" Caption="打印......" ToolTip="打印对话框" />
+      <Action Id="PrintDashboard" Caption="打印预览..." ToolTip="打印预览" />
+      <Action Id="PrintPreview" Caption="打印预览..." ToolTip="打印预览" />
+      <Action Id="RefreshAction" Caption="刷新" />
+      <Action Id="ResetModelDifferences" ToolTip="重置所选设置 （模型的差异）。用户重新启动应用程序后，则会应用更改。" />
+      <Action Id="ResetPassword" Caption="重置密码" ToolTip="为所选用户生成一个新密码" />
+      <Action Id="ResetViewSettings" ToolTip="重置所有设置为 &quot;{0}&quot; 查看。" ConfirmationMessage="您将要重置所有设置为 &quot;{0}&quot; 视图。您要继续吗？" />
+      <Action Id="SaveTo" Caption="另存为..." ToolTip="保存所选数据的附件" />
+      <Action Id="ShowAllContexts" ToolTip="在指定的所有上下文中验证所选的对象" />
+      <Action Id="ShowDashboardDesigner" Caption="显示仪表板设计器" />
+      <Action Id="ShowItemsOnDashboard" ToolTip="在仪表板上显示所选的项目" />
+      <Action Id="ShowToolbar" Caption="显示工具栏" />
+    </Actions>
+    <DisableReasons>
+      <Reason Id="AttachmentAssigned" Caption="附件为空" />
+    </DisableReasons>
+  </ActionDesign>
+  <BOModel>
+    <Class Name="DevExpress.ExpressApp.Dashboards.Win.XafWizardParameters">
+      <OwnMembers>
+        <Member Name="DataType" Caption="数据类型" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.ExpressApp.Security.AuthenticationStandardLogonParameters" Caption="身份验证标准登录参数">
+      <OwnMembers>
+        <Member Name="Password" Caption="密码" />
+        <Member Name="UserName" Caption="账号" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.ExpressApp.Security.ChangePasswordOnLogonParameters" Caption="更改密码登录参数">
+      <OwnMembers>
+        <Member Name="ConfirmPassword" Caption="确认密码" />
+        <Member Name="NewPassword" Caption="新密码" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.ExpressApp.Security.ChangePasswordParameters" Caption="新密码">
+      <OwnMembers>
+        <Member Name="OldPassword" Caption="旧密码" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.ExpressApp.Security.EditModelPermission" Caption="编辑模型的权限">
+      <OwnMembers>
+        <Member Name="Modifier" Caption="变化" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.ExpressApp.Security.ObjectAccessPermission">
+      <OwnMembers>
+        <Member Name="CreateAccess" Caption="创建访问" />
+        <Member Name="DeleteAccess" Caption="删除访问" />
+        <Member Name="NavigateAccess" Caption="导航访问" />
+        <Member Name="ReadAccess" Caption="读取访问权限" />
+        <Member Name="WriteAccess" Caption="写访问权限" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.ExpressApp.Security.ResetPasswordParameters" Caption="重置密码参数">
+      <OwnMembers>
+        <Member Name="Password" Caption="密码" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.ExpressApp.Validation.AllContextsView.ContextValidationResult">
+      <OwnMembers>
+        <Member Name="Id" Caption="Id" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.Persistent.BaseImpl.AuditDataItemPersistent">
+      <OwnMembers>
+        <Member Name="UserName" Caption="账号" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.Persistent.BaseImpl.BaseObject">
+      <OwnMembers>
+        <Member Name="Oid" Caption="Id" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.Persistent.BaseImpl.ModelDifference">
+      <OwnMembers>
+        <Member Name="UserName" Caption="账号" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.Persistent.BaseImpl.ModelDifferenceAspect">
+      <OwnMembers>
+        <Member Name="Owner" Caption="所属" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.Persistent.BaseImpl.PermissionPolicy.PermissionPolicyMemberPermissionsObject">
+      <OwnMembers>
+        <Member Name="Criteria" Caption="标准" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.Persistent.BaseImpl.PermissionPolicy.PermissionPolicyNavigationPermissionObject">
+      <OwnMembers>
+        <Member Name="Role" Caption="角色" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.Persistent.BaseImpl.PermissionPolicy.PermissionPolicyObjectPermissionsObject">
+      <OwnMembers>
+        <Member Name="Criteria" Caption="标准" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.Persistent.BaseImpl.PermissionPolicy.PermissionPolicyRole" Caption="角色" />
+    <Class Name="DevExpress.Persistent.BaseImpl.PermissionPolicy.PermissionPolicyRoleBase">
+      <OwnMembers>
+        <Member Name="IsAdministrative" Caption="是管理员" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.Persistent.BaseImpl.PermissionPolicy.PermissionPolicyUser">
+      <OwnMembers>
+        <Member Name="UserName" Caption="账号" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.Persistent.Validation.IRuleBaseProperties" Caption="规则基本属性">
+      <OwnMembers>
+        <Member Name="Id" Caption="Id" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.Persistent.Validation.IRuleCriteriaProperties">
+      <OwnMembers>
+        <Member Name="Criteria" Caption="标准" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.Persistent.Validation.IRuleObjectExistsProperties">
+      <OwnMembers>
+        <Member Name="Criteria" Caption="标准" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.Persistent.Validation.IRuleSearchObjectProperties">
+      <OwnMembers>
+        <Member Name="FoundObjectMessageFormat" Caption="找到对象消息格式" />
+        <Member Name="FoundObjectMessagesSeparator" Caption="找到对象消息分隔符" />
+        <Member Name="IncludeCurrentObject" Caption="包括当前对象" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.Persistent.Validation.IRuleUniqueValueProperties">
+      <OwnMembers>
+        <Member Name="FoundObjectMessageFormat" Caption="找到对象消息格式" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.Persistent.Validation.RuleBaseProperties" Caption="规则基本属性">
+      <OwnMembers>
+        <Member Name="Id" Caption="Id" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.Persistent.Validation.RuleCriteriaProperties">
+      <OwnMembers>
+        <Member Name="Criteria" Caption="标准" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.Persistent.Validation.RuleObjectExistsProperties">
+      <OwnMembers>
+        <Member Name="Criteria" Caption="标准" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.Persistent.Validation.RuleSearchObjectProperties">
+      <OwnMembers>
+        <Member Name="FoundObjectMessageFormat" Caption="找到对象消息格式" />
+        <Member Name="FoundObjectMessagesSeparator" Caption="找到对象消息分隔符" />
+        <Member Name="IncludeCurrentObject" Caption="包括当前对象" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Localization>
+    <LocalizationGroup Name="AuditTrail">
+      <LocalizationItem Name="BlobDataString" Value="Blob 数据" />
+      <LocalizationItem Name="NullValueString" Value="N/A" />
+    </LocalizationGroup>
+    <LocalizationGroup Name="Captions">
+      <LocalizationItem Name="DashboardView" Value="仪表盘视图" />
+      <LocalizationItem Name="DetailView" Value="详细信息视图" />
+      <LocalizationItem Name="ExportedModelDifferencesMessage" Value="所选的设置 （模型差异） 被出口到 {0} 文件夹。" />
+      <LocalizationItem Name="FilterBuilder" Value="筛选器生成器" />
+    </LocalizationGroup>
+    <LocalizationGroup Name="Confirmations">
+      <LocalizationItem Name="Cancel" Value="是否撤销更改？" />
+      <LocalizationItem Name="ConfirmForcedCloseWindow" Value="关闭此窗口将导致错误。是否关闭窗口？ \r\n警告︰ 如果您单击 '是'，所有更改将都会丢失。" />
+      <LocalizationItem Name="Save" Value="是否保存更改？" />
+    </LocalizationGroup>
+    <LocalizationGroup Name="Controls">
+      <LocalizationGroup Name="DevExpress.Dashboard">
+        <LocalizationItem Name="BarHomeName" Value="首页" />
+        <LocalizationItem Name="BarViewName" Value="视图" />
+        <LocalizationItem Name="CommandDeleteDataSourceCaption" Value="删除" />
+        <LocalizationItem Name="CommandDeleteGroupCaption" Value="删除" />
+        <LocalizationItem Name="CommandDeleteItemCaption" Value="删除" />
+        <LocalizationItem Name="CommandDeleteQueryCaption" Value="删除" />
+        <LocalizationItem Name="CommandEditDataSourceCaption" Value="编辑" />
+        <LocalizationItem Name="CommandEditEFDataSourceCaption" Value="编辑" />
+        <LocalizationItem Name="CommandEditExcelDataSourceCaption" Value="编辑" />
+        <LocalizationItem Name="CommandEditObjectDataSourceCaption" Value="编辑" />
+        <LocalizationItem Name="CommandEditQueryCaption" Value="编辑" />
+        <LocalizationItem Name="CommandSaveDashboardCaption" Value="保存" />
+        <LocalizationItem Name="CommandTextBoxEditTextRibbonCaption" Value="编辑" />
+        <LocalizationItem Name="DataFieldBrowserRemoveCalculatedFieldMenuItem" Value="删除" />
+        <LocalizationItem Name="DateTimeFormatDateFormatDefaultCaption" Value="默认" />
+        <LocalizationItem Name="DateTimeFormatDateTimeFormatDefaultCaption" Value="默认" />
+        <LocalizationItem Name="DateTimeFormatDayOfWeekFormatDefaultCaption" Value="默认" />
+        <LocalizationItem Name="DateTimeFormatMonthFormatDefaultCaption" Value="默认" />
+        <LocalizationItem Name="DateTimeFormatQuarterFormatDefaultCaption" Value="默认" />
+        <LocalizationItem Name="DateTimeFormatYearFormatDefaultCaption" Value="默认" />
+        <LocalizationItem Name="FormatRuleRangeDelete" Value="删除" />
+        <LocalizationItem Name="FormatRuleStyleAppearance" Value="外观" />
+        <LocalizationItem Name="PrintPreviewOptionsFormCaption" Value="选项" />
+        <LocalizationItem Name="RankTypeDense" Value="密集" />
+        <LocalizationItem Name="RibbonGroupFileCaption" Value="文件" />
+        <LocalizationItem Name="RibbonGroupMapNavigationCaption" Value="导航" />
+        <LocalizationItem Name="RibbonGroupSkinsCaption" Value="外观" />
+        <LocalizationItem Name="RibbonGroupView" Value="视图" />
+        <LocalizationItem Name="RibbonPageImageOptionsCaption" Value="选项" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="DevExpress.Printing">
+        <LocalizationItem Name="BarText_MainMenu" Value="主菜单" />
+        <LocalizationItem Name="BarText_StatusBar" Value="状态栏" />
+        <LocalizationItem Name="BarText_Toolbar" Value="工具栏" />
+        <LocalizationItem Name="Button_Help" Value="帮助" />
+        <LocalizationItem Name="Msg_OpenFileQuestionCaption" Value="导出" />
+        <LocalizationItem Name="RibbonPreview_ClosePreview_Caption" Value="关闭" />
+        <LocalizationItem Name="RibbonPreview_Customize_Caption" Value="选项" />
+        <LocalizationItem Name="RibbonPreview_Customize_STipTitle" Value="选项" />
+        <LocalizationItem Name="RibbonPreview_PageGroup_Close" Value="关闭" />
+        <LocalizationItem Name="RibbonPreview_PageGroup_Export" Value="导出" />
+        <LocalizationItem Name="RibbonPreview_PageGroup_Navigation" Value="导航" />
+        <LocalizationItem Name="RibbonPreview_PageGroup_Print" Value="打印" />
+        <LocalizationItem Name="RibbonPreview_Print_Caption" Value="打印" />
+        <LocalizationItem Name="RibbonPreview_Save_Caption" Value="保存" />
+        <LocalizationItem Name="TB_TTip_Print" Value="打印" />
+        <LocalizationItem Name="TB_TTip_Search" Value="搜索" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="DevExpress.XtraBars">
+        <LocalizationItem Name="CloseButton" Value="关闭" />
+        <LocalizationItem Name="HelpButton" Value="帮助" />
+        <LocalizationItem Name="NewToolbarName" Value="工具" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="DevExpress.XtraBars.Docking">
+        <LocalizationItem Name="CommandAutoHide" Value="自动隐藏" />
+        <LocalizationItem Name="CommandClose" Value="关闭" />
+        <LocalizationItem Name="CommandDock" Value="停靠" />
+        <LocalizationItem Name="CommandFloat" Value="浮动" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="DevExpress.XtraBars.Docking2010">
+        <LocalizationItem Name="CommandClose" Value="关闭" />
+        <LocalizationItem Name="CommandDetail" Value="详细" />
+        <LocalizationItem Name="CommandDockWidget" Value="停靠" />
+        <LocalizationItem Name="CommandExit" Value="退出" />
+        <LocalizationItem Name="CommandFloat" Value="浮动" />
+        <LocalizationItem Name="CommandHome" Value="首页" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="DevExpress.XtraEditors">
+        <LocalizationItem Name="DefaultBooleanDefault" Value="默认" />
+        <LocalizationItem Name="FilterToolTipNodeAction" Value="功能" />
+        <LocalizationItem Name="ManageRuleCommonType" Value="类型︰" />
+        <LocalizationItem Name="NavigatorEditButtonHint" Value="编辑" />
+        <LocalizationItem Name="NavigatorRemoveButtonHint" Value="删除" />
+        <LocalizationItem Name="PictureEditMenuDelete" Value="删除" />
+        <LocalizationItem Name="PictureEditMenuSave" Value="保存" />
+        <LocalizationItem Name="TabHeaderButtonClose" Value="关闭" />
+        <LocalizationItem Name="TakePictureDialogSave" Value="保存" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="DevExpress.XtraGrid">
+        <LocalizationItem Name="LayoutViewGroupView" Value="视图" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="DevExpress.XtraLayout">
+        <LocalizationItem Name="DeleteTemplateText" Value="删除" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="DevExpress.XtraRichEdit">
+        <LocalizationItem Name="MenuCmd_Delete" Value="删除" />
+        <LocalizationItem Name="MenuCmd_DeleteComment" Value="删除" />
+        <LocalizationItem Name="MenuCmd_DeleteDescription" Value="删除" />
+        <LocalizationItem Name="MenuCmd_DeleteTableElements" Value="删除" />
+        <LocalizationItem Name="MenuCmd_ReadingView" Value="阅读视图" />
+        <LocalizationItem Name="MenuCmd_ReadingViewDescription" Value="阅读视图" />
+        <LocalizationItem Name="MenuCmd_SaveDocument" Value="保存" />
+      </LocalizationGroup>
+    </LocalizationGroup>
+    <LocalizationGroup Name="Enums">
+      <LocalizationGroup Name="DevExpress.ExpressApp.Editors.ViewItemVisibility">
+        <LocalizationItem Name="ShowEmptySpace" Value="显示空白" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="DevExpress.ExpressApp.ModelDifferenceCopyBehavior">
+        <LocalizationItem Name="Merge" Value="合并" />
+        <LocalizationItem Name="Overwrite" Value="覆盖" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="DevExpress.ExpressApp.Security.ModelAccessModifier" Value="模型访问修饰符">
+        <LocalizationItem Name="Allow" Value="允许" />
+        <LocalizationItem Name="Deny" Value="禁止" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="DevExpress.ExpressApp.Security.ObjectAccess" Value="对象访问">
+        <LocalizationItem Name="AllAccess" Value="所有访问" />
+        <LocalizationItem Name="ChangeAccess" Value="修改访问" />
+        <LocalizationItem Name="Create" Value="创建" />
+        <LocalizationItem Name="Delete" Value="删除" />
+        <LocalizationItem Name="Navigate" Value="导航" />
+        <LocalizationItem Name="NoAccess" Value="访问" />
+        <LocalizationItem Name="Read" Value="读" />
+        <LocalizationItem Name="Write" Value="写" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="DevExpress.ExpressApp.Security.ObjectAccessModifier" Value="对象访问修饰符">
+        <LocalizationItem Name="Allow" Value="允许" />
+        <LocalizationItem Name="Deny" Value="禁止" />
+        <LocalizationItem Name="None" Value="没有一个" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="DevExpress.ExpressApp.Templates.ActionsToolbarVisibility" Value="操作工具栏可见性">
+        <LocalizationItem Name="Default" Value="默认" />
+        <LocalizationItem Name="Hide" Value="隐藏" />
+        <LocalizationItem Name="Show" Value="显示" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="DevExpress.Persistent.Base.SecurityPermissionPolicy" Value="安全权限策略">
+        <LocalizationItem Name="AllowAllByDefault" Value="默认情况下都允许" />
+        <LocalizationItem Name="DenyAllByDefault" Value="默认情况下禁止所有" />
+        <LocalizationItem Name="ReadOnlyAllByDefault" Value="阅读只所有默认情况下" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="DevExpress.Persistent.Base.SecurityPermissionState" Value="安全权限状态" />
+      <LocalizationGroup Name="DevExpress.Persistent.Validation.StringComparisonType">
+        <LocalizationItem Name="Equals" Value="等于" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="DevExpress.Persistent.Validation.ValidationOutcome">
+        <LocalizationItem Name="Error" Value="错误" />
+        <LocalizationItem Name="Information" Value="信息" />
+        <LocalizationItem Name="Valid" Value="有效" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="DevExpress.Persistent.Validation.ValueComparisonType">
+        <LocalizationItem Name="Equals" Value="等于" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="DevExpress.XtraBars.Docking.DockVisibility">
+        <LocalizationItem Name="AutoHide" Value="自动隐藏" />
+        <LocalizationItem Name="Hidden" Value="隐藏" />
+        <LocalizationItem Name="Visible" Value="显示" />
+      </LocalizationGroup>
+    </LocalizationGroup>
+    <LocalizationGroup Name="Exceptions">
+      <LocalizationItem Name="CanNotDeleteObject" Value="您不能删除 '{0}' ，因为安全限制。" />
+      <LocalizationItem Name="CanNotSaveObject" Value="你不能保存'{0}' ，因为安全限制。" />
+      <LocalizationGroup Name="SystemExceptions">
+        <LocalizationItem Name="ActionMethodShouldBeNonGeneric" Value="无法创建操作方法 {0} 类的 {1}.操作方法应非泛型" />
+        <LocalizationItem Name="ActionMethodShouldBeParameterless" Value="无法创建操作方法 {0} 类的 {1}.操作方法应该是无参数" />
+        <LocalizationItem Name="AlreadyUsedObjectSpace" Value="ObjectSpace 具有已分配给另一根视图︰ '{0}'.只有当您尝试分配已被另一根视图根视图使用 ObjectSpace 时，将发生此错误。例如，您可能会收到此错误消息，当使用 XafApplication.CreateDetailView/CreateListView 方法在 ViewController 和 View.ObjectSpace 对象作为参数传递给这些方法 true.\r\nTo View.IsRoot 属性时避免这种错误是足以通过 XafApplication.CreateObjectSpace 方法在这些方法中，通过创建一个新的 ObjectSpace 实例或创建非根视图通过将相应的参数传递给这不能帮助这些 methods.\r\nIf请联系我们的支持团队在 http://www.devexpress.com/Support/Center/" />
+        <LocalizationItem Name="AnErrorHasOccurredWhileLoadingTheModel" Value="加载模型时出错。资料来源︰ '{0}'" />
+        <LocalizationItem Name="AnErrorHasOccurredWhileProcessingAShortcut" Value="在处理一个快捷方式时出现错误︰ {0}" />
+        <LocalizationItem Name="AnErrorHasOccurredWithContext" Value="发生错误，上下文︰ {0}" />
+        <LocalizationItem Name="AnUnsavedObjectCannotBeShown" Value="不能显示新创建的记录，直到它被保存。请保存在单独的窗体中查看其详细信息。" />
+        <LocalizationItem Name="ApplicationIsNotStarted" Value="不被启动应用程序" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="UserVisibleExceptions">
+        <LocalizationGroup Name="Security">
+          <LocalizationItem Name="NewPasswordIsEqualToOldPassword" Value="新密码与旧密码相同。" />
+        </LocalizationGroup>
+      </LocalizationGroup>
+    </LocalizationGroup>
+    <LocalizationGroup Name="FileAttachments">
+      <LocalizationItem Name="Editor_Clear" Value="清除内容" />
+      <LocalizationItem Name="Editor_Open" Value="打开" />
+      <LocalizationItem Name="Editor_Save" Value="另存为..." />
+      <LocalizationItem Name="OverwritePrompt" Value=" '{0}' 文件已存在。是否要替换？" />
+      <LocalizationItem Name="OverwritePromptCaption" Value="另存为..." />
+      <LocalizationItem Name="WordAll" Value="所有" />
+      <LocalizationItem Name="WordFiles" Value="文件" />
+    </LocalizationGroup>
+    <LocalizationGroup Name="FrameTemplates">
+      <LocalizationGroup Name="DevExpress.ExpressApp.Win.Templates.Bars.DetailFormV2">
+        <LocalizationItem Name="_mainMenuBar.Text" Value="主菜单" />
+        <LocalizationItem Name="_statusBar.Text" Value="状态栏" />
+        <LocalizationItem Name="barContainerAbout.Caption" Value="关于" />
+        <LocalizationItem Name="barContainerClose.Caption" Value="关闭" />
+        <LocalizationItem Name="barContainerDiagnostic.Caption" Value="诊断" />
+        <LocalizationItem Name="barContainerEdit.Caption" Value="编辑" />
+        <LocalizationItem Name="barContainerExport.Caption" Value="导出" />
+        <LocalizationItem Name="barContainerFile.Caption" Value="文件" />
+        <LocalizationItem Name="barContainerFilters.Caption" Value="筛选器" />
+        <LocalizationItem Name="barContainerFullTextSearch.Caption" Value="全文搜索" />
+        <LocalizationItem Name="barContainerMenu.Caption" Value="菜单" />
+        <LocalizationItem Name="barContainerNotifications.Caption" Value="通知" />
+        <LocalizationItem Name="barContainerObjectsCreation.Caption" Value="记录创建" />
+        <LocalizationItem Name="barContainerOpenObject.Caption" Value="打开相关的记录" />
+        <LocalizationItem Name="barContainerOptions.Caption" Value="选项" />
+        <LocalizationItem Name="barContainerPrint.Caption" Value="打印" />
+        <LocalizationItem Name="barContainerRecordEdit.Caption" Value="记录编辑" />
+        <LocalizationItem Name="barContainerRecordsNavigation.Caption" Value="记录导航" />
+        <LocalizationItem Name="barContainerReports.Caption" Value="报告" />
+        <LocalizationItem Name="barContainerSave.Caption" Value="保存" />
+        <LocalizationItem Name="barContainerSearch.Caption" Value="搜索" />
+        <LocalizationItem Name="barContainerTools.Caption" Value="工具" />
+        <LocalizationItem Name="barContainerUndoRedo.Caption" Value="设置" />
+        <LocalizationItem Name="barContainerView.Caption" Value="视图" />
+        <LocalizationItem Name="barSubItemEdit.Caption" Value="编辑" />
+        <LocalizationItem Name="barSubItemFile.Caption" Value="文件" />
+        <LocalizationItem Name="barSubItemHelp.Caption" Value="帮助" />
+        <LocalizationItem Name="barSubItemTools.Caption" Value="工具" />
+        <LocalizationItem Name="barSubItemView.Caption" Value="视图" />
+        <LocalizationItem Name="standardToolBar.Text" Value="主工具栏" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="DevExpress.ExpressApp.Win.Templates.Bars.MainFormV2">
+        <LocalizationItem Name="barChooseSkinItem.Caption" Value="外观" />
+        <LocalizationItem Name="barContainerAbout.Caption" Value="关于" />
+        <LocalizationItem Name="barContainerDefault.Caption" Value="默认" />
+        <LocalizationItem Name="barContainerDiagnostic.Caption" Value="诊断" />
+        <LocalizationItem Name="barContainerEdit.Caption" Value="编辑" />
+        <LocalizationItem Name="barContainerExit.Caption" Value="退出" />
+        <LocalizationItem Name="barContainerExport.Caption" Value="导出" />
+        <LocalizationItem Name="barContainerFile.Caption" Value="文件" />
+        <LocalizationItem Name="barContainerFilters.Caption" Value="筛选器" />
+        <LocalizationItem Name="barContainerFullTextSearch.Caption" Value="全文搜索" />
+        <LocalizationItem Name="barContainerMenu.Caption" Value="菜单" />
+        <LocalizationItem Name="barContainerNotifications.Caption" Value="通知" />
+        <LocalizationItem Name="barContainerObjectsCreation.Caption" Value="记录创建" />
+        <LocalizationItem Name="barContainerOpenObject.Caption" Value="打开相关的记录" />
+        <LocalizationItem Name="barContainerOptions.Caption" Value="选项" />
+        <LocalizationItem Name="barContainerPanels.Caption" Value="面板" />
+        <LocalizationItem Name="barContainerPrint.Caption" Value="打印" />
+        <LocalizationItem Name="barContainerRecordEdit.Caption" Value="记录编辑" />
+        <LocalizationItem Name="barContainerRecordsNavigation.Caption" Value="记录导航" />
+        <LocalizationItem Name="barContainerReports.Caption" Value="报告" />
+        <LocalizationItem Name="barContainerSave.Caption" Value="保存" />
+        <LocalizationItem Name="barContainerSearch.Caption" Value="搜索" />
+        <LocalizationItem Name="barContainerTools.Caption" Value="工具" />
+        <LocalizationItem Name="barContainerUndoRedo.Caption" Value="设置" />
+        <LocalizationItem Name="barContainerView.Caption" Value="视图" />
+        <LocalizationItem Name="barContainerViewsHistoryNavigation.Caption" Value="查看历史记录导航" />
+        <LocalizationItem Name="barContainerViewsNavigation.Caption" Value="导航" />
+        <LocalizationItem Name="barContainerWindow.Caption" Value="窗口" />
+        <LocalizationItem Name="barMdiChildrenListItem.Caption" Value="窗口列表" />
+        <LocalizationItem Name="barSubItemEdit.Caption" Value="编辑" />
+        <LocalizationItem Name="barSubItemFile.Caption" Value="文件" />
+        <LocalizationItem Name="barSubItemHelp.Caption" Value="帮助" />
+        <LocalizationItem Name="barSubItemPanels.Caption" Value="面板" />
+        <LocalizationItem Name="barSubItemTools.Caption" Value="工具" />
+        <LocalizationItem Name="barSubItemView.Caption" Value="视图" />
+        <LocalizationItem Name="barSubItemWindow.Caption" Value="窗口" />
+        <LocalizationItem Name="dockPanelNavigation.Text" Value="导航" />
+        <LocalizationItem Name="mainMenuBar.Text" Value="主菜单" />
+        <LocalizationItem Name="standardToolBar.Text" Value="主工具栏" />
+        <LocalizationItem Name="statusBar.Text" Value="状态栏" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="DevExpress.ExpressApp.Win.Templates.Bars.NestedFrameTemplateV2">
+        <LocalizationItem Name="barContainerDefault.Caption" Value="其他" />
+        <LocalizationItem Name="barContainerDiagnostic.Caption" Value="诊断" />
+        <LocalizationItem Name="barContainerEdit.Caption" Value="编辑" />
+        <LocalizationItem Name="barContainerExport.Caption" Value="导出" />
+        <LocalizationItem Name="barContainerFilters.Caption" Value="筛选器" />
+        <LocalizationItem Name="barContainerMenu.Caption" Value="菜单" />
+        <LocalizationItem Name="barContainerObjectsCreation.Caption" Value="记录创建" />
+        <LocalizationItem Name="barContainerOpenObject.Caption" Value="打开相关的记录" />
+        <LocalizationItem Name="barContainerPrint.Caption" Value="打印" />
+        <LocalizationItem Name="barContainerRecordEdit.Caption" Value="记录编辑" />
+        <LocalizationItem Name="barContainerRecordsNavigation.Caption" Value="记录导航" />
+        <LocalizationItem Name="barContainerReports.Caption" Value="报告" />
+        <LocalizationItem Name="barContainerSave.Caption" Value="保存" />
+        <LocalizationItem Name="barContainerView.Caption" Value="视图" />
+        <LocalizationItem Name="standardToolBar.Text" Value="工具栏" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="DevExpress.ExpressApp.Win.Templates.DetailViewForm">
+        <LocalizationItem Name="_mainMenuBar.Text" Value="主菜单" />
+        <LocalizationItem Name="_statusBar.Text" Value="状态栏" />
+        <LocalizationItem Name="barSubItemEdit.Caption" Value="编辑" />
+        <LocalizationItem Name="barSubItemFile.Caption" Value="文件" />
+        <LocalizationItem Name="barSubItemHelp.Caption" Value="帮助" />
+        <LocalizationItem Name="barSubItemTools.Caption" Value="工具" />
+        <LocalizationItem Name="barSubItemView.Caption" Value="视图" />
+        <LocalizationItem Name="cAbout.Caption" Value="关于" />
+        <LocalizationItem Name="cClose.Caption" Value="关闭" />
+        <LocalizationItem Name="cDiagnostic.Caption" Value="诊断" />
+        <LocalizationItem Name="cEdit.Caption" Value="编辑" />
+        <LocalizationItem Name="cExport.Caption" Value="导出" />
+        <LocalizationItem Name="cFile.Caption" Value="文件" />
+        <LocalizationItem Name="cFilters.Caption" Value="筛选器" />
+        <LocalizationItem Name="cFullTextSearch.Caption" Value="全文搜索" />
+        <LocalizationItem Name="cMenu.Caption" Value="菜单" />
+        <LocalizationItem Name="cObjectsCreation.Caption" Value="记录创建" />
+        <LocalizationItem Name="cOpenObject.Caption" Value="打开相关的记录" />
+        <LocalizationItem Name="cOptions.Caption" Value="选项" />
+        <LocalizationItem Name="cPrint.Caption" Value="打印" />
+        <LocalizationItem Name="cRecordEdit.Caption" Value="记录编辑" />
+        <LocalizationItem Name="cRecordsNavigation.Caption" Value="记录导航" />
+        <LocalizationItem Name="cReports.Caption" Value="报告" />
+        <LocalizationItem Name="cReports.TargetPageGroupCaption" Value="视图" />
+        <LocalizationItem Name="cSave.Caption" Value="保存" />
+        <LocalizationItem Name="cSearch.Caption" Value="搜索" />
+        <LocalizationItem Name="cTools.Caption" Value="工具" />
+        <LocalizationItem Name="cUndoRedo.Caption" Value="设置" />
+        <LocalizationItem Name="cUndoRedo.TargetPageGroupCaption" Value="编辑" />
+        <LocalizationItem Name="cView.Caption" Value="视图" />
+        <LocalizationItem Name="standardToolBar.Text" Value="主工具栏" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="DevExpress.ExpressApp.Win.Templates.LookupControlTemplate">
+        <LocalizationItem Name="AvailableRecords.Text" Value="结果记录︰" />
+        <LocalizationItem Name="searchActionContainerLayoutItem.CustomizationFormText" Value="查找︰" />
+        <LocalizationItem Name="searchActionContainerLayoutItem.Text" Value="查找︰" />
+        <LocalizationItem Name="typeValueLayoutItem.CustomizationFormText" Value="类型︰" />
+        <LocalizationItem Name="typeValueLayoutItem.Text" Value="类型︰" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="DevExpress.ExpressApp.Win.Templates.MainForm">
+        <LocalizationItem Name="_mainMenuBar.Text" Value="主菜单" />
+        <LocalizationItem Name="_statusBar.Text" Value="状态栏" />
+        <LocalizationItem Name="barMdiChildrenListItem.Caption" Value="窗口列表" />
+        <LocalizationItem Name="barSubItemEdit.Caption" Value="编辑" />
+        <LocalizationItem Name="barSubItemFile.Caption" Value="文件" />
+        <LocalizationItem Name="barSubItemHelp.Caption" Value="帮助" />
+        <LocalizationItem Name="barSubItemPanels.Caption" Value="面板" />
+        <LocalizationItem Name="barSubItemTools.Caption" Value="工具" />
+        <LocalizationItem Name="barSubItemView.Caption" Value="视图" />
+        <LocalizationItem Name="barSubItemWindow.Caption" Value="窗口" />
+        <LocalizationItem Name="cAbout.Caption" Value="关于" />
+        <LocalizationItem Name="cAppearance.Caption" Value="外观" />
+        <LocalizationItem Name="cDefault.Caption" Value="默认" />
+        <LocalizationItem Name="cDiagnostic.Caption" Value="诊断" />
+        <LocalizationItem Name="cEdit.Caption" Value="编辑" />
+        <LocalizationItem Name="cExit.Caption" Value="退出" />
+        <LocalizationItem Name="cExport.Caption" Value="导出" />
+        <LocalizationItem Name="cFile.Caption" Value="文件" />
+        <LocalizationItem Name="cFilters.Caption" Value="筛选器" />
+        <LocalizationItem Name="cFullTextSearch.Caption" Value="全文搜索" />
+        <LocalizationItem Name="cMenu.Caption" Value="菜单" />
+        <LocalizationItem Name="cObjectsCreation.Caption" Value="记录创建" />
+        <LocalizationItem Name="cOpenObject.Caption" Value="打开相关的记录" />
+        <LocalizationItem Name="cOptions.Caption" Value="选项" />
+        <LocalizationItem Name="cPanels.Caption" Value="面板" />
+        <LocalizationItem Name="cPanels.TargetPageCaption" Value="视图" />
+        <LocalizationItem Name="cPrint.Caption" Value="打印" />
+        <LocalizationItem Name="cRecordEdit.Caption" Value="记录编辑" />
+        <LocalizationItem Name="cRecordsNavigation.Caption" Value="记录导航" />
+        <LocalizationItem Name="cReports.Caption" Value="报告" />
+        <LocalizationItem Name="cReports.TargetPageGroupCaption" Value="视图" />
+        <LocalizationItem Name="cSave.Caption" Value="保存" />
+        <LocalizationItem Name="cSearch.Caption" Value="搜索" />
+        <LocalizationItem Name="cTools.Caption" Value="工具" />
+        <LocalizationItem Name="cUndoRedo.Caption" Value="设置" />
+        <LocalizationItem Name="cUndoRedo.TargetPageGroupCaption" Value="编辑" />
+        <LocalizationItem Name="cView.Caption" Value="视图" />
+        <LocalizationItem Name="cViewsHistoryNavigation.Caption" Value="查看历史记录导航" />
+        <LocalizationItem Name="cViewsNavigation.Caption" Value="导航" />
+        <LocalizationItem Name="cWindows.TargetPageCaption" Value="视图" />
+        <LocalizationItem Name="dockPanelNavigation.Text" Value="导航" />
+        <LocalizationItem Name="standardToolBar.Text" Value="主工具栏" />
+        <LocalizationItem Name="Window.Caption" Value="窗口" />
+        <LocalizationItem Name="Window.TargetPageCaption" Value="视图" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="DevExpress.ExpressApp.Win.Templates.NestedFrameTemplate">
+        <LocalizationItem Name="cDefault.Caption" Value="其他" />
+        <LocalizationItem Name="cDiagnostic.Caption" Value="诊断" />
+        <LocalizationItem Name="cEdit.Caption" Value="编辑" />
+        <LocalizationItem Name="cExport.Caption" Value="导出" />
+        <LocalizationItem Name="cFilters.Caption" Value="筛选器" />
+        <LocalizationItem Name="cMenu.Caption" Value="菜单" />
+        <LocalizationItem Name="cObjectsCreation.Caption" Value="记录创建" />
+        <LocalizationItem Name="cOpenObject.Caption" Value="打开相关的记录" />
+        <LocalizationItem Name="cPrint.Caption" Value="打印" />
+        <LocalizationItem Name="cRecordEdit.Caption" Value="记录编辑" />
+        <LocalizationItem Name="cRecordsNavigation.Caption" Value="记录导航" />
+        <LocalizationItem Name="cReports.Caption" Value="报告" />
+        <LocalizationItem Name="cSave.Caption" Value="保存" />
+        <LocalizationItem Name="cView.Caption" Value="视图" />
+        <LocalizationItem Name="standardToolBar.Text" Value="工具栏" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="DevExpress.ExpressApp.Win.Templates.Ribbon.DetailRibbonFormV2">
+        <LocalizationItem Name="barContainerAbout.Caption" Value="关于" />
+        <LocalizationItem Name="barContainerClose.Caption" Value="关闭" />
+        <LocalizationItem Name="barContainerDiagnostic.Caption" Value="诊断" />
+        <LocalizationItem Name="barContainerEdit.Caption" Value="编辑" />
+        <LocalizationItem Name="barContainerExport.Caption" Value="导出" />
+        <LocalizationItem Name="barContainerFile.Caption" Value="文件" />
+        <LocalizationItem Name="barContainerFilters.Caption" Value="筛选器" />
+        <LocalizationItem Name="barContainerFullTextSearch.Caption" Value="全文搜索" />
+        <LocalizationItem Name="barContainerMenu.Caption" Value="菜单" />
+        <LocalizationItem Name="barContainerNotifications.Caption" Value="通知" />
+        <LocalizationItem Name="barContainerObjectsCreation.Caption" Value="记录创建" />
+        <LocalizationItem Name="barContainerOpenObject.Caption" Value="打开相关的记录" />
+        <LocalizationItem Name="barContainerOptions.Caption" Value="选项" />
+        <LocalizationItem Name="barContainerPrint.Caption" Value="打印" />
+        <LocalizationItem Name="barContainerRecordEdit.Caption" Value="记录编辑" />
+        <LocalizationItem Name="barContainerRecordsNavigation.Caption" Value="记录导航" />
+        <LocalizationItem Name="barContainerReports.Caption" Value="报告" />
+        <LocalizationItem Name="barContainerSave.Caption" Value="保存" />
+        <LocalizationItem Name="barContainerSearch.Caption" Value="搜索" />
+        <LocalizationItem Name="barContainerTools.Caption" Value="工具" />
+        <LocalizationItem Name="barContainerUndoRedo.Caption" Value="设置" />
+        <LocalizationItem Name="barContainerView.Caption" Value="视图" />
+        <LocalizationItem Name="defaultPage.Text" Value="首页" />
+        <LocalizationItem Name="ribbonGroupClose.Text" Value="关闭" />
+        <LocalizationItem Name="ribbonGroupDiagnostic.Text" Value="诊断" />
+        <LocalizationItem Name="ribbonGroupEdit.Text" Value="编辑" />
+        <LocalizationItem Name="ribbonGroupFilters.Text" Value="筛选器" />
+        <LocalizationItem Name="ribbonGroupFullTextSearch.Text" Value="全文搜索" />
+        <LocalizationItem Name="ribbonGroupObjectsCreation.Text" Value="记录创建" />
+        <LocalizationItem Name="ribbonGroupOpenObject.Text" Value="打开相关的记录" />
+        <LocalizationItem Name="ribbonGroupOptions.Text" Value="选项" />
+        <LocalizationItem Name="ribbonGroupRecordEdit.Text" Value="记录编辑" />
+        <LocalizationItem Name="ribbonGroupRecordsNavigation.Text" Value="记录导航" />
+        <LocalizationItem Name="ribbonGroupSave.Text" Value="保存" />
+        <LocalizationItem Name="ribbonGroupSearch.Text" Value="搜索" />
+        <LocalizationItem Name="ribbonGroupTools.Text" Value="工具" />
+        <LocalizationItem Name="ribbonGroupView.Text" Value="视图" />
+        <LocalizationItem Name="toolsPage.Text" Value="工具" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="DevExpress.ExpressApp.Win.Templates.Ribbon.MainRibbonFormV2">
+        <LocalizationItem Name="barContainerAbout.Caption" Value="关于" />
+        <LocalizationItem Name="barContainerDefault.Caption" Value="默认" />
+        <LocalizationItem Name="barContainerDiagnostic.Caption" Value="诊断" />
+        <LocalizationItem Name="barContainerEdit.Caption" Value="编辑" />
+        <LocalizationItem Name="barContainerExit.Caption" Value="退出" />
+        <LocalizationItem Name="barContainerExport.Caption" Value="导出" />
+        <LocalizationItem Name="barContainerFile.Caption" Value="文件" />
+        <LocalizationItem Name="barContainerFilters.Caption" Value="筛选器" />
+        <LocalizationItem Name="barContainerFullTextSearch.Caption" Value="全文搜索" />
+        <LocalizationItem Name="barContainerMenu.Caption" Value="菜单" />
+        <LocalizationItem Name="barContainerNotifications.Caption" Value="通知" />
+        <LocalizationItem Name="barContainerObjectsCreation.Caption" Value="记录创建" />
+        <LocalizationItem Name="barContainerOpenObject.Caption" Value="打开相关的记录" />
+        <LocalizationItem Name="barContainerOptions.Caption" Value="选项" />
+        <LocalizationItem Name="barContainerPanels.Caption" Value="面板" />
+        <LocalizationItem Name="barContainerPrint.Caption" Value="打印" />
+        <LocalizationItem Name="barContainerRecordEdit.Caption" Value="记录编辑" />
+        <LocalizationItem Name="barContainerRecordsNavigation.Caption" Value="记录导航" />
+        <LocalizationItem Name="barContainerReports.Caption" Value="报告" />
+        <LocalizationItem Name="barContainerSave.Caption" Value="保存" />
+        <LocalizationItem Name="barContainerSearch.Caption" Value="搜索" />
+        <LocalizationItem Name="barContainerTools.Caption" Value="工具" />
+        <LocalizationItem Name="barContainerUndoRedo.Caption" Value="设置" />
+        <LocalizationItem Name="barContainerView.Caption" Value="视图" />
+        <LocalizationItem Name="barContainerViewsHistoryNavigation.Caption" Value="查看历史记录导航" />
+        <LocalizationItem Name="barContainerViewsNavigation.Caption" Value="导航" />
+        <LocalizationItem Name="barMdiChildrenListItem.Caption" Value="窗口列表" />
+        <LocalizationItem Name="barSubItemPanels.Caption" Value="面板" />
+        <LocalizationItem Name="defaultPage.Text" Value="首页" />
+        <LocalizationItem Name="defaultPageGroup.Text" Value="功能" />
+        <LocalizationItem Name="dockPanelNavigation.Text" Value="导航" />
+        <LocalizationItem Name="ribbonGallerySkins.Caption" Value="外观" />
+        <LocalizationItem Name="ribbonGroupAppearance.Text" Value="外观" />
+        <LocalizationItem Name="ribbonGroupDefault.Text" Value="默认" />
+        <LocalizationItem Name="ribbonGroupDiagnostic.Text" Value="诊断" />
+        <LocalizationItem Name="ribbonGroupEdit.Text" Value="编辑" />
+        <LocalizationItem Name="ribbonGroupFilters.Text" Value="筛选器" />
+        <LocalizationItem Name="ribbonGroupFullTextSearch.Text" Value="全文搜索" />
+        <LocalizationItem Name="ribbonGroupObjectsCreation.Text" Value="记录创建" />
+        <LocalizationItem Name="ribbonGroupOpenObject.Text" Value="打开相关的记录" />
+        <LocalizationItem Name="ribbonGroupOptions.Text" Value="选项" />
+        <LocalizationItem Name="ribbonGroupRecordEdit.Text" Value="记录编辑" />
+        <LocalizationItem Name="ribbonGroupRecordsNavigation.Text" Value="记录导航" />
+        <LocalizationItem Name="ribbonGroupSave.Text" Value="保存" />
+        <LocalizationItem Name="ribbonGroupSearch.Text" Value="搜索" />
+        <LocalizationItem Name="ribbonGroupTools.Text" Value="工具" />
+        <LocalizationItem Name="ribbonGroupView.Text" Value="视图" />
+        <LocalizationItem Name="ribbonGroupViewsHistoryNavigation.Text" Value="查看历史记录导航" />
+        <LocalizationItem Name="ribbonGroupViewsNavigation.Text" Value="导航" />
+        <LocalizationItem Name="toolsPage.Text" Value="工具" />
+        <LocalizationItem Name="viewPage.Text" Value="视图" />
+        <LocalizationItem Name="windowPage.Text" Value="窗口" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="DevExpress.ExpressApp.Win.Templates.Ribbon.OutlookStyleMainRibbonForm">
+        <LocalizationItem Name="barCheckItemNormal.Caption" Value="普通视图" />
+        <LocalizationItem Name="barCheckItemReading.Caption" Value="阅读视图" />
+        <LocalizationItem Name="barContainerAbout.Caption" Value="关于" />
+        <LocalizationItem Name="barContainerDefault.Caption" Value="默认" />
+        <LocalizationItem Name="barContainerDiagnostic.Caption" Value="诊断" />
+        <LocalizationItem Name="barContainerEdit.Caption" Value="编辑" />
+        <LocalizationItem Name="barContainerExit.Caption" Value="退出" />
+        <LocalizationItem Name="barContainerExport.Caption" Value="导出" />
+        <LocalizationItem Name="barContainerFile.Caption" Value="文件" />
+        <LocalizationItem Name="barContainerFilters.Caption" Value="筛选器" />
+        <LocalizationItem Name="barContainerFullTextSearch.Caption" Value="全文搜索" />
+        <LocalizationItem Name="barContainerMenu.Caption" Value="菜单" />
+        <LocalizationItem Name="barContainerNotifications.Caption" Value="通知" />
+        <LocalizationItem Name="barContainerObjectsCreation.Caption" Value="记录创建" />
+        <LocalizationItem Name="barContainerOpenObject.Caption" Value="打开相关的记录" />
+        <LocalizationItem Name="barContainerOptions.Caption" Value="选项" />
+        <LocalizationItem Name="barContainerPanels.Caption" Value="面板" />
+        <LocalizationItem Name="barContainerPrint.Caption" Value="打印" />
+        <LocalizationItem Name="barContainerRecordEdit.Caption" Value="记录编辑" />
+        <LocalizationItem Name="barContainerRecordsNavigation.Caption" Value="记录导航" />
+        <LocalizationItem Name="barContainerReports.Caption" Value="报告" />
+        <LocalizationItem Name="barContainerSave.Caption" Value="保存" />
+        <LocalizationItem Name="barContainerSearch.Caption" Value="搜索" />
+        <LocalizationItem Name="barContainerTools.Caption" Value="工具" />
+        <LocalizationItem Name="barContainerUndoRedo.Caption" Value="撤销/重做" />
+        <LocalizationItem Name="barContainerView.Caption" Value="视图" />
+        <LocalizationItem Name="barContainerViewsHistoryNavigation.Caption" Value="视图历史记录导航" />
+        <LocalizationItem Name="barContainerViewsNavigation.Caption" Value="导航" />
+        <LocalizationItem Name="barSubItemPanels.Caption" Value="面板" />
+        <LocalizationItem Name="defaultPage.Text" Value="首页" />
+        <LocalizationItem Name="defaultPageGroup.Text" Value="功能" />
+        <LocalizationItem Name="ribbonGallerySkins.Caption" Value="外观" />
+        <LocalizationItem Name="ribbonGroupAppearance.Text" Value="外观" />
+        <LocalizationItem Name="ribbonGroupDefault.Text" Value="默认" />
+        <LocalizationItem Name="ribbonGroupDiagnostic.Text" Value="诊断" />
+        <LocalizationItem Name="ribbonGroupEdit.Text" Value="编辑" />
+        <LocalizationItem Name="ribbonGroupFilters.Text" Value="筛选器" />
+        <LocalizationItem Name="ribbonGroupFullTextSearch.Text" Value="全文搜索" />
+        <LocalizationItem Name="ribbonGroupObjectsCreation.Text" Value="记录创建" />
+        <LocalizationItem Name="ribbonGroupOpenObject.Text" Value="打开相关的记录" />
+        <LocalizationItem Name="ribbonGroupOptions.Text" Value="选项" />
+        <LocalizationItem Name="ribbonGroupRecordEdit.Text" Value="记录编辑" />
+        <LocalizationItem Name="ribbonGroupRecordsNavigation.Text" Value="记录导航" />
+        <LocalizationItem Name="ribbonGroupSave.Text" Value="保存" />
+        <LocalizationItem Name="ribbonGroupSearch.Text" Value="搜索" />
+        <LocalizationItem Name="ribbonGroupTools.Text" Value="工具" />
+        <LocalizationItem Name="ribbonGroupView.Text" Value="视图" />
+        <LocalizationItem Name="ribbonGroupViewsHistoryNavigation.Text" Value="查看历史记录导航" />
+        <LocalizationItem Name="ribbonGroupViewsNavigation.Text" Value="导航" />
+        <LocalizationItem Name="toolsPage.Text" Value="工具" />
+        <LocalizationItem Name="viewPage.Text" Value="视图" />
+        <LocalizationItem Name="windowPage.Text" Value="窗口" />
+      </LocalizationGroup>
+    </LocalizationGroup>
+    <LocalizationGroup Name="Messages">
+      <LocalizationItem Name="Create" Value="创建" />
+      <LocalizationItem Name="Delete" Value="删除" />
+      <LocalizationItem Name="IsGrantedFrom" Value="授权 '{0}' 类中的成员。" />
+      <LocalizationItem Name="IsInheritedFrom" Value="继承自 '{0}' 类。" />
+      <LocalizationItem Name="Navigate" Value="导航" />
+      <LocalizationItem Name="Read" Value="读" />
+      <LocalizationItem Name="UnableToSaveCustomization" Value="无法保存自定义信息︰ \n{0}" />
+      <LocalizationItem Name="ValidationErrorMessage" Value="验证错误" />
+      <LocalizationItem Name="ValidationInformationMessage" Value="验证信息" />
+      <LocalizationItem Name="ValidationWarningMessage" Value="验证警告" />
+      <LocalizationItem Name="Write" Value="写" />
+    </LocalizationGroup>
+    <LocalizationGroup Name="Namespaces">
+      <LocalizationItem Name="DevExpress.ExpressApp.Security" Value="安全" />
+      <LocalizationItem Name="DevExpress.Persistent.AuditTrail" Value="审核记录" />
+      <LocalizationItem Name="DevExpress.Persistent.Validation" Value="验证" />
+    </LocalizationGroup>
+    <LocalizationGroup Name="OpenSaveDialogFilters">
+      <LocalizationItem Name="AllFiles" Value="所有文件" />
+      <LocalizationItem Name="BmpFiles" Value="Bmp 文件" />
+      <LocalizationItem Name="CsvFiles" Value="Csv 文件" />
+      <LocalizationItem Name="EmfFiles" Value="Emf 文件" />
+      <LocalizationItem Name="GifFiles" Value="GIF 文件" />
+      <LocalizationItem Name="HtmlFiles" Value="Html 文件" />
+      <LocalizationItem Name="JpegFiles" Value="Jpeg 文件" />
+      <LocalizationItem Name="MhtFiles" Value="Mht 文件" />
+      <LocalizationItem Name="PdfFiles" Value="Pdf 文件" />
+      <LocalizationItem Name="PngFiles" Value="Png 文件" />
+      <LocalizationItem Name="RtfFiles" Value="Rtf 文件" />
+      <LocalizationItem Name="TextFiles" Value="文本文件" />
+      <LocalizationItem Name="TiffFiles" Value="Tiff 文件" />
+      <LocalizationItem Name="WmfFiles" Value="Wmf 文件" />
+      <LocalizationItem Name="XlsFiles" Value="Xls 文件" />
+      <LocalizationItem Name="XlsxFiles" Value="Xlsx 文件" />
+    </LocalizationGroup>
+    <LocalizationGroup Name="Ribbon">
+      <LocalizationItem Name="ActionsPageGroup" Value="功能" />
+      <LocalizationItem Name="HomePage" Value="首页" />
+    </LocalizationGroup>
+    <LocalizationGroup Name="Security">
+      <LocalizationItem Name="AllBusinessClasses" Value="所有业务类" />
+      <LocalizationItem Name="AllPersistentBusinessClasses" Value="所有持久性业务类" />
+    </LocalizationGroup>
+    <LocalizationGroup Name="Texts">
+      <LocalizationItem Name="Aggregates" Value="聚合操作" />
+      <LocalizationItem Name="NullValueText" Value="N/A" />
+      <LocalizationItem Name="Warning" Value="警告" />
+    </LocalizationGroup>
+  </Localization>
+  <NavigationItems>
+    <Items>
+      <Item Id="Default">
+        <Items>
+          <Item Id="MyDetails" Caption="我的详细信息" />
+          <Item Id="PermissionPolicyRole_ListView" Caption="角色" />
+        </Items>
+      </Item>
+    </Items>
+  </NavigationItems>
+  <Validation>
+    <Rules>
+      <RuleUniqueValue Id="PermissionPolicyRoleBase_Name_RuleUniqueValue" CustomMessageTemplate="输入的名称与角色已在系统内注册" />
+      <RuleUniqueValue Id="PermissionPolicyUser_UserName_RuleUniqueValue" CustomMessageTemplate="输入的用户名称登录已在系统内注册" />
+    </Rules>
+  </Validation>
+  <Views>
+    <DetailView Id="ActionContainerDashboardOrganizationItem_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="ActionContainerDescriptor_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="AuditDataItemPersistent_DetailView">
+      <Items>
+        <PropertyEditor Id="UserName" Caption="账号" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要" />
+      </Layout>
+    </DetailView>
+    <ListView Id="AuditDataItemPersistent_ListView">
+      <Columns>
+        <ColumnInfo Id="UserName" Caption="账号" />
+      </Columns>
+    </ListView>
+    <ListView Id="AuditDataItemPersistent_LookupListView">
+      <Columns>
+        <ColumnInfo Id="UserName" Caption="账号" />
+      </Columns>
+    </ListView>
+    <ListView Id="AuditedObjectWeakReference_AuditDataItems_ListView">
+      <Columns>
+        <ColumnInfo Id="UserName" Caption="账号" />
+      </Columns>
+    </ListView>
+    <DetailView Id="AuditedObjectWeakReference_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="AuthenticationStandardLogonParameters_DetailView" Caption="登录">
+      <Items>
+        <StaticText Id="LogonText" Text="请在下面输入您的用户名和密码。" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要">
+          <LayoutGroup Id="RootGroup">
+            <LayoutGroup Id="EditorsGroup">
+              <LayoutGroup Id="Editors" Caption="编辑器" />
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="BaseAuditedObjectWeakReference_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="ChangePasswordOnLogonParameters_DetailView" Caption="在第一次登录时更改密码">
+      <Items>
+        <StaticText Id="ChangePasswordText" Text="出于安全原因，现在您必须设置您自己的密码。请在下面的两个文本字段中输入您的新密码，请保证没有使用您以前使用过的密码。" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="ChangePasswordParameters_DetailView" Caption="更改密码">
+      <Items>
+        <StaticText Id="ChangePasswordText" Text="若要更改您的密码，请在下面的文本字段中输入您旧密码和新密码。" />
+        <PropertyEditor Id="OldPassword" Caption="旧密码" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="ContextValidationResult_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="CriteriaProvider_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="DashboardCreationInfo_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="DashboardData_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="DashboardName_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="DashboardOrganizationItem_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="DashboardOrganizer_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="DashboardViewer_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="DashboardViewItemDescriptor_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="DiagnosticInfoObject_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="DisplayableValidationResultItem_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="EditModelPermission_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="FileData_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="InternalInvoice_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="IRuleBaseProperties_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="IRuleCollectionPropertyProperties_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="IRuleCombinationOfPropertiesIsUniqueProperties_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="IRuleCriteriaProperties_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="IRuleFromBoolPropertyProperties_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="IRuleIsReferencedProperties_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="IRuleObjectExistsProperties_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="IRulePropertyValueProperties_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="IRuleRangeProperties_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="IRuleRegularExpressionProperties_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="IRuleRequiredFieldProperties_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="IRuleSearchObjectProperties_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="IRuleStringComparisonProperties_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="IRuleSupportsCollectionAggregatesProperties_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="IRuleUniqueValueProperties_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="IRuleValueComparisonProperties_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="ModelDifference_DetailView">
+      <Items>
+        <PropertyEditor Id="UserName" Caption="账号" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要" />
+      </Layout>
+    </DetailView>
+    <ListView Id="ModelDifference_ListView">
+      <Columns>
+        <ColumnInfo Id="UserName" Caption="账号" />
+      </Columns>
+    </ListView>
+    <ListView Id="ModelDifference_LookupListView">
+      <Columns>
+        <ColumnInfo Id="UserName" Caption="账号" />
+      </Columns>
+    </ListView>
+    <DetailView Id="ModelDifferenceAspect_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="ModelDifferenceCopyParameters_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="ObjectAccessPermission_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="PermissionPolicyMemberPermissionsObject_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="PermissionPolicyNavigationPermissionObject_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="PermissionPolicyObjectPermissionsObject_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="PermissionPolicyRole_DetailView" Caption="角色">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要" />
+      </Layout>
+    </DetailView>
+    <ListView Id="PermissionPolicyRole_ListView" Caption="角色" />
+    <ListView Id="PermissionPolicyRole_LookupListView" Caption="角色" />
+    <ListView Id="PermissionPolicyRole_Users_ListView">
+      <Columns>
+        <ColumnInfo Id="UserName" Caption="账号" />
+      </Columns>
+    </ListView>
+    <DetailView Id="PermissionPolicyRoleBase_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要" />
+      </Layout>
+    </DetailView>
+    <ListView Id="PermissionPolicyRoleBase_TypePermissions_ListView">
+      <Columns>
+        <ColumnInfo Id="Role" Caption="角色" />
+      </Columns>
+    </ListView>
+    <DetailView Id="PermissionPolicyTypePermissionObject_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要" />
+      </Layout>
+    </DetailView>
+    <ListView Id="PermissionPolicyTypePermissionObject_ListView">
+      <Columns>
+        <ColumnInfo Id="Role" Caption="角色" />
+      </Columns>
+    </ListView>
+    <ListView Id="PermissionPolicyTypePermissionObject_LookupListView">
+      <Columns>
+        <ColumnInfo Id="Role" Caption="角色" />
+      </Columns>
+    </ListView>
+    <DetailView Id="PermissionPolicyUser_DetailView">
+      <Items>
+        <PropertyEditor Id="UserName" Caption="账号" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要" />
+      </Layout>
+    </DetailView>
+    <ListView Id="PermissionPolicyUser_ListView">
+      <Columns>
+        <ColumnInfo Id="UserName" Caption="账号" />
+      </Columns>
+    </ListView>
+    <ListView Id="PermissionPolicyUser_LookupListView">
+      <Columns>
+        <ColumnInfo Id="UserName" Caption="账号" />
+      </Columns>
+    </ListView>
+    <ListView Id="PermissionPolicyUser_Roles_ListView" Caption="角色" />
+    <DetailView Id="ProcessDataLockingInfoMergeDialog_DetailView" Caption="警告">
+      <Items>
+        <StaticText Id="Message" Text="你要保存的信息已经由其他用户更改。&#xD;&#xA;您可以将更改合并、 刷新数据和放弃您的更改，或取消保存操作。" />
+      </Items>
+    </DetailView>
+    <DetailView Id="ProcessDataLockingInfoRefreshDialog_DetailView" Caption="警告">
+      <Items>
+        <StaticText Id="Message" Text="你要保存的信息已经由其他用户更改。&#xD;&#xA;您可以刷新数据和放弃您的更改，或取消保存操作。" />
+      </Items>
+    </DetailView>
+    <DetailView Id="ResetPasswordParameters_DetailView" Caption="重置密码">
+      <Items>
+        <StaticText Id="ResetPasswordText" Text="设置用户的密码会自动创建用户的新密码，并同时禁用与旧密码的用户的登录。然后通过设置新的密码给用户，以便他/她可以继续使用应用程序。你确定你想要这样做？" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="RuleBaseProperties_DetailView">
+      <Items>
+        <PropertyEditor Id="InvertResult" Caption="反转结果" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="RuleBaseProperties" Caption="规则基本属性" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="RuleBaseProperties_ListView">
+      <Columns>
+        <ColumnInfo Id="InvertResult" Caption="反转结果" />
+      </Columns>
+    </ListView>
+    <DetailView Id="RuleCombinationOfPropertiesIsUniqueProperties_DetailView">
+      <Items>
+        <PropertyEditor Id="InvertResult" Caption="反转结果" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="RuleBaseProperties" Caption="规则基本属性" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="RuleCombinationOfPropertiesIsUniqueProperties_ListView">
+      <Columns>
+        <ColumnInfo Id="InvertResult" Caption="反转结果" />
+      </Columns>
+    </ListView>
+    <DetailView Id="RuleCriteriaProperties_DetailView">
+      <Items>
+        <PropertyEditor Id="InvertResult" Caption="反转结果" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="RuleBaseProperties" Caption="规则基本属性" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="RuleCriteriaProperties_ListView">
+      <Columns>
+        <ColumnInfo Id="InvertResult" Caption="反转结果" />
+      </Columns>
+    </ListView>
+    <DetailView Id="RuleFromBoolPropertyProperties_DetailView">
+      <Items>
+        <PropertyEditor Id="InvertResult" Caption="反转结果" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="RuleBaseProperties" Caption="规则基本属性" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="RuleFromBoolPropertyProperties_ListView">
+      <Columns>
+        <ColumnInfo Id="InvertResult" Caption="反转结果" />
+      </Columns>
+    </ListView>
+    <DetailView Id="RuleIsReferencedProperties_DetailView">
+      <Items>
+        <PropertyEditor Id="InvertResult" Caption="反转结果" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="RuleBaseProperties" Caption="规则基本属性" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="RuleIsReferencedProperties_ListView">
+      <Columns>
+        <ColumnInfo Id="InvertResult" Caption="反转结果" />
+      </Columns>
+    </ListView>
+    <DetailView Id="RuleObjectExistsProperties_DetailView">
+      <Items>
+        <PropertyEditor Id="InvertResult" Caption="反转结果" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="RuleBaseProperties" Caption="规则基本属性" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="RuleObjectExistsProperties_ListView">
+      <Columns>
+        <ColumnInfo Id="InvertResult" Caption="反转结果" />
+      </Columns>
+    </ListView>
+    <DetailView Id="RulePropertyValueProperties_DetailView">
+      <Items>
+        <PropertyEditor Id="InvertResult" Caption="反转结果" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="RuleBaseProperties" Caption="规则基本属性" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="RulePropertyValueProperties_ListView">
+      <Columns>
+        <ColumnInfo Id="InvertResult" Caption="反转结果" />
+      </Columns>
+    </ListView>
+    <DetailView Id="RuleRangeProperties_DetailView">
+      <Items>
+        <PropertyEditor Id="InvertResult" Caption="反转结果" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="RuleBaseProperties" Caption="规则基本属性" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="RuleRangeProperties_ListView">
+      <Columns>
+        <ColumnInfo Id="InvertResult" Caption="反转结果" />
+      </Columns>
+    </ListView>
+    <DetailView Id="RuleRegularExpressionProperties_DetailView">
+      <Items>
+        <PropertyEditor Id="InvertResult" Caption="反转结果" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="RuleBaseProperties" Caption="规则基本属性" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="RuleRegularExpressionProperties_ListView">
+      <Columns>
+        <ColumnInfo Id="InvertResult" Caption="反转结果" />
+      </Columns>
+    </ListView>
+    <DetailView Id="RuleRequiredFieldProperties_DetailView">
+      <Items>
+        <PropertyEditor Id="InvertResult" Caption="反转结果" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="RuleBaseProperties" Caption="规则基本属性" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="RuleRequiredFieldProperties_ListView">
+      <Columns>
+        <ColumnInfo Id="InvertResult" Caption="反转结果" />
+      </Columns>
+    </ListView>
+    <DetailView Id="RuleSearchObjectProperties_DetailView">
+      <Items>
+        <PropertyEditor Id="InvertResult" Caption="反转结果" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="RuleBaseProperties" Caption="规则基本属性" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="RuleSearchObjectProperties_ListView">
+      <Columns>
+        <ColumnInfo Id="InvertResult" Caption="反转结果" />
+      </Columns>
+    </ListView>
+    <DetailView Id="RuleSetValidationResult_ByTarget_Error_DetailView" Caption="验证错误">
+      <Items>
+        <StaticText Id="ValidationResultsText" Text="在数据验证期间检测到问题。请阅读下面的信息以了解问题是什么，以及如何你可以纠正它们。" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="RuleSetValidationResult_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要" />
+      </Layout>
+    </DetailView>
+    <ListView Id="RuleSetValidationResultItem_ByTarget_ListView">
+      <Columns>
+        <ColumnInfo Id="ContextCaption" Caption="上下文" />
+        <ColumnInfo Id="ErrorMessage" Caption="描述" />
+      </Columns>
+    </ListView>
+    <DetailView Id="RuleSetValidationResultItem_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="RuleSetValidationResultItemAggregate_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="RuleStringComparisonProperties_DetailView">
+      <Items>
+        <PropertyEditor Id="InvertResult" Caption="反转结果" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="RuleBaseProperties" Caption="规则基本属性" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="RuleStringComparisonProperties_ListView">
+      <Columns>
+        <ColumnInfo Id="InvertResult" Caption="反转结果" />
+      </Columns>
+    </ListView>
+    <DetailView Id="RuleUniqueValueProperties_DetailView">
+      <Items>
+        <PropertyEditor Id="InvertResult" Caption="反转结果" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="RuleBaseProperties" Caption="规则基本属性" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="RuleUniqueValueProperties_ListView">
+      <Columns>
+        <ColumnInfo Id="InvertResult" Caption="反转结果" />
+      </Columns>
+    </ListView>
+    <DetailView Id="RuleValueComparisonProperties_DetailView">
+      <Items>
+        <PropertyEditor Id="InvertResult" Caption="反转结果" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="RuleBaseProperties" Caption="规则基本属性" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="RuleValueComparisonProperties_ListView">
+      <Columns>
+        <ColumnInfo Id="InvertResult" Caption="反转结果" />
+      </Columns>
+    </ListView>
+    <DetailView Id="StaticImageDashboardOrganizationItem_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="StaticTextDashboardOrganizationItem_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="ValidationResults_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="ValidationResults_Error_DetailView">
+      <Items>
+        <StaticText Id="ValidationResultsText" Text="在数据验证期间检测到问题。请阅读下面的信息以了解问题是什么，以及如何你可以纠正它们。" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="ValidationResults_Passed_DetailView">
+      <Items>
+        <StaticText Id="ValidationResultsText" Text="检测到没有问题。" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="ViewDashboardOrganizationItem_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="XafWizardParameters_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="XPObject_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="主要" />
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

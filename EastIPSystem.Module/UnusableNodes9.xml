@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel Id="BOModel">
+    <Class Name="EastIPSystem.Module.BusinessObjects.CaseExtension">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="n_DepartApprovalState" AllowEdit="False" />
+        <Member Name="n_ModifyApprovalState" AllowEdit="False" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+</Application>
