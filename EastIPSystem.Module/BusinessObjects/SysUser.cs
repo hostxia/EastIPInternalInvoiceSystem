@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl.PermissionPolicy;
 using DevExpress.Xpo;
@@ -7,6 +8,7 @@ namespace EastIPSystem.Module.BusinessObjects
 {
     [DefaultClassOptions]
     [DefaultProperty("Name")]
+    [DefaultListViewOptions(true, NewItemRowPosition.Bottom)]
     public class SysUser : PermissionPolicyUser
     {
         private string _sCode;

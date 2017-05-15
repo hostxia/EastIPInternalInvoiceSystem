@@ -1,4 +1,4 @@
-﻿namespace EastIPSystem.Module.Win {
+namespace EastIPSystem.Module.Win {
     partial class EastIPSystemWindowsFormsModule {
         /// <summary> 
         /// Required designer variable.

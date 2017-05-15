@@ -105,9 +105,15 @@ namespace EastIPSystem.Module.DatabaseUpdate
 
         }
 
+        //private void CreateCase(string sOurNo)
+        //{
+        //    var caseBase = ObjectSpace.CreateObject<CaseBase>();
+        //    caseBase.OurNo = sOurNo;
+        //}
+
         public override void UpdateDatabaseAfterUpdateSchema()
         {
-            //base.UpdateDatabaseAfterUpdateSchema();
+            base.UpdateDatabaseAfterUpdateSchema();
             ////string name = "MyName";
             ////DomainObject1 theObject = ObjectSpace.FindObject<DomainObject1>(CriteriaOperator.Parse("Name=?", name));
             ////if (theObject == null)
@@ -115,20 +121,20 @@ namespace EastIPSystem.Module.DatabaseUpdate
             ////    theObject = ObjectSpace.CreateObject<DomainObject1>();
             ////    theObject.Name = name;
             ////}
-            //var sampleUser = ObjectSpace.FindObject<PermissionPolicyUser>(new BinaryOperator("UserName", "User"));
+            //var sampleUser = ObjectSpace.FindObject<SysUser>(new BinaryOperator("UserName", "User"));
             //if (sampleUser == null)
             //{
-            //    sampleUser = ObjectSpace.CreateObject<PermissionPolicyUser>();
+            //    sampleUser = ObjectSpace.CreateObject<SysUser>();
             //    sampleUser.UserName = "User";
             //    sampleUser.SetPassword("");
             //}
             //var defaultRole = CreateDefaultRole();
             //sampleUser.Roles.Add(defaultRole);
 
-            //var userAdmin = ObjectSpace.FindObject<PermissionPolicyUser>(new BinaryOperator("UserName", "Admin"));
+            //var userAdmin = ObjectSpace.FindObject<SysUser>(new BinaryOperator("UserName", "Admin"));
             //if (userAdmin == null)
             //{
-            //    userAdmin = ObjectSpace.CreateObject<PermissionPolicyUser>();
+            //    userAdmin = ObjectSpace.CreateObject<SysUser>();
             //    userAdmin.UserName = "Admin";
             //    // Set a password if the standard authentication type is used
             //    userAdmin.SetPassword("");

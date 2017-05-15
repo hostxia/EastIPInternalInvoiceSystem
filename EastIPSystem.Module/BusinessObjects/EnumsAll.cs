@@ -74,7 +74,9 @@
             国外库_递交日,
             国外库_返稿日,
             特殊案件账单时限,
-            香港申请_手工提醒_其他类型香港申请
+            香港申请_手工提醒_其他类型香港申请,
+            转OA时限,
+            其他
         }
 
         public enum CaseType
@@ -82,6 +84,27 @@
             Internal,
             Hongkong,
             Foreign,
+        }
+
+        public enum PayCaseType
+        {
+            国内,
+            PCT国家,
+            PCT国际
+        }
+
+        public enum PaidBy
+        {
+            网上缴费,
+            现金缴费
+        }
+
+        public enum PatentType
+        {
+            发明,
+            实用新型,
+            外观,
+            集成电路
         }
     }
 }

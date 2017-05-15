@@ -41,13 +41,14 @@ namespace EastIPSystem.Module.Controllers
             this.saGetExtensionCaseInfo.Id = "0221c717-f63b-40de-86a6-24c70f2f3019";
             this.saGetExtensionCaseInfo.ImageName = "ActionGroup_EasyTestRecorder";
             this.saGetExtensionCaseInfo.Shortcut = "CtrlQ";
-            this.saGetExtensionCaseInfo.TargetObjectType = typeof(CaseExtension);
+            this.saGetExtensionCaseInfo.TargetObjectType = typeof(EastIPSystem.Module.BusinessObjects.CaseExtension);
             this.saGetExtensionCaseInfo.ToolTip = null;
             this.saGetExtensionCaseInfo.Execute += new DevExpress.ExpressApp.Actions.SimpleActionExecuteEventHandler(this.saGetExtensionCaseInfo_Execute);
             // 
             // VCCaseExtension
             // 
             this.Actions.Add(this.saGetExtensionCaseInfo);
+            this.TargetObjectType = typeof(EastIPSystem.Module.BusinessObjects.CaseExtension);
 
         }
 

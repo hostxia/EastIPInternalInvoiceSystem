@@ -1,4 +1,4 @@
-﻿namespace EastIPSystem.Module {
+namespace EastIPSystem.Module {
 	partial class EastIPSystemModule {
 		/// <summary> 
 		/// Required designer variable.
@@ -24,7 +24,7 @@
 		/// </summary>
 		private void InitializeComponent() {
             // 
-            // EastIPInternalInvoiceSystemModule
+            // EastIPSystemModule
             // 
             this.AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.ModelDifference));
             this.AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.ModelDifferenceAspect));
@@ -35,6 +35,7 @@
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Dashboards.DashboardsModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.ConditionalAppearance.ConditionalAppearanceModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.StateMachine.StateMachineModule));
+            this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Notifications.NotificationsModule));
 
 		}
 

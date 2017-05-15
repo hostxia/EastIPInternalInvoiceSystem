@@ -29,9 +29,6 @@ namespace EastIPSystem.Win {
         private void InitializeComponent() {
             this.module1 = new DevExpress.ExpressApp.SystemModule.SystemModule();
             this.module2 = new DevExpress.ExpressApp.Win.SystemModule.SystemWindowsFormsModule();
-            this.securityModule1 = new DevExpress.ExpressApp.Security.SecurityModule();
-            this.securityStrategyComplex1 = new DevExpress.ExpressApp.Security.SecurityStrategyComplex();
-            this.authenticationStandard1 = new DevExpress.ExpressApp.Security.AuthenticationStandard();
             this.objectsModule = new DevExpress.ExpressApp.Objects.BusinessClassLibraryCustomizationModule();
             this.validationModule = new DevExpress.ExpressApp.Validation.ValidationModule();
             this.validationWindowsFormsModule = new DevExpress.ExpressApp.Validation.Win.ValidationWindowsFormsModule();
@@ -41,20 +38,14 @@ namespace EastIPSystem.Win {
             this.dashboardsModule1 = new DevExpress.ExpressApp.Dashboards.DashboardsModule();
             this.conditionalAppearanceModule1 = new DevExpress.ExpressApp.ConditionalAppearance.ConditionalAppearanceModule();
             this.stateMachineModule1 = new DevExpress.ExpressApp.StateMachine.StateMachineModule();
-            this.module3 = new EastIPSystemModule();
-            this.module4 = new EastIPSystemWindowsFormsModule();
+            this.notificationsWindowsFormsModule1 = new DevExpress.ExpressApp.Notifications.Win.NotificationsWindowsFormsModule();
+            this.notificationsModule1 = new DevExpress.ExpressApp.Notifications.NotificationsModule();
+            this.module3 = new EastIPSystem.Module.EastIPSystemModule();
+            this.module4 = new EastIPSystem.Module.Win.EastIPSystemWindowsFormsModule();
+            this.securityModule1 = new DevExpress.ExpressApp.Security.SecurityModule();
+            this.securityStrategyComplex1 = new DevExpress.ExpressApp.Security.SecurityStrategyComplex();
+            this.authenticationStandard1 = new DevExpress.ExpressApp.Security.AuthenticationStandard();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
-            // 
-            // securityStrategyComplex1
-            // 
-            this.securityStrategyComplex1.Authentication = this.authenticationStandard1;
-            this.securityStrategyComplex1.RoleType = typeof(DevExpress.Persistent.BaseImpl.PermissionPolicy.PermissionPolicyRole);
-            this.securityStrategyComplex1.SupportNavigationPermissionsForTypes = false;
-            this.securityStrategyComplex1.UserType = typeof(SysUser);
-            // 
-            // authenticationStandard1
-            // 
-            this.authenticationStandard1.LogonParametersType = typeof(DevExpress.ExpressApp.Security.AuthenticationStandardLogonParameters);
             // 
             // validationModule
             // 
@@ -73,7 +64,27 @@ namespace EastIPSystem.Win {
             // 
             this.stateMachineModule1.StateMachineStorageType = typeof(DevExpress.ExpressApp.StateMachine.Xpo.XpoStateMachine);
             // 
-            // EastIPInternalInvoiceSystemWindowsFormsApplication
+            // notificationsModule1
+            // 
+            this.notificationsModule1.CanAccessPostponedItems = true;
+            this.notificationsModule1.NotificationsRefreshInterval = System.TimeSpan.Parse("00:05:00");
+            this.notificationsModule1.NotificationsStartDelay = System.TimeSpan.Parse("00:00:05");
+            this.notificationsModule1.ShowDismissAllAction = true;
+            this.notificationsModule1.ShowNotificationsWindow = true;
+            this.notificationsModule1.ShowRefreshAction = false;
+            // 
+            // securityStrategyComplex1
+            // 
+            this.securityStrategyComplex1.Authentication = this.authenticationStandard1;
+            this.securityStrategyComplex1.RoleType = typeof(DevExpress.Persistent.BaseImpl.PermissionPolicy.PermissionPolicyRole);
+            this.securityStrategyComplex1.SupportNavigationPermissionsForTypes = false;
+            this.securityStrategyComplex1.UserType = typeof(EastIPSystem.Module.BusinessObjects.SysUser);
+            // 
+            // authenticationStandard1
+            // 
+            this.authenticationStandard1.LogonParametersType = typeof(DevExpress.ExpressApp.Security.AuthenticationStandardLogonParameters);
+            // 
+            // EastIPSystemWindowsFormsApplication
             // 
             this.ApplicationName = "EastIPInternalInvoiceSystem";
             this.CheckCompatibilityType = DevExpress.ExpressApp.CheckCompatibilityType.DatabaseSchema;
@@ -85,12 +96,14 @@ namespace EastIPSystem.Win {
             this.Modules.Add(this.dashboardsModule1);
             this.Modules.Add(this.conditionalAppearanceModule1);
             this.Modules.Add(this.stateMachineModule1);
+            this.Modules.Add(this.notificationsModule1);
             this.Modules.Add(this.module3);
             this.Modules.Add(this.validationWindowsFormsModule);
             this.Modules.Add(this.fileAttachmentsWindowsFormsModule1);
             this.Modules.Add(this.module4);
             this.Modules.Add(this.securityModule1);
             this.Modules.Add(this.dashboardsWindowsFormsModule1);
+            this.Modules.Add(this.notificationsWindowsFormsModule1);
             this.ResourcesExportedToModel.Add(typeof(DevExpress.ExpressApp.Localization.PreviewControlLocalizer));
             this.ResourcesExportedToModel.Add(typeof(DevExpress.ExpressApp.Win.Localization.GridControlLocalizer));
             this.ResourcesExportedToModel.Add(typeof(DevExpress.ExpressApp.Win.Localization.LayoutControlLocalizer));
@@ -142,5 +155,7 @@ namespace EastIPSystem.Win {
         private DevExpress.ExpressApp.Dashboards.DashboardsModule dashboardsModule1;
         private DevExpress.ExpressApp.ConditionalAppearance.ConditionalAppearanceModule conditionalAppearanceModule1;
         private DevExpress.ExpressApp.StateMachine.StateMachineModule stateMachineModule1;
+        private DevExpress.ExpressApp.Notifications.Win.NotificationsWindowsFormsModule notificationsWindowsFormsModule1;
+        private DevExpress.ExpressApp.Notifications.NotificationsModule notificationsModule1;
     }
 }

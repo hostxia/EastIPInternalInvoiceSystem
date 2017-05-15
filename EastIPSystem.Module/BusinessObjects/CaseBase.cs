@@ -32,7 +32,7 @@ namespace EastIPSystem.Module.BusinessObjects
         public Corporation Client
         {
             get { return client; }
-            set { SetPropertyValue("n_ClientId", ref client, value); }
+            set { SetPropertyValue("Client", ref client, value); }
         }
 
         private Corporation agency;
@@ -40,7 +40,15 @@ namespace EastIPSystem.Module.BusinessObjects
         public Corporation Agency
         {
             get { return agency; }
-            set { SetPropertyValue("n_AgencyId", ref agency, value); }
+            set { SetPropertyValue("Agency", ref agency, value); }
+        }
+
+        private Corporation introducer;
+
+        public Corporation Introducer
+        {
+            get { return introducer; }
+            set { SetPropertyValue("Introducer", ref introducer, value); }
         }
 
         private string _sOurNo;

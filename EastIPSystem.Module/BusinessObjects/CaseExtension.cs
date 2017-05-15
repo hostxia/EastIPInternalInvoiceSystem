@@ -1,14 +1,17 @@
 ﻿using System;
+using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
+using DevExpress.Persistent.Base.General;
 using DevExpress.Persistent.BaseImpl;
+using DevExpress.Utils.MVVM.Services;
 using DevExpress.Xpo;
 using EastIPSystem.Module.DBUtility;
 
 namespace EastIPSystem.Module.BusinessObjects
 {
     [DefaultClassOptions]
-    public class CaseExtension : BaseObject
+    public class CaseExtension : BaseObject, ISupportNotifications
     {
         public CaseExtension(Session session)
             : base(session)
@@ -83,6 +86,13 @@ namespace EastIPSystem.Module.BusinessObjects
             set { SetPropertyValue("dt_ExtendDate", ref fdt_ExtendDate, value); }
         }
 
+        private DateTime fdt_ExtendDate2;
+        public DateTime dt_ExtendDate2
+        {
+            get { return fdt_ExtendDate2; }
+            set { SetPropertyValue("dt_ExtendDate2", ref fdt_ExtendDate2, value); }
+        }
+
         //private string fs_ExtendItem;
         //public string s_ExtendItem
         //{
@@ -120,20 +130,28 @@ namespace EastIPSystem.Module.BusinessObjects
             {
                 if (!IsLoading)
                 {
-                    if (value == EnumsAll.CaseExtensionState.部门审核未通过 || value == EnumsAll.CaseExtensionState.修改延期)
+                    if (fn_State == EnumsAll.CaseExtensionState.部门审核 && (value == EnumsAll.CaseExtensionState.部门审核未通过 || value == EnumsAll.CaseExtensionState.修改延期))
                     {
-                        dt_DepartApprovalDate = DateTime.Now;
+                        AlarmTime = dt_DepartApprovalDate = DateTime.Now;
+                        IsPostponed = false;
                         DepartApprover = Session.GetObjectByKey<SysUser>(SecuritySystem.CurrentUserId);
                     }
-                    else if (value == EnumsAll.CaseExtensionState.修改延期未通过 || value == EnumsAll.CaseExtensionState.确认延期)
+                    else if (fn_State == EnumsAll.CaseExtensionState.修改延期 && (value == EnumsAll.CaseExtensionState.修改延期未通过 || value == EnumsAll.CaseExtensionState.确认延期))
                     {
-                        dt_ModifyApprovalDate = DateTime.Now;
+                        AlarmTime = dt_ModifyApprovalDate = DateTime.Now;
+                        IsPostponed = false;
                         ModifyApprover = Session.GetObjectByKey<SysUser>(SecuritySystem.CurrentUserId);
                     }
-                    else if (value == EnumsAll.CaseExtensionState.确认延期通过)
+                    else if (fn_State == EnumsAll.CaseExtensionState.确认延期 && value == EnumsAll.CaseExtensionState.确认延期通过)
                     {
-                        dt_ConfirmApprovalDate = DateTime.Now;
+                        AlarmTime = dt_ConfirmApprovalDate = DateTime.Now;
+                        IsPostponed = false;
                         ConfirmApprover = Session.GetObjectByKey<SysUser>(SecuritySystem.CurrentUserId);
+                    }
+                    else if (fn_State == EnumsAll.CaseExtensionState.未提交 && (value == EnumsAll.CaseExtensionState.部门审核 || value == EnumsAll.CaseExtensionState.修改延期))
+                    {
+                        AlarmTime = DateTime.Now;
+                        IsPostponed = false;
                     }
                 }
                 SetPropertyValue("n_State", ref fn_State, value);
@@ -145,6 +163,14 @@ namespace EastIPSystem.Module.BusinessObjects
         {
             get { return fn_ExtendItem; }
             set { SetPropertyValue("n_ExtendItem", ref fn_ExtendItem, value); }
+        }
+
+
+        private EnumsAll.CaseExtensionItem? fn_ExtendItem2;
+        public EnumsAll.CaseExtensionItem? n_ExtendItem2
+        {
+            get { return fn_ExtendItem2; }
+            set { SetPropertyValue("n_ExtendItem2", ref fn_ExtendItem2, value); }
         }
 
         #region 部门审批
@@ -226,63 +252,53 @@ namespace EastIPSystem.Module.BusinessObjects
         public void SetCaseInfo(string sCaseNo)
         {
             if (string.IsNullOrWhiteSpace(sCaseNo)) return;
-            try
-            {
-                var dtResult =
-                    DbHelperOra.Query(
-                            $"select ourno,client,client_name,appl_code1,applicant_ch1 from patentcase where ourno like '%{sCaseNo.ToUpper().Replace("'", "''")}%'")
-                        .Tables[0];
-                if (dtResult.Rows.Count > 0)
-                {
-                    s_OurNo = dtResult.Rows[0]["ourno"].ToString();
-                    s_ClientNo = dtResult.Rows[0]["client"].ToString();
-                    s_Client = dtResult.Rows[0]["client_name"].ToString();
-                    s_Applicant = dtResult.Rows[0]["applicant_ch1"].ToString();
-                    s_ApplicantNo = dtResult.Rows[0]["appl_code1"].ToString();
-                    return;
-                }
-                var dtFResult =
-                    DbHelperOra.Query(
-                            $"select eid,role,orig_name,tran_name,ourno from fcase_ent_rel where ourno like '%{sCaseNo.ToUpper().Replace("'", "''")}%' order by ent_order asc")
-                        .Tables[0];
-                if (dtFResult.Rows.Count > 0)
-                {
-                    s_OurNo = dtFResult.Rows[0]["ourno"].ToString();
-                    var drsClient = dtFResult.Select("role = 'CLI' or role = 'APPCLI'");
-                    var drsApp = dtFResult.Select("role = 'APP' or role = 'APPCLI'");
-                    if (drsClient.Length > 0)
-                    {
-                        s_ClientNo = drsClient[0]["eid"]?.ToString();
-                        s_Client = drsClient[0]["orig_name"]?.ToString();
-                        if (string.IsNullOrWhiteSpace(s_Client))
-                            s_Client = drsClient[0]["tran_name"]?.ToString();
-                    }
-                    if (drsApp.Length > 0)
-                    {
-                        s_ApplicantNo = drsApp[0]["eid"]?.ToString();
-                        s_Applicant = drsApp[0]["orig_name"]?.ToString();
-                        if (string.IsNullOrWhiteSpace(s_Applicant))
-                            s_Applicant = drsApp[0]["tran_name"]?.ToString();
-                    }
-                    return;
-                }
-                var dtHResult =
-                    DbHelperOra.Query(
-                            $"select p.client,p.client_name,p.appl_code1,p.applicant_ch1,h.hk_app_ref from ex_hkcase h,patentcase p where p.ourno(+) = h.cn_app_ref and h.hk_app_ref like '%{sCaseNo.ToUpper().Replace("'", "''")}%'")
-                        .Tables[0];
-                if (dtHResult.Rows.Count > 0)
-                {
-                    s_OurNo = dtResult.Rows[0]["hk_app_ref"].ToString();
-                    s_ClientNo = dtHResult.Rows[0]["client"].ToString();
-                    s_Client = dtHResult.Rows[0]["client_name"].ToString();
-                    s_Applicant = dtHResult.Rows[0]["applicant_ch1"].ToString();
-                    s_ApplicantNo = dtHResult.Rows[0]["appl_code1"].ToString();
-                }
-            }
-            catch (Exception exception)
-            {
-                throw exception;
-            }
+            var sOurNo = sCaseNo;
+            var sClientNo = string.Empty;
+            var sClient = string.Empty;
+            var sApplicantNo = string.Empty;
+            var sApplicant = string.Empty;
+            CommonFunction.GetCaseInfo(ref sOurNo, ref sClientNo, ref sClient, ref sApplicantNo, ref sApplicant);
+            s_OurNo = sOurNo;
+            s_ClientNo = sClientNo;
+            s_Client = sClient;
+            s_ApplicantNo = sApplicantNo;
+            s_Applicant = sApplicant;
         }
+
+        protected override void OnSaving()
+        {
+            base.OnSaving();
+        }
+
+        protected override void OnLoading()
+        {
+            base.OnLoading();
+        }
+
+        #region 通知成员
+
+        private DateTime? alarmTime;
+        [Browsable(false)]
+        public DateTime? AlarmTime
+        {
+            get { return alarmTime; }
+            set { SetPropertyValue("AlarmTime", ref alarmTime, value); }
+        }
+
+        [Browsable(false), NonPersistent]
+        public object UniqueId => Oid;
+
+        [Browsable(false), NonPersistent]
+        public string NotificationMessage => fs_OurNo + ": " + fn_ExtendItem;
+
+        private bool isPostponed;
+
+        [Browsable(false)]
+        public bool IsPostponed
+        {
+            get { return isPostponed; }
+            set { SetPropertyValue("IsPostponed", ref isPostponed, value); }
+        }
+        #endregion
     }
 }

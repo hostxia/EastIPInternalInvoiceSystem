@@ -1,5 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application Title="东方亿思管理系统" Logo="BO_Sale_v92" Copyright="Meng XIA" Company="EastIP">
+  <ActionDesign>
+    <Actions>
+      <Action Id="36dcd05d-efbe-46ad-a2f9-05c0928d51bc" Shortcut="CtrlQ" />
+      <Action Id="Expense.GetCaseInfo" ImageName="ActionGroup_EasyTestRecorder" Shortcut="CtrlQ" />
+      <Action Id="PatentPayment.SetPaid" ImageName="Action_Change_State" />
+    </Actions>
+  </ActionDesign>
   <BOModel>
     <Class Name="DevExpress.Persistent.BaseImpl.BaseObject">
       <OwnMembers>
@@ -33,6 +40,8 @@
     <Class Name="EastIPSystem.Module.BusinessObjects.Corporation" ImageName="BO_Contact" />
     <Class Name="EastIPSystem.Module.BusinessObjects.Expense" Caption="报销" ImageName="BO_Sale_Item_v92">
       <OwnMembers>
+        <Member Name="Creator" AllowEdit="False" />
+        <Member Name="dt_Created" EditMaskType="DateTime" AllowEdit="False" />
         <Member Name="dt_ExpenseDate" Caption="发生时间" />
         <Member Name="dt_PaidDate" Caption="支付时间" />
         <Member Name="ExpenseFile" Caption="电子件" />
@@ -41,8 +50,8 @@
         <Member Name="PerNo" Caption="预账单号" />
         <Member Name="s_CertificateNo" Caption="凭证号" />
         <Member Name="s_Description" Caption="费用明细" />
-        <Member Name="s_ExpenseNo" Caption="编号" />
-        <Member Name="s_Note" Caption="备注" />
+        <Member Name="s_ExpenseNo" Caption="编号" AllowEdit="False" />
+        <Member Name="s_Note" Caption="备注" Size="2000" RowCount="4" />
         <Member Name="s_OurNo" Caption="我方卷号" />
       </OwnMembers>
     </Class>
@@ -112,6 +121,14 @@
         <Member Name="TimeSheets" Caption="工时" />
       </OwnMembers>
     </Class>
+    <Class Name="EastIPSystem.Module.BusinessObjects.PatentPayment" ImageName="BO_Contract">
+      <OwnMembers>
+        <Member Name="Creator" AllowEdit="False" />
+        <Member Name="dt_Created" AllowEdit="False" />
+        <Member Name="s_Note" Size="2000" RowCount="3" />
+      </OwnMembers>
+    </Class>
+    <Class Name="EastIPSystem.Module.BusinessObjects.PatentPaymentRule" ImageName="BO_Contract" />
     <Class Name="EastIPSystem.Module.BusinessObjects.SysUser">
       <OwnMembers>
         <Member Name="Department" Caption="部门" />
@@ -164,10 +181,14 @@
           <Item Id="WorkItem_ListView" ViewId="WorkItem_ListView" ObjectKey="" Index="2" IsNewNode="True" />
           <Item Id="TimeSheet_ListView" ViewId="TimeSheet_ListView" ObjectKey="" Index="3" IsNewNode="True" />
           <Item Id="CaseExtension_ListView" ViewId="CaseExtension_ListView" ObjectKey="" Index="4" IsNewNode="True" />
+          <Item Id="PatentPayment_ListView" ViewId="PatentPayment_ListView" ObjectKey="" Index="5" IsNewNode="True" />
         </Items>
       </Item>
       <Item Id="Default" Caption="配置管理" Visible="True">
         <Items>
+          <Item Id="SysUser_ListView" Index="1" />
+          <Item Id="XpoStateMachine_ListView" ViewId="XpoStateMachine_ListView" ObjectKey="" Index="2" IsNewNode="True" />
+          <Item Id="PatentPaymentRule_ListView" ViewId="PatentPaymentRule_ListView" ObjectKey="" Index="3" IsNewNode="True" Removed="True" />
           <Item Id="CaseBase_ListView" Removed="True" />
           <Item Id="CaseExtension_ListView" Removed="True" />
           <Item Id="Corporation_ListView" Removed="True" />
@@ -175,9 +196,9 @@
           <Item Id="Fee_ListView" Removed="True" />
           <Item Id="InternalInvoice_ListView" Removed="True" />
           <Item Id="Invoice_ListView" Removed="True" />
+          <Item Id="PatentPayment_ListView" Removed="True" />
           <Item Id="TimeSheet_ListView" Removed="True" />
           <Item Id="WorkItem_ListView" Removed="True" />
-          <Item Id="XpoStateMachine_ListView" ViewId="XpoStateMachine_ListView" ObjectKey="" IsNewNode="True" />
         </Items>
       </Item>
       <Item Id="Reports" Caption="统计分析">
@@ -229,11 +250,24 @@
       </Items>
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100">
-          <LayoutGroup Id="SimpleEditors" RelativeSize="29.912390488110137">
-            <LayoutGroup Id="CaseBase" RelativeSize="31.380753138075313" Direction="Vertical">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="13.681592039800995" Direction="Vertical">
+            <LayoutItem Id="OurNo" ViewItem="OurNo" Index="0" RelativeSize="29.09090909090909" IsNewNode="True" />
+            <LayoutGroup Id="Autocabbe7e4-37ed-4c48-bf52-89b161a3cc49" ShowCaption="False" Direction="Horizontal" Index="1" RelativeSize="70.9090909090909" IsNewNode="True">
+              <LayoutGroup Id="Auto69cd71de-0029-4497-adc4-43e2e63d3c52" ShowCaption="False" Index="0" RelativeSize="50" IsNewNode="True">
+                <LayoutItem Id="ReceiveDate" ViewItem="ReceiveDate" Index="0" RelativeSize="30.76923076923077" IsNewNode="True" />
+                <LayoutItem Id="Client" ViewItem="Client" Index="1" RelativeSize="30.76923076923077" IsNewNode="True" />
+                <LayoutItem Id="IsMiddle" ViewItem="IsMiddle" Index="2" RelativeSize="38.46153846153846" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Auto21990a81-61d8-4e75-b38f-5f11b11c478f" ShowCaption="False" Index="1" RelativeSize="50" IsNewNode="True">
+                <LayoutItem Id="TransferDate" ViewItem="TransferDate" Index="0" RelativeSize="30.76923076923077" IsNewNode="True" />
+                <LayoutItem Id="Agency" ViewItem="Agency" Index="1" RelativeSize="30.76923076923077" IsNewNode="True" />
+                <LayoutItem Id="IsSpecified" ViewItem="IsSpecified" Index="2" RelativeSize="38.46153846153846" IsNewNode="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="CaseBase" RelativeSize="47.169811320754718" Direction="Vertical" Removed="True">
               <LayoutGroup Id="Auto8a957290-bc5d-4418-a716-8ac7af0ff3fa" ShowCaption="False" Index="0" RelativeSize="100" Direction="Horizontal" IsNewNode="True">
-                <LayoutItem Id="OurNo" ViewItem="OurNo" Index="0" RelativeSize="49.938949938949939" IsNewNode="True" />
-                <LayoutItem Id="IsMiddle" ViewItem="IsMiddle" Index="1" RelativeSize="50.061050061050061" IsNewNode="True" />
+                <LayoutItem Id="OurNo" ViewItem="OurNo" Index="0" RelativeSize="49.862258953168045" IsNewNode="True" />
+                <LayoutItem Id="IsMiddle" ViewItem="IsMiddle" Index="1" RelativeSize="50.137741046831955" IsNewNode="True" />
               </LayoutGroup>
               <LayoutGroup Id="CaseBase_col1" RelativeSize="100" Direction="Horizontal" Removed="True">
                 <LayoutGroup Id="Autob76fef52-5c3a-47ef-b0cf-5e9e9b18d657" ShowCaption="False" Index="0" RelativeSize="50" IsNewNode="True">
@@ -256,47 +290,41 @@
                 <LayoutItem Id="OurNo" Removed="True" />
               </LayoutGroup>
             </LayoutGroup>
-            <LayoutGroup Id="Item1" ShowCaption="True" CaptionLocation="Top" Direction="Horizontal" Index="1" RelativeSize="28.03347280334728" IsNewNode="True">
-              <LayoutItem Id="ReceiveDate" ViewItem="ReceiveDate" Index="0" RelativeSize="49.816849816849818" IsNewNode="True" />
-              <LayoutItem Id="Client" ViewItem="Client" Index="1" RelativeSize="50.183150183150182" IsNewNode="True" />
-            </LayoutGroup>
-            <LayoutGroup Id="Item2" ShowCaption="True" CaptionLocation="Top" Direction="Horizontal" Index="2" RelativeSize="40.585774058577407" IsNewNode="True">
-              <LayoutGroup Id="Auto25700d50-5531-4479-8d6a-7cd63030417d" ShowCaption="False" Index="0" RelativeSize="49.816849816849818" Direction="Vertical" IsNewNode="True">
-                <LayoutItem Id="TransferDate" ViewItem="TransferDate" Index="0" RelativeSize="50" IsNewNode="True" />
-                <LayoutItem Id="IsSpecified" ViewItem="IsSpecified" Index="1" RelativeSize="50" IsNewNode="True" />
-              </LayoutGroup>
-              <LayoutItem Id="Agency" ViewItem="Agency" Index="1" RelativeSize="50.183150183150182" IsNewNode="True" />
-            </LayoutGroup>
           </LayoutGroup>
-          <LayoutGroup Id="Applicants_Group" Direction="Vertical" RelativeSize="36.420525657071337">
+          <LayoutGroup Id="Applicants_Group" Direction="Vertical" RelativeSize="44.651741293532339">
             <LayoutItem Id="Applicants" RelativeSize="100" />
           </LayoutGroup>
-          <LayoutGroup Id="Item3" ShowCaption="True" CaptionLocation="Top" Index="2" RelativeSize="33.667083854818522" IsNewNode="True">
+          <LayoutGroup Id="Item3" ShowCaption="True" CaptionLocation="Top" Index="2" RelativeSize="41.666666666666664" IsNewNode="True">
             <LayoutItem Id="Note" ViewItem="Note" Index="0" RelativeSize="100" ShowCaption="False" IsNewNode="True" />
           </LayoutGroup>
         </LayoutGroup>
       </Layout>
     </DetailView>
+    <ListView Id="CaseBase_ListView" IsFooterVisible="True" />
     <DetailView Id="CaseExtension_DetailView">
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100">
           <LayoutGroup Id="SimpleEditors" RelativeSize="100">
-            <LayoutGroup Id="CaseExtension" RelativeSize="26" Direction="Horizontal">
-              <LayoutGroup Id="Autof712a1b3-3b59-49d8-8e4c-be651099acfd" ShowCaption="False" Index="0" RelativeSize="50" IsNewNode="True">
-                <LayoutItem Id="s_OurNo" ViewItem="s_OurNo" Index="0" RelativeSize="20" IsNewNode="True" />
-                <LayoutItem Id="s_ClientNo" ViewItem="s_ClientNo" Index="1" RelativeSize="15" IsNewNode="True" />
-                <LayoutItem Id="s_Client" ViewItem="s_Client" Index="2" RelativeSize="15" IsNewNode="True" />
-                <LayoutItem Id="s_ApplicantNo" ViewItem="s_ApplicantNo" Index="3" RelativeSize="15" IsNewNode="True" />
-                <LayoutItem Id="s_Applicant" ViewItem="s_Applicant" Index="4" RelativeSize="15" IsNewNode="True" />
-                <LayoutItem Id="n_State" ViewItem="n_State" Index="5" RelativeSize="20" IsNewNode="True" />
+            <LayoutGroup Id="CaseExtension" RelativeSize="21.268656716417912" Direction="Horizontal">
+              <LayoutGroup Id="Autof712a1b3-3b59-49d8-8e4c-be651099acfd" ShowCaption="False" Index="0" RelativeSize="33.382352941176471" IsNewNode="True">
+                <LayoutItem Id="s_OurNo" ViewItem="s_OurNo" Index="0" RelativeSize="23.529411764705884" IsNewNode="True" />
+                <LayoutItem Id="s_ClientNo" ViewItem="s_ClientNo" Index="1" RelativeSize="17.647058823529413" IsNewNode="True" />
+                <LayoutItem Id="s_Client" ViewItem="s_Client" Index="2" RelativeSize="17.647058823529413" IsNewNode="True" />
+                <LayoutItem Id="s_ApplicantNo" ViewItem="s_ApplicantNo" Index="3" RelativeSize="17.647058823529413" IsNewNode="True" />
+                <LayoutItem Id="s_Applicant" ViewItem="s_Applicant" Index="4" RelativeSize="23.529411764705884" IsNewNode="True" />
               </LayoutGroup>
-              <LayoutGroup Id="Auto5a571db8-cabb-48e0-9414-1706fb76eea0" ShowCaption="False" Index="1" RelativeSize="50" IsNewNode="True">
-                <LayoutItem Id="dt_ExtendDate" ViewItem="dt_ExtendDate" Index="0" RelativeSize="20" IsNewNode="True" />
-                <LayoutItem Id="n_ExtendItem" ViewItem="n_ExtendItem" Index="1" RelativeSize="15" IsNewNode="True" />
-                <LayoutItem Id="b_OurProblem" ViewItem="b_OurProblem" Index="2" RelativeSize="15" IsNewNode="True" />
-                <LayoutItem Id="s_ExtendNote" ViewItem="s_ExtendNote" Index="3" RelativeSize="15" IsNewNode="True" />
-                <LayoutItem Id="s_AlertWay" ViewItem="s_AlertWay" Index="4" RelativeSize="15" IsNewNode="True" />
-                <LayoutItem Id="Owner" ViewItem="Owner" Index="5" RelativeSize="20" IsNewNode="True" />
+              <LayoutGroup Id="Auto3f6e8a9e-ecc3-489e-a180-8754bffb5645" ShowCaption="False" Index="1" RelativeSize="33.235294117647058" IsNewNode="True">
+                <LayoutItem Id="n_ExtendItem" ViewItem="n_ExtendItem" Index="0" RelativeSize="23.529411764705884" IsNewNode="True" />
+                <LayoutItem Id="dt_ExtendDate" ViewItem="dt_ExtendDate" Index="1" RelativeSize="17.647058823529413" IsNewNode="True" />
+                <LayoutItem Id="n_ExtendItem2" ViewItem="n_ExtendItem2" Index="2" RelativeSize="17.647058823529413" IsNewNode="True" />
+                <LayoutItem Id="dt_ExtendDate2" ViewItem="dt_ExtendDate2" Index="3" RelativeSize="41.1764705882353" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Autodddf417b-a21a-43d5-9848-16fce06b7621" ShowCaption="False" Index="2" RelativeSize="33.382352941176471" IsNewNode="True">
+                <LayoutItem Id="Owner" ViewItem="Owner" Index="0" RelativeSize="23.529411764705884" IsNewNode="True" />
+                <LayoutItem Id="s_ExtendNote" ViewItem="s_ExtendNote" Index="1" RelativeSize="17.647058823529413" IsNewNode="True" />
+                <LayoutItem Id="b_OurProblem" ViewItem="b_OurProblem" Index="2" RelativeSize="17.647058823529413" IsNewNode="True" />
+                <LayoutItem Id="s_AlertWay" ViewItem="s_AlertWay" Index="3" RelativeSize="17.647058823529413" IsNewNode="True" />
+                <LayoutItem Id="n_State" ViewItem="n_State" Index="4" RelativeSize="23.529411764705884" IsNewNode="True" />
               </LayoutGroup>
               <LayoutGroup Id="CaseExtension_col1" RelativeSize="100" Direction="Horizontal" Removed="True">
                 <LayoutGroup Id="Autof712a1b3-3b59-49d8-8e4c-be651099acfd" ShowCaption="False" Index="0" RelativeSize="49.947970863683665" IsNewNode="True">
@@ -339,30 +367,30 @@
                 <LayoutItem Id="s_State" RelativeSize="4.2049934296977662" Removed="True" />
               </LayoutGroup>
             </LayoutGroup>
-            <LayoutGroup Id="Autof806f67f-f0a4-4b89-8c0e-68c3eb663e3c" ShowCaption="False" Direction="Horizontal" Index="1" RelativeSize="63.2" IsNewNode="True">
+            <LayoutGroup Id="Autof806f67f-f0a4-4b89-8c0e-68c3eb663e3c" ShowCaption="False" Direction="Horizontal" Index="1" RelativeSize="69.02985074626865" IsNewNode="True">
               <LayoutGroup Id="Item1" ShowCaption="True" CaptionLocation="Top" Index="0" RelativeSize="50" IsNewNode="True">
-                <LayoutItem Id="s_DepartReason" ViewItem="s_DepartReason" Index="0" RelativeSize="91.498881431767344" IsNewNode="True" />
-                <LayoutGroup Id="Autof4bba2ca-f336-4078-a82b-1ac5030e5441" ShowCaption="False" Direction="Horizontal" Index="1" RelativeSize="8.5011185682326627" IsNewNode="True">
-                  <LayoutItem Id="DepartApprover" ViewItem="DepartApprover" Index="0" RelativeSize="50" IsNewNode="True" />
-                  <LayoutItem Id="dt_DepartApprovalDate" ViewItem="dt_DepartApprovalDate" Index="1" RelativeSize="50" IsNewNode="True" />
+                <LayoutItem Id="s_DepartReason" ViewItem="s_DepartReason" Index="0" RelativeSize="92.678227360308284" IsNewNode="True" />
+                <LayoutGroup Id="Autof4bba2ca-f336-4078-a82b-1ac5030e5441" ShowCaption="False" Direction="Horizontal" Index="1" RelativeSize="7.3217726396917149" IsNewNode="True">
+                  <LayoutItem Id="DepartApprover" ViewItem="DepartApprover" Index="0" RelativeSize="49.849849849849846" IsNewNode="True" />
+                  <LayoutItem Id="dt_DepartApprovalDate" ViewItem="dt_DepartApprovalDate" Index="1" RelativeSize="50.150150150150154" IsNewNode="True" />
                 </LayoutGroup>
               </LayoutGroup>
               <LayoutGroup Id="Item2" ShowCaption="True" CaptionLocation="Top" Index="1" RelativeSize="50" IsNewNode="True">
-                <LayoutItem Id="s_ModifyReason" ViewItem="s_ModifyReason" Index="0" RelativeSize="91.498881431767344" IsNewNode="True" />
-                <LayoutGroup Id="Auto3a76b0fa-102f-490d-bc79-c2b43d0751d0" ShowCaption="False" Direction="Horizontal" Index="1" RelativeSize="8.5011185682326627" IsNewNode="True">
-                  <LayoutItem Id="ModifyApprover" ViewItem="ModifyApprover" Index="0" RelativeSize="49.307479224376735" IsNewNode="True" />
-                  <LayoutItem Id="dt_ModifyApprovalDate" ViewItem="dt_ModifyApprovalDate" Index="1" RelativeSize="50.692520775623265" IsNewNode="True" />
+                <LayoutItem Id="s_ModifyReason" ViewItem="s_ModifyReason" Index="0" RelativeSize="92.678227360308284" IsNewNode="True" />
+                <LayoutGroup Id="Auto3a76b0fa-102f-490d-bc79-c2b43d0751d0" ShowCaption="False" Direction="Horizontal" Index="1" RelativeSize="7.3217726396917149" IsNewNode="True">
+                  <LayoutItem Id="ModifyApprover" ViewItem="ModifyApprover" Index="0" RelativeSize="49.849849849849846" IsNewNode="True" />
+                  <LayoutItem Id="dt_ModifyApprovalDate" ViewItem="dt_ModifyApprovalDate" Index="1" RelativeSize="50.150150150150154" IsNewNode="True" />
                 </LayoutGroup>
               </LayoutGroup>
             </LayoutGroup>
-            <LayoutGroup Id="Autoc22320ed-e14f-4ff5-9750-a41e71e04bbd" ShowCaption="False" Caption="Autoc22320ed-e14f-4ff5-9750-a41e71e04bbd(33)" Direction="Horizontal" Index="2" RelativeSize="10.8" IsNewNode="True">
+            <LayoutGroup Id="Autoc22320ed-e14f-4ff5-9750-a41e71e04bbd" ShowCaption="False" Caption="Autoc22320ed-e14f-4ff5-9750-a41e71e04bbd(33)" Direction="Horizontal" Index="2" RelativeSize="9.7014925373134329" IsNewNode="True">
               <LayoutGroup Id="Item3" ShowCaption="True" CaptionLocation="Top" Direction="Horizontal" Index="0" RelativeSize="50" IsNewNode="True">
-                <LayoutItem Id="ConfirmApprover" ViewItem="ConfirmApprover" Index="0" RelativeSize="49.438202247191015" IsNewNode="True" />
-                <LayoutItem Id="dt_ConfirmApprovalDate" ViewItem="dt_ConfirmApprovalDate" Index="1" RelativeSize="50.561797752808985" IsNewNode="True" />
+                <LayoutItem Id="ConfirmApprover" ViewItem="ConfirmApprover" Index="0" RelativeSize="49.849849849849846" IsNewNode="True" />
+                <LayoutItem Id="dt_ConfirmApprovalDate" ViewItem="dt_ConfirmApprovalDate" Index="1" RelativeSize="50.150150150150154" IsNewNode="True" />
               </LayoutGroup>
               <LayoutGroup Id="Item4" ShowCaption="True" CaptionLocation="Top" Direction="Horizontal" Index="1" RelativeSize="50" IsNewNode="True">
-                <LayoutItem Id="Creator" ViewItem="Creator" Index="0" RelativeSize="50" IsNewNode="True" />
-                <LayoutItem Id="dt_Created" ViewItem="dt_Created" Index="1" RelativeSize="50" IsNewNode="True" />
+                <LayoutItem Id="Creator" ViewItem="Creator" Index="0" RelativeSize="49.849849849849846" IsNewNode="True" />
+                <LayoutItem Id="dt_Created" ViewItem="dt_Created" Index="1" RelativeSize="50.150150150150154" IsNewNode="True" />
               </LayoutGroup>
             </LayoutGroup>
           </LayoutGroup>
@@ -377,16 +405,38 @@
         <ColumnInfo Id="Name" Index="1" SortIndex="-1" SortOrder="None" Width="170" />
       </Columns>
     </ListView>
-    <DetailView Id="Expense_DetailView">
+    <DetailView Id="Expense_DetailView" DefaultFocusedItem="s_OurNo">
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100">
           <LayoutGroup Id="SimpleEditors" RelativeSize="100">
             <LayoutGroup Id="Expense" RelativeSize="100" Direction="Vertical" Caption="报销">
-              <LayoutGroup Id="Expense_col1" RelativeSize="100">
+              <LayoutItem Id="s_ExpenseNo" ViewItem="s_ExpenseNo" Index="0" RelativeSize="4.2328042328042326" IsNewNode="True" />
+              <LayoutItem Id="s_OurNo" ViewItem="s_OurNo" Index="1" RelativeSize="3.1746031746031744" IsNewNode="True" />
+              <LayoutItem Id="dt_ExpenseDate" ViewItem="dt_ExpenseDate" Index="2" RelativeSize="3.1746031746031744" IsNewNode="True" />
+              <LayoutItem Id="s_Description" ViewItem="s_Description" Index="3" RelativeSize="3.1746031746031744" IsNewNode="True" />
+              <LayoutItem Id="n_Amount" ViewItem="n_Amount" Index="4" RelativeSize="3.1746031746031744" IsNewNode="True" />
+              <LayoutItem Id="s_CertificateNo" ViewItem="s_CertificateNo" Index="5" RelativeSize="3.1746031746031744" IsNewNode="True" />
+              <LayoutItem Id="dt_PaidDate" ViewItem="dt_PaidDate" Index="6" RelativeSize="3.1746031746031744" IsNewNode="True" />
+              <LayoutItem Id="ExpenseFile" ViewItem="ExpenseFile" Index="7" RelativeSize="3.1746031746031744" IsNewNode="True" />
+              <LayoutItem Id="s_Note" ViewItem="s_Note" Index="8" RelativeSize="68.518518518518519" IsNewNode="True" />
+              <LayoutGroup Id="Auto5ad2d8b6-7e85-4e43-87b2-1753d3fc1203" ShowCaption="False" Direction="Horizontal" Index="9" RelativeSize="5.0264550264550261" IsNewNode="True">
+                <LayoutItem Id="Creator" ViewItem="Creator" Index="0" RelativeSize="49.927849927849927" IsNewNode="True" />
+                <LayoutItem Id="dt_Created" ViewItem="dt_Created" Index="1" RelativeSize="50.072150072150073" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Expense_col1" RelativeSize="100" Removed="True">
                 <LayoutItem Id="s_ExpenseNo" Index="0" RelativeSize="4.2328042328042326" />
                 <LayoutItem Id="s_OurNo" Index="1" RelativeSize="3.1746031746031744" />
-                <LayoutItem Id="s_Description" Index="2" RelativeSize="3.1746031746031744" ViewItem="s_Description" IsNewNode="True" />
-                <LayoutItem Id="ExpenseFile" ViewItem="ExpenseFile" Index="3" RelativeSize="3.1746031746031744" IsNewNode="True" />
+                <LayoutItem Id="dt_ExpenseDate" Index="2" RelativeSize="3.1746031746031744" />
+                <LayoutItem Id="s_Description" Index="3" RelativeSize="3.1746031746031744" ViewItem="s_Description" IsNewNode="True" />
+                <LayoutItem Id="n_Amount" ViewItem="n_Amount" Index="4" RelativeSize="3.1746031746031744" IsNewNode="True" />
+                <LayoutItem Id="s_CertificateNo" Index="5" RelativeSize="3.1746031746031744" />
+                <LayoutItem Id="dt_PaidDate" RelativeSize="3.1746031746031744" Index="6" />
+                <LayoutItem Id="ExpenseFile" ViewItem="ExpenseFile" Index="7" RelativeSize="3.1746031746031744" IsNewNode="True" />
+                <LayoutItem Id="s_Note" Index="8" RelativeSize="3.1746031746031744" />
+                <LayoutGroup Id="Auto5ad2d8b6-7e85-4e43-87b2-1753d3fc1203" ShowCaption="False" Direction="Horizontal" Index="9" RelativeSize="70.370370370370367" IsNewNode="True">
+                  <LayoutItem Id="Creator" ViewItem="Creator" Index="0" RelativeSize="50" IsNewNode="True" />
+                  <LayoutItem Id="dt_Created" ViewItem="dt_Created" Index="1" RelativeSize="50" IsNewNode="True" />
+                </LayoutGroup>
               </LayoutGroup>
               <LayoutGroup Id="Expense_col2" RelativeSize="50" Caption="Expense_col2" Direction="Horizontal" Removed="True">
                 <LayoutItem Id="ExpenseFile" RelativeSize="100" Index="0" Removed="True" />
@@ -397,7 +447,23 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <ListView Id="Expense_ListView" IsFooterVisible="True" />
+    <ListView Id="Expense_ListView" IsFooterVisible="True">
+      <Columns>
+        <ColumnInfo Id="InvoiceNo" Index="-1" />
+        <ColumnInfo Id="PerNo" Index="-1" />
+        <ColumnInfo Id="s_ExpenseNo" SortIndex="0" SortOrder="Descending" />
+        <ColumnInfo Id="dt_ExpenseDate" Index="2" />
+        <ColumnInfo Id="s_Description" Index="3" />
+        <ColumnInfo Id="n_Amount" Index="4" />
+        <ColumnInfo Id="dt_PaidDate" Index="5" />
+        <ColumnInfo Id="s_CertificateNo" Index="6" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="s_Note" Index="7" />
+        <ColumnInfo Id="ExpenseFile" Index="8" />
+      </Columns>
+      <HiddenActions>
+        <ActionLink ActionId="Expense.GetCaseInfo" IsNewNode="True" />
+      </HiddenActions>
+    </ListView>
     <DetailView Id="Fee_DetailView">
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100">
@@ -800,6 +866,97 @@
         <ColumnInfo Id="s_Description" Width="258" />
       </Columns>
     </ListView>
+    <DetailView Id="PatentPayment_DetailView">
+      <Layout>
+        <LayoutGroup Id="PatentPayment" ShowCaption="True" Direction="Horizontal" Index="0" RelativeSize="27.238805970149254" IsNewNode="True">
+          <LayoutGroup Id="PatentPayment_col1" ShowCaption="False" Index="0" RelativeSize="50" IsNewNode="True">
+            <LayoutItem Id="s_OurNo" ViewItem="s_OurNo" Index="0" RelativeSize="17.391304347826086" IsNewNode="True" />
+            <LayoutItem Id="s_AppNo" ViewItem="s_AppNo" Index="1" RelativeSize="13.043478260869565" IsNewNode="True" />
+            <LayoutItem Id="s_PayerName" ViewItem="s_PayerName" Index="2" RelativeSize="13.043478260869565" IsNewNode="True" />
+            <LayoutItem Id="s_ApplicantNo" ViewItem="s_ApplicantNo" Index="3" RelativeSize="13.043478260869565" IsNewNode="True" />
+            <LayoutItem Id="s_Applicant" ViewItem="s_Applicant" Index="4" RelativeSize="13.043478260869565" IsNewNode="True" />
+            <LayoutItem Id="s_ClientNo" ViewItem="s_ClientNo" Index="5" RelativeSize="13.043478260869565" IsNewNode="True" />
+            <LayoutItem Id="s_Client" ViewItem="s_Client" Index="6" RelativeSize="17.391304347826086" IsNewNode="True" />
+          </LayoutGroup>
+          <LayoutGroup Id="PatentPayment_col2" ShowCaption="False" Index="1" RelativeSize="50" IsNewNode="True">
+            <LayoutItem Id="s_FeeName" ViewItem="s_FeeName" Index="0" RelativeSize="17.391304347826086" IsNewNode="True" />
+            <LayoutItem Id="n_Amount" ViewItem="n_Amount" Index="1" RelativeSize="13.043478260869565" IsNewNode="True" />
+            <LayoutItem Id="dt_PayDeadline" ViewItem="dt_PayDeadline" Index="2" RelativeSize="13.043478260869565" IsNewNode="True" />
+            <LayoutItem Id="dt_PaidDate" ViewItem="dt_PaidDate" Index="3" RelativeSize="13.043478260869565" IsNewNode="True" />
+            <LayoutItem Id="n_PatentType" ViewItem="n_PatentType" Index="4" RelativeSize="13.043478260869565" IsNewNode="True" />
+            <LayoutItem Id="n_PaidBy" ViewItem="n_PaidBy" Index="5" RelativeSize="13.043478260869565" IsNewNode="True" />
+            <LayoutItem Id="n_PayCaseType" ViewItem="n_PayCaseType" Index="6" RelativeSize="17.391304347826086" IsNewNode="True" />
+          </LayoutGroup>
+        </LayoutGroup>
+        <LayoutGroup Id="Item2" ShowCaption="True" CaptionLocation="Top" Index="1" RelativeSize="63.432835820895519" IsNewNode="True">
+          <LayoutItem Id="s_Note" ViewItem="s_Note" Index="0" RelativeSize="100" IsNewNode="True" />
+        </LayoutGroup>
+        <LayoutGroup Id="Item1" ShowCaption="True" CaptionLocation="Top" Direction="Horizontal" Index="2" RelativeSize="9.3283582089552244" IsNewNode="True">
+          <LayoutItem Id="Creator" ViewItem="Creator" Index="0" RelativeSize="50" IsNewNode="True" />
+          <LayoutItem Id="dt_Created" ViewItem="dt_Created" Index="1" RelativeSize="50" IsNewNode="True" />
+        </LayoutGroup>
+        <LayoutGroup Id="Main" RelativeSize="100" Removed="True">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="Item2" ShowCaption="True" CaptionLocation="Top" Index="1" RelativeSize="63.432835820895519" IsNewNode="True">
+              <LayoutItem Id="s_Note" ViewItem="s_Note" Index="0" RelativeSize="100" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="Item1" ShowCaption="True" CaptionLocation="Top" Direction="Horizontal" Index="2" RelativeSize="9.3283582089552244" IsNewNode="True">
+              <LayoutItem Id="Creator" ViewItem="Creator" Index="0" RelativeSize="50" IsNewNode="True" />
+              <LayoutItem Id="dt_Created" ViewItem="dt_Created" Index="1" RelativeSize="50" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="PatentPayment" RelativeSize="27.238805970149254">
+              <LayoutGroup Id="PatentPayment_col1" RelativeSize="50">
+                <LayoutItem Id="s_AppNo" ViewItem="s_AppNo" Index="1" RelativeSize="13.043478260869565" IsNewNode="True" Removed="True" />
+                <LayoutItem Id="s_PayerName" RelativeSize="4.8192771084337354" Index="1" Removed="True" />
+                <LayoutItem Id="s_ApplicantNo" Index="2" RelativeSize="13.043478260869565" />
+                <LayoutItem Id="s_Applicant" Index="3" RelativeSize="13.043478260869565" />
+                <LayoutItem Id="s_ClientNo" Index="4" RelativeSize="13.043478260869565" />
+                <LayoutItem Id="s_Client" RelativeSize="13.043478260869565" Index="5" />
+                <LayoutItem Id="n_Amount" RelativeSize="10.344827586206897" Index="6" Removed="True" />
+                <LayoutItem Id="n_PaidBy" ViewItem="n_PaidBy" Index="6" RelativeSize="17.391304347826086" IsNewNode="True" />
+                <LayoutItem Id="s_FeeName" RelativeSize="9.375" Index="6" Removed="True" />
+                <LayoutItem Id="s_OurNo" RelativeSize="17.391304347826086" />
+              </LayoutGroup>
+              <LayoutGroup Id="PatentPayment_col2" RelativeSize="50">
+                <LayoutItem Id="s_PayerName" ViewItem="s_PayerName" Index="0" RelativeSize="17.391304347826086" IsNewNode="True" />
+                <LayoutItem Id="s_FeeName" ViewItem="s_FeeName" Index="1" RelativeSize="13.043478260869565" IsNewNode="True" />
+                <LayoutItem Id="n_Amount" ViewItem="n_Amount" Index="2" RelativeSize="13.043478260869565" IsNewNode="True" />
+                <LayoutItem Id="dt_PayDeadline" ViewItem="dt_PayDeadline" Index="3" RelativeSize="13.043478260869565" IsNewNode="True" Removed="True" />
+                <LayoutItem Id="dt_PaidDate" RelativeSize="13.043478260869565" Index="4" />
+                <LayoutItem Id="dt_Created" RelativeSize="20" Index="5" Removed="True" />
+                <LayoutItem Id="n_PaidBy" RelativeSize="74.297188755020073" Index="5" Removed="True" />
+                <LayoutItem Id="n_PatentType" ViewItem="n_PatentType" Index="5" RelativeSize="13.043478260869565" IsNewNode="True" Removed="True" />
+                <LayoutItem Id="n_PayCaseType" ViewItem="n_PayCaseType" Index="6" RelativeSize="17.391304347826086" IsNewNode="True" Removed="True" />
+                <LayoutItem Id="Creator" RelativeSize="15" Removed="True" />
+                <LayoutItem Id="s_Note" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="PatentPayment_ListView" IsFooterVisible="True">
+      <Columns>
+        <ColumnInfo Id="s_OurNo" Index="0" SortIndex="-1" SortOrder="None" Width="68" />
+        <ColumnInfo Id="s_AppNo" Index="1" Width="67" />
+        <ColumnInfo Id="s_ApplicantNo" Index="2" Width="95" />
+        <ColumnInfo Id="s_Applicant" Index="3" Width="80" />
+        <ColumnInfo Id="s_Client" Index="4" Width="60" />
+        <ColumnInfo Id="s_ClientNo" Index="5" Width="80" />
+        <ColumnInfo Id="s_PayerName" SortIndex="-1" SortOrder="None" Width="91" Index="6" />
+        <ColumnInfo Id="s_FeeName" Width="81" />
+        <ColumnInfo Id="n_Amount" Width="44" />
+        <ColumnInfo Id="dt_PaidDate" Width="68" />
+        <ColumnInfo Id="dt_PayDeadline" Width="68" />
+        <ColumnInfo Id="n_PaidBy" Width="68" />
+        <ColumnInfo Id="n_PayCaseType" Width="68" />
+        <ColumnInfo Id="n_PatentType" Width="68" />
+        <ColumnInfo Id="s_Note" Width="57" Index="14" />
+        <ColumnInfo Id="Creator" Width="56" Index="15" />
+        <ColumnInfo Id="dt_Created" Width="120" Index="16" />
+      </Columns>
+    </ListView>
+    <ListView Id="PatentPaymentRule_ListView" IsFooterVisible="True" />
     <ListView Id="SysUser_ListView" IsFooterVisible="True" />
     <ListView Id="SysUser_LookupListView" AllowNew="False" Criteria="">
       <Columns>

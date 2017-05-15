@@ -49,6 +49,7 @@
     <Reference Include="DevExpress.ExpressApp.AuditTrail.v16.2, Version=16.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v16.2, Version=16.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.ExpressApp.Dashboards.v16.2, Version=16.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.Notifications.v16.2, Version=16.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.ExpressApp.Objects.v16.2, Version=16.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -109,6 +110,7 @@
   <ItemGroup>
     <Compile Include="BusinessObjects\CaseBase.cs" />
     <Compile Include="BusinessObjects\CaseExtension.cs" />
+    <Compile Include="BusinessObjects\PatentPaymentCode.cs" />
     <Compile Include="BusinessObjects\CommonFunction.cs" />
     <Compile Include="BusinessObjects\Corporation.cs" />
     <Compile Include="BusinessObjects\EnumsAll.cs" />
@@ -116,9 +118,17 @@
     <Compile Include="BusinessObjects\Fee.cs" />
     <Compile Include="BusinessObjects\InternalInvoice.cs" />
     <Compile Include="BusinessObjects\Invoice.cs" />
+    <Compile Include="BusinessObjects\PatentPaymentRule.cs" />
+    <Compile Include="BusinessObjects\PatentPayment.cs" />
     <Compile Include="BusinessObjects\SysUser.cs" />
     <Compile Include="BusinessObjects\WorkItem.cs" />
     <Compile Include="BusinessObjects\TimeSheet.cs" />
+    <Compile Include="Controllers\VCCaseApproval.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\VCCaseApproval.Designer.cs">
+      <DependentUpon>VCCaseApproval.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\VCCaseBase.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -155,6 +165,12 @@
     <Compile Include="Controllers\VCListInternalInvoice.Designer.cs">
       <DependentUpon>VCListInternalInvoice.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\VCPatentPaymentDetail.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\VCPatentPaymentDetail.Designer.cs">
+      <DependentUpon>VCPatentPaymentDetail.cs</DependentUpon>
+    </Compile>
     <Compile Include="DatabaseUpdate\Updater.cs" />
     <Compile Include="DBUtility\DbHelperOra.cs" />
     <Compile Include="Module.cs">
@@ -166,6 +182,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Controllers\VCCaseApproval.resx">
+      <DependentUpon>VCCaseApproval.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controllers\VCCaseBase.resx">
       <DependentUpon>VCCaseBase.cs</DependentUpon>
     </EmbeddedResource>
@@ -184,6 +203,9 @@
     <EmbeddedResource Include="Controllers\VCListInternalInvoice.resx">
       <DependentUpon>VCListInternalInvoice.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\VCPatentPaymentDetail.resx">
+      <DependentUpon>VCPatentPaymentDetail.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -192,12 +214,6 @@
       <DependentUpon>Module.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="DatabaseUpdate\ReadMe.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Controllers\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="FunctionalTests\ReadMe.txt" />
@@ -209,7 +225,6 @@
       <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="FunctionalTests\config.xml" />
@@ -235,7 +250,30 @@
       <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
       <SubType>Designer</SubType>
     </None>
-    <Content Include="Welcome.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="UnusableNodes10.xml">
+      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="UnusableNodes4_zh-CHS.xml">
+      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="UnusableNodes11.xml">
+      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="UnusableNodes12.xml">
+      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

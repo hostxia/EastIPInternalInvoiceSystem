@@ -29,6 +29,9 @@
       <Action Id="DialogCancel" Caption="取消" />
       <Action Id="DialogClose" Caption="关闭" />
       <Action Id="DialogOK" Caption="确定" />
+      <Action Id="Dismiss" Caption="消除" />
+      <Action Id="DismissAll" Caption="全部消除" />
+      <Action Id="Expense.GetCaseInfo" Caption="获取我方卷号" />
       <Action Id="ExportModelDifferences" Caption="导出模型的差异" />
       <Action Id="FullTextSearch" Caption="按文本筛选" ShortCaption="查询" NullValuePrompt="查询内容" ToolTip="通过文字筛选内容" />
       <Action Id="HideItemsFromDashboard" Caption="隐藏从仪表板" />
@@ -46,6 +49,7 @@
       </Action>
       <Action Id="NextObject" Caption="下一条记录" />
       <Action Id="OrganizeDashboard" Caption="组织仪表板" />
+      <Action Id="PatentPayment.SetPaid" Caption="标记已缴" />
       <Action Id="PreviousObject" Caption="上一条记录" />
       <Action Id="Refresh" Caption="刷新" />
       <Action Id="ResetModelDifferences" Caption="重置模式的差异" />
@@ -57,6 +61,7 @@
       <Action Id="ShowAllContexts" Caption="验证" />
       <Action Id="ShowItemsOnDashboard" Caption="在仪表板上显示" />
       <Action Id="ShowNavigationItem" Caption="显示导航选项" />
+      <Action Id="Snooze" Caption="暂停" />
       <Action Id="Unlink" Caption="取消关联" />
     </Actions>
     <DisableReasons>
@@ -72,6 +77,25 @@
         <Member Name="FilterString" Caption="筛选器字符串" />
       </OwnMembers>
     </Class>
+    <Class Name="DevExpress.ExpressApp.Notifications.CommonNotificationItem">
+      <OwnMembers>
+        <Member Name="NotificationSource" Caption="通知源" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.ExpressApp.Notifications.Notification" Caption="通知">
+      <OwnMembers>
+        <Member Name="AlarmTime" Caption="提醒时间" />
+        <Member Name="Subject" Caption="标题" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.ExpressApp.Notifications.NotificationsObject" ObjectCaptionFormat="{0:NotificationsCount} 条通知">
+      <OwnMembers>
+        <Member Name="Notifications" Caption="通知" />
+        <Member Name="NotificationsState" Caption="通知状态" />
+        <Member Name="Postpone" Caption="推迟" />
+        <Member Name="ShowNotificationsWindow" Caption="显示通知窗口" />
+      </OwnMembers>
+    </Class>
     <Class Name="DevExpress.ExpressApp.StateMachine.Xpo.StateMachineObjectBase" Caption="状态机对象基础" />
     <Class Name="DevExpress.ExpressApp.StateMachine.Xpo.XpoState" Caption="状态">
       <OwnMembers>
@@ -80,6 +104,7 @@
     </Class>
     <Class Name="DevExpress.ExpressApp.StateMachine.Xpo.XpoStateMachine" Caption="状态机">
       <OwnMembers>
+        <Member Name="Active" Caption="有效的" />
         <Member Name="Name" Caption="名称" />
         <Member Name="StatePropertyName" Caption="状态属性名称" />
       </OwnMembers>
@@ -145,6 +170,12 @@
         <Member Name="CopyBehavior" Caption="复制行为" />
         <Member Name="SourceModelDifference" Caption="源模型的区别" />
         <Member Name="TargetModelDifferences" Caption="目标模式的差异" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.ExpressApp.SystemModule.Notifications.PostponeTime" Caption="推迟时间">
+      <OwnMembers>
+        <Member Name="RemindIn" Caption="提醒间隔" />
+        <Member Name="RemindInText" Caption="提醒间隔" />
       </OwnMembers>
     </Class>
     <Class Name="DevExpress.ExpressApp.SystemModule.StaticImageDashboardOrganizationItem" Caption="静态图像">
@@ -322,7 +353,7 @@
         <Member Name="MessageTemplateTargetDoesNotSatisfyTargetCriteria" Caption="目标类型" />
         <Member Name="Name" Caption="名称" />
         <Member Name="ResultType" Caption="结果类型" />
-        <Member Name="SkipNullOrEmptyValues" Caption="自定义邮件模板" />
+        <Member Name="SkipNullOrEmptyValues" Caption="跳过空或空白值" />
         <Member Name="TargetContextIDs" Caption="目标上下文 Id" />
         <Member Name="TargetCriteria" Caption="目标条件" />
         <Member Name="TargetType" Caption="目标类型" />
@@ -392,7 +423,7 @@
     <Class Name="DevExpress.Persistent.Validation.IRuleRequiredFieldProperties" Caption="最小值">
       <OwnMembers>
         <Member Name="MessageTemplateMustNotBeEmpty" Caption="邮件模板不能为空" />
-        <Member Name="SkipNullOrEmptyValues" Caption="自定义邮件模板" />
+        <Member Name="SkipNullOrEmptyValues" Caption="跳过空或空白值" />
       </OwnMembers>
     </Class>
     <Class Name="DevExpress.Persistent.Validation.IRuleSearchObjectProperties" Caption="最小值表达式">
@@ -451,7 +482,7 @@
         <Member Name="MessageTemplateTargetDoesNotSatisfyTargetCriteria" Caption="目标类型" />
         <Member Name="Name" Caption="规则值比较属性" />
         <Member Name="ResultType" Caption="结果类型" />
-        <Member Name="SkipNullOrEmptyValues" Caption="自定义邮件模板" />
+        <Member Name="SkipNullOrEmptyValues" Caption="跳过空或空白值" />
         <Member Name="TargetCollectionOwnerType" Caption="目标上下文 Id" />
         <Member Name="TargetCollectionPropertyName" Caption="目标集合属性名称" />
         <Member Name="TargetContextIDs" Caption="名称" />
@@ -592,12 +623,12 @@
         <Member Name="ApplicantNames" Caption="申请人名称" />
         <Member Name="Applicants" Caption="申请人" />
         <Member Name="Client" Caption="委托人" />
-        <Member Name="IsMiddle" Caption="中间转入案" />
+        <Member Name="IsMiddle" Caption="转入案" />
         <Member Name="IsSpecified" Caption="申请人指定" />
         <Member Name="Note" Caption="备注" />
         <Member Name="OurNo" Caption="我方卷号" />
-        <Member Name="ReceiveDate" Caption="返回日" />
-        <Member Name="TransferDate" Caption="发出日" />
+        <Member Name="ReceiveDate" Caption="接案日" />
+        <Member Name="TransferDate" Caption="去案日" />
       </OwnMembers>
     </Class>
     <Class Name="EastIPSystem.Module.BusinessObjects.CaseExtension" Caption="延期">
@@ -609,8 +640,10 @@
         <Member Name="dt_Created" Caption="创建日期" />
         <Member Name="dt_DepartApprovalDate" Caption="部门审批时间" />
         <Member Name="dt_ExtendDate" Caption="延至日期" />
+        <Member Name="dt_ExtendDate2" Caption="延至日期2" />
         <Member Name="dt_ModifyApprovalDate" Caption="修改期限审批时间" />
         <Member Name="ModifyApprover" Caption="修改期限人" />
+        <Member Name="n_ExtendItem2" Caption="延期项目2" />
         <Member Name="n_State" Caption="审批状态" />
         <Member Name="Owner" Caption="延期负责人" />
         <Member Name="s_AlertWay" Caption="提醒方式" PredefinedValues="邮件;电话;微信;其他" />
@@ -630,9 +663,43 @@
         <Member Name="Name" Caption="名称" />
       </OwnMembers>
     </Class>
+    <Class Name="EastIPSystem.Module.BusinessObjects.Expense">
+      <OwnMembers>
+        <Member Name="Creator" Caption="创建人" />
+        <Member Name="dt_Created" Caption="创建时间" EditMask="G" DisplayFormat="{0:G}" />
+      </OwnMembers>
+    </Class>
     <Class Name="EastIPSystem.Module.BusinessObjects.InternalInvoice">
       <OwnMembers>
         <Member Name="b_IsNotInternalInvoice" Caption="不开草单" />
+      </OwnMembers>
+    </Class>
+    <Class Name="EastIPSystem.Module.BusinessObjects.PatentPayment" Caption="缴官费">
+      <OwnMembers>
+        <Member Name="Creator" Caption="创建人" />
+        <Member Name="dt_Created" Caption="创建时间" EditMask="G" DisplayFormat="{0:G}" />
+        <Member Name="dt_PaidDate" Caption="实缴日期" />
+        <Member Name="dt_PayDeadline" Caption="应缴日期" />
+        <Member Name="n_Amount" Caption="金额" />
+        <Member Name="n_PaidBy" Caption="缴费方式" />
+        <Member Name="n_PatentType" Caption="专利类型" />
+        <Member Name="n_PayCaseType" Caption="缴费类型" />
+        <Member Name="s_Applicant" Caption="申请人" />
+        <Member Name="s_ApplicantNo" Caption="申请人编号" />
+        <Member Name="s_AppNo" Caption="申请号" />
+        <Member Name="s_Client" Caption="委托人" />
+        <Member Name="s_ClientNo" Caption="委托人编号" />
+        <Member Name="s_FeeName" Caption="缴费名称" />
+        <Member Name="s_Note" Caption="备注" />
+        <Member Name="s_OurNo" Caption="我方卷号" />
+        <Member Name="s_PayerName" Caption="缴费抬头" />
+      </OwnMembers>
+    </Class>
+    <Class Name="EastIPSystem.Module.BusinessObjects.PatentPaymentRule" Caption="缴费抬头">
+      <OwnMembers>
+        <Member Name="s_PayerCode1" Caption="申请人1编号" />
+        <Member Name="s_PayerCode2" Caption="申请人2编号" />
+        <Member Name="s_PayerName" Caption="缴费抬头" />
       </OwnMembers>
     </Class>
     <Class Name="EastIPSystem.Module.BusinessObjects.SysUser" Caption="用户" ObjectCaptionFormat="{0:Name}">
@@ -679,6 +746,15 @@
         <LocalizationItem Name="Hide" Value="隐藏" />
         <LocalizationItem Name="Show" Value="显示" />
       </LocalizationGroup>
+      <LocalizationGroup Name="DevExpress.ExpressApp.Notifications.NotificationItemState" Value="通知项目状态">
+        <LocalizationItem Name="Active" Value="有效的" />
+        <LocalizationItem Name="Postponed" Value="已推迟" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="DevExpress.ExpressApp.Notifications.NotificationsType" Value="通知类型">
+        <LocalizationItem Name="Active" Value="活动的" />
+        <LocalizationItem Name="All" Value="全部" />
+        <LocalizationItem Name="Postponed" Value="已推迟" />
+      </LocalizationGroup>
       <LocalizationGroup Name="DevExpress.ExpressApp.Templates.ActionsToolbarVisibility" Value="标准" />
       <LocalizationGroup Name="DevExpress.Persistent.Base.SecurityPermissionState">
         <LocalizationItem Name="Allow" Value="允许" />
@@ -699,6 +775,20 @@
       <LocalizationGroup Name="DevExpress.Persistent.Validation.ValueComparisonType">
         <LocalizationItem Name="Equals" Value="信息" />
       </LocalizationGroup>
+      <LocalizationGroup Name="EastIPSystem.Module.BusinessObjects.EnumsAll+CaseExtensionItem">
+        <LocalizationItem Name="答OA时限" Value="答OA时限" />
+        <LocalizationItem Name="递交前待做_返稿时限" Value="递交前待做-返稿时限" />
+        <LocalizationItem Name="国外库_递交日" Value="国外库-递交日" />
+        <LocalizationItem Name="国外库_返稿日" Value="国外库-返稿日" />
+        <LocalizationItem Name="计划日或绝限日" Value="计划日/绝限日" />
+        <LocalizationItem Name="香港申请_手工提醒_其他类型香港申请" Value="香港申请-手工提醒-其他类型香港申请" />
+        <LocalizationItem Name="转OA时限" Value="转OA时限" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="EastIPSystem.Module.BusinessObjects.EnumsAll+CaseExtensionState">
+        <LocalizationItem Name="部门审核" Value="待部门审核" />
+        <LocalizationItem Name="确认延期" Value="待确认延期" />
+        <LocalizationItem Name="修改延期" Value="待修改延期" />
+      </LocalizationGroup>
     </LocalizationGroup>
     <LocalizationGroup Name="Exceptions">
       <LocalizationGroup Name="SystemExceptions">
@@ -712,6 +802,14 @@
     </LocalizationGroup>
     <LocalizationGroup Name="Messages">
       <LocalizationItem Name="User" Value="用户: {0}" />
+    </LocalizationGroup>
+    <LocalizationGroup Name="Namespaces">
+      <LocalizationItem Name="DevExpress.ExpressApp.Notifications" Value="通知" />
+      <LocalizationItem Name="DevExpress.ExpressApp.SystemModule.Notifications" Value="通知" />
+    </LocalizationGroup>
+    <LocalizationGroup Name="Notifications">
+      <LocalizationItem Name="NotificationViewCaption" Value="通知" />
+      <LocalizationItem Name="ShowNotificationsActionEnabledTooltip" Value="显示通知" />
     </LocalizationGroup>
     <LocalizationGroup Name="Texts">
       <LocalizationItem Name="Error" Value="错误" />
@@ -754,7 +852,11 @@
     <DetailView Id="CaseBase_DetailView">
       <Layout>
         <LayoutGroup Id="Main">
-          <LayoutGroup Id="SimpleEditors">
+          <LayoutGroup Id="SimpleEditors" Caption="SimpleEditors">
+            <LayoutGroup Id="Autocabbe7e4-37ed-4c48-bf52-89b161a3cc49" Caption="">
+              <LayoutGroup Id="Auto69cd71de-0029-4497-adc4-43e2e63d3c52" Caption="" />
+              <LayoutGroup Id="Auto21990a81-61d8-4e75-b38f-5f11b11c478f" Caption="" />
+            </LayoutGroup>
             <LayoutGroup Id="CaseBase" Caption="案件信息">
               <LayoutGroup Id="Auto8a957290-bc5d-4418-a716-8ac7af0ff3fa" Caption="Auto8a957290-bc5d-4418-a716-8ac7af0ff3fa(4)" />
               <LayoutGroup Id="CaseBase_col1" Caption="CaseBase_col1">
@@ -762,10 +864,6 @@
                 <LayoutGroup Id="Auto40445710-8d28-4b4a-a39e-cc19d803a2f7" Caption="" />
               </LayoutGroup>
               <LayoutGroup Id="CaseBase_col2" Caption="CaseBase_col2" />
-            </LayoutGroup>
-            <LayoutGroup Id="Item1" Caption="来案信息" />
-            <LayoutGroup Id="Item2" Caption="去案信息">
-              <LayoutGroup Id="Auto25700d50-5531-4479-8d6a-7cd63030417d" Caption="Auto25700d50-5531-4479-8d6a-7cd63030417d(12)" />
             </LayoutGroup>
           </LayoutGroup>
           <LayoutGroup Id="Applicants_Group" Caption="申请人" />
@@ -786,13 +884,15 @@
         <LayoutGroup Id="Main">
           <LayoutGroup Id="SimpleEditors">
             <LayoutGroup Id="CaseExtension" Caption="延期申请">
+              <LayoutGroup Id="Auto3f6e8a9e-ecc3-489e-a180-8754bffb5645" Caption="Auto3f6e8a9e-ecc3-489e-a180-8754bffb5645(13)" />
+              <LayoutGroup Id="Autodddf417b-a21a-43d5-9848-16fce06b7621" Caption="Autodddf417b-a21a-43d5-9848-16fce06b7621(16)" />
               <LayoutGroup Id="CaseExtension_col1" Caption="CaseExtension_col1">
                 <LayoutGroup Id="Autof712a1b3-3b59-49d8-8e4c-be651099acfd" Caption="Autof712a1b3-3b59-49d8-8e4c-be651099acfd(5)" />
                 <LayoutGroup Id="Auto5a571db8-cabb-48e0-9414-1706fb76eea0" Caption="Auto5a571db8-cabb-48e0-9414-1706fb76eea0(11)" />
               </LayoutGroup>
               <LayoutGroup Id="CaseExtension_col2" Caption="CaseExtension_col2" />
             </LayoutGroup>
-            <LayoutGroup Id="Autof806f67f-f0a4-4b89-8c0e-68c3eb663e3c" Caption="">
+            <LayoutGroup Id="Autof806f67f-f0a4-4b89-8c0e-68c3eb663e3c" Caption="Autof806f67f-f0a4-4b89-8c0e-68c3eb663e3c(18)">
               <LayoutGroup Id="Item1" Caption="部门审核">
                 <LayoutGroup Id="Autof4bba2ca-f336-4078-a82b-1ac5030e5441" Caption="Autof4bba2ca-f336-4078-a82b-1ac5030e5441(24)" />
               </LayoutGroup>
@@ -808,6 +908,11 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
+    <ListView Id="ContextValidationResult_DisplayableValidationResultItems_ListView">
+      <Columns>
+        <ColumnInfo Id="RuleProperties.CustomMessageTemplate" Caption="自定义消息模板" />
+      </Columns>
+    </ListView>
     <DetailView Id="DashboardCreationInfo_DetailView">
       <Layout>
         <LayoutGroup Id="Main">
@@ -831,11 +936,218 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
+    <ListView Id="DisplayableValidationResultItem_ListView">
+      <Columns>
+        <ColumnInfo Id="RuleProperties.CustomMessageTemplate" Caption="自定义消息模板" />
+      </Columns>
+    </ListView>
+    <DetailView Id="Expense_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Expense">
+              <LayoutGroup Id="Auto5ad2d8b6-7e85-4e43-87b2-1753d3fc1203" Caption="Auto5ad2d8b6-7e85-4e43-87b2-1753d3fc1203(14)" />
+              <LayoutGroup Id="Expense_col1">
+                <LayoutGroup Id="Auto5ad2d8b6-7e85-4e43-87b2-1753d3fc1203" Caption="" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="IRuleBaseProperties_DetailView">
+      <Items>
+        <PropertyEditor Id="CustomMessageTemplate" Caption="自定义消息模板" />
+      </Items>
+    </DetailView>
+    <ListView Id="IRuleBaseProperties_ListView">
+      <Columns>
+        <ColumnInfo Id="CustomMessageTemplate" Caption="自定义消息模板" />
+      </Columns>
+    </ListView>
+    <DetailView Id="IRuleCollectionPropertyProperties_DetailView">
+      <Items>
+        <PropertyEditor Id="CustomMessageTemplate" Caption="自定义消息模板" />
+      </Items>
+    </DetailView>
+    <ListView Id="IRuleCollectionPropertyProperties_ListView">
+      <Columns>
+        <ColumnInfo Id="CustomMessageTemplate" Caption="自定义消息模板" />
+      </Columns>
+    </ListView>
+    <DetailView Id="IRuleCombinationOfPropertiesIsUniqueProperties_DetailView">
+      <Items>
+        <PropertyEditor Id="CustomMessageTemplate" Caption="自定义消息模板" />
+      </Items>
+    </DetailView>
+    <ListView Id="IRuleCombinationOfPropertiesIsUniqueProperties_ListView">
+      <Columns>
+        <ColumnInfo Id="CustomMessageTemplate" Caption="自定义消息模板" />
+      </Columns>
+    </ListView>
+    <DetailView Id="IRuleCriteriaProperties_DetailView">
+      <Items>
+        <PropertyEditor Id="CustomMessageTemplate" Caption="自定义消息模板" />
+      </Items>
+    </DetailView>
+    <ListView Id="IRuleCriteriaProperties_ListView">
+      <Columns>
+        <ColumnInfo Id="CustomMessageTemplate" Caption="自定义消息模板" />
+      </Columns>
+    </ListView>
+    <DetailView Id="IRuleFromBoolPropertyProperties_DetailView">
+      <Items>
+        <PropertyEditor Id="CustomMessageTemplate" Caption="自定义消息模板" />
+      </Items>
+    </DetailView>
+    <ListView Id="IRuleFromBoolPropertyProperties_ListView">
+      <Columns>
+        <ColumnInfo Id="CustomMessageTemplate" Caption="自定义消息模板" />
+      </Columns>
+    </ListView>
+    <DetailView Id="IRuleIsReferencedProperties_DetailView">
+      <Items>
+        <PropertyEditor Id="CustomMessageTemplate" Caption="自定义消息模板" />
+      </Items>
+    </DetailView>
+    <ListView Id="IRuleIsReferencedProperties_ListView">
+      <Columns>
+        <ColumnInfo Id="CustomMessageTemplate" Caption="自定义消息模板" />
+      </Columns>
+    </ListView>
+    <DetailView Id="IRuleObjectExistsProperties_DetailView">
+      <Items>
+        <PropertyEditor Id="CustomMessageTemplate" Caption="自定义消息模板" />
+      </Items>
+    </DetailView>
+    <ListView Id="IRuleObjectExistsProperties_ListView">
+      <Columns>
+        <ColumnInfo Id="CustomMessageTemplate" Caption="自定义消息模板" />
+      </Columns>
+    </ListView>
+    <DetailView Id="IRulePropertyValueProperties_DetailView">
+      <Items>
+        <PropertyEditor Id="CustomMessageTemplate" Caption="自定义消息模板" />
+      </Items>
+    </DetailView>
+    <ListView Id="IRulePropertyValueProperties_ListView">
+      <Columns>
+        <ColumnInfo Id="CustomMessageTemplate" Caption="自定义消息模板" />
+      </Columns>
+    </ListView>
+    <DetailView Id="IRuleRangeProperties_DetailView">
+      <Items>
+        <PropertyEditor Id="CustomMessageTemplate" Caption="自定义消息模板" />
+      </Items>
+    </DetailView>
+    <ListView Id="IRuleRangeProperties_ListView">
+      <Columns>
+        <ColumnInfo Id="CustomMessageTemplate" Caption="自定义消息模板" />
+      </Columns>
+    </ListView>
+    <DetailView Id="IRuleRegularExpressionProperties_DetailView">
+      <Items>
+        <PropertyEditor Id="CustomMessageTemplate" Caption="自定义消息模板" />
+      </Items>
+    </DetailView>
+    <ListView Id="IRuleRegularExpressionProperties_ListView">
+      <Columns>
+        <ColumnInfo Id="CustomMessageTemplate" Caption="自定义消息模板" />
+      </Columns>
+    </ListView>
+    <DetailView Id="IRuleRequiredFieldProperties_DetailView">
+      <Items>
+        <PropertyEditor Id="CustomMessageTemplate" Caption="自定义消息模板" />
+      </Items>
+    </DetailView>
+    <ListView Id="IRuleRequiredFieldProperties_ListView">
+      <Columns>
+        <ColumnInfo Id="CustomMessageTemplate" Caption="自定义消息模板" />
+      </Columns>
+    </ListView>
+    <DetailView Id="IRuleSearchObjectProperties_DetailView">
+      <Items>
+        <PropertyEditor Id="CustomMessageTemplate" Caption="自定义消息模板" />
+      </Items>
+    </DetailView>
+    <ListView Id="IRuleSearchObjectProperties_ListView">
+      <Columns>
+        <ColumnInfo Id="CustomMessageTemplate" Caption="自定义消息模板" />
+      </Columns>
+    </ListView>
+    <DetailView Id="IRuleStringComparisonProperties_DetailView">
+      <Items>
+        <PropertyEditor Id="CustomMessageTemplate" Caption="自定义消息模板" />
+      </Items>
+    </DetailView>
+    <ListView Id="IRuleStringComparisonProperties_ListView">
+      <Columns>
+        <ColumnInfo Id="CustomMessageTemplate" Caption="自定义消息模板" />
+      </Columns>
+    </ListView>
+    <DetailView Id="IRuleSupportsCollectionAggregatesProperties_DetailView">
+      <Items>
+        <PropertyEditor Id="CustomMessageTemplate" Caption="自定义消息模板" />
+      </Items>
+    </DetailView>
+    <ListView Id="IRuleSupportsCollectionAggregatesProperties_ListView">
+      <Columns>
+        <ColumnInfo Id="CustomMessageTemplate" Caption="自定义消息模板" />
+      </Columns>
+    </ListView>
+    <DetailView Id="IRuleUniqueValueProperties_DetailView">
+      <Items>
+        <PropertyEditor Id="CustomMessageTemplate" Caption="自定义消息模板" />
+      </Items>
+    </DetailView>
+    <ListView Id="IRuleUniqueValueProperties_ListView">
+      <Columns>
+        <ColumnInfo Id="CustomMessageTemplate" Caption="自定义消息模板" />
+      </Columns>
+    </ListView>
+    <DetailView Id="IRuleValueComparisonProperties_DetailView">
+      <Items>
+        <PropertyEditor Id="CustomMessageTemplate" Caption="自定义消息模板" />
+      </Items>
+    </DetailView>
+    <ListView Id="IRuleValueComparisonProperties_ListView">
+      <Columns>
+        <ColumnInfo Id="CustomMessageTemplate" Caption="自定义消息模板" />
+      </Columns>
+    </ListView>
     <ListView Id="ModelDifference_Aspects_ListView">
       <Columns>
         <ColumnInfo Id="DisplayName" Caption="规则值比较属性" />
       </Columns>
     </ListView>
+    <DetailView Id="Notification_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Notification" Caption="通知" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="NotificationsObject_DetailView">
+      <Items>
+        <PropertyEditor Id="Postpone" Caption="暂停时间" />
+      </Items>
+    </DetailView>
+    <DetailView Id="PatentPayment_DetailView">
+      <Layout>
+        <LayoutGroup Id="PatentPayment" Caption="缴官费" />
+        <LayoutGroup Id="Item2" Caption="备注" />
+        <LayoutGroup Id="Item1" Caption="创建信息" />
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Item2" Caption="备注" />
+            <LayoutGroup Id="Item1" Caption="创建信息" />
+            <LayoutGroup Id="PatentPayment" Caption="缴官费" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
     <DetailView Id="PermissionPolicyUser_DetailView">
       <Items>
         <PropertyEditor Id="UserName" Caption="账号" />
@@ -851,7 +1163,32 @@
         <ColumnInfo Id="UserName" Caption="账号" />
       </Columns>
     </ListView>
+    <DetailView Id="PostponeTime_DetailView">
+      <Items>
+        <PropertyEditor Id="RemindIn" Caption="提醒间隔" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="PostponeTime" Caption="推迟时间" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="PostponeTime_ListView">
+      <Columns>
+        <ColumnInfo Id="RemindIn" Caption="提醒间隔" />
+      </Columns>
+    </ListView>
+    <ListView Id="PostponeTime_LookupListView">
+      <Columns>
+        <ColumnInfo Id="RemindInText" Caption="提醒间隔" />
+      </Columns>
+    </ListView>
     <DetailView Id="RuleBaseProperties_DetailView">
+      <Items>
+        <PropertyEditor Id="CustomMessageTemplate" Caption="自定义消息模板" />
+      </Items>
       <Layout>
         <LayoutGroup Id="Main">
           <LayoutGroup Id="SimpleEditors">
@@ -860,7 +1197,15 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
+    <ListView Id="RuleBaseProperties_ListView">
+      <Columns>
+        <ColumnInfo Id="CustomMessageTemplate" Caption="自定义消息模板" />
+      </Columns>
+    </ListView>
     <DetailView Id="RuleCombinationOfPropertiesIsUniqueProperties_DetailView">
+      <Items>
+        <PropertyEditor Id="CustomMessageTemplate" Caption="自定义消息模板" />
+      </Items>
       <Layout>
         <LayoutGroup Id="Main">
           <LayoutGroup Id="SimpleEditors">
@@ -870,7 +1215,15 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
+    <ListView Id="RuleCombinationOfPropertiesIsUniqueProperties_ListView">
+      <Columns>
+        <ColumnInfo Id="CustomMessageTemplate" Caption="自定义消息模板" />
+      </Columns>
+    </ListView>
     <DetailView Id="RuleCriteriaProperties_DetailView">
+      <Items>
+        <PropertyEditor Id="CustomMessageTemplate" Caption="自定义消息模板" />
+      </Items>
       <Layout>
         <LayoutGroup Id="Main">
           <LayoutGroup Id="SimpleEditors">
@@ -879,7 +1232,15 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
+    <ListView Id="RuleCriteriaProperties_ListView">
+      <Columns>
+        <ColumnInfo Id="CustomMessageTemplate" Caption="自定义消息模板" />
+      </Columns>
+    </ListView>
     <DetailView Id="RuleFromBoolPropertyProperties_DetailView">
+      <Items>
+        <PropertyEditor Id="CustomMessageTemplate" Caption="自定义消息模板" />
+      </Items>
       <Layout>
         <LayoutGroup Id="Main">
           <LayoutGroup Id="SimpleEditors">
@@ -888,7 +1249,15 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
+    <ListView Id="RuleFromBoolPropertyProperties_ListView">
+      <Columns>
+        <ColumnInfo Id="CustomMessageTemplate" Caption="自定义消息模板" />
+      </Columns>
+    </ListView>
     <DetailView Id="RuleIsReferencedProperties_DetailView">
+      <Items>
+        <PropertyEditor Id="CustomMessageTemplate" Caption="自定义消息模板" />
+      </Items>
       <Layout>
         <LayoutGroup Id="Main">
           <LayoutGroup Id="SimpleEditors">
@@ -898,7 +1267,15 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
+    <ListView Id="RuleIsReferencedProperties_ListView">
+      <Columns>
+        <ColumnInfo Id="CustomMessageTemplate" Caption="自定义消息模板" />
+      </Columns>
+    </ListView>
     <DetailView Id="RuleObjectExistsProperties_DetailView">
+      <Items>
+        <PropertyEditor Id="CustomMessageTemplate" Caption="自定义消息模板" />
+      </Items>
       <Layout>
         <LayoutGroup Id="Main">
           <LayoutGroup Id="SimpleEditors">
@@ -908,7 +1285,15 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
+    <ListView Id="RuleObjectExistsProperties_ListView">
+      <Columns>
+        <ColumnInfo Id="CustomMessageTemplate" Caption="自定义消息模板" />
+      </Columns>
+    </ListView>
     <DetailView Id="RulePropertyValueProperties_DetailView">
+      <Items>
+        <PropertyEditor Id="CustomMessageTemplate" Caption="自定义消息模板" />
+      </Items>
       <Layout>
         <LayoutGroup Id="Main">
           <LayoutGroup Id="SimpleEditors">
@@ -917,7 +1302,15 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
+    <ListView Id="RulePropertyValueProperties_ListView">
+      <Columns>
+        <ColumnInfo Id="CustomMessageTemplate" Caption="自定义消息模板" />
+      </Columns>
+    </ListView>
     <DetailView Id="RuleRangeProperties_DetailView">
+      <Items>
+        <PropertyEditor Id="CustomMessageTemplate" Caption="自定义消息模板" />
+      </Items>
       <Layout>
         <LayoutGroup Id="Main">
           <LayoutGroup Id="SimpleEditors">
@@ -926,7 +1319,15 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
+    <ListView Id="RuleRangeProperties_ListView">
+      <Columns>
+        <ColumnInfo Id="CustomMessageTemplate" Caption="自定义消息模板" />
+      </Columns>
+    </ListView>
     <DetailView Id="RuleRegularExpressionProperties_DetailView">
+      <Items>
+        <PropertyEditor Id="CustomMessageTemplate" Caption="自定义消息模板" />
+      </Items>
       <Layout>
         <LayoutGroup Id="Main">
           <LayoutGroup Id="SimpleEditors">
@@ -935,7 +1336,15 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
+    <ListView Id="RuleRegularExpressionProperties_ListView">
+      <Columns>
+        <ColumnInfo Id="CustomMessageTemplate" Caption="自定义消息模板" />
+      </Columns>
+    </ListView>
     <DetailView Id="RuleRequiredFieldProperties_DetailView">
+      <Items>
+        <PropertyEditor Id="CustomMessageTemplate" Caption="自定义消息模板" />
+      </Items>
       <Layout>
         <LayoutGroup Id="Main">
           <LayoutGroup Id="SimpleEditors">
@@ -944,7 +1353,15 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
+    <ListView Id="RuleRequiredFieldProperties_ListView">
+      <Columns>
+        <ColumnInfo Id="CustomMessageTemplate" Caption="自定义消息模板" />
+      </Columns>
+    </ListView>
     <DetailView Id="RuleSearchObjectProperties_DetailView">
+      <Items>
+        <PropertyEditor Id="CustomMessageTemplate" Caption="自定义消息模板" />
+      </Items>
       <Layout>
         <LayoutGroup Id="Main">
           <LayoutGroup Id="SimpleEditors">
@@ -954,12 +1371,20 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
+    <ListView Id="RuleSearchObjectProperties_ListView">
+      <Columns>
+        <ColumnInfo Id="CustomMessageTemplate" Caption="自定义消息模板" />
+      </Columns>
+    </ListView>
     <ListView Id="RuleSetValidationResultItem_ByTarget_ListView">
       <Columns>
-        <ColumnInfo Id="ContextCaption" Caption="视图" />
+        <ColumnInfo Id="ContextCaption" Caption="上下文" />
       </Columns>
     </ListView>
     <DetailView Id="RuleStringComparisonProperties_DetailView">
+      <Items>
+        <PropertyEditor Id="CustomMessageTemplate" Caption="自定义消息模板" />
+      </Items>
       <Layout>
         <LayoutGroup Id="Main">
           <LayoutGroup Id="SimpleEditors">
@@ -969,7 +1394,15 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
+    <ListView Id="RuleStringComparisonProperties_ListView">
+      <Columns>
+        <ColumnInfo Id="CustomMessageTemplate" Caption="自定义消息模板" />
+      </Columns>
+    </ListView>
     <DetailView Id="RuleUniqueValueProperties_DetailView">
+      <Items>
+        <PropertyEditor Id="CustomMessageTemplate" Caption="自定义消息模板" />
+      </Items>
       <Layout>
         <LayoutGroup Id="Main">
           <LayoutGroup Id="SimpleEditors">
@@ -979,7 +1412,15 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
+    <ListView Id="RuleUniqueValueProperties_ListView">
+      <Columns>
+        <ColumnInfo Id="CustomMessageTemplate" Caption="自定义消息模板" />
+      </Columns>
+    </ListView>
     <DetailView Id="RuleValueComparisonProperties_DetailView">
+      <Items>
+        <PropertyEditor Id="CustomMessageTemplate" Caption="自定义消息模板" />
+      </Items>
       <Layout>
         <LayoutGroup Id="Main">
           <LayoutGroup Id="SimpleEditors">
@@ -988,6 +1429,11 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
+    <ListView Id="RuleValueComparisonProperties_ListView">
+      <Columns>
+        <ColumnInfo Id="CustomMessageTemplate" Caption="自定义消息模板" />
+      </Columns>
+    </ListView>
     <DetailView Id="StringObject_DetailView">
       <Items>
         <PropertyEditor Id="Name" Caption="名称" />
@@ -1015,6 +1461,11 @@
         <ColumnInfo Id="Name" Caption="用户姓名" />
       </Columns>
     </ListView>
+    <ListView Id="ValidationResults_DisplayableValidationResultItems_ListView">
+      <Columns>
+        <ColumnInfo Id="RuleProperties.CustomMessageTemplate" Caption="自定义消息模板" />
+      </Columns>
+    </ListView>
     <DetailView Id="ValidationResults_Passed_DetailView">
       <Layout>
         <LayoutGroup Id="Main">
@@ -1022,5 +1473,80 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
+    <DetailView Id="ViewDashboardOrganizationItem_DetailView">
+      <Items>
+        <PropertyEditor Id="ActionsToolbarVisibility" Caption="动作工具栏可见性" />
+      </Items>
+    </DetailView>
+    <ListView Id="ViewDashboardOrganizationItem_ListView">
+      <Columns>
+        <ColumnInfo Id="ActionsToolbarVisibility" Caption="动作工具栏可见性" />
+      </Columns>
+    </ListView>
+    <ListView Id="ViewDashboardOrganizationItem_LookupListView">
+      <Columns>
+        <ColumnInfo Id="ActionsToolbarVisibility" Caption="动作工具栏可见性" />
+      </Columns>
+    </ListView>
+    <ListView Id="XpoState_Appearance_ListView">
+      <Columns>
+        <ColumnInfo Id="Context" Caption="上下文" />
+      </Columns>
+    </ListView>
+    <DetailView Id="XpoState_DetailView">
+      <Items>
+        <PropertyEditor Id="Caption" Caption="标题" />
+      </Items>
+    </DetailView>
+    <ListView Id="XpoState_ListView">
+      <Columns>
+        <ColumnInfo Id="Caption" Caption="标题" />
+      </Columns>
+    </ListView>
+    <ListView Id="XpoState_LookupListView">
+      <Columns>
+        <ColumnInfo Id="Caption" Caption="标题" />
+      </Columns>
+    </ListView>
+    <ListView Id="XpoState_Transitions_ListView">
+      <Columns>
+        <ColumnInfo Id="Caption" Caption="标题" />
+      </Columns>
+    </ListView>
+    <DetailView Id="XpoStateAppearance_DetailView">
+      <Items>
+        <PropertyEditor Id="Context" Caption="上下文" />
+      </Items>
+    </DetailView>
+    <ListView Id="XpoStateAppearance_ListView">
+      <Columns>
+        <ColumnInfo Id="Context" Caption="上下文" />
+      </Columns>
+    </ListView>
+    <ListView Id="XpoStateAppearance_LookupListView">
+      <Columns>
+        <ColumnInfo Id="Context" Caption="上下文" />
+      </Columns>
+    </ListView>
+    <ListView Id="XpoStateMachine_States_ListView">
+      <Columns>
+        <ColumnInfo Id="Caption" Caption="标题" />
+      </Columns>
+    </ListView>
+    <DetailView Id="XpoTransition_DetailView">
+      <Items>
+        <PropertyEditor Id="Caption" Caption="标题" />
+      </Items>
+    </DetailView>
+    <ListView Id="XpoTransition_ListView">
+      <Columns>
+        <ColumnInfo Id="Caption" Caption="标题" />
+      </Columns>
+    </ListView>
+    <ListView Id="XpoTransition_LookupListView">
+      <Columns>
+        <ColumnInfo Id="Caption" Caption="标题" />
+      </Columns>
+    </ListView>
   </Views>
 </Application>

@@ -1,5 +1,10 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Linq;
+using DevExpress.Data.ODataLinq.Helpers;
+using DevExpress.Data.WcfLinq.Helpers;
+using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
@@ -16,6 +21,21 @@ namespace EastIPSystem.Module.BusinessObjects
         public override void AfterConstruction()
         {
             base.AfterConstruction();
+            Creator = Session.GetObjectByKey<SysUser>(SecuritySystem.CurrentUserId);
+            dt_Created = DateTime.Now;
+        }
+
+        protected override void OnSaving()
+        {
+            if (string.IsNullOrEmpty(s_ExpenseNo))
+            {
+                var dtNow = dt_Created.Date;
+                var dtFirstDate = new DateTime(dtNow.Year, dtNow.Month, 1);
+                var sMaxNo = new XPQuery<Expense>(Session).Where(e => e.dt_Created >= dtFirstDate && e.dt_Created < dtFirstDate.AddMonths(1)).Max(e => e.s_ExpenseNo);
+                s_ExpenseNo = string.IsNullOrWhiteSpace(sMaxNo) ? DateTime.Now.ToString("yyyyMMdd") + "0001" : (Convert.ToInt64(sMaxNo) + 1).ToString();
+            }
+            base.OnSaving();
+
         }
 
         private Invoice invoice;
@@ -94,10 +114,28 @@ namespace EastIPSystem.Module.BusinessObjects
             set { SetPropertyValue("s_InvoiceFile", ref _expenseFile, value); }
         }
 
+        private SysUser fCreator;
+        public SysUser Creator
+        {
+            get { return fCreator; }
+            set { SetPropertyValue("n_CreatorId", ref fCreator, value); }
+        }
+
+        private DateTime fdt_Created;
+        public DateTime dt_Created
+        {
+            get { return fdt_Created; }
+            set { SetPropertyValue("dt_Created", ref fdt_Created, value); }
+        }
+
         public string PerNo => invoice == null ? string.Empty : invoice.s_PreNo;
 
         public string InvoiceNo => invoice == null ? string.Empty : invoice.s_InvoiceNo;
 
-
+        [Action(PredefinedCategory.Edit)]
+        public void GetCaseInfo()
+        {
+            s_OurNo = CommonFunction.GetOurNo(_sOurNo);
+        }
     }
 }
