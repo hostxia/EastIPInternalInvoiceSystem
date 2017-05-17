@@ -5,13 +5,11 @@ using EastIPSystem.Module.BusinessObjects;
 
 namespace EastIPSystem.Module.Controllers
 {
-    // For more typical usage scenarios, be sure to check out https://documentation.devexpress.com/eXpressAppFramework/clsDevExpressExpressAppViewControllertopic.aspx.
     public partial class VCListInternalInvoice : ViewController<ListView>
     {
         public VCListInternalInvoice()
         {
             InitializeComponent();
-            // Target required Views (via the TargetXXX properties) and create their Actions.
         }
         protected override void OnActivated()
         {
@@ -24,7 +22,6 @@ namespace EastIPSystem.Module.Controllers
             scaFilter.SelectedIndex = 2;
             Frame.GetController<FilterController>().FullTextSearchTargetPropertiesMode = FullTextSearchTargetPropertiesMode.VisibleColumns;
             Frame.GetController<FilterController>().FullTextFilterAction.Execute += FullTextFilterAction_Execute;
-            // Access and customize the target View control.
         }
 
         private void FullTextFilterAction_Execute(object sender, ParametrizedActionExecuteEventArgs e)

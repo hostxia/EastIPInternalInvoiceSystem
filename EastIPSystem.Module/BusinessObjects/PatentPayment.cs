@@ -18,6 +18,8 @@ using EastIPSystem.Module.DBUtility;
 namespace EastIPSystem.Module.BusinessObjects
 {
     [DefaultClassOptions]
+    [DefaultProperty("s_OurNo")]
+    [DefaultListViewOptions(true, NewItemRowPosition.None)]
     public class PatentPayment : BaseObject
     {
         public PatentPayment(Session session)
@@ -152,6 +154,13 @@ namespace EastIPSystem.Module.BusinessObjects
         {
             get { return _sNote; }
             set { SetPropertyValue("s_Note", ref _sNote, value); }
+        }
+
+        private bool _bAudited;
+        public bool b_Audited
+        {
+            get { return _bAudited; }
+            set { SetPropertyValue("b_Audited", ref _bAudited, value); }
         }
 
         [Action(PredefinedCategory.OpenObject)]

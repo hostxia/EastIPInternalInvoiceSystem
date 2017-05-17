@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Windows.Forms;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
+using DevExpress.ExpressApp.Security;
 using EastIPSystem.Module.BusinessObjects;
 using Microsoft.Office.Interop.Excel;
 using Application = Microsoft.Office.Interop.Excel.Application;
@@ -105,7 +106,8 @@ namespace EastIPSystem.Module.Win.Controllers
         protected override void OnViewControlsCreated()
         {
             base.OnViewControlsCreated();
-            // Access and customize the target View control.
+            var sysUser = (SysUser)SecuritySystem.CurrentUser;
+            saExportPaymentList.Active["Securty"] = sysUser.IsUserInRole("缴费提交人");
         }
         protected override void OnDeactivated()
         {

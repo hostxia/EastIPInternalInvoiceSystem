@@ -15,7 +15,6 @@ using DevExpress.Persistent.Validation;
 namespace EastIPSystem.Module.BusinessObjects
 {
     [DefaultClassOptions]
-
     public class PatentPaymentRule : BaseObject
     {
         public PatentPaymentRule(Session session)

@@ -77,11 +77,13 @@ namespace EastIPSystem.Module.Controllers
 
         private void saClone_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
+            Frame.GetController<NewObjectViewController>().Tag = "Clone";
             Frame.GetController<ModificationsController>().SaveAndNewAction.DoExecute(Frame.GetController<NewObjectViewController>().NewObjectAction.SelectedItem);
         }
 
         private void VCPatentPaymentDetail_ObjectCreated(object sender, ObjectCreatedEventArgs e)
         {
+            if ((sender as NewObjectViewController)?.Tag == null || ((NewObjectViewController)sender).Tag.ToString() != "Clone") return;
             var payment = View.CurrentObject as PatentPayment;
             if (payment == null) return;
             if (!(e.CreatedObject is PatentPayment)) return;

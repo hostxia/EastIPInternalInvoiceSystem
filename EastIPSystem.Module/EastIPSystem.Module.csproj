@@ -171,6 +171,12 @@
     <Compile Include="Controllers\VCPatentPaymentDetail.Designer.cs">
       <DependentUpon>VCPatentPaymentDetail.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\VCPatentPaymentList.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\VCPatentPaymentList.Designer.cs">
+      <DependentUpon>VCPatentPaymentList.cs</DependentUpon>
+    </Compile>
     <Compile Include="DatabaseUpdate\Updater.cs" />
     <Compile Include="DBUtility\DbHelperOra.cs" />
     <Compile Include="Module.cs">
@@ -205,6 +211,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controllers\VCPatentPaymentDetail.resx">
       <DependentUpon>VCPatentPaymentDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\VCPatentPaymentList.resx">
+      <DependentUpon>VCPatentPaymentList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">
       <SubType>Designer</SubType>

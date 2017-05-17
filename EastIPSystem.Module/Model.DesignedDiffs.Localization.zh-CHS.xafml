@@ -674,8 +674,9 @@
         <Member Name="b_IsNotInternalInvoice" Caption="不开草单" />
       </OwnMembers>
     </Class>
-    <Class Name="EastIPSystem.Module.BusinessObjects.PatentPayment" Caption="缴官费">
+    <Class Name="EastIPSystem.Module.BusinessObjects.PatentPayment" Caption="缴官费" ObjectCaptionFormat="{0:s_OurNo}">
       <OwnMembers>
+        <Member Name="b_Audited" Caption="已确认" />
         <Member Name="Creator" Caption="创建人" />
         <Member Name="dt_Created" Caption="创建时间" EditMask="G" DisplayFormat="{0:G}" />
         <Member Name="dt_PaidDate" Caption="实缴日期" />
@@ -842,6 +843,7 @@
       <RuleSearchObject MessageTemplateFoundObjects="找到以下对象︰" />
     </ErrorMessageTemplates>
     <Rules>
+      <RuleCombinationOfPropertiesIsUnique Id="PatentPayment_CombinUnique" CustomMessageTemplate="相同的案号及费用已存在" />
       <RuleUniqueValue Id="PermissionPolicyRoleBase_Name_RuleUniqueValue" CustomMessageTemplate="输入的名称与作用已注册系统内" />
       <RuleRequiredField Id="PermissionPolicyUser_Roles_RuleRequiredField" CustomMessageTemplate="活跃的用户必须具有至少一个角色分配" />
       <RuleUniqueValue Id="PermissionPolicyUser_UserName_RuleUniqueValue" CustomMessageTemplate="输入的用户名称登录已注册系统内" />
