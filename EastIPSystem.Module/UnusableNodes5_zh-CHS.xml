@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel Id="BOModel">
+    <Class Name="EastIPSystem.Module.BusinessObjects.Corporation">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="AgencyCases" Caption="交案" />
+        <Member Name="ClientCases" Caption="接案" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+</Application>

@@ -49,6 +49,7 @@
       </Action>
       <Action Id="NextObject" Caption="下一条记录" />
       <Action Id="OrganizeDashboard" Caption="组织仪表板" />
+      <Action Id="PatentBase.GetPatentInfo" Caption="填充案件相关信息" />
       <Action Id="PatentPayment.SetPaid" Caption="标记已缴" />
       <Action Id="PreviousObject" Caption="上一条记录" />
       <Action Id="Refresh" Caption="刷新" />
@@ -300,7 +301,7 @@
     </Class>
     <Class Name="DevExpress.Persistent.BaseImpl.PermissionPolicy.PermissionPolicyObjectPermissionsObject" Caption="对象操作权限">
       <OwnMembers>
-        <Member Name="Criteria" Caption="目标属性" />
+        <Member Name="Criteria" Caption="标准" />
         <Member Name="DeleteState" Caption="删除" />
         <Member Name="NavigateState" Caption="导航" />
         <Member Name="ReadState" Caption="读" />
@@ -313,7 +314,7 @@
         <Member Name="Users" Caption="用户" />
       </OwnMembers>
     </Class>
-    <Class Name="DevExpress.Persistent.BaseImpl.PermissionPolicy.PermissionPolicyRoleBase" Caption="基地的作用">
+    <Class Name="DevExpress.Persistent.BaseImpl.PermissionPolicy.PermissionPolicyRoleBase" Caption="角色基础类">
       <OwnMembers>
         <Member Name="CanEditModel" Caption="可以编辑模型" />
         <Member Name="IsAdministrative" Caption="是行政" />
@@ -633,6 +634,8 @@
     </Class>
     <Class Name="EastIPSystem.Module.BusinessObjects.CaseExtension" Caption="延期">
       <OwnMembers>
+        <Member Name="AllCaseExtensions" Caption="延期历史" />
+        <Member Name="AllPatentProgresses" Caption="案件进度" />
         <Member Name="ConfirmApprover" Caption="确认人" />
         <Member Name="Creator" Caption="创建人" />
         <Member Name="DepartApprover" Caption="部门审批人" />
@@ -660,7 +663,14 @@
     <Class Name="EastIPSystem.Module.BusinessObjects.Corporation" Caption="联系信息">
       <OwnMembers>
         <Member Name="Code" Caption="代码" />
+        <Member Name="Country" Caption="国家" />
         <Member Name="Name" Caption="名称" />
+      </OwnMembers>
+    </Class>
+    <Class Name="EastIPSystem.Module.BusinessObjects.Country" Caption="国家">
+      <OwnMembers>
+        <Member Name="s_Code" Caption="国家代码" />
+        <Member Name="s_Name" Caption="名称" />
       </OwnMembers>
     </Class>
     <Class Name="EastIPSystem.Module.BusinessObjects.Expense">
@@ -674,13 +684,40 @@
         <Member Name="b_IsNotInternalInvoice" Caption="不开草单" />
       </OwnMembers>
     </Class>
+    <Class Name="EastIPSystem.Module.BusinessObjects.PatentBase" Caption="案件监控">
+      <OwnMembers>
+        <Member Name="Applicants" Caption="申请人" />
+        <Member Name="Client" Caption="委托人" />
+        <Member Name="dt_FilingDeadline" Caption="计划递交日" />
+        <Member Name="dt_ReceiveDate" Caption="接案日" />
+        <Member Name="dt_ReturnInventorDate" Caption="计划返发日" />
+        <Member Name="dt_ReturnIPRDate" Caption="计划返IPR日" />
+        <Member Name="LastPatentProgress" Caption="最新进度" />
+        <Member Name="Manager" Caption="负责人" />
+        <Member Name="PatentProgresses" Caption="案件进度" />
+        <Member Name="s_AgentNote" Caption="代理人备注" />
+        <Member Name="s_ApplicantCodes" Caption="申请人代码" />
+        <Member Name="s_ApplicantNames" Caption="申请人名称" />
+        <Member Name="s_ClientContact" Caption="客户联系方式" />
+        <Member Name="s_ClientRef" Caption="客户卷号" />
+        <Member Name="s_DeptName" Caption="处理部门" PredefinedValues="国内部;电学部;化学部;机械部;版权部" />
+        <Member Name="s_Instruction" Caption="特殊要求" />
+        <Member Name="s_Name" Caption="案件名称" />
+        <Member Name="s_Note" Caption="备注" />
+        <Member Name="s_OurNo" Caption="我方卷号" />
+        <Member Name="s_PatentType" Caption="专利类型" />
+        <Member Name="Teacher" Caption="指导人" />
+        <Member Name="Writer" Caption="撰写人" />
+      </OwnMembers>
+    </Class>
     <Class Name="EastIPSystem.Module.BusinessObjects.PatentPayment" Caption="缴官费" ObjectCaptionFormat="{0:s_OurNo}">
       <OwnMembers>
         <Member Name="b_Audited" Caption="已确认" />
+        <Member Name="b_Receipted" Caption="收据已核" />
         <Member Name="Creator" Caption="创建人" />
         <Member Name="dt_Created" Caption="创建时间" EditMask="G" DisplayFormat="{0:G}" />
         <Member Name="dt_PaidDate" Caption="实缴日期" />
-        <Member Name="dt_PayDeadline" Caption="应缴日期" />
+        <Member Name="dt_PayDeadline" Caption="预缴日期" />
         <Member Name="n_Amount" Caption="金额" />
         <Member Name="n_PaidBy" Caption="缴费方式" />
         <Member Name="n_PatentType" Caption="专利类型" />
@@ -700,10 +737,19 @@
       <OwnMembers>
         <Member Name="s_PayerCode1" Caption="申请人1编号" />
         <Member Name="s_PayerCode2" Caption="申请人2编号" />
+        <Member Name="s_PayerCode3" Caption="申请人3编号" />
         <Member Name="s_PayerName" Caption="缴费抬头" />
       </OwnMembers>
     </Class>
-    <Class Name="EastIPSystem.Module.BusinessObjects.SysUser" Caption="用户" ObjectCaptionFormat="{0:Name}">
+    <Class Name="EastIPSystem.Module.BusinessObjects.PatentProgress" Caption="案件进度">
+      <OwnMembers>
+        <Member Name="dt_ItemDate" Caption="日期" />
+        <Member Name="n_Item" Caption="项目" />
+        <Member Name="PatentBase" Caption="案件" />
+        <Member Name="s_Note" Caption="备注" />
+      </OwnMembers>
+    </Class>
+    <Class Name="EastIPSystem.Module.BusinessObjects.SysUser" Caption="系统用户" ObjectCaptionFormat="{0:Name}">
       <OwnMembers>
         <Member Name="Code" Caption="用户代码" />
         <Member Name="Name" Caption="名称" />
@@ -1136,6 +1182,36 @@
         <PropertyEditor Id="Postpone" Caption="暂停时间" />
       </Items>
     </DetailView>
+    <DetailView Id="PatentBase_DetailView">
+      <Layout>
+        <LayoutGroup Id="SimpleEditors">
+          <LayoutGroup Id="PatentBase" Caption="基本信息" />
+          <LayoutGroup Id="Autoc74ec496-3bf2-4326-83f9-ee5555164a7d" Caption="Autoc74ec496-3bf2-4326-83f9-ee5555164a7d(23)">
+            <LayoutGroup Id="Applicants" Caption="申请人" />
+            <LayoutGroup Id="PatentProgresses" Caption="案件进度" />
+          </LayoutGroup>
+        </LayoutGroup>
+        <LayoutGroup Id="Main">
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="Applicants" Caption="申请人" />
+          </TabbedGroup>
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Autoc74ec496-3bf2-4326-83f9-ee5555164a7d" Caption="">
+              <LayoutGroup Id="Applicants" Caption="申请人" />
+              <LayoutGroup Id="PatentProgresses" Caption="案件进度" />
+            </LayoutGroup>
+            <LayoutGroup Id="PatentBase" Caption="基本信息" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="PatentBase_ListView">
+      <Columns>
+        <ColumnInfo Id="LastPatentProgress.n_Item" Caption="当前进度" />
+        <ColumnInfo Id="LastPatentProgress.dt_ItemDate" Caption="进度日" />
+        <ColumnInfo Id="LastPatentProgress.s_Note" Caption="进度备注" />
+      </Columns>
+    </ListView>
     <DetailView Id="PatentPayment_DetailView">
       <Layout>
         <LayoutGroup Id="PatentPayment" Caption="缴官费" />

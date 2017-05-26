@@ -12,6 +12,8 @@ namespace EastIPSystem.Module.BusinessObjects
 
         private string _sName;
 
+        private Country country;
+
         public Corporation(Session session)
             : base(session)
         {
@@ -33,11 +35,26 @@ namespace EastIPSystem.Module.BusinessObjects
             set { SetPropertyValue("s_Name", ref _sName, value); }
         }
 
+        public Country Country
+        {
+            get { return country; }
+            set { SetPropertyValue("Country", ref country, value); }
+        }
+
         [Browsable(false)]
         [Association("Applicants-Cases")]
         public XPCollection<CaseBase> Cases
         {
             get { return GetCollection<CaseBase>("Cases"); }
         }
+
+        [Browsable(false)]
+        [Association("PatentBases-Applicants")]
+        public XPCollection<PatentBase> PatentBases
+        {
+            get { return GetCollection<PatentBase>("PatentBases"); }
+        }
+
+
     }
 }

@@ -8,7 +8,6 @@ using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Layout;
 using DevExpress.ExpressApp.Model.NodeGenerators;
-using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Templates;
 using DevExpress.ExpressApp.Utils;
@@ -18,11 +17,13 @@ using EastIPSystem.Module.BusinessObjects;
 
 namespace EastIPSystem.Module.Controllers
 {
-    public partial class VCPatentPaymentList : ViewController
+    // For more typical usage scenarios, be sure to check out https://documentation.devexpress.com/eXpressAppFramework/clsDevExpressExpressAppViewControllertopic.aspx.
+    public partial class VCPatentBaseList : ViewController
     {
-        public VCPatentPaymentList()
+        public VCPatentBaseList()
         {
             InitializeComponent();
+            // Target required Views (via the TargetXXX properties) and create their Actions.
         }
         protected override void OnActivated()
         {
@@ -31,20 +32,18 @@ namespace EastIPSystem.Module.Controllers
         protected override void OnViewControlsCreated()
         {
             base.OnViewControlsCreated();
-            var sysUser = (SysUser)SecuritySystem.CurrentUser;
-            Frame.GetController<ObjectMethodActionsViewController>().Actions["PatentPayment.SetPaid"].Active["Securty"] = sysUser.IsUserInRole("管理部-质检组") || sysUser.IsUserInRole("管理部-经理");
-            scaPaymentFilter.SelectedIndex = 1;
-            Frame.GetController<FilterController>().FullTextFilterAction.Execute += FullTextFilterAction_Execute; ;
+            scaFilter.SelectedIndex = 1;
+            Frame.GetController<FilterController>().FullTextFilterAction.Execute += FullTextFilterAction_Execute;
         }
 
         private void FullTextFilterAction_Execute(object sender, ParametrizedActionExecuteEventArgs e)
         {
-            if (scaPaymentFilter.SelectedItem != null)
+            if (scaFilter.SelectedItem != null)
             {
-                switch (scaPaymentFilter.SelectedItem.Data.ToString())
+                switch (scaFilter.SelectedItem.Data.ToString())
                 {
                     case "1":
-                        ((ListView)View).CollectionSource.SetCriteria("Custom", $"dt_PaidDate Is Null");
+                        ((ListView)View).CollectionSource.SetCriteria("Custom", $"LastPatentProgress Is Null Or LastPatentProgress.n_Item != {Convert.ToInt32(EnumsAll.PatentProgressItem.已递交)}");
                         break;
                     default:
                         ((ListView)View).CollectionSource.SetCriteria("Custom", null);
@@ -56,7 +55,6 @@ namespace EastIPSystem.Module.Controllers
                 ((ListView)View).CollectionSource.SetCriteria("Custom", null);
             }
         }
-
         protected override void OnDeactivated()
         {
             base.OnDeactivated();

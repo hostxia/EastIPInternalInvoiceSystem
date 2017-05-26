@@ -163,6 +163,13 @@ namespace EastIPSystem.Module.BusinessObjects
             set { SetPropertyValue("b_Audited", ref _bAudited, value); }
         }
 
+        private bool _bReceipted;
+        public bool b_Receipted
+        {
+            get { return _bReceipted; }
+            set { SetPropertyValue("b_Receipted", ref _bReceipted, value); }
+        }
+
         [Action(PredefinedCategory.OpenObject)]
         public void SetPaid()
         {
@@ -215,8 +222,8 @@ namespace EastIPSystem.Module.BusinessObjects
 DbHelperOra.Query($"select OURNO,APPNO from fcase where ourno like '%{_sOurNo.Trim().Replace("'", "''").ToUpper()}%'").Tables[0];
                 if (dtResult.Rows.Count > 0)
                 {
-                    s_OurNo = dtResult.Rows[0].ToString();
-                    s_AppNo = dtResult.Rows[1].ToString();
+                    s_OurNo = dtResult.Rows[0][0].ToString();
+                    s_AppNo = dtResult.Rows[0][1].ToString();
                     n_PayCaseType = s_OurNo.Substring(0, s_OurNo.IndexOf("-")).Contains("DJ")
                         ? EnumsAll.PayCaseType.国内
                         : EnumsAll.PayCaseType.PCT国际;
@@ -246,15 +253,8 @@ DbHelperOra.Query($"select OURNO,APPNO from fcase where ourno like '%{_sOurNo.Tr
                 dtResult.Rows.Cast<DataRow>().ToList().ForEach(r => listApp.Add(r[0].ToString()));
             }
             if (listApp.Count < 1) return;
-            var rules = new XPCollection<PatentPaymentRule>(Session, CriteriaOperator.And(new InOperator("s_PayerCode1", listApp), new InOperator("s_PayerCode2", listApp)));
-            if (rules.Count > 0)
-                s_PayerName = rules[0].s_PayerName;
-            else
-            {
-                var rule = Session.FindObject<PatentPaymentRule>(
-     CriteriaOperator.Parse($"s_PayerCode1 in ({string.Join(",", listApp.Select(a => $"'{a}'"))}) and IsNullOrEmpty(s_PayerCode2) or s_PayerCode2 in ({string.Join(",", listApp.Select(a => $"'{a}'"))}) and IsNullOrEmpty(s_PayerCode1)"));
-                s_PayerName = rule != null ? rule.s_PayerName : sAgencyName;
-            }
+            var rule = new XPCollection<PatentPaymentRule>(Session).FirstOrDefault(r => r.ListPayerCode.Count == listApp.Count && r.ListPayerCode.All(c => listApp.Contains(c)));
+            s_PayerName = rule != null ? rule.s_PayerName : sAgencyName;
         }
 
         private void SetCaseType()
@@ -265,7 +265,7 @@ DbHelperOra.Query($"select OURNO,APPNO from fcase where ourno like '%{_sOurNo.Tr
             else if (cType == '2' || cType == '9')
                 n_PatentType = EnumsAll.PatentType.实用新型;
             else if (cType == '3')
-                n_PatentType = EnumsAll.PatentType.外观;
+                n_PatentType = EnumsAll.PatentType.外观设计;
         }
     }
 }

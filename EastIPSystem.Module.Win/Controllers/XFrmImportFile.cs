@@ -35,9 +35,9 @@ namespace EastIPSystem.Module.Win.Controllers
 
         private void xbeExcelFile_ButtonClick(object sender, ButtonPressedEventArgs e)
         {
+            if (folderBrowserDialog.ShowDialog() != DialogResult.OK) return;
             try
             {
-                if (folderBrowserDialog.ShowDialog() != DialogResult.OK) return;
                 SplashScreenManager.ShowDefaultWaitForm();
                 xbeFilePath.Text = folderBrowserDialog.SelectedPath;
                 _htFiles = new Hashtable();

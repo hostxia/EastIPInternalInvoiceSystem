@@ -1,5 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
+  <BOModel>
+    <Class Name="DevExpress.Persistent.BaseImpl.PermissionPolicy.PermissionPolicyMemberPermissionsObject">
+      <OwnMembers>
+        <Member Name="Criteria" PropertyEditorType="DevExpress.ExpressApp.Win.Editors.CriteriaPropertyEditor" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.Persistent.BaseImpl.PermissionPolicy.PermissionPolicyObjectPermissionsObject">
+      <OwnMembers>
+        <Member Name="Criteria" PropertyEditorType="DevExpress.ExpressApp.Win.Editors.CriteriaPropertyEditor" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
   <Options FormStyle="Ribbon" />
   <SchemaModules>
     <SchemaModule Name="SystemModule" Version="16.2.3.0" IsNewNode="True" />

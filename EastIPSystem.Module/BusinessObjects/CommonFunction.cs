@@ -7,7 +7,7 @@ namespace EastIPSystem.Module.BusinessObjects
         public static string GetOurNo(string sCaseNo, ref EnumsAll.CaseType caseType)
         {
             var dtResult =
-                DbHelperOra.Query($"select ourno from patentcase where ourno = '{sCaseNo.Replace("'", "''")}'").Tables[0];
+                DbHelperOra.Query($"select ourno from patentcase where ourno like '{sCaseNo.Replace("'", "''")}%'").Tables[0];
             if (dtResult.Rows.Count > 0)
             {
                 caseType = EnumsAll.CaseType.Internal;
@@ -16,7 +16,7 @@ namespace EastIPSystem.Module.BusinessObjects
 
 
             dtResult =
-                DbHelperOra.Query($"select ourno from fcase where ourno = '{sCaseNo.Replace("'", "''")}'").Tables[0];
+                DbHelperOra.Query($"select ourno from fcase where ourno like '{sCaseNo.Replace("'", "''")}%'").Tables[0];
             if (dtResult.Rows.Count > 0)
             {
                 caseType = EnumsAll.CaseType.Foreign;
@@ -24,7 +24,7 @@ namespace EastIPSystem.Module.BusinessObjects
             }
 
             dtResult =
-                DbHelperOra.Query($"select hk_app_ref from ex_hkcase where hk_app_ref = '{sCaseNo.Replace("'", "''")}'")
+                DbHelperOra.Query($"select hk_app_ref from ex_hkcase where hk_app_ref like '{sCaseNo.Replace("'", "''")}%'")
                     .Tables[0];
             if (dtResult.Rows.Count > 0)
             {
@@ -77,7 +77,7 @@ namespace EastIPSystem.Module.BusinessObjects
                     .Tables[0];
             if (dtFResult.Rows.Count > 0)
             {
-                sOurNo = dtResult.Rows[0]["ourno"].ToString();
+                sOurNo = dtFResult.Rows[0]["ourno"].ToString();
                 var drsClient = dtFResult.Select("role = 'CLI' or role = 'APPCLI'");
                 var drsApp = dtFResult.Select("role = 'APP' or role = 'APPCLI'");
                 if (drsClient.Length > 0)

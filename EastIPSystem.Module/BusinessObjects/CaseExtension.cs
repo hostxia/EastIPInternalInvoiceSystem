@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Base.General;
@@ -172,6 +173,10 @@ namespace EastIPSystem.Module.BusinessObjects
             get { return fn_ExtendItem2; }
             set { SetPropertyValue("n_ExtendItem2", ref fn_ExtendItem2, value); }
         }
+
+        public XPCollection<CaseExtension> AllCaseExtensions => new XPCollection<CaseExtension>(Session, CriteriaOperator.Parse("s_OurNo = ?", fs_OurNo));
+
+        public XPCollection<PatentProgress> AllPatentProgresses => new XPCollection<PatentProgress>(Session, CriteriaOperator.Parse("PatentBase.s_OurNo = ?", fs_OurNo));
 
         #region 部门审批
         private SysUser fDepartApprover;

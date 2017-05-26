@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views Id="Views">
+    <DetailView Id="PatentBase_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="PatentBase">
+              <LayoutGroup Id="PatentBase_col1">
+                <LayoutItem Id="s_AppRef" RelativeSize="4.4609665427509295" Index="7" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="PatentBase_ListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="s_AppRef" Width="80" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

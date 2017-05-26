@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
@@ -111,9 +112,91 @@ namespace EastIPSystem.Module.DatabaseUpdate
         //    caseBase.OurNo = sOurNo;
         //}
 
+        private void CreateRightByRoleName(string sTargetRoleName, string sSourceRoleName)
+        {
+            var sourceRole = ObjectSpace.FindObject<PermissionPolicyRole>(CriteriaOperator.Parse("Name = ?", sSourceRoleName));
+            var targetRole = ObjectSpace.FindObject<PermissionPolicyRole>(CriteriaOperator.Parse("Name = ?", sTargetRoleName));
+            sourceRole.NavigationPermissions.ToList().ForEach(n =>
+            {
+                var targetNew = ObjectSpace.CreateObject<PermissionPolicyNavigationPermissionObject>();
+                targetNew.Role = targetRole;
+                targetNew.ItemPath = n.ItemPath;
+                targetNew.NavigateState = n.NavigateState;
+            });
+            sourceRole.TypePermissions.ToList().ForEach(t =>
+            {
+                var targetTypeNew = ObjectSpace.CreateObject<PermissionPolicyTypePermissionObject>();
+                targetTypeNew.Role = targetRole;
+                targetTypeNew.CreateState = t.CreateState;
+                targetTypeNew.DeleteState = t.DeleteState;
+                targetTypeNew.NavigateState = t.NavigateState;
+                targetTypeNew.ReadState = t.ReadState;
+                targetTypeNew.WriteState = t.ReadState;
+                targetTypeNew.TargetType = t.TargetType;
+                t.ObjectPermissions.ToList().ForEach(o =>
+                {
+                    var targetObjectNew = ObjectSpace.CreateObject<PermissionPolicyObjectPermissionsObject>();
+                    targetObjectNew.TypePermissionObject = targetTypeNew;
+                    targetObjectNew.Criteria = o.Criteria;
+                    targetObjectNew.DeleteState = o.DeleteState;
+                    targetObjectNew.NavigateState = o.NavigateState;
+                    targetObjectNew.ReadState = o.ReadState;
+                    targetObjectNew.WriteState = o.WriteState;
+                });
+                t.MemberPermissions.ToList().ForEach(m =>
+                {
+                    var targetMemberNew = ObjectSpace.CreateObject<PermissionPolicyMemberPermissionsObject>();
+                    targetMemberNew.TypePermissionObject = targetTypeNew;
+                    targetMemberNew.Criteria = m.Criteria;
+                    targetMemberNew.Members = m.Members;
+                    targetMemberNew.ReadState = m.ReadState;
+                    targetMemberNew.WriteState = m.WriteState;
+                });
+
+            });
+            ObjectSpace.CommitChanges();
+        }
+
         public override void UpdateDatabaseAfterUpdateSchema()
         {
             base.UpdateDatabaseAfterUpdateSchema();
+
+            //CreateRightByRoleName("管理部-OA组", "草单登记人");
+            //CreateRightByRoleName("管理部-OA组", "缴费登记人");
+            //CreateRightByRoleName("管理部-OA组", "延期请求人");
+
+            //CreateRightByRoleName("管理部-案卷组", "缴费收据核对");
+
+            //CreateRightByRoleName("管理部-国外组", "草单登记人");
+            //CreateRightByRoleName("管理部-国外组", "缴费登记人");
+            //CreateRightByRoleName("管理部-国外组", "延期请求人");
+
+            //CreateRightByRoleName("管理部-立案组", "草单登记人");
+            //CreateRightByRoleName("管理部-立案组", "缴费登记人");
+            //CreateRightByRoleName("管理部-立案组", "延期请求人");
+
+            //CreateRightByRoleName("管理部-收文组", "草单登记人");
+
+            //CreateRightByRoleName("管理部-授权年费组", "草单登记人");
+            //CreateRightByRoleName("管理部-授权年费组", "缴费登记人");
+
+            //CreateRightByRoleName("管理部-新申请组", "草单登记人");
+            //CreateRightByRoleName("管理部-新申请组", "缴费登记人");
+            //CreateRightByRoleName("管理部-新申请组", "延期请求人");
+
+            //CreateRightByRoleName("管理部-账单组", "账单管理员");
+
+            //CreateRightByRoleName("管理部-质检组", "草单登记人");
+            //CreateRightByRoleName("管理部-质检组", "草单管理员");
+            //CreateRightByRoleName("管理部-质检组", "缴费登记人");
+            //CreateRightByRoleName("管理部-质检组", "缴费收据核对");
+            //CreateRightByRoleName("管理部-质检组", "缴费提交人");
+            //CreateRightByRoleName("管理部-质检组", "延期批准人");
+            //CreateRightByRoleName("管理部-质检组", "延期请求人");
+            //CreateRightByRoleName("管理部-质检组", "延期审核人");
+
+
+
             ////string name = "MyName";
             ////DomainObject1 theObject = ObjectSpace.FindObject<DomainObject1>(CriteriaOperator.Parse("Name=?", name));
             ////if (theObject == null)

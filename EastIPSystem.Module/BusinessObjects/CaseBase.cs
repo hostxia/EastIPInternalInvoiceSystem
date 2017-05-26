@@ -28,7 +28,7 @@ namespace EastIPSystem.Module.BusinessObjects
         }
 
         private Corporation client;
-
+        //[Association("Client-Cases")]
         public Corporation Client
         {
             get { return client; }
@@ -36,20 +36,20 @@ namespace EastIPSystem.Module.BusinessObjects
         }
 
         private Corporation agency;
-
+        //[Association("Agency-Cases")]
         public Corporation Agency
         {
             get { return agency; }
             set { SetPropertyValue("Agency", ref agency, value); }
         }
 
-        private Corporation introducer;
+        //private Corporation introducer;
 
-        public Corporation Introducer
-        {
-            get { return introducer; }
-            set { SetPropertyValue("Introducer", ref introducer, value); }
-        }
+        //public Corporation Introducer
+        //{
+        //    get { return introducer; }
+        //    set { SetPropertyValue("Introducer", ref introducer, value); }
+        //}
 
         private string _sOurNo;
         [ImmediatePostData]
@@ -58,6 +58,8 @@ namespace EastIPSystem.Module.BusinessObjects
             get { return _sOurNo; }
             set { SetPropertyValue("s_OurNo", ref _sOurNo, value); }
         }
+
+
 
         private DateTime _dtReceiveDate;
         public DateTime ReceiveDate

@@ -78,6 +78,7 @@ namespace EastIPSystem.Module.BusinessObjects
 
         private Invoice invoice;
         [Association]
+        [Browsable(false)]
         public Invoice Invoice
         {
             get { return invoice; }

@@ -9,6 +9,7 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Layout;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.NodeGenerators;
+using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Templates;
 using DevExpress.ExpressApp.Utils;
@@ -43,6 +44,21 @@ namespace EastIPSystem.Module.Controllers
             if (payment == null) return;
             View.Model.AsObjectView.ModelClass.FindMember("s_FeeName").PredefinedValues = string.Join(";", PatentPaymentCodeCollection.GetPatentPaymentCodes(payment.n_PayCaseType, payment.n_PatentType).Select(p => p.FeeName));
             View.SaveModel();
+
+            var sysUser = (SysUser)SecuritySystem.CurrentUser;
+            var bRole = sysUser.IsUserInRole("管理部-质检组") || sysUser.IsUserInRole("管理部-经理");
+            ((PropertyEditor)((CompositeView)View).FindItem("s_Client")).AllowEdit["Securty"] = bRole;
+            ((PropertyEditor)((CompositeView)View).FindItem("s_ClientNo")).AllowEdit["Securty"] = bRole;
+            ((PropertyEditor)((CompositeView)View).FindItem("s_Applicant")).AllowEdit["Securty"] = bRole;
+            ((PropertyEditor)((CompositeView)View).FindItem("s_ApplicantNo")).AllowEdit["Securty"] = bRole;
+            ((PropertyEditor)((CompositeView)View).FindItem("s_AppNo")).AllowEdit["Securty"] = bRole;
+            ((PropertyEditor)((CompositeView)View).FindItem("dt_PaidDate")).AllowEdit["Securty"] = bRole;
+            ((PropertyEditor)((CompositeView)View).FindItem("n_PayCaseType")).AllowEdit["Securty"] = bRole;
+            ((PropertyEditor)((CompositeView)View).FindItem("n_PatentType")).AllowEdit["Securty"] = bRole;
+            ((PropertyEditor)((CompositeView)View).FindItem("Creator")).AllowEdit["Securty"] = bRole;
+            ((PropertyEditor)((CompositeView)View).FindItem("dt_Created")).AllowEdit["Securty"] = bRole;
+            ((PropertyEditor)((CompositeView)View).FindItem("b_Audited")).AllowEdit["Securty"] = bRole;
+            ((PropertyEditor)((CompositeView)View).FindItem("s_PayerName")).AllowEdit["Securty"] = bRole;
         }
 
         private void FeeName_ControlValueChanged(object sender, EventArgs e)
@@ -58,8 +74,8 @@ namespace EastIPSystem.Module.Controllers
         {
             var payment = View.CurrentObject as PatentPayment;
             if (payment == null) return;
-            ((PropertyEditor)((CompositeView)View).FindItem("n_PatentType")).WriteValue();
-            ((PropertyEditor)((CompositeView)View).FindItem("n_PayCaseType")).WriteValue();
+            //((PropertyEditor)((CompositeView)View).FindItem("n_PatentType")).WriteValue();
+            //((PropertyEditor)((CompositeView)View).FindItem("n_PayCaseType")).WriteValue();
             View.Model.AsObjectView.ModelClass.FindMember("s_FeeName").PredefinedValues = string.Join(";", PatentPaymentCodeCollection.GetPatentPaymentCodes(payment.n_PayCaseType, payment.n_PatentType).Select(p => p.FeeName));
             View.SaveModel();
             payment.s_FeeName = string.Empty;

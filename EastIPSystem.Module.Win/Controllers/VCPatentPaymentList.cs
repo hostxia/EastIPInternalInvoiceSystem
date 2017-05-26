@@ -75,8 +75,8 @@ namespace EastIPSystem.Module.Win.Controllers
                 else if (nType == EnumsAll.PayCaseType.PCT国家 && nPaidBy == EnumsAll.PaidBy.现金缴费)
                 {
                     excel.Cells[i + 3, 2] = payment.s_AppNo.Replace(".", "");
-                    excel.Cells[i + 3, 3] = payment.n_PatentType == EnumsAll.PatentType.发明 ? "发明" : "新型";
-                    excel.Cells[i + 3, 4] = payment.s_PayerName;
+                    excel.Cells[i + 3, 4] = payment.n_PatentType == EnumsAll.PatentType.发明 ? "发明" : "新型";
+                    excel.Cells[i + 3, 3] = payment.s_PayerName;
                     excel.Cells[i + 3, 5] = payment.s_FeeName;
                     excel.Cells[i + 3, 6] = payment.n_Amount;
                 }
@@ -93,11 +93,7 @@ namespace EastIPSystem.Module.Win.Controllers
                     excel.Cells[i + 3, 6] = payment.n_Amount;
                 }
             }
-
-            workBook.SaveAs(savefileDialog.FileName,
-                           Missing.Value, Missing.Value, Missing.Value, Missing.Value, Missing.Value,
-                           XlSaveAsAccessMode.xlNoChange,
-                           Missing.Value, Missing.Value, Missing.Value, Missing.Value, Missing.Value);
+            workBook.Save();
             workBook.Close();
             excel.Quit();
             Cursor.Current = Cursors.Default;
@@ -107,7 +103,7 @@ namespace EastIPSystem.Module.Win.Controllers
         {
             base.OnViewControlsCreated();
             var sysUser = (SysUser)SecuritySystem.CurrentUser;
-            saExportPaymentList.Active["Securty"] = sysUser.IsUserInRole("缴费提交人");
+            saExportPaymentList.Active["Securty"] = sysUser.IsUserInRole("管理部-质检组");
         }
         protected override void OnDeactivated()
         {

@@ -4,6 +4,7 @@
     <Actions>
       <Action Id="36dcd05d-efbe-46ad-a2f9-05c0928d51bc" Shortcut="CtrlQ" />
       <Action Id="Expense.GetCaseInfo" ImageName="ActionGroup_EasyTestRecorder" Shortcut="CtrlQ" />
+      <Action Id="PatentBase.GetPatentInfo" Shortcut="CtrlB" ImageName="ActionGroup_EasyTestRecorder" />
       <Action Id="PatentPayment.SetPaid" ImageName="Action_Change_State" />
     </Actions>
   </ActionDesign>
@@ -38,6 +39,7 @@
       </OwnMembers>
     </Class>
     <Class Name="EastIPSystem.Module.BusinessObjects.Corporation" ImageName="BO_Contact" />
+    <Class Name="EastIPSystem.Module.BusinessObjects.Country" ImageName="BO_Localization" />
     <Class Name="EastIPSystem.Module.BusinessObjects.Expense" Caption="报销" ImageName="BO_Sale_Item_v92">
       <OwnMembers>
         <Member Name="Creator" AllowEdit="False" />
@@ -121,6 +123,16 @@
         <Member Name="TimeSheets" Caption="工时" />
       </OwnMembers>
     </Class>
+    <Class Name="EastIPSystem.Module.BusinessObjects.PatentBase" ImageName="BO_Audit_ChangeHistory" DefaultListViewShowAutoFilterRow="True">
+      <OwnMembers>
+        <Member Name="s_AgentNote" RowCount="3" Size="2000" />
+        <Member Name="s_ApplicantCodes" Size="100" />
+        <Member Name="s_ApplicantNames" Size="500" />
+        <Member Name="s_ClientContact" Size="500" RowCount="3" />
+        <Member Name="s_Instruction" Size="2000" RowCount="3" />
+        <Member Name="s_Note" Size="2000" RowCount="3" />
+      </OwnMembers>
+    </Class>
     <Class Name="EastIPSystem.Module.BusinessObjects.PatentPayment" ImageName="BO_Contract">
       <OwnMembers>
         <Member Name="Creator" AllowEdit="False" />
@@ -163,6 +175,9 @@
       </OwnMembers>
     </Class>
   </BOModel>
+  <CreatableItems>
+    <CreatableItem ClassName="EastIPSystem.Module.BusinessObjects.PatentProgress" Removed="True" />
+  </CreatableItems>
   <NavigationItems StartupNavigationItem="InternalInvoice_ListView">
     <Items>
       <Item Id="@727079be-78de-4f2b-b8e6-261e45d1021c" IsNewNode="True">
@@ -179,9 +194,10 @@
         <Items IsNewNode="True">
           <Item Id="Corporation_ListView" ViewId="Corporation_ListView" ObjectKey="" Index="0" IsNewNode="True" />
           <Item Id="CaseBase_ListView" ViewId="CaseBase_ListView" ObjectKey="" Index="1" IsNewNode="True" />
-          <Item Id="WorkItem_ListView" ViewId="WorkItem_ListView" ObjectKey="" Index="2" IsNewNode="True" />
+          <Item Id="PatentBase_ListView" ViewId="PatentBase_ListView" ObjectKey="" Index="2" IsNewNode="True" />
           <Item Id="TimeSheet_ListView" ViewId="TimeSheet_ListView" ObjectKey="" Index="3" IsNewNode="True" />
-          <Item Id="CaseExtension_ListView" ViewId="CaseExtension_ListView" ObjectKey="" Index="4" IsNewNode="True" />
+          <Item Id="WorkItem_ListView" ViewId="WorkItem_ListView" ObjectKey="" Index="4" IsNewNode="True" />
+          <Item Id="CaseExtension_ListView" ViewId="CaseExtension_ListView" ObjectKey="" Index="5" IsNewNode="True" />
         </Items>
       </Item>
       <Item Id="Default" Caption="配置管理" Visible="True">
@@ -196,7 +212,9 @@
           <Item Id="Fee_ListView" Removed="True" />
           <Item Id="InternalInvoice_ListView" Removed="True" />
           <Item Id="Invoice_ListView" Removed="True" />
+          <Item Id="PatentBase_ListView" Removed="True" />
           <Item Id="PatentPayment_ListView" Removed="True" />
+          <Item Id="PatentProgress_ListView" Removed="True" />
           <Item Id="TimeSheet_ListView" Removed="True" />
           <Item Id="WorkItem_ListView" Removed="True" />
         </Items>
@@ -302,6 +320,42 @@
       </Layout>
     </DetailView>
     <ListView Id="CaseBase_ListView" IsFooterVisible="True" />
+    <ListView Id="CaseExtension_AllCaseExtensions_ListView" AllowDelete="False" AllowLink="False" AllowNew="False">
+      <Columns>
+        <ColumnInfo Id="b_OurProblem" Index="-1" />
+        <ColumnInfo Id="ConfirmApprover" Index="-1" />
+        <ColumnInfo Id="Creator" Index="-1" />
+        <ColumnInfo Id="DepartApprover" Index="-1" />
+        <ColumnInfo Id="dt_ConfirmApprovalDate" Index="-1" />
+        <ColumnInfo Id="dt_Created" Index="-1" />
+        <ColumnInfo Id="dt_DepartApprovalDate" Index="-1" />
+        <ColumnInfo Id="dt_ModifyApprovalDate" Index="-1" />
+        <ColumnInfo Id="ModifyApprover" Index="-1" />
+        <ColumnInfo Id="s_AlertWay" Index="-1" />
+        <ColumnInfo Id="s_Applicant" Index="-1" />
+        <ColumnInfo Id="s_ApplicantNo" Index="-1" />
+        <ColumnInfo Id="s_Client" Index="-1" />
+        <ColumnInfo Id="s_ClientNo" Index="-1" />
+        <ColumnInfo Id="s_DepartReason" Index="-1" />
+        <ColumnInfo Id="s_ModifyReason" Index="-1" />
+        <ColumnInfo Id="s_OurNo" Width="82" Index="-1" />
+        <ColumnInfo Id="n_ExtendItem" Index="0" Width="124" />
+        <ColumnInfo Id="dt_ExtendDate" Index="1" Width="74" SortIndex="0" SortOrder="Descending" />
+        <ColumnInfo Id="n_ExtendItem2" Index="2" Width="109" />
+        <ColumnInfo Id="dt_ExtendDate2" Index="3" Width="0" />
+        <ColumnInfo Id="s_ExtendNote" Index="4" Width="119" />
+        <ColumnInfo Id="Owner" Index="5" Width="80" />
+        <ColumnInfo Id="n_State" Index="6" Width="102" />
+      </Columns>
+    </ListView>
+    <ListView Id="CaseExtension_AllPatentProgresses_ListView" AllowDelete="False" AllowLink="False" AllowNew="False">
+      <Columns>
+        <ColumnInfo Id="PatentBase" Width="127" Index="-1" />
+        <ColumnInfo Id="dt_ItemDate" SortIndex="0" SortOrder="Descending" Index="0" Width="73" />
+        <ColumnInfo Id="n_Item" Width="173" Index="1" />
+        <ColumnInfo Id="s_Note" Width="151" Index="2" />
+      </Columns>
+    </ListView>
     <DetailView Id="CaseExtension_DetailView">
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100">
@@ -404,6 +458,12 @@
       <Columns>
         <ColumnInfo Id="Code" PropertyName="Code" Index="0" SortIndex="0" SortOrder="Ascending" IsNewNode="True" />
         <ColumnInfo Id="Name" Index="1" SortIndex="-1" SortOrder="None" Width="170" />
+      </Columns>
+    </ListView>
+    <ListView Id="Country_ListView">
+      <Columns>
+        <ColumnInfo Id="s_Code" Index="0" />
+        <ColumnInfo Id="s_Name" Index="1" SortIndex="-1" SortOrder="None" />
       </Columns>
     </ListView>
     <DetailView Id="Expense_DetailView" DefaultFocusedItem="s_OurNo">
@@ -687,7 +747,7 @@
     </DetailView>
     <ListView Id="InternalInvoice_ListView" AllowLink="False" AllowUnlink="False" IsFooterVisible="True" TopReturnedObjects="0" Filter="" Criteria="[b_IsNotInternalInvoice] &lt;&gt; True">
       <Columns>
-        <ColumnInfo Id="InternalNo" Index="0" Width="102" />
+        <ColumnInfo Id="InternalNo" Index="0" Width="102" SortIndex="-1" SortOrder="None" />
         <ColumnInfo Id="CreateDate" Index="1" SortIndex="-1" SortOrder="None" Width="59" />
         <ColumnInfo Id="OurNo" Width="123" />
         <ColumnInfo Id="SendDate" Index="3" Width="92" />
@@ -854,7 +914,6 @@
         <ColumnInfo Id="InvoiceFile" Index="3" Width="56" />
         <ColumnInfo Id="FInvoiceFile" Index="4" Width="92" />
         <ColumnInfo Id="OurNo" Index="5" Width="131" />
-        <ColumnInfo Id="Invoice" Removed="True" />
         <ColumnInfo Id="Oid" Removed="True" />
       </Columns>
     </ListView>
@@ -867,19 +926,145 @@
         <ColumnInfo Id="s_Description" Width="258" />
       </Columns>
     </ListView>
+    <ListView Id="PatentBase_Applicants_ListView" AllowDelete="False" AllowNew="False" NewItemRowPosition="None" AllowLink="True" AllowUnlink="True" AllowEdit="False" DetailViewID="">
+      <Columns>
+        <ColumnInfo Id="Name" SortIndex="-1" SortOrder="None" Width="201" />
+      </Columns>
+    </ListView>
+    <DetailView Id="PatentBase_DetailView">
+      <Layout>
+        <LayoutGroup Id="SimpleEditors" ShowCaption="False" Index="0" RelativeSize="100" IsNewNode="True">
+          <LayoutGroup Id="PatentBase" ShowCaption="True" Direction="Horizontal" Index="0" RelativeSize="44.680851063829785" IsNewNode="True">
+            <LayoutGroup Id="PatentBase_col1" ShowCaption="False" Index="0" RelativeSize="49.865591397849464" IsNewNode="True">
+              <LayoutItem Id="s_OurNo" ViewItem="s_OurNo" Index="0" RelativeSize="9.9378881987577632" IsNewNode="True" />
+              <LayoutItem Id="s_Name" ViewItem="s_Name" Index="1" RelativeSize="7.4534161490683228" IsNewNode="True" />
+              <LayoutItem Id="s_PatentType" ViewItem="s_PatentType" Index="2" RelativeSize="7.4534161490683228" IsNewNode="True" />
+              <LayoutItem Id="dt_ReceiveDate" ViewItem="dt_ReceiveDate" Index="3" RelativeSize="7.4534161490683228" IsNewNode="True" />
+              <LayoutItem Id="Client" ViewItem="Client" Index="4" RelativeSize="7.4534161490683228" IsNewNode="True" />
+              <LayoutItem Id="s_ClientRef" ViewItem="s_ClientRef" Index="5" RelativeSize="7.4534161490683228" IsNewNode="True" />
+              <LayoutItem Id="s_ClientContact" ViewItem="s_ClientContact" Index="6" RelativeSize="16.770186335403725" IsNewNode="True" />
+              <LayoutItem Id="s_Instruction" ViewItem="s_Instruction" Index="7" RelativeSize="16.770186335403725" IsNewNode="True" />
+              <LayoutItem Id="s_Note" ViewItem="s_Note" Index="8" RelativeSize="19.254658385093169" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="PatentBase_col2" ShowCaption="False" Index="1" RelativeSize="50.134408602150536" IsNewNode="True">
+              <LayoutItem Id="s_DeptName" ViewItem="s_DeptName" Index="0" RelativeSize="9.9378881987577632" IsNewNode="True" />
+              <LayoutItem Id="Writer" ViewItem="Writer" Index="1" RelativeSize="7.4534161490683228" IsNewNode="True" />
+              <LayoutItem Id="Teacher" ViewItem="Teacher" Index="2" RelativeSize="7.4534161490683228" IsNewNode="True" />
+              <LayoutItem Id="Manager" ViewItem="Manager" Index="3" RelativeSize="7.4534161490683228" IsNewNode="True" />
+              <LayoutItem Id="dt_ReturnInventorDate" ViewItem="dt_ReturnInventorDate" Index="4" RelativeSize="7.4534161490683228" IsNewNode="True" />
+              <LayoutItem Id="dt_ReturnIPRDate" ViewItem="dt_ReturnIPRDate" Index="5" RelativeSize="7.4534161490683228" IsNewNode="True" />
+              <LayoutItem Id="dt_FilingDeadline" ViewItem="dt_FilingDeadline" Index="6" RelativeSize="7.4534161490683228" IsNewNode="True" />
+              <LayoutItem Id="s_AgentNote" ViewItem="s_AgentNote" Index="7" RelativeSize="45.3416149068323" IsNewNode="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="Autoc74ec496-3bf2-4326-83f9-ee5555164a7d" ShowCaption="False" Direction="Horizontal" Index="1" RelativeSize="55.319148936170215" IsNewNode="True">
+            <LayoutGroup Id="Applicants" ShowCaption="True" Index="0" RelativeSize="49.869791666666664" IsNewNode="True">
+              <LayoutItem Id="Applicants" ViewItem="Applicants" Index="0" RelativeSize="100" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="PatentProgresses" ShowCaption="True" Index="1" RelativeSize="50.130208333333336" IsNewNode="True">
+              <LayoutItem Id="PatentProgresses" ViewItem="PatentProgresses" Index="0" RelativeSize="100" IsNewNode="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+        <LayoutGroup Id="Main" RelativeSize="100" Removed="True">
+          <TabbedGroup Id="Tabs" RelativeSize="26.85069008782936" Index="1" Removed="True">
+            <LayoutGroup Id="Applicants" RelativeSize="100" Direction="Vertical">
+              <LayoutItem Id="Applicants" ViewItem="Applicants" Index="0" RelativeSize="100" IsNewNode="True" Removed="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="PatentProgresses" RelativeSize="100" Removed="True">
+              <LayoutItem Id="PatentProgresses" RelativeSize="100" />
+            </LayoutGroup>
+          </TabbedGroup>
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="Autoc74ec496-3bf2-4326-83f9-ee5555164a7d" ShowCaption="False" Direction="Horizontal" Index="1" RelativeSize="57.590966122961106" IsNewNode="True">
+              <LayoutGroup Id="Applicants" ShowCaption="True" Index="0" RelativeSize="18.075422626788036" IsNewNode="True">
+                <LayoutItem Id="Applicants" ViewItem="Applicants" Index="0" RelativeSize="100" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="PatentProgresses" ShowCaption="True" Index="1" RelativeSize="81.92457737321196" IsNewNode="True">
+                <LayoutItem Id="PatentProgresses" ViewItem="PatentProgresses" Index="0" RelativeSize="100" IsNewNode="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="PatentBase" RelativeSize="42.409033877038894">
+              <LayoutGroup Id="PatentBase_col1" RelativeSize="49.932885906040269">
+                <LayoutItem Id="s_PatentType" ViewItem="s_PatentType" Index="2" RelativeSize="7.9207920792079207" IsNewNode="True" />
+                <LayoutItem Id="dt_ReceiveDate" RelativeSize="7.9207920792079207" Index="3" />
+                <LayoutItem Id="Client" RelativeSize="7.9207920792079207" Index="4" />
+                <LayoutItem Id="s_ClientRef" RelativeSize="7.9207920792079207" Index="5" />
+                <LayoutItem Id="s_ApplicantNames" RelativeSize="7.1428571428571432" Index="6" Removed="True" />
+                <LayoutItem Id="s_ClientContact" RelativeSize="7.9207920792079207" Index="6" />
+                <LayoutItem Id="s_Instruction" ViewItem="s_Instruction" Index="7" RelativeSize="21.452145214521451" IsNewNode="True" />
+                <LayoutItem Id="s_Note" ViewItem="s_Note" Index="8" RelativeSize="20.462046204620464" IsNewNode="True" Removed="True" />
+                <LayoutItem Id="s_AgentNote" RelativeSize="48.513011152416354" Index="9" Removed="True" />
+                <LayoutItem Id="s_ApplicantCodes" RelativeSize="7.0588235294117645" Removed="True" />
+                <LayoutItem Id="s_Name" RelativeSize="7.9207920792079207" />
+                <LayoutItem Id="s_OurNo" RelativeSize="10.561056105610561" />
+              </LayoutGroup>
+              <LayoutGroup Id="PatentBase_col2" RelativeSize="50.067114093959731">
+                <LayoutItem Id="s_DeptName" RelativeSize="10.561056105610561" Index="0" />
+                <LayoutItem Id="Writer" RelativeSize="7.9207920792079207" Index="1" />
+                <LayoutItem Id="Teacher" RelativeSize="7.9207920792079207" Index="2" />
+                <LayoutItem Id="Manager" RelativeSize="7.9207920792079207" Index="3" />
+                <LayoutItem Id="dt_ReturnInventorDate" RelativeSize="7.9207920792079207" Index="4" />
+                <LayoutItem Id="dt_ReturnIPRDate" RelativeSize="7.9207920792079207" Index="5" />
+                <LayoutItem Id="LastPatentProgress" RelativeSize="4.4609665427509295" Index="5" Removed="True" />
+                <LayoutItem Id="dt_FilingDeadline" RelativeSize="7.9207920792079207" Index="6" />
+                <LayoutItem Id="s_AgentNote" ViewItem="s_AgentNote" Index="7" RelativeSize="41.914191419141915" IsNewNode="True" />
+                <LayoutItem Id="s_Instruction" RelativeSize="34.944237918215613" Index="8" Removed="True" />
+                <LayoutItem Id="s_PatentType" RelativeSize="4.4609665427509295" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="PatentBase_ListView" IsFooterVisible="True">
+      <Columns>
+        <ColumnInfo Id="s_OurNo" SortIndex="-1" SortOrder="None" Width="79" />
+        <ColumnInfo Id="dt_ReceiveDate" Width="66" Index="1" />
+        <ColumnInfo Id="s_Name" Width="101" Index="2" />
+        <ColumnInfo Id="Client" Width="71" />
+        <ColumnInfo Id="s_ClientRef" Width="78" />
+        <ColumnInfo Id="s_ClientContact" Width="103" />
+        <ColumnInfo Id="s_ApplicantCodes" Width="113" />
+        <ColumnInfo Id="s_ApplicantNames" Width="116" />
+        <ColumnInfo Id="s_Note" Width="57" />
+        <ColumnInfo Id="s_AgentNote" Width="91" />
+        <ColumnInfo Id="s_Instruction" Width="89" />
+        <ColumnInfo Id="s_PatentType" Width="68" />
+        <ColumnInfo Id="s_DeptName" Width="88" />
+        <ColumnInfo Id="Writer" Width="56" />
+        <ColumnInfo Id="Teacher" Width="56" />
+        <ColumnInfo Id="Manager" Width="56" />
+        <ColumnInfo Id="dt_ReturnInventorDate" Width="80" />
+        <ColumnInfo Id="dt_ReturnIPRDate" Width="86" />
+        <ColumnInfo Id="dt_FilingDeadline" Width="80" />
+        <ColumnInfo Id="LastPatentProgress.n_Item" PropertyName="LastPatentProgress.n_Item" Index="19" IsNewNode="True" />
+        <ColumnInfo Id="LastPatentProgress.dt_ItemDate" PropertyName="LastPatentProgress.dt_ItemDate" Index="20" IsNewNode="True" />
+        <ColumnInfo Id="LastPatentProgress.s_Note" PropertyName="LastPatentProgress.s_Note" Index="21" IsNewNode="True" />
+        <ColumnInfo Id="LastPatentProgress" Width="68" Removed="True" />
+      </Columns>
+    </ListView>
+    <ListView Id="PatentBase_PatentProgresses_ListView" NewItemRowPosition="Top" AllowEdit="True">
+      <Columns>
+        <ColumnInfo Id="n_Item" Width="119" />
+        <ColumnInfo Id="dt_ItemDate" Width="72" SortIndex="0" SortOrder="Descending" />
+        <ColumnInfo Id="s_Note" Width="151" />
+      </Columns>
+    </ListView>
     <DetailView Id="PatentPayment_DetailView">
       <Layout>
-        <LayoutGroup Id="PatentPayment" ShowCaption="True" Direction="Horizontal" Index="0" RelativeSize="30.223880597014926" IsNewNode="True">
-          <LayoutGroup Id="PatentPayment_col1" ShowCaption="False" Index="0" RelativeSize="49.914529914529915" IsNewNode="True">
+        <LayoutGroup Id="PatentPayment" ShowCaption="True" Direction="Horizontal" Index="0" RelativeSize="30.299251870324188" IsNewNode="True">
+          <LayoutGroup Id="PatentPayment_col1" ShowCaption="False" Index="0" RelativeSize="49.838187702265373" IsNewNode="True">
             <LayoutItem Id="s_OurNo" ViewItem="s_OurNo" Index="0" RelativeSize="15.384615384615385" IsNewNode="True" />
             <LayoutItem Id="s_AppNo" ViewItem="s_AppNo" Index="1" RelativeSize="11.538461538461538" IsNewNode="True" />
             <LayoutItem Id="s_PayerName" ViewItem="s_PayerName" Index="2" RelativeSize="11.538461538461538" IsNewNode="True" />
             <LayoutItem Id="s_ApplicantNo" ViewItem="s_ApplicantNo" Index="3" RelativeSize="11.538461538461538" IsNewNode="True" />
             <LayoutItem Id="s_Applicant" ViewItem="s_Applicant" Index="4" RelativeSize="11.538461538461538" IsNewNode="True" />
             <LayoutItem Id="s_ClientNo" ViewItem="s_ClientNo" Index="5" RelativeSize="11.538461538461538" IsNewNode="True" />
-            <LayoutItem Id="s_Client" ViewItem="s_Client" Index="6" RelativeSize="26.923076923076923" IsNewNode="True" />
+            <LayoutItem Id="s_Client" ViewItem="s_Client" Index="6" RelativeSize="11.538461538461538" IsNewNode="True" />
+            <LayoutItem Id="b_Audited" ViewItem="b_Audited" Index="7" RelativeSize="15.384615384615385" IsNewNode="True" />
           </LayoutGroup>
-          <LayoutGroup Id="PatentPayment_col2" ShowCaption="False" Index="1" RelativeSize="50.085470085470085" IsNewNode="True">
+          <LayoutGroup Id="PatentPayment_col2" ShowCaption="False" Index="1" RelativeSize="50.161812297734627" IsNewNode="True">
             <LayoutItem Id="n_PatentType" ViewItem="n_PatentType" Index="0" RelativeSize="15.384615384615385" IsNewNode="True" />
             <LayoutItem Id="n_PayCaseType" ViewItem="n_PayCaseType" Index="1" RelativeSize="11.538461538461538" IsNewNode="True" />
             <LayoutItem Id="n_PaidBy" ViewItem="n_PaidBy" Index="2" RelativeSize="11.538461538461538" IsNewNode="True" />
@@ -887,15 +1072,15 @@
             <LayoutItem Id="n_Amount" ViewItem="n_Amount" Index="4" RelativeSize="11.538461538461538" IsNewNode="True" />
             <LayoutItem Id="dt_PayDeadline" ViewItem="dt_PayDeadline" Index="5" RelativeSize="11.538461538461538" IsNewNode="True" />
             <LayoutItem Id="dt_PaidDate" ViewItem="dt_PaidDate" Index="6" RelativeSize="11.538461538461538" IsNewNode="True" />
-            <LayoutItem Id="b_Audited" ViewItem="b_Audited" Index="7" RelativeSize="15.384615384615385" IsNewNode="True" />
+            <LayoutItem Id="b_Receipted" ViewItem="b_Receipted" Index="7" RelativeSize="15.384615384615385" IsNewNode="True" />
           </LayoutGroup>
         </LayoutGroup>
-        <LayoutGroup Id="Item2" ShowCaption="True" CaptionLocation="Top" Index="1" RelativeSize="60.447761194029852" IsNewNode="True">
+        <LayoutGroup Id="Item2" ShowCaption="True" CaptionLocation="Top" Index="1" RelativeSize="60.349127182044889" IsNewNode="True">
           <LayoutItem Id="s_Note" ViewItem="s_Note" Index="0" RelativeSize="100" IsNewNode="True" />
         </LayoutGroup>
-        <LayoutGroup Id="Item1" ShowCaption="True" CaptionLocation="Top" Direction="Horizontal" Index="2" RelativeSize="9.3283582089552244" IsNewNode="True">
-          <LayoutItem Id="Creator" ViewItem="Creator" Index="0" RelativeSize="49.914529914529915" IsNewNode="True" />
-          <LayoutItem Id="dt_Created" ViewItem="dt_Created" Index="1" RelativeSize="50.085470085470085" IsNewNode="True" />
+        <LayoutGroup Id="Item1" ShowCaption="True" CaptionLocation="Top" Direction="Horizontal" Index="2" RelativeSize="9.3516209476309236" IsNewNode="True">
+          <LayoutItem Id="Creator" ViewItem="Creator" Index="0" RelativeSize="49.838187702265373" IsNewNode="True" />
+          <LayoutItem Id="dt_Created" ViewItem="dt_Created" Index="1" RelativeSize="50.161812297734627" IsNewNode="True" />
         </LayoutGroup>
         <LayoutGroup Id="Main" RelativeSize="100" Removed="True">
           <LayoutGroup Id="SimpleEditors" RelativeSize="100">
@@ -958,7 +1143,13 @@
         <ColumnInfo Id="dt_Created" Width="120" Index="16" />
       </Columns>
     </ListView>
-    <ListView Id="PatentPaymentRule_ListView" IsFooterVisible="True" />
+    <ListView Id="PatentPaymentRule_ListView" IsFooterVisible="True">
+      <Columns>
+        <ColumnInfo Id="s_PayerCode1" Index="0" />
+        <ColumnInfo Id="s_PayerCode2" Index="1" />
+        <ColumnInfo Id="s_PayerName" Index="2" SortIndex="-1" SortOrder="None" />
+      </Columns>
+    </ListView>
     <ListView Id="SysUser_ListView" IsFooterVisible="True" />
     <ListView Id="SysUser_LookupListView" AllowNew="False" Criteria="">
       <Columns>

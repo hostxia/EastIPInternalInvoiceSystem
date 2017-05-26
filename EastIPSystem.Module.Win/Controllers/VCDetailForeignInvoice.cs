@@ -2,6 +2,7 @@
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.XtraEditors;
+using EastIPSystem.Module.Win.Editors;
 
 namespace EastIPSystem.Module.Win.Controllers
 {
@@ -11,11 +12,11 @@ namespace EastIPSystem.Module.Win.Controllers
         {
             base.OnViewControlsCreated();
 
-            View.Items.Where(i => i.Control is SearchControl).ToList().ForEach(i =>
+            View.Items.Where(i => i.Control is MRUEdit).ToList().ForEach(i =>
             {
                 XafDataView xpDataView = ObjectSpace.CreateDataView(i.ObjectType, i.Id, null, null) as XafDataView;
                 if (xpDataView != null)
-                    ((SearchControl)i.Control).Properties.Items.AddRange(xpDataView.Cast<XpoDataViewRecord>().Where(r => r[i.Id] != null && !string.IsNullOrWhiteSpace(r[i.Id].ToString())).Select(r => r[i.Id]).Distinct().ToList());
+                    ((MRUEdit)i.Control).Properties.Items.AddRange(xpDataView.Cast<XpoDataViewRecord>().Where(r => r[i.Id] != null && !string.IsNullOrWhiteSpace(r[i.Id].ToString())).Select(r => r[i.Id]).Distinct().ToList());
             });
 
         }

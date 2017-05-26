@@ -14,7 +14,8 @@ namespace EastIPSystem.Module.Controllers
         protected override void OnActivated()
         {
             base.OnActivated();
-            Frame.GetController<NewObjectViewController>().NewObjectAction.Items[0].Caption = View.Caption;
+            if (Frame.GetController<NewObjectViewController>().NewObjectAction.Items.Count > 0)
+                Frame.GetController<NewObjectViewController>().NewObjectAction.Items[0].Caption = View.Caption;
             // Perform various tasks depending on the target View.
         }
         protected override void OnViewControlsCreated()

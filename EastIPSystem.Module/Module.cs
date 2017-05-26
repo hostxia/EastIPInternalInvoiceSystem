@@ -44,21 +44,28 @@ namespace EastIPSystem.Module
         {
             if (e.Type == typeof(CaseExtension))
             {
-                if (((SysUser)SecuritySystem.CurrentUser).IsUserInRole("延期请求人"))
+                var sysUser = (SysUser)SecuritySystem.CurrentUser;
+                if (sysUser.IsUserInRole("管理部-OA组") || sysUser.IsUserInRole("管理部-国外组") ||
+                    sysUser.IsUserInRole("管理部-立案组") || sysUser.IsUserInRole("管理部-新申请组") ||
+                    sysUser.IsUserInRole("管理部-质检组"))
                 {
-                    e.Criteria = CriteriaOperator.Or(e.Criteria, CriteriaOperator.Parse("(Owner.Oid = CurrentUserId() Or Creator.Oid = CurrentUserId()) And (n_State = ? Or n_State = ?)", EnumsAll.CaseExtensionState.修改延期未通过, EnumsAll.CaseExtensionState.部门审核未通过));
+                    e.Criteria = CriteriaOperator.Or(e.Criteria,
+                        CriteriaOperator.Parse(
+                            "(Owner.Oid = CurrentUserId() Or Creator.Oid = CurrentUserId()) And (n_State = ? Or n_State = ?)",
+                            EnumsAll.CaseExtensionState.修改延期未通过, EnumsAll.CaseExtensionState.部门审核未通过));
                 }
-                if (((SysUser)SecuritySystem.CurrentUser).IsUserInRole("延期批准人"))
+                if (sysUser.IsUserInRole("管理部-经理"))
                 {
                     e.Criteria = CriteriaOperator.Or(e.Criteria, CriteriaOperator.Parse("n_State = ?", EnumsAll.CaseExtensionState.部门审核));
                 }
-                if (((SysUser)SecuritySystem.CurrentUser).IsUserInRole("延期审核人"))
+                if (sysUser.IsUserInRole("管理部-质检组") || sysUser.IsUserInRole("管理部-经理"))
                 {
                     e.Criteria = CriteriaOperator.Or(e.Criteria, CriteriaOperator.Parse("n_State = ?", EnumsAll.CaseExtensionState.修改延期));
                 }
-                if (!((SysUser)SecuritySystem.CurrentUser).IsUserInRole("延期审核人") &&
-                    !((SysUser)SecuritySystem.CurrentUser).IsUserInRole("延期批准人") &&
-                    !((SysUser)SecuritySystem.CurrentUser).IsUserInRole("延期请求人"))
+                if (!(sysUser.IsUserInRole("管理部-OA组") || sysUser.IsUserInRole("管理部-国外组") ||
+                    sysUser.IsUserInRole("管理部-立案组") || sysUser.IsUserInRole("管理部-新申请组") ||
+                    sysUser.IsUserInRole("管理部-质检组") || sysUser.IsUserInRole("管理部-质检组") ||
+                    sysUser.IsUserInRole("管理部-经理")))
                 {
                     e.Criteria = CriteriaOperator.Parse("1=0");
                 }

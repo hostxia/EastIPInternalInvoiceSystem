@@ -40,11 +40,33 @@ namespace EastIPSystem.Module.BusinessObjects
             set { SetPropertyValue("s_PayerCode2", ref _sPayerCode2, value); }
         }
 
+        private string _sPayerCode3;
+        public string s_PayerCode3
+        {
+            get { return _sPayerCode3; }
+            set { SetPropertyValue("s_PayerCode3", ref _sPayerCode3, value); }
+        }
+
         private string _sPayerName;
         public string s_PayerName
         {
             get { return _sPayerName; }
             set { SetPropertyValue("s_PayerName", ref _sPayerName, value); }
+        }
+        [Browsable(false)]
+        public List<string> ListPayerCode
+        {
+            get
+            {
+                var listPayerCode = new List<string>();
+                if (!string.IsNullOrWhiteSpace(_sPayerCode1))
+                    listPayerCode.Add(_sPayerCode1);
+                if (!string.IsNullOrWhiteSpace(_sPayerCode2))
+                    listPayerCode.Add(_sPayerCode2);
+                if (!string.IsNullOrWhiteSpace(_sPayerCode3))
+                    listPayerCode.Add(_sPayerCode3);
+                return listPayerCode;
+            }
         }
     }
 }

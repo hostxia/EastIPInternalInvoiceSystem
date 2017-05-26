@@ -60,15 +60,17 @@ namespace EastIPSystem.Module.Controllers
             if (state == EnumsAll.CaseExtensionState.未提交 || state == EnumsAll.CaseExtensionState.部门审核未通过 ||
                 state == EnumsAll.CaseExtensionState.修改延期未通过)
             {
-                changeStateAction.Active["A"] = sysUser.IsUserInRole("延期请求人");
+                changeStateAction.Active["A"] = sysUser.IsUserInRole("管理部-OA组") || sysUser.IsUserInRole("管理部-国外组") ||
+                                                sysUser.IsUserInRole("管理部-立案组") || sysUser.IsUserInRole("管理部-新申请组") ||
+                                                sysUser.IsUserInRole("管理部-质检组");
             }
             else if (state == EnumsAll.CaseExtensionState.部门审核)
             {
-                changeStateAction.Active["A"] = sysUser.IsUserInRole("延期批准人");
+                changeStateAction.Active["A"] = sysUser.IsUserInRole("管理部-经理");
             }
             else if (state == EnumsAll.CaseExtensionState.修改延期 || state == EnumsAll.CaseExtensionState.确认延期)
             {
-                changeStateAction.Active["A"] = sysUser.IsUserInRole("延期审核人");
+                changeStateAction.Active["A"] = sysUser.IsUserInRole("管理部-质检组") || sysUser.IsUserInRole("管理部-经理");
             }
             if (view != null)
                 view.AllowEdit["A"] = changeStateAction.Active["A"];
