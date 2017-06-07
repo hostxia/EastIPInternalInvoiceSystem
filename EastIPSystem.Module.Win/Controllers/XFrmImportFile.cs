@@ -6,7 +6,9 @@ using System.Linq;
 using System.Windows.Forms;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.BaseImpl;
+using DevExpress.Xpo;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Controls;
 using DevExpress.XtraSplashScreen;
@@ -70,47 +72,51 @@ namespace EastIPSystem.Module.Win.Controllers
                             _htFiles[sFilePath] = "导入失败，文件不存在。";
                             continue;
                         }
-                        var sCondition = xlueImportType.EditValue.ToString() == "A"
-                            ? $"InternalNo = '{Path.GetFileNameWithoutExtension(sFilePath)}'"
-                            : $"FirmNo = '{Path.GetFileNameWithoutExtension(sFilePath)}'";
-                        var internalInvoice = _objectSpace.FindObject<InternalInvoice>(CriteriaOperator.Parse(sCondition));
-                        if (internalInvoice == null)
+                        using (var uow = new UnitOfWork(((XPObjectSpace)_objectSpace).Session.DataLayer))
                         {
-                            _htFiles[sFilePath] = "导入失败，未找到对应的草单。";
-                            continue;
-                        }
-                        else
-                        {
-                            if (!string.IsNullOrWhiteSpace(internalInvoice.InvoiceNo))
+                            var sCondition = xlueImportType.EditValue.ToString() == "A"
+                                ? $"InternalNo = '{Path.GetFileNameWithoutExtension(sFilePath)}'"
+                                : $"FirmNo = '{Path.GetFileNameWithoutExtension(sFilePath)}'";
+                            var internalInvoice =
+                                uow.FindObject<InternalInvoice>(CriteriaOperator.Parse(sCondition));
+                            if (internalInvoice == null)
                             {
-                                _htFiles[sFilePath] = "导入失败，该草单禁止修改。";
+                                _htFiles[sFilePath] = "导入失败，未找到对应的草单。";
                                 continue;
-                            }
-                            var fileData = new FileData(internalInvoice.Session);
-                            using (var stream = new FileStream(sFilePath, FileMode.Open))
-                            {
-                                fileData.LoadFromStream(Path.GetFileName(sFilePath), stream);
-                                stream.Close();
-                            }
-                            if (xlueImportType.EditValue.ToString() == "A")
-                            {
-
-                                var bIsUpdate = internalInvoice.InvoiceFile != null;
-                                internalInvoice.InvoiceFile?.Delete();
-                                internalInvoice.InvoiceFile = fileData;
-                                internalInvoice.Save();
-                                _objectSpace.CommitChanges();
-                                _htFiles[sFilePath] = bIsUpdate ? "导入成功，更新电子件。" : "导入成功，上传电子件。";
-
                             }
                             else
                             {
-                                var bIsUpdate = internalInvoice.FInvoiceFile != null;
-                                internalInvoice.FInvoiceFile?.Delete();
-                                internalInvoice.FInvoiceFile = fileData;
-                                internalInvoice.Save();
-                                _objectSpace.CommitChanges();
-                                _htFiles[sFilePath] = bIsUpdate ? "导入成功，更新电子件。" : "导入成功，上传电子件。";
+                                if (!string.IsNullOrWhiteSpace(internalInvoice.InvoiceNo))
+                                {
+                                    _htFiles[sFilePath] = "导入失败，该草单禁止修改。";
+                                    continue;
+                                }
+                                var fileData = new FileData(internalInvoice.Session);
+                                using (var stream = new FileStream(sFilePath, FileMode.Open))
+                                {
+                                    fileData.LoadFromStream(Path.GetFileName(sFilePath), stream);
+                                    stream.Close();
+                                }
+                                if (xlueImportType.EditValue.ToString() == "A")
+                                {
+
+                                    var bIsUpdate = internalInvoice.InvoiceFile != null;
+                                    internalInvoice.InvoiceFile?.Delete();
+                                    internalInvoice.InvoiceFile = fileData;
+                                    internalInvoice.Save();
+                                    uow.CommitChanges();
+                                    _htFiles[sFilePath] = bIsUpdate ? "导入成功，更新电子件。" : "导入成功，上传电子件。";
+
+                                }
+                                else
+                                {
+                                    var bIsUpdate = internalInvoice.FInvoiceFile != null;
+                                    internalInvoice.FInvoiceFile?.Delete();
+                                    internalInvoice.FInvoiceFile = fileData;
+                                    internalInvoice.Save();
+                                    uow.CommitChanges();
+                                    _htFiles[sFilePath] = bIsUpdate ? "导入成功，更新电子件。" : "导入成功，上传电子件。";
+                                }
                             }
                         }
                     }

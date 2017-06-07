@@ -32,6 +32,7 @@ namespace EastIPSystem.Module.BusinessObjects
             dt_PayDeadline = DateTime.Now;
             Creator = Session.GetObjectByKey<SysUser>(SecuritySystem.CurrentUserId);
             dt_Created = DateTime.Now;
+            
         }
 
         private string _sOurNo;
@@ -168,6 +169,15 @@ namespace EastIPSystem.Module.BusinessObjects
         {
             get { return _bReceipted; }
             set { SetPropertyValue("b_Receipted", ref _bReceipted, value); }
+        }
+
+        private PatentSubmitList patentSubmitList;
+        [Browsable(false)]
+        [Association("PatentSubmitList-PatentPayments")]
+        public PatentSubmitList PatentSubmitList
+        {
+            get { return patentSubmitList; }
+            set { SetPropertyValue("PatentSubmitList", ref patentSubmitList, value); }
         }
 
         [Action(PredefinedCategory.OpenObject)]

@@ -18,18 +18,13 @@ using EastIPSystem.Module.BusinessObjects;
 
 namespace EastIPSystem.Module.Controllers
 {
-    // For more typical usage scenarios, be sure to check out https://documentation.devexpress.com/eXpressAppFramework/clsDevExpressExpressAppViewControllertopic.aspx.
     public partial class VCPatentBase : ViewController
     {
         public VCPatentBase()
         {
             InitializeComponent();
         }
-        protected override void OnActivated()
-        {
-            base.OnActivated();
-            // Perform various tasks depending on the target View.
-        }
+
         protected override void OnViewControlsCreated()
         {
             base.OnViewControlsCreated();
@@ -39,6 +34,13 @@ namespace EastIPSystem.Module.Controllers
                     Frame.GetController<ObjectMethodActionsViewController>().Actions["PatentBase.GetPatentInfo"].Active
                         .SetItemValue("Security", SecuritySystem.IsGranted(View.ObjectSpace, typeof(PatentBase),
                                             SecurityOperations.Write, View.CurrentObject, "s_Name"));
+
+                if (((SysUser)SecuritySystem.CurrentUser).IsUserInRole("国内部-组长"))
+                {
+                    ((PropertyEditor)((DetailView)View).FindItem("Manager")).AllowEdit.SetItemValue("Security", false);
+                    if (ObjectSpace.IsNewObject(View.CurrentObject))
+                        ((PatentBase)View.CurrentObject).Manager = ObjectSpace.GetObjectByKey<SysUser>(SecuritySystem.CurrentUserId);
+                }
             }
             View.SelectionChanged += View_SelectionChanged;
         }
@@ -55,10 +57,5 @@ namespace EastIPSystem.Module.Controllers
                                         SecurityOperations.Write, p, "s_Name")));
         }
 
-        protected override void OnDeactivated()
-        {
-            // Unsubscribe from previously subscribed events and release other references and resources.
-            base.OnDeactivated();
-        }
     }
 }

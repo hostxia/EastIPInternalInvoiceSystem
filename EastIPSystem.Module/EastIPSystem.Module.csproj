@@ -123,6 +123,7 @@
     <Compile Include="BusinessObjects\PatentPaymentRule.cs" />
     <Compile Include="BusinessObjects\PatentPayment.cs" />
     <Compile Include="BusinessObjects\PatentProgress.cs" />
+    <Compile Include="BusinessObjects\PatentSubmitList.cs" />
     <Compile Include="BusinessObjects\SysUser.cs" />
     <Compile Include="BusinessObjects\WorkItem.cs" />
     <Compile Include="BusinessObjects\TimeSheet.cs" />
@@ -155,6 +156,12 @@
     </Compile>
     <Compile Include="Controllers\VCDetailInternalInvoice.Designer.cs">
       <DependentUpon>VCDetailInternalInvoice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\VCExpenseDetail.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\VCExpenseDetail.Designer.cs">
+      <DependentUpon>VCExpenseDetail.cs</DependentUpon>
     </Compile>
     <Compile Include="Controllers\VCListForeignInvoice.cs">
       <SubType>Component</SubType>
@@ -192,6 +199,12 @@
     <Compile Include="Controllers\VCPatentPaymentList.Designer.cs">
       <DependentUpon>VCPatentPaymentList.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\VCPatentSubmitDetail.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\VCPatentSubmitDetail.Designer.cs">
+      <DependentUpon>VCPatentSubmitDetail.cs</DependentUpon>
+    </Compile>
     <Compile Include="DatabaseUpdate\Updater.cs" />
     <Compile Include="DBUtility\DbHelperOra.cs" />
     <Compile Include="Module.cs">
@@ -218,6 +231,9 @@
     <EmbeddedResource Include="Controllers\VCDetailInternalInvoice.resx">
       <DependentUpon>VCDetailInternalInvoice.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\VCExpenseDetail.resx">
+      <DependentUpon>VCExpenseDetail.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controllers\VCListForeignInvoice.resx">
       <DependentUpon>VCListForeignInvoice.cs</DependentUpon>
     </EmbeddedResource>
@@ -235,6 +251,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controllers\VCPatentPaymentList.resx">
       <DependentUpon>VCPatentPaymentList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\VCPatentSubmitDetail.resx">
+      <DependentUpon>VCPatentSubmitDetail.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">
       <SubType>Designer</SubType>
@@ -331,6 +350,36 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="UnusableNodes6_zh-CHS.xml">
+      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="UnusableNodes16.xml">
+      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="UnusableNodes17.xml">
+      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="UnusableNodes7_zh-CHS.xml">
+      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="UnusableNodes18.xml">
+      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="UnusableNodes8_zh-CHS.xml">
       <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
       <SubType>Designer</SubType>
     </None>

@@ -82,8 +82,9 @@ namespace EastIPSystem.Module.Win.Controllers
                 }
                 else if (nType == EnumsAll.PayCaseType.PCT国际 && nPaidBy == EnumsAll.PaidBy.网上缴费)
                 {
+                    excel.Cells[i + 3, 1] = (i + 1).ToString();
                     excel.Cells[i + 3, 2] = payment.s_AppNo.Replace(".", "");
-                    excel.Cells[i + 3, 4] = payment.s_PayerName;
+                    excel.Cells[i + 3, 3] = payment.s_PayerName;
                 }
                 else if (nType == EnumsAll.PayCaseType.PCT国际 && nPaidBy == EnumsAll.PaidBy.现金缴费)
                 {

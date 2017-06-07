@@ -1,4 +1,5 @@
-﻿using EastIPSystem.Module.DBUtility;
+﻿using System;
+using EastIPSystem.Module.DBUtility;
 
 namespace EastIPSystem.Module.BusinessObjects
 {

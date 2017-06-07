@@ -32,5 +32,10 @@
         <PropertyEditor Id="s_FeeName" PropertyEditorType="EastIPSystem.Module.Win.Editors.MRUStringEditor" />
       </Items>
     </DetailView>
+    <DetailView Id="PatentSubmitList_DetailView">
+      <Items>
+        <PropertyEditor Id="s_Content" PropertyEditorType="EastIPSystem.Module.Win.Editors.MRUStringEditor" />
+      </Items>
+    </DetailView>
   </Views>
 </Application>

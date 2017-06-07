@@ -51,6 +51,7 @@
       <Action Id="OrganizeDashboard" Caption="组织仪表板" />
       <Action Id="PatentBase.GetPatentInfo" Caption="填充案件相关信息" />
       <Action Id="PatentPayment.SetPaid" Caption="标记已缴" />
+      <Action Id="PatentSubmitList.CreateInternalInvoice" Caption="创建草单" ConfirmationMessage="是否创建草单？" />
       <Action Id="PreviousObject" Caption="上一条记录" />
       <Action Id="Refresh" Caption="刷新" />
       <Action Id="ResetModelDifferences" Caption="重置模式的差异" />
@@ -687,6 +688,7 @@
     <Class Name="EastIPSystem.Module.BusinessObjects.PatentBase" Caption="案件监控">
       <OwnMembers>
         <Member Name="Applicants" Caption="申请人" />
+        <Member Name="CaseExtensions" Caption="延期历史" />
         <Member Name="Client" Caption="委托人" />
         <Member Name="dt_FilingDeadline" Caption="计划递交日" />
         <Member Name="dt_ReceiveDate" Caption="接案日" />
@@ -747,6 +749,30 @@
         <Member Name="n_Item" Caption="项目" />
         <Member Name="PatentBase" Caption="案件" />
         <Member Name="s_Note" Caption="备注" />
+      </OwnMembers>
+    </Class>
+    <Class Name="EastIPSystem.Module.BusinessObjects.PatentSubmitList" Caption="交局清单">
+      <OwnMembers>
+        <Member Name="b_IsDivCase" Caption="分案" />
+        <Member Name="b_IsReexamCase" Caption="复审案" />
+        <Member Name="b_NoNeedInvoice" Caption="不开草单" />
+        <Member Name="Creator" Caption="创建人" />
+        <Member Name="dt_CreateDate" Caption="创建日期" />
+        <Member Name="dt_SubmitDate" Caption="递交日" />
+        <Member Name="InternalInvoice" Caption="草单" />
+        <Member Name="InternalNo" Caption="草单编号" />
+        <Member Name="PatentCaseType" Caption="案件类型" />
+        <Member Name="PatentDirection" Caption="案件流向" />
+        <Member Name="PatentPayments" Caption="缴费信息" />
+        <Member Name="PatentProcess" Caption="交局类型" />
+        <Member Name="s_AppName" Caption="申请人名称" />
+        <Member Name="s_AppNo" Caption="申请人代码" />
+        <Member Name="s_ClientName" Caption="委托人名称" />
+        <Member Name="s_ClientNo" Caption="委托人代码" />
+        <Member Name="s_Content" Caption="内容" />
+        <Member Name="s_DeptName" Caption="部门" PredefinedValues="国内部;电学部;化学部;机械部;日语部;PA部;版权部;管理部" />
+        <Member Name="s_Note" Caption="备注" />
+        <Member Name="s_OurNo" Caption="我方卷号" />
       </OwnMembers>
     </Class>
     <Class Name="EastIPSystem.Module.BusinessObjects.SysUser" Caption="系统用户" ObjectCaptionFormat="{0:Name}">
@@ -916,6 +942,27 @@
           </LayoutGroup>
           <LayoutGroup Id="Applicants_Group" Caption="申请人" />
           <LayoutGroup Id="Item3" Caption="备注" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="CaseBaseReportView" ObjectCaptionFormat="" Caption="导出报表">
+      <Items>
+        <ControlDetailItem Id="CaseBase.ExportFile" Caption="导出路径" />
+        <ControlDetailItem Id="CaseBase.ReceiveDateBegin" Caption="接案日" />
+        <ControlDetailItem Id="CaseBase.ReceiveDateEnd" Caption="至" />
+        <ControlDetailItem Id="CaseBase.ReportType" Caption="报表类型" />
+        <ControlDetailItem Id="CaseBase.TransferDateBegin" Caption="去案日" />
+        <ControlDetailItem Id="CaseBase.TransferDateEnd" Caption="至" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="Autoe9ed122d-8ba2-434f-979c-f80c95263346" Caption="Autoe9ed122d-8ba2-434f-979c-f80c95263346(5)">
+            <LayoutGroup Id="Item1" Caption="筛选条件">
+              <LayoutGroup Id="Auto89c739bc-b692-4e2b-b46f-f70e711c1757" Caption="Auto89c739bc-b692-4e2b-b46f-f70e711c1757(4)" />
+              <LayoutGroup Id="Auto5907684a-4b7f-471f-8ffc-ee9674c3851a" Caption="Auto5907684a-4b7f-471f-8ffc-ee9674c3851a(7)" />
+            </LayoutGroup>
+            <LayoutGroup Id="Item2" Caption="导出信息" />
+          </LayoutGroup>
         </LayoutGroup>
       </Layout>
     </DetailView>
@@ -1184,22 +1231,8 @@
     </DetailView>
     <DetailView Id="PatentBase_DetailView">
       <Layout>
-        <LayoutGroup Id="SimpleEditors">
-          <LayoutGroup Id="PatentBase" Caption="基本信息" />
-          <LayoutGroup Id="Autoc74ec496-3bf2-4326-83f9-ee5555164a7d" Caption="Autoc74ec496-3bf2-4326-83f9-ee5555164a7d(23)">
-            <LayoutGroup Id="Applicants" Caption="申请人" />
-            <LayoutGroup Id="PatentProgresses" Caption="案件进度" />
-          </LayoutGroup>
-        </LayoutGroup>
         <LayoutGroup Id="Main">
-          <TabbedGroup Id="Tabs">
-            <LayoutGroup Id="Applicants" Caption="申请人" />
-          </TabbedGroup>
           <LayoutGroup Id="SimpleEditors">
-            <LayoutGroup Id="Autoc74ec496-3bf2-4326-83f9-ee5555164a7d" Caption="">
-              <LayoutGroup Id="Applicants" Caption="申请人" />
-              <LayoutGroup Id="PatentProgresses" Caption="案件进度" />
-            </LayoutGroup>
             <LayoutGroup Id="PatentBase" Caption="基本信息" />
           </LayoutGroup>
         </LayoutGroup>
@@ -1223,6 +1256,22 @@
             <LayoutGroup Id="Item1" Caption="创建信息" />
             <LayoutGroup Id="PatentPayment" Caption="缴官费" />
           </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="PatentSubmitList_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="PatentSubmitList" Caption="基本信息" />
+            <LayoutGroup Id="Item2" Caption="草单信息">
+              <LayoutGroup Id="Auto0c057d75-8a14-43ed-a9d9-d80cbbc0c842" Caption="Auto0c057d75-8a14-43ed-a9d9-d80cbbc0c842(21)">
+                <LayoutGroup Id="Auto2799a56a-4fe8-4d73-8bdb-63233c30d8b4" Caption="Auto2799a56a-4fe8-4d73-8bdb-63233c30d8b4(24)" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="PatentPayments_Group" Caption="缴费信息" />
+          <LayoutGroup Id="Item1" Caption="创建信息" />
         </LayoutGroup>
       </Layout>
     </DetailView>

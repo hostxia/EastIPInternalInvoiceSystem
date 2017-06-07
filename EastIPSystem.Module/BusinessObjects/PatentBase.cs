@@ -26,6 +26,7 @@ namespace EastIPSystem.Module.BusinessObjects
         public override void AfterConstruction()
         {
             base.AfterConstruction();
+            PatentProgresses.Add(new PatentProgress(Session) { dt_ItemDate = DateTime.Now, PatentBase = this, n_Item = EnumsAll.PatentProgressItem.未处理 });
         }
 
         protected override void OnSaving()
@@ -169,6 +170,8 @@ namespace EastIPSystem.Module.BusinessObjects
         [Association("PatentBase-PatentProgresses"), DevExpress.Xpo.Aggregated]
         public XPCollection<PatentProgress> PatentProgresses => GetCollection<PatentProgress>("PatentProgresses");
 
+        public XPCollection<CaseExtension> CaseExtensions => new XPCollection<CaseExtension>(Session, CriteriaOperator.Parse("s_OurNo = ?", _sOurNo));
+
         private PatentProgress lastPatentProgress;
         [NoForeignKey]
         public PatentProgress LastPatentProgress
@@ -197,6 +200,21 @@ namespace EastIPSystem.Module.BusinessObjects
             get { return _dtFilingDeadline; }
             set { SetPropertyValue("dt_FilingDeadline", ref _dtFilingDeadline, value); }
         }
+
+        public void GetDeadline()
+        {
+            var objDate =
+                DbHelperOra.GetSingle(
+                    $"select duedate from generalalert where typeid = 'tohandle_presubmit' and comments like '%返稿发明人%' and ourno = '{s_OurNo}'");
+            if (objDate != null)
+                dt_ReturnInventorDate = Convert.ToDateTime(objDate);
+            objDate = DbHelperOra.GetSingle(
+                $"select duedate from generalalert where typeid = 'tohandle_presubmit' and comments like '%返稿工程师%' and ourno = '{s_OurNo}'");
+            if (objDate != null)
+                dt_ReturnIPRDate = Convert.ToDateTime(objDate);
+            Save();
+        }
+
         [Action(PredefinedCategory.RecordEdit)]
         public void GetPatentInfo()
         {
@@ -209,8 +227,10 @@ namespace EastIPSystem.Module.BusinessObjects
                 case EnumsAll.CaseType.Internal:
                     {
                         var dr = DbHelperOra.Query(
-                             $"select RECEIVED,CLIENT,CLIENT_NAME,APPL_CODE1,APPLICANT1,APPLICANT_CH1,APPL_CODE2,APPLICANT2,APPLICANT_CH2,APPL_CODE3,APPLICANT3,APPLICANT_CH3,APPL_CODE4,APPLICANT4,APPLICANT_CH4,APPL_CODE5,APPLICANT5,APPLICANT_CH5,TITLE_CHINESE,CLIENT_NUMBER,FILING_DUE from PATENTCASE where OURNO = '{_sOurNo}'").Tables[0].Rows[0];
+                             $"select RECEIVED,CLIENT,CLIENT_NAME,APPL_CODE1,APPLICANT1,APPLICANT_CH1,APPL_CODE2,APPLICANT2,APPLICANT_CH2,APPL_CODE3,APPLICANT3,APPLICANT_CH3,APPL_CODE4,APPLICANT4,APPLICANT_CH4,APPL_CODE5,APPLICANT5,APPLICANT_CH5,TITLE_CHINESE,CLIENT_NUMBER,FILING_DUE,TITLE from PATENTCASE where OURNO = '{_sOurNo}'").Tables[0].Rows[0];
                         s_Name = dr["TITLE_CHINESE"].ToString();
+                        if (string.IsNullOrWhiteSpace(s_Name))
+                            s_Name = dr["TITLE"].ToString();
                         s_ClientRef = dr["CLIENT_NUMBER"].ToString();
 
                         if (!string.IsNullOrWhiteSpace(dr["RECEIVED"].ToString()))
@@ -256,12 +276,13 @@ namespace EastIPSystem.Module.BusinessObjects
                 case EnumsAll.CaseType.Foreign:
                     {
                         var dr = DbHelperOra.Query(
-                                $"select RECEIVED,CTITLE from FCASE where OURNO = '{_sOurNo}'")
+                                $"select RECEIVED,CTITLE,TITLE from FCASE where OURNO = '{_sOurNo}'")
                             .Tables[0].Rows[0];
                         if (!string.IsNullOrWhiteSpace(dr["RECEIVED"].ToString()))
                             dt_ReceiveDate = Convert.ToDateTime(dr["RECEIVED"].ToString());
                         s_Name = dr["CTITLE"].ToString();
-
+                        if (string.IsNullOrWhiteSpace(s_Name))
+                            s_Name = dr["TITLE"].ToString();
                         var dt = DbHelperOra.Query($"select EID,ROLE,ORIG_NAME,TRAN_NAME,ENT_ORDER from FCASE_ENT_REL where OURNO = '{_sOurNo}'").Tables[0];
                         var tempclient = dt.Select("ROLE = 'CLI' OR ROLE = 'APPCLI'");
                         if (tempclient.Length > 0)

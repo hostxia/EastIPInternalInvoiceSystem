@@ -8,6 +8,7 @@ using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Layout;
 using DevExpress.ExpressApp.Model.NodeGenerators;
+using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Templates;
 using DevExpress.ExpressApp.Utils;
@@ -34,6 +35,15 @@ namespace EastIPSystem.Module.Controllers
             base.OnViewControlsCreated();
             scaFilter.SelectedIndex = 1;
             Frame.GetController<FilterController>().FullTextFilterAction.Execute += FullTextFilterAction_Execute;
+            ((ListView)View).CollectionSource.List.Cast<PatentBase>()
+                .Where(
+                    p => p.LastPatentProgress == null || p.LastPatentProgress.n_Item != EnumsAll.PatentProgressItem.已递交)
+                .ToList()
+                .ForEach(p =>
+                {
+                    if (SecuritySystem.IsGranted(ObjectSpace, p.GetType(), SecurityOperations.Write, p, "s_Name"))
+                        p.GetDeadline();
+                });
         }
 
         private void FullTextFilterAction_Execute(object sender, ParametrizedActionExecuteEventArgs e)

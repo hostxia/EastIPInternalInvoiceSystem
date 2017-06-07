@@ -1,6 +1,7 @@
 ﻿using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Editors;
+using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.StateMachine;
 using DevExpress.ExpressApp.SystemModule;
 using EastIPSystem.Module.BusinessObjects;
@@ -23,7 +24,7 @@ namespace EastIPSystem.Module.Controllers
         protected override void OnViewControlsCreated()
         {
             base.OnViewControlsCreated();
-            // Access and customize the target View control.
+            saGetExtensionCaseInfo.Active.SetItemValue("Security", SecuritySystem.IsGranted(ObjectSpace, typeof(CaseExtension), SecurityOperations.Write, View.CurrentObject, "s_OurNo"));
         }
         protected override void OnDeactivated()
         {

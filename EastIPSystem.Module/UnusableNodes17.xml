@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views Id="Views">
+    <DetailView Id="PatentSubmitList_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="PatentSubmitList">
+              <LayoutGroup Id="PatentSubmitList_col1">
+                <LayoutItem Id="dt_ReceiveDate" RelativeSize="15" />
+              </LayoutGroup>
+              <LayoutGroup Id="PatentSubmitList_col2">
+                <LayoutItem Id="PatentProcess" RelativeSize="15" Index="2" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="PatentSubmitList_ListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="dt_ReceiveDate" Width="59" Index="0" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

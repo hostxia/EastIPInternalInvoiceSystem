@@ -82,152 +82,156 @@ namespace EastIPSystem.Module.BusinessObjects
         public Invoice Invoice
         {
             get { return invoice; }
-            set { SetPropertyValue("n_InvoiceId", ref invoice, value); }
+            set { SetPropertyValue("Invoice", ref invoice, value); }
         }
 
         public DateTime CreateDate
         {
             get { return _dtCreateDate; }
-            set { SetPropertyValue("s_CreateDate", ref _dtCreateDate, value); }
+            set { SetPropertyValue("CreateDate", ref _dtCreateDate, value); }
         }
 
         public string OurNo
         {
             get { return _sOurNo; }
-            set { SetPropertyValue("s_OurNo", ref _sOurNo, value); }
+            set { SetPropertyValue("OurNo", ref _sOurNo, value); }
         }
 
         public string ClientNo
         {
             get { return _sClientNo; }
-            set { SetPropertyValue("s_ClientNo", ref _sClientNo, value); }
+            set { SetPropertyValue("ClientNo", ref _sClientNo, value); }
         }
 
         public string ClientName
         {
             get { return _sClientName; }
-            set { SetPropertyValue("s_ClientName", ref _sClientName, value); }
+            set { SetPropertyValue("ClientName", ref _sClientName, value); }
         }
 
         public string AppNo
         {
             get { return _sAppNo; }
-            set { SetPropertyValue("s_AppNo", ref _sAppNo, value); }
+            set { SetPropertyValue("AppNo", ref _sAppNo, value); }
         }
 
         public string AppName
         {
             get { return _sAppName; }
-            set { SetPropertyValue("s_AppName", ref _sAppName, value); }
+            set { SetPropertyValue("AppName", ref _sAppName, value); }
         }
 
         public string InternalNo
         {
             get { return _sInternalNo; }
-            set { SetPropertyValue("s_InternalNo", ref _sInternalNo, value); }
+            set { SetPropertyValue("InternalNo", ref _sInternalNo, value); }
         }
 
         public string Content
         {
             get { return _sContent; }
-            set { SetPropertyValue("s_Content", ref _sContent, value); }
+            set { SetPropertyValue("Content", ref _sContent, value); }
         }
 
         public string Type
         {
             get { return _sType; }
-            set { SetPropertyValue("s_Type", ref _sType, value); }
+            set { SetPropertyValue("Type", ref _sType, value); }
         }
 
         [NoForeignKey]
         public SysUser Agent1
         {
             get { return _sAgent1; }
-            set { SetPropertyValue("s_Agent1", ref _sAgent1, value); }
+            set { SetPropertyValue("Agent1", ref _sAgent1, value); }
         }
 
         [NoForeignKey]
         public SysUser Agent2
         {
             get { return _sAgent2; }
-            set { SetPropertyValue("s_Agent2", ref _sAgent2, value); }
+            set { SetPropertyValue("Agent2", ref _sAgent2, value); }
         }
 
         [NoForeignKey]
         public SysUser Agent3
         {
             get { return _sAgent3; }
-            set { SetPropertyValue("s_Agent3", ref _sAgent3, value); }
+            set { SetPropertyValue("Agent3", ref _sAgent3, value); }
         }
 
         [NoForeignKey]
         public SysUser Agent4
         {
             get { return _sAgent4; }
-            set { SetPropertyValue("s_Agent4", ref _sAgent4, value); }
+            set { SetPropertyValue("Agent4", ref _sAgent4, value); }
         }
 
         public DateTime SendDate
         {
             get { return _dtSendDate; }
-            set { SetPropertyValue("s_SendDate", ref _dtSendDate, value); }
+            set { SetPropertyValue("SendDate", ref _dtSendDate, value); }
         }
 
         public DateTime Deadline
         {
             get { return _dtDeadline; }
-            set { SetPropertyValue("s_Deadline", ref _dtDeadline, value); }
+            set { SetPropertyValue("Deadline", ref _dtDeadline, value); }
         }
 
         public string Note
         {
             get { return _sNote; }
-            set { SetPropertyValue("s_Note", ref _sNote, value); }
+            set { SetPropertyValue("Note", ref _sNote, value); }
         }
 
         public bool IsInvalid
         {
             get { return _bIsInvalid; }
-            set { SetPropertyValue("b_IsInvalid", ref _bIsInvalid, value); }
+            set { SetPropertyValue("IsInvalid", ref _bIsInvalid, value); }
         }
+
+        [Browsable(false)]
+        [Association("InternalInvoice-PatentSubmitLists")]
+        public XPCollection<PatentSubmitList> PatentSubmitLists => GetCollection<PatentSubmitList>("PatentSubmitLists");
 
         #region 账单信息
         public string InvoiceNo
         {
             get { return _sInvoiceNo; }
-            set { SetPropertyValue("s_InvoiceNo", ref _sInvoiceNo, value); }
+            set { SetPropertyValue("InvoiceNo", ref _sInvoiceNo, value); }
         }
 
         public string InvoiceNote
         {
             get { return _sInvoiceNote; }
-            set { SetPropertyValue("s_InvoiceNote", ref _sInvoiceNote, value); }
+            set { SetPropertyValue("InvoiceNote", ref _sInvoiceNote, value); }
         }
 
         public bool NoNeedInvoice
         {
             get { return _bNoNeedInvoice; }
-            set { SetPropertyValue("b_NoNeedInvoice", ref _bNoNeedInvoice, value); }
+            set { SetPropertyValue("NoNeedInvoice", ref _bNoNeedInvoice, value); }
         }
 
         public DateTime InvoiceLogDate
         {
             get { return _dtInvoiceLogDate; }
-            set { SetPropertyValue("s_InvoiceLogDate", ref _dtInvoiceLogDate, value); }
+            set { SetPropertyValue("InvoiceLogDate", ref _dtInvoiceLogDate, value); }
         }
         #endregion
 
         public EnumsAll.InternalType InternalType
         {
             get { return _nInternalType; }
-            set { SetPropertyValue("n_InternalType", ref _nInternalType, value); }
+            set { SetPropertyValue("InternalType", ref _nInternalType, value); }
         }
 
         [NoForeignKey]
         public SysUser PermissionPolicyUser
         {
             get { return _permissionPolicyUser; }
-            set { SetPropertyValue("s_User", ref _permissionPolicyUser, value); }
+            set { SetPropertyValue("PermissionPolicyUser", ref _permissionPolicyUser, value); }
         }
 
         [Aggregated]
@@ -235,7 +239,7 @@ namespace EastIPSystem.Module.BusinessObjects
         public FileData InvoiceFile
         {
             get { return _sInvoiceFile; }
-            set { SetPropertyValue("s_InvoiceFile", ref _sInvoiceFile, value); }
+            set { SetPropertyValue("InvoiceFile", ref _sInvoiceFile, value); }
         }
 
         #region 第三方账单信息
@@ -250,7 +254,7 @@ namespace EastIPSystem.Module.BusinessObjects
         public string FirmNo
         {
             get { return _sFirmNo; }
-            set { SetPropertyValue("s_FirmNo", ref _sFirmNo, value); }
+            set { SetPropertyValue("FirmNo", ref _sFirmNo, value); }
         }
 
         string fs_Currency;
@@ -346,7 +350,7 @@ namespace EastIPSystem.Module.BusinessObjects
         public FileData FInvoiceFile
         {
             get { return _sFInvoiceFile; }
-            set { SetPropertyValue("s_FInvoiceFile", ref _sFInvoiceFile, value); }
+            set { SetPropertyValue("FInvoiceFile", ref _sFInvoiceFile, value); }
         }
         #endregion
 

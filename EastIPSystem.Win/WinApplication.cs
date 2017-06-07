@@ -8,7 +8,6 @@ using DevExpress.ExpressApp.Win;
 
 namespace EastIPSystem.Win
 {
-    // For more typical usage scenarios, be sure to check out https://documentation.devexpress.com/eXpressAppFramework/DevExpressExpressAppWinWinApplicationMembersTopicAll.aspx
     public partial class EastIPSystemWindowsFormsApplication : WinApplication
     {
         public EastIPSystemWindowsFormsApplication()

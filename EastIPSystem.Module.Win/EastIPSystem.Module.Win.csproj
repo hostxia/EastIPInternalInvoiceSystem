@@ -59,6 +59,7 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Accessibility" />
     <Reference Include="DevExpress.BonusSkins.v16.2, Version=16.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.ExpressApp.FileAttachment.Win.v16.2, Version=16.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.ExpressApp.Security.v16.2, Version=16.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
@@ -75,6 +76,9 @@
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Workflow.v16.2, Version=16.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.ExpressApp.Workflow.Win.v16.2, Version=16.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Office.v16.2.Core, Version=16.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Sparkline.v16.2.Core, Version=16.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Spreadsheet.v16.2.Core, Version=16.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Utils.v16.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -122,6 +126,7 @@
     <Reference Include="DevExpress.XtraPrinting.v16.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.XtraSpreadsheet.v16.2, Version=16.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System">
@@ -131,6 +136,7 @@
     <Reference Include="System.Activities" />
     <Reference Include="System.Activities.Core.Presentation" />
     <Reference Include="System.Activities.Presentation" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.configuration">
       <Private>False</Private>
     </Reference>
@@ -138,11 +144,17 @@
       <Name>System.Data</Name>
       <Private>False</Private>
     </Reference>
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing">
       <Name>System.Drawing</Name>
       <Private>False</Private>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
+    <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel.Activities" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Windows.Forms">
       <Name>System.Windows.Forms</Name>
       <Private>False</Private>
@@ -152,11 +164,21 @@
       <Name>System.XML</Name>
       <Private>False</Private>
     </Reference>
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="WindowsBase" />
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\FormatterHelper.cs" />
+    <Compile Include="Controllers\VCCaseBaseList.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\VCCaseBaseList.Designer.cs">
+      <DependentUpon>VCCaseBaseList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\VCCaseBaseReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controllers\VCDetailForeignInvoice.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -183,6 +205,12 @@
     </Compile>
     <Compile Include="Controllers\VCPatentPaymentList.Designer.cs">
       <DependentUpon>VCPatentPaymentList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\VCPatentSubmitDetail.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\VCPatentSubmitDetail.Designer.cs">
+      <DependentUpon>VCPatentSubmitDetail.cs</DependentUpon>
     </Compile>
     <Compile Include="Controllers\VCWinList.cs">
       <SubType>Component</SubType>
@@ -212,6 +240,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Controllers\VCCaseBaseList.resx">
+      <DependentUpon>VCCaseBaseList.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controllers\VCImportFile.resx">
       <DependentUpon>VCImportFile.cs</DependentUpon>
     </EmbeddedResource>
@@ -220,6 +251,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controllers\VCPatentPaymentList.resx">
       <DependentUpon>VCPatentPaymentList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\VCPatentSubmitDetail.resx">
+      <DependentUpon>VCPatentSubmitDetail.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controllers\XFrmImportFile.resx">
       <DependentUpon>XFrmImportFile.cs</DependentUpon>
