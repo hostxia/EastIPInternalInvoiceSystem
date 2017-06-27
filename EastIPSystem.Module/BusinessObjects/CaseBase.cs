@@ -22,8 +22,8 @@ namespace EastIPSystem.Module.BusinessObjects
 
         protected override void OnSaving()
         {
-            ApplicantCodes = string.Join(";", Applicants.Select(a => a.Code).ToList());
-            ApplicantNames = string.Join(";", Applicants.Select(a => a.Name).ToList());
+            s_ApplicantCodes = string.Join(";", Applicants.Select(a => a.Code).ToList());
+            s_ApplicantNames = string.Join(";", Applicants.Select(a => a.Name).ToList());
             base.OnSaving();
         }
 
@@ -53,7 +53,7 @@ namespace EastIPSystem.Module.BusinessObjects
 
         private string _sOurNo;
         [ImmediatePostData]
-        public string OurNo
+        public string s_OurNo
         {
             get { return _sOurNo; }
             set { SetPropertyValue("s_OurNo", ref _sOurNo, value); }
@@ -62,35 +62,49 @@ namespace EastIPSystem.Module.BusinessObjects
 
 
         private DateTime _dtReceiveDate;
-        public DateTime ReceiveDate
+        public DateTime dt_ReceiveDate
         {
             get { return _dtReceiveDate; }
             set { SetPropertyValue("dt_ReceiveDate", ref _dtReceiveDate, value); }
         }
 
         private DateTime _dtTransferDate;
-        public DateTime TransferDate
+        public DateTime dt_TransferDate
         {
             get { return _dtTransferDate; }
             set { SetPropertyValue("dt_TransferDate", ref _dtTransferDate, value); }
         }
 
-        private bool _bIsSpecified;
-        public bool IsSpecified
+        private bool _bIsSepcified;
+        public bool b_IsSepcified
         {
-            get { return _bIsSpecified; }
-            set { SetPropertyValue("b_IsSpecified", ref _bIsSpecified, value); }
+            get { return _bIsSepcified; }
+            set { SetPropertyValue("b_IsSepcified", ref _bIsSepcified, value); }
         }
 
         private bool _bIsMiddle;
-        public bool IsMiddle
+        public bool b_IsMiddle
         {
             get { return _bIsMiddle; }
             set { SetPropertyValue("b_IsMiddle", ref _bIsMiddle, value); }
         }
 
+        private bool _bIsApplication;
+        public bool b_IsApplication
+        {
+            get { return _bIsApplication; }
+            set { SetPropertyValue("b_IsApplication", ref _bIsApplication, value); }
+        }
+
+        private bool _bIsDivCase;
+        public bool b_IsDivCase
+        {
+            get { return _bIsDivCase; }
+            set { SetPropertyValue("b_IsDivCase", ref _bIsDivCase, value); }
+        }
+
         private string _sNote;
-        public string Note
+        public string s_Note
         {
             get { return _sNote; }
             set { SetPropertyValue("s_Note", ref _sNote, value); }
@@ -101,14 +115,14 @@ namespace EastIPSystem.Module.BusinessObjects
 
 
         private string _sApplicantCodes;
-        public string ApplicantCodes
+        public string s_ApplicantCodes
         {
             get { return _sApplicantCodes; }
             set { SetPropertyValue("s_ApplicantCodes", ref _sApplicantCodes, value); }
         }
 
         private string _sApplicantNames;
-        public string ApplicantNames
+        public string s_ApplicantNames
         {
             get { return _sApplicantNames; }
             set { SetPropertyValue("s_ApplicantNames", ref _sApplicantNames, value); }
@@ -117,8 +131,8 @@ namespace EastIPSystem.Module.BusinessObjects
         public void GetCaseInfo()
         {
             EnumsAll.CaseType caseType = EnumsAll.CaseType.Internal;
-            OurNo = CommonFunction.GetOurNo(_sOurNo, ref caseType);
-            if (string.IsNullOrEmpty(OurNo)) return;
+            s_OurNo = CommonFunction.GetOurNo(_sOurNo, ref caseType);
+            if (string.IsNullOrEmpty(s_OurNo)) return;
             switch (caseType)
             {
                 case EnumsAll.CaseType.Internal:
@@ -126,7 +140,7 @@ namespace EastIPSystem.Module.BusinessObjects
                         var dr = DbHelperOra.Query(
                              $"select RECEIVED,CLIENT,CLIENT_NAME,APPL_CODE1,APPLICANT1,APPLICANT_CH1,APPL_CODE2,APPLICANT2,APPLICANT_CH2,APPL_CODE3,APPLICANT3,APPLICANT_CH3,APPL_CODE4,APPLICANT4,APPLICANT_CH4,APPL_CODE5,APPLICANT5,APPLICANT_CH5 from PATENTCASE where OURNO = '{_sOurNo}'").Tables[0].Rows[0];
                         if (!string.IsNullOrWhiteSpace(dr["RECEIVED"].ToString()))
-                            ReceiveDate = Convert.ToDateTime(dr["RECEIVED"].ToString());
+                            dt_ReceiveDate = Convert.ToDateTime(dr["RECEIVED"].ToString());
                         if (!string.IsNullOrWhiteSpace(dr["CLIENT"].ToString()))
                             Client =
                                 Session.FindObject<Corporation>(CriteriaOperator.Parse($"Code = '{dr["CLIENT"]}'")) ??
@@ -161,7 +175,7 @@ namespace EastIPSystem.Module.BusinessObjects
                                 $"select RECEIVED from FCASE where OURNO = '{_sOurNo}'")
                             .Tables[0].Rows[0];
                         if (!string.IsNullOrWhiteSpace(dr["RECEIVED"].ToString()))
-                            ReceiveDate = Convert.ToDateTime(dr["RECEIVED"].ToString());
+                            dt_ReceiveDate = Convert.ToDateTime(dr["RECEIVED"].ToString());
 
                         var dt = DbHelperOra.Query($"select EID,ROLE,ORIG_NAME,TRAN_NAME,ENT_ORDER from FCASE_ENT_REL where OURNO = '{_sOurNo}'").Tables[0];
                         var tempclient = dt.Select("ROLE = 'CLI' OR ROLE = 'APPCLI'");

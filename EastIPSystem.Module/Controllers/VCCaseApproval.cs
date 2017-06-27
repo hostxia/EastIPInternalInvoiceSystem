@@ -19,13 +19,11 @@ using EastIPSystem.Module.BusinessObjects;
 
 namespace EastIPSystem.Module.Controllers
 {
-    // For more typical usage scenarios, be sure to check out https://documentation.devexpress.com/eXpressAppFramework/clsDevExpressExpressAppViewControllertopic.aspx.
     public partial class VCCaseApproval : ViewController
     {
         public VCCaseApproval()
         {
             InitializeComponent();
-            // Target required Views (via the TargetXXX properties) and create their Actions.
         }
         protected override void OnActivated()
         {
@@ -44,6 +42,17 @@ namespace EastIPSystem.Module.Controllers
             {
                 SetApprovalState(View);
             }
+            Frame.GetController<StateMachineController>().TransitionExecuted += VCCaseApproval_TransitionExecuted;
+        }
+
+        private void VCCaseApproval_TransitionExecuted(object sender, ExecuteTransitionEventArgs e)
+        {
+            var caseEnxtension = e.TargetObject as CaseExtension;
+            if (caseEnxtension == null) return;
+            if ((EnumsAll.CaseExtensionState)e.Transition.TargetState.Marker != EnumsAll.CaseExtensionState.确认延期) return;
+            CommonFunction.UpdateCaseExtensionInPatentCase(caseEnxtension.s_OurNo, caseEnxtension.n_ExtendItem, caseEnxtension.dt_ExtendDate);
+            if (caseEnxtension.n_ExtendItem2.HasValue)
+                CommonFunction.UpdateCaseExtensionInPatentCase(caseEnxtension.s_OurNo, caseEnxtension.n_ExtendItem2.Value, caseEnxtension.dt_ExtendDate2);
         }
 
         private void View_SelectionChanged(object sender, EventArgs e)

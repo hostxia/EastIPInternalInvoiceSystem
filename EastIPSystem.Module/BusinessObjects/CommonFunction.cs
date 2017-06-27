@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using EastIPSystem.Module.DBUtility;
 
 namespace EastIPSystem.Module.BusinessObjects
@@ -109,5 +111,29 @@ namespace EastIPSystem.Module.BusinessObjects
                 sApplicantNo = dtHResult.Rows[0]["appl_code1"].ToString();
             }
         }
+
+        public static bool UpdateCaseExtensionInPatentCase(string sOurNo, EnumsAll.CaseExtensionItem caseExtensionItem,
+            DateTime dtExetensionDate)
+        {
+            if (dtExetensionDate == DateTime.MinValue) return true;
+            if (string.IsNullOrWhiteSpace(sOurNo)) return true;
+            var listSql = new List<string>();
+            switch (caseExtensionItem)
+            {
+                case EnumsAll.CaseExtensionItem.计划日或绝限日:
+                    listSql.Add($"update patentcase set FILING_DUE = to_date('{dtExetensionDate:yyyy/MM/dd}','yyyy/MM/dd'),DEADLINE = to_date('{dtExetensionDate:yyyy/MM/dd}','yyyy/MM/dd')  where ourno = '{sOurNo}'");
+                    break;
+                case EnumsAll.CaseExtensionItem.国外库_递交日:
+                    listSql.Add($"update fcase set DEADLINE = to_date('{dtExetensionDate:yyyy/MM/dd}','yyyy/MM/dd') where ourno = '{sOurNo}'");
+                    break;
+                    //case EnumsAll.CaseExtensionItem.答OA时限:
+                    //    listSql.Add($"update generalalert set DUEDATE = to_date('{dtExetensionDate:yyyy/MM/dd}','yyyy/MM/dd') where typeid = 'invoa' and ourno = '{sOurNo}' and COMPLETEDATE is null");
+                    //    break;
+            }
+            if (listSql.Count > 0)
+                return DbHelperOra.ExecuteSql(listSql[0]) == 1;
+            return true;
+        }
     }
+    
 }

@@ -4,6 +4,8 @@
     <Actions>
       <Action Id="Cancel" Caption="取消" />
       <Action Id="ChangeStateAction" Caption="更改状态" ToolTip="更改当前对象的状态" />
+      <Action Id="CommonInvoice.CreateInvoiceItem" Caption="生成账单" />
+      <Action Id="CommonInvoice.GetInvoiceInfo" ShortCaption="获取账单信息" ToolTip="获取账单信息" Caption="获取账单信息" />
       <Action Id="CopyModelDifference" Caption="复制模型的区别" />
       <Action Id="CreateDashboard" Caption="创建仪表板" />
       <Action Id="CreateModelDifferences" Caption="创建模式的差异" />
@@ -29,8 +31,6 @@
       <Action Id="DialogCancel" Caption="取消" />
       <Action Id="DialogClose" Caption="关闭" />
       <Action Id="DialogOK" Caption="确定" />
-      <Action Id="Dismiss" Caption="消除" />
-      <Action Id="DismissAll" Caption="全部消除" />
       <Action Id="Expense.GetCaseInfo" Caption="获取我方卷号" />
       <Action Id="ExportModelDifferences" Caption="导出模型的差异" />
       <Action Id="FullTextSearch" Caption="按文本筛选" ShortCaption="查询" NullValuePrompt="查询内容" ToolTip="通过文字筛选内容" />
@@ -61,9 +61,9 @@
       <Action Id="SaveAndNew" Caption="保存并新建" />
       <Action Id="SetFilter" Caption="筛选器" />
       <Action Id="ShowAllContexts" Caption="验证" />
+      <Action Id="ShowInReportV2" Caption="显示报表" />
       <Action Id="ShowItemsOnDashboard" Caption="在仪表板上显示" />
       <Action Id="ShowNavigationItem" Caption="显示导航选项" />
-      <Action Id="Snooze" Caption="暂停" />
       <Action Id="Unlink" Caption="取消关联" />
     </Actions>
     <DisableReasons>
@@ -77,25 +77,6 @@
       <OwnMembers>
         <Member Name="FilteredObjectsType" Caption="经过筛选的对象类型" />
         <Member Name="FilterString" Caption="筛选器字符串" />
-      </OwnMembers>
-    </Class>
-    <Class Name="DevExpress.ExpressApp.Notifications.CommonNotificationItem">
-      <OwnMembers>
-        <Member Name="NotificationSource" Caption="通知源" />
-      </OwnMembers>
-    </Class>
-    <Class Name="DevExpress.ExpressApp.Notifications.Notification" Caption="通知">
-      <OwnMembers>
-        <Member Name="AlarmTime" Caption="提醒时间" />
-        <Member Name="Subject" Caption="标题" />
-      </OwnMembers>
-    </Class>
-    <Class Name="DevExpress.ExpressApp.Notifications.NotificationsObject" ObjectCaptionFormat="{0:NotificationsCount} 条通知">
-      <OwnMembers>
-        <Member Name="Notifications" Caption="通知" />
-        <Member Name="NotificationsState" Caption="通知状态" />
-        <Member Name="Postpone" Caption="推迟" />
-        <Member Name="ShowNotificationsWindow" Caption="显示通知窗口" />
       </OwnMembers>
     </Class>
     <Class Name="DevExpress.ExpressApp.StateMachine.Xpo.StateMachineObjectBase" Caption="状态机对象基础" />
@@ -172,12 +153,6 @@
         <Member Name="CopyBehavior" Caption="复制行为" />
         <Member Name="SourceModelDifference" Caption="源模型的区别" />
         <Member Name="TargetModelDifferences" Caption="目标模式的差异" />
-      </OwnMembers>
-    </Class>
-    <Class Name="DevExpress.ExpressApp.SystemModule.Notifications.PostponeTime" Caption="推迟时间">
-      <OwnMembers>
-        <Member Name="RemindIn" Caption="提醒间隔" />
-        <Member Name="RemindInText" Caption="提醒间隔" />
       </OwnMembers>
     </Class>
     <Class Name="DevExpress.ExpressApp.SystemModule.StaticImageDashboardOrganizationItem" Caption="静态图像">
@@ -621,16 +596,18 @@
     <Class Name="EastIPSystem.Module.BusinessObjects.CaseBase" Caption="案件信息">
       <OwnMembers>
         <Member Name="Agency" Caption="外代理" />
-        <Member Name="ApplicantCodes" Caption="申请人代码" />
-        <Member Name="ApplicantNames" Caption="申请人名称" />
         <Member Name="Applicants" Caption="申请人" />
+        <Member Name="b_IsApplication" Caption="申请人指定" />
+        <Member Name="b_IsDivCase" Caption="分案" />
+        <Member Name="b_IsMiddle" Caption="转入案" />
+        <Member Name="b_IsSepcified" Caption="特殊案" />
         <Member Name="Client" Caption="委托人" />
-        <Member Name="IsMiddle" Caption="转入案" />
-        <Member Name="IsSpecified" Caption="申请人指定" />
-        <Member Name="Note" Caption="备注" />
-        <Member Name="OurNo" Caption="我方卷号" />
-        <Member Name="ReceiveDate" Caption="接案日" />
-        <Member Name="TransferDate" Caption="去案日" />
+        <Member Name="dt_ReceiveDate" Caption="来案日" />
+        <Member Name="dt_TransferDate" Caption="去案日" />
+        <Member Name="s_ApplicantCodes" Caption="申请人代码" />
+        <Member Name="s_ApplicantNames" Caption="申请人名称" />
+        <Member Name="s_Note" Caption="备注" />
+        <Member Name="s_OurNo" Caption="我方卷号" />
       </OwnMembers>
     </Class>
     <Class Name="EastIPSystem.Module.BusinessObjects.CaseExtension" Caption="延期">
@@ -659,6 +636,82 @@
         <Member Name="s_ExtendNote" Caption="延期原因" />
         <Member Name="s_ModifyReason" Caption="未修改原因" />
         <Member Name="s_OurNo" Caption="我方卷号" />
+      </OwnMembers>
+    </Class>
+    <Class Name="EastIPSystem.Module.BusinessObjects.CodeFee" Caption="收费标准">
+      <OwnMembers>
+        <Member Name="n_Currency" Caption="币种" />
+        <Member Name="n_Language" Caption="文种" />
+        <Member Name="n_Price" Caption="单价" EditMask="n2" DisplayFormat="{0:n2}" />
+        <Member Name="s_Code" Caption="标准代码" />
+        <Member Name="s_InternalType" Caption="草单类型" />
+        <Member Name="s_InvoiceType" Caption="账单类型" />
+        <Member Name="s_MergeCode" Caption="合并代码" />
+        <Member Name="s_MergeContent" Caption="合并内容" />
+        <Member Name="s_Name" Caption="名称" />
+      </OwnMembers>
+    </Class>
+    <Class Name="EastIPSystem.Module.BusinessObjects.CommonInternalItem" Caption="草单项">
+      <OwnMembers>
+        <Member Name="CodeFee" Caption="收费标准" />
+        <Member Name="CommonInvoice" Caption="账单" />
+        <Member Name="n_Amount" Caption="金额" EditMask="n2" DisplayFormat="{0:n2}" />
+        <Member Name="n_Count" Caption="数量" EditMask="n2" DisplayFormat="{0:n2}" />
+        <Member Name="n_Currency" Caption="币种" />
+        <Member Name="n_Price" Caption="单价" EditMask="n2" DisplayFormat="{0:n2}" />
+        <Member Name="s_Name" Caption="名称" />
+      </OwnMembers>
+    </Class>
+    <Class Name="EastIPSystem.Module.BusinessObjects.CommonInvoice" Caption="账单">
+      <OwnMembers>
+        <Member Name="b_IsMiddleCase" Caption="转入案" />
+        <Member Name="b_IsWriteCase" Caption="撰写案" />
+        <Member Name="CommonInternalItems" Caption="草单项" />
+        <Member Name="CommonInvoiceItems" Caption="账单项" />
+        <Member Name="CommonInvoiceTypeItems" Caption="账单类型" />
+        <Member Name="dt_ActionDate" Caption="动作日" />
+        <Member Name="dt_BillingDate" Caption="开单日" />
+        <Member Name="n_Currency" Caption="账单币种" />
+        <Member Name="n_ExchangeCurrency" Caption="兑换币种" />
+        <Member Name="n_ExchangeRate" Caption="兑换汇率" DisplayFormat="{0:n6}" EditMask="n6" />
+        <Member Name="n_Rate" Caption="汇率" DisplayFormat="{0:n6}" EditMask="n6" />
+        <Member Name="n_TotalAmount" Caption="总金额" DisplayFormat="{0:n2}" EditMask="n2" />
+        <Member Name="s_AppCaseNo" Caption="申请人卷号" />
+        <Member Name="s_ApplicantName" Caption="申请人名称" />
+        <Member Name="s_AppNo" Caption="申请号" />
+        <Member Name="s_ClientCaseNo" Caption="委托人卷号" />
+        <Member Name="s_ClientName" Caption="委托人名称" />
+        <Member Name="s_Contact" Caption="账单地址" />
+        <Member Name="s_InternalNo" Caption="草单编号" />
+        <Member Name="s_InvoiceNo" Caption="账单号" />
+        <Member Name="s_Note" Caption="备注" />
+        <Member Name="s_OurNo" Caption="我方卷号" />
+        <Member Name="s_Reason" Caption="账单说明" />
+      </OwnMembers>
+    </Class>
+    <Class Name="EastIPSystem.Module.BusinessObjects.CommonInvoiceItem" Caption="账单项">
+      <OwnMembers>
+        <Member Name="b_IsDiable" Caption="不收费" />
+        <Member Name="CommonInvoiceTypeItem" Caption="账单类型" />
+        <Member Name="n_Amount" Caption="原始金额" EditMask="n2" DisplayFormat="{0:n2}" />
+        <Member Name="n_Discount" Caption="折扣" EditMask="n2" DisplayFormat="{0:n2}" />
+        <Member Name="n_DiscountType" Caption="折扣类型" />
+        <Member Name="n_PayableAmount" Caption="应收金额" EditMask="n2" DisplayFormat="{0:n2}" />
+        <Member Name="n_Seq" Caption="顺序" />
+        <Member Name="s_Name" Caption="名称" />
+      </OwnMembers>
+    </Class>
+    <Class Name="EastIPSystem.Module.BusinessObjects.CommonInvoiceTypeItem" Caption="类型折扣">
+      <OwnMembers>
+        <Member Name="CommonInvoice" Caption="账单" />
+        <Member Name="CommonInvoiceItems" Caption="账单项" />
+        <Member Name="n_Amount" Caption="原始金额" DisplayFormat="{0:n2}" EditMask="n2" />
+        <Member Name="n_Discount" Caption="折扣" DisplayFormat="{0:n2}" EditMask="n2" />
+        <Member Name="n_DiscountType" Caption="折扣类型" />
+        <Member Name="n_PayableAmount" Caption="应收金额" DisplayFormat="{0:n2}" EditMask="n2" />
+        <Member Name="n_Seq" Caption="顺序" />
+        <Member Name="s_FormatText" Caption="优惠描述" />
+        <Member Name="s_InvoiceType" Caption="账单类型" />
       </OwnMembers>
     </Class>
     <Class Name="EastIPSystem.Module.BusinessObjects.Corporation" Caption="联系信息">
@@ -696,6 +749,7 @@
         <Member Name="dt_ReturnIPRDate" Caption="计划返IPR日" />
         <Member Name="LastPatentProgress" Caption="最新进度" />
         <Member Name="Manager" Caption="负责人" />
+        <Member Name="n_ReceiveDays" Caption="接案天数" />
         <Member Name="PatentProgresses" Caption="案件进度" />
         <Member Name="s_AgentNote" Caption="代理人备注" />
         <Member Name="s_ApplicantCodes" Caption="申请人代码" />
@@ -759,6 +813,7 @@
         <Member Name="Creator" Caption="创建人" />
         <Member Name="dt_CreateDate" Caption="创建日期" />
         <Member Name="dt_SubmitDate" Caption="递交日" />
+        <Member Name="Handler" Caption="处理人" />
         <Member Name="InternalInvoice" Caption="草单" />
         <Member Name="InternalNo" Caption="草单编号" />
         <Member Name="PatentCaseType" Caption="案件类型" />
@@ -769,7 +824,7 @@
         <Member Name="s_AppNo" Caption="申请人代码" />
         <Member Name="s_ClientName" Caption="委托人名称" />
         <Member Name="s_ClientNo" Caption="委托人代码" />
-        <Member Name="s_Content" Caption="内容" />
+        <Member Name="s_Content" Caption="交局内容" />
         <Member Name="s_DeptName" Caption="部门" PredefinedValues="国内部;电学部;化学部;机械部;日语部;PA部;版权部;管理部" />
         <Member Name="s_Note" Caption="备注" />
         <Member Name="s_OurNo" Caption="我方卷号" />
@@ -819,15 +874,6 @@
         <LocalizationItem Name="Hide" Value="隐藏" />
         <LocalizationItem Name="Show" Value="显示" />
       </LocalizationGroup>
-      <LocalizationGroup Name="DevExpress.ExpressApp.Notifications.NotificationItemState" Value="通知项目状态">
-        <LocalizationItem Name="Active" Value="有效的" />
-        <LocalizationItem Name="Postponed" Value="已推迟" />
-      </LocalizationGroup>
-      <LocalizationGroup Name="DevExpress.ExpressApp.Notifications.NotificationsType" Value="通知类型">
-        <LocalizationItem Name="Active" Value="活动的" />
-        <LocalizationItem Name="All" Value="全部" />
-        <LocalizationItem Name="Postponed" Value="已推迟" />
-      </LocalizationGroup>
       <LocalizationGroup Name="DevExpress.ExpressApp.Templates.ActionsToolbarVisibility" Value="标准" />
       <LocalizationGroup Name="DevExpress.Persistent.Base.SecurityPermissionState">
         <LocalizationItem Name="Allow" Value="允许" />
@@ -876,25 +922,22 @@
     <LocalizationGroup Name="Messages">
       <LocalizationItem Name="User" Value="用户: {0}" />
     </LocalizationGroup>
-    <LocalizationGroup Name="Namespaces">
-      <LocalizationItem Name="DevExpress.ExpressApp.Notifications" Value="通知" />
-      <LocalizationItem Name="DevExpress.ExpressApp.SystemModule.Notifications" Value="通知" />
-    </LocalizationGroup>
-    <LocalizationGroup Name="Notifications">
-      <LocalizationItem Name="NotificationViewCaption" Value="通知" />
-      <LocalizationItem Name="ShowNotificationsActionEnabledTooltip" Value="显示通知" />
-    </LocalizationGroup>
     <LocalizationGroup Name="Texts">
       <LocalizationItem Name="Error" Value="错误" />
       <LocalizationItem Name="NullValueText" Value="错误" />
       <LocalizationItem Name="Warning" Value="错误" />
     </LocalizationGroup>
   </Localization>
-  <NavigationItems>
+  <NavigationItems RelatedReportsGroupCaption="报表">
     <Items>
       <Item Id="@727079be-78de-4f2b-b8e6-261e45d1021c" Caption="财务管理">
         <Items>
           <Item Id="ForeignInvoice_ListView" Caption="第三方账单" />
+        </Items>
+      </Item>
+      <Item Id="Reports">
+        <Items>
+          <Item Id="ReportsV2" Caption="报表" />
         </Items>
       </Item>
       <Item Id="State Machine" Caption="状态机" />
@@ -950,7 +993,6 @@
         <ControlDetailItem Id="CaseBase.ExportFile" Caption="导出路径" />
         <ControlDetailItem Id="CaseBase.ReceiveDateBegin" Caption="接案日" />
         <ControlDetailItem Id="CaseBase.ReceiveDateEnd" Caption="至" />
-        <ControlDetailItem Id="CaseBase.ReportType" Caption="报表类型" />
         <ControlDetailItem Id="CaseBase.TransferDateBegin" Caption="去案日" />
         <ControlDetailItem Id="CaseBase.TransferDateEnd" Caption="至" />
       </Items>
@@ -998,6 +1040,66 @@
             <LayoutGroup Id="Autoc22320ed-e14f-4ff5-9750-a41e71e04bbd">
               <LayoutGroup Id="Item3" Caption="确认修改" />
               <LayoutGroup Id="Item4" Caption="创建信息" />
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="CodeFee_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="CodeFee" Caption="收费标准" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="CommonInternalItem_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="CommonInternalItem" Caption="草单项">
+              <LayoutGroup Id="CommonInternalItem_col2" Caption="CommonInternalItem_col2" />
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="CommonInvoice_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="CommonInvoice" Caption="账单信息">
+              <LayoutGroup Id="CommonInvoice_col1">
+                <LayoutGroup Id="Auto47570a9a-aeac-4104-bfae-316e9e25777c" Caption="Auto47570a9a-aeac-4104-bfae-316e9e25777c(5)" />
+              </LayoutGroup>
+              <LayoutGroup Id="CommonInvoice_col2" Caption="CommonInvoice_col2">
+                <LayoutGroup Id="Auto41cf507d-4b71-4f07-b173-f57a19291da4" Caption="" />
+                <LayoutGroup Id="Auto450144a7-c88b-4e04-9e7f-b23fe97e8428" Caption="Auto450144a7-c88b-4e04-9e7f-b23fe97e8428(14)" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="SizeableEditors" Caption="SizeableEditors" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="CommonInvoiceItem_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="CommonInvoiceItem" Caption="账单项">
+              <LayoutGroup Id="CommonInvoiceItem_col2" Caption="CommonInvoiceItem_col2" />
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="CommonInvoiceTypeItem_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="CommonInvoiceTypeItem" Caption="基本信息">
+              <LayoutGroup Id="CommonInvoiceTypeItem_col2" Caption="CommonInvoiceTypeItem_col2" />
             </LayoutGroup>
           </LayoutGroup>
         </LayoutGroup>
@@ -1215,20 +1317,6 @@
         <ColumnInfo Id="DisplayName" Caption="规则值比较属性" />
       </Columns>
     </ListView>
-    <DetailView Id="Notification_DetailView">
-      <Layout>
-        <LayoutGroup Id="Main">
-          <LayoutGroup Id="SimpleEditors">
-            <LayoutGroup Id="Notification" Caption="通知" />
-          </LayoutGroup>
-        </LayoutGroup>
-      </Layout>
-    </DetailView>
-    <DetailView Id="NotificationsObject_DetailView">
-      <Items>
-        <PropertyEditor Id="Postpone" Caption="暂停时间" />
-      </Items>
-    </DetailView>
     <DetailView Id="PatentBase_DetailView">
       <Layout>
         <LayoutGroup Id="Main">
@@ -1288,28 +1376,6 @@
     <ListView Id="PermissionPolicyUser_LookupListView">
       <Columns>
         <ColumnInfo Id="UserName" Caption="账号" />
-      </Columns>
-    </ListView>
-    <DetailView Id="PostponeTime_DetailView">
-      <Items>
-        <PropertyEditor Id="RemindIn" Caption="提醒间隔" />
-      </Items>
-      <Layout>
-        <LayoutGroup Id="Main">
-          <LayoutGroup Id="SimpleEditors">
-            <LayoutGroup Id="PostponeTime" Caption="推迟时间" />
-          </LayoutGroup>
-        </LayoutGroup>
-      </Layout>
-    </DetailView>
-    <ListView Id="PostponeTime_ListView">
-      <Columns>
-        <ColumnInfo Id="RemindIn" Caption="提醒间隔" />
-      </Columns>
-    </ListView>
-    <ListView Id="PostponeTime_LookupListView">
-      <Columns>
-        <ColumnInfo Id="RemindInText" Caption="提醒间隔" />
       </Columns>
     </ListView>
     <DetailView Id="RuleBaseProperties_DetailView">

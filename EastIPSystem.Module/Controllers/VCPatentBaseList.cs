@@ -33,7 +33,7 @@ namespace EastIPSystem.Module.Controllers
         protected override void OnViewControlsCreated()
         {
             base.OnViewControlsCreated();
-            scaFilter.SelectedIndex = 1;
+            scaFilter.SelectedIndex = 0;
             Frame.GetController<FilterController>().FullTextFilterAction.Execute += FullTextFilterAction_Execute;
             ((ListView)View).CollectionSource.List.Cast<PatentBase>()
                 .Where(
@@ -44,6 +44,7 @@ namespace EastIPSystem.Module.Controllers
                     if (SecuritySystem.IsGranted(ObjectSpace, p.GetType(), SecurityOperations.Write, p, "s_Name"))
                         p.GetDeadline();
                 });
+            Frame.GetController<FilterController>().FullTextFilterAction.DoExecute("");
         }
 
         private void FullTextFilterAction_Execute(object sender, ParametrizedActionExecuteEventArgs e)
@@ -53,7 +54,7 @@ namespace EastIPSystem.Module.Controllers
                 switch (scaFilter.SelectedItem.Data.ToString())
                 {
                     case "1":
-                        ((ListView)View).CollectionSource.SetCriteria("Custom", $"LastPatentProgress Is Null Or LastPatentProgress.n_Item != {Convert.ToInt32(EnumsAll.PatentProgressItem.已递交)}");
+                        ((ListView)View).CollectionSource.SetCriteria("Custom", $"LastPatentProgress Is Null Or LastPatentProgress.n_Item != {Convert.ToInt32(EnumsAll.PatentProgressItem.已递交)} And LastPatentProgress.n_Item != {Convert.ToInt32(EnumsAll.PatentProgressItem.指示放弃)}");
                         break;
                     default:
                         ((ListView)View).CollectionSource.SetCriteria("Custom", null);

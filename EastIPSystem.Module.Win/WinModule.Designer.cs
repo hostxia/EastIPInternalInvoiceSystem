@@ -24,12 +24,13 @@ namespace EastIPSystem.Module.Win {
         /// </summary>
         private void InitializeComponent() {
             // 
-            // EastIPInternalInvoiceSystemWindowsFormsModule
+            // EastIPSystemWindowsFormsModule
             // 
             this.RequiredModuleTypes.Add(typeof(EastIPSystem.Module.EastIPSystemModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Win.SystemModule.SystemWindowsFormsModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Validation.Win.ValidationWindowsFormsModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.FileAttachments.Win.FileAttachmentsWindowsFormsModule));
+            this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.ReportsV2.Win.ReportsWindowsFormsModuleV2));
 
         }
 

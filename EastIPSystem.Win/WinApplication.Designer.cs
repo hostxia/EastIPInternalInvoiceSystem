@@ -38,13 +38,12 @@ namespace EastIPSystem.Win {
             this.dashboardsModule1 = new DevExpress.ExpressApp.Dashboards.DashboardsModule();
             this.conditionalAppearanceModule1 = new DevExpress.ExpressApp.ConditionalAppearance.ConditionalAppearanceModule();
             this.stateMachineModule1 = new DevExpress.ExpressApp.StateMachine.StateMachineModule();
-            this.notificationsWindowsFormsModule1 = new DevExpress.ExpressApp.Notifications.Win.NotificationsWindowsFormsModule();
-            this.notificationsModule1 = new DevExpress.ExpressApp.Notifications.NotificationsModule();
             this.module3 = new EastIPSystem.Module.EastIPSystemModule();
             this.module4 = new EastIPSystem.Module.Win.EastIPSystemWindowsFormsModule();
             this.securityModule1 = new DevExpress.ExpressApp.Security.SecurityModule();
             this.securityStrategyComplex1 = new DevExpress.ExpressApp.Security.SecurityStrategyComplex();
             this.authenticationStandard1 = new DevExpress.ExpressApp.Security.AuthenticationStandard();
+            this.reportsModuleV21 = new DevExpress.ExpressApp.ReportsV2.ReportsModuleV2();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // validationModule
@@ -64,15 +63,6 @@ namespace EastIPSystem.Win {
             // 
             this.stateMachineModule1.StateMachineStorageType = typeof(DevExpress.ExpressApp.StateMachine.Xpo.XpoStateMachine);
             // 
-            // notificationsModule1
-            // 
-            this.notificationsModule1.CanAccessPostponedItems = true;
-            this.notificationsModule1.NotificationsRefreshInterval = System.TimeSpan.Parse("00:05:00");
-            this.notificationsModule1.NotificationsStartDelay = System.TimeSpan.Parse("00:00:05");
-            this.notificationsModule1.ShowDismissAllAction = true;
-            this.notificationsModule1.ShowNotificationsWindow = true;
-            this.notificationsModule1.ShowRefreshAction = false;
-            // 
             // securityStrategyComplex1
             // 
             this.securityStrategyComplex1.Authentication = this.authenticationStandard1;
@@ -83,6 +73,11 @@ namespace EastIPSystem.Win {
             // authenticationStandard1
             // 
             this.authenticationStandard1.LogonParametersType = typeof(DevExpress.ExpressApp.Security.AuthenticationStandardLogonParameters);
+            // 
+            // reportsModuleV21
+            // 
+            this.reportsModuleV21.EnableInplaceReports = true;
+            this.reportsModuleV21.ReportDataType = typeof(DevExpress.Persistent.BaseImpl.ReportDataV2);
             // 
             // EastIPSystemWindowsFormsApplication
             // 
@@ -96,14 +91,13 @@ namespace EastIPSystem.Win {
             this.Modules.Add(this.dashboardsModule1);
             this.Modules.Add(this.conditionalAppearanceModule1);
             this.Modules.Add(this.stateMachineModule1);
-            this.Modules.Add(this.notificationsModule1);
             this.Modules.Add(this.module3);
             this.Modules.Add(this.validationWindowsFormsModule);
             this.Modules.Add(this.fileAttachmentsWindowsFormsModule1);
             this.Modules.Add(this.module4);
             this.Modules.Add(this.securityModule1);
             this.Modules.Add(this.dashboardsWindowsFormsModule1);
-            this.Modules.Add(this.notificationsWindowsFormsModule1);
+            this.Modules.Add(this.reportsModuleV21);
             this.ResourcesExportedToModel.Add(typeof(DevExpress.ExpressApp.Localization.PreviewControlLocalizer));
             this.ResourcesExportedToModel.Add(typeof(DevExpress.ExpressApp.Win.Localization.GridControlLocalizer));
             this.ResourcesExportedToModel.Add(typeof(DevExpress.ExpressApp.Win.Localization.LayoutControlLocalizer));
@@ -155,7 +149,6 @@ namespace EastIPSystem.Win {
         private DevExpress.ExpressApp.Dashboards.DashboardsModule dashboardsModule1;
         private DevExpress.ExpressApp.ConditionalAppearance.ConditionalAppearanceModule conditionalAppearanceModule1;
         private DevExpress.ExpressApp.StateMachine.StateMachineModule stateMachineModule1;
-        private DevExpress.ExpressApp.Notifications.Win.NotificationsWindowsFormsModule notificationsWindowsFormsModule1;
-        private DevExpress.ExpressApp.Notifications.NotificationsModule notificationsModule1;
+        private DevExpress.ExpressApp.ReportsV2.ReportsModuleV2 reportsModuleV21;
     }
 }

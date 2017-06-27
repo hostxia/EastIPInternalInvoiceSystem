@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views Id="Views">
+    <ListView Id="CommonInvoice_CommonInvoiceItems_ListView" AllowLink="False" AllowNew="True" IsFooterVisible="True" NewItemRowPosition="Top" AllowUnlink="False" AllowEdit="True">
+      <Columns Id="Columns">
+        <ColumnInfo Id="s_InvoiceType" Width="91" Index="0" />
+        <ColumnInfo Id="s_Name" SortIndex="0" SortOrder="Ascending" Width="369" Index="1" />
+        <ColumnInfo Id="n_Amount" Width="59" />
+        <ColumnInfo Id="n_PayableAmount" Width="58" />
+      </Columns>
+    </ListView>
+    <DetailView Id="CommonInvoice_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="Autoec6056a0-7f9c-4918-ae5b-fc5b2a99a3fc">
+            <LayoutGroup Id="Auto1ae29e8e-7376-4107-ba19-c00687ad9de7">
+              <LayoutGroup Id="CommonInvoiceItems">
+                <LayoutItem Id="CommonInvoiceItems" ViewItem="CommonInvoiceItems" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="CommonInvoiceItem_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="CommonInvoiceItem">
+              <LayoutGroup Id="CommonInvoiceItem_col1">
+                <LayoutItem Id="s_InvoiceType" RelativeSize="4.2328042328042326" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

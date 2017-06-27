@@ -8,13 +8,11 @@ using EastIPSystem.Module.BusinessObjects;
 
 namespace EastIPSystem.Module.Controllers
 {
-    // For more typical usage scenarios, be sure to check out https://documentation.devexpress.com/eXpressAppFramework/clsDevExpressExpressAppViewControllertopic.aspx.
     public partial class VCCaseExtension : ViewController
     {
         public VCCaseExtension()
         {
             InitializeComponent();
-            // Target required Views (via the TargetXXX properties) and create their Actions.
         }
         protected override void OnActivated()
         {

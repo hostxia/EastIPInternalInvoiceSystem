@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel Id="BOModel">
+    <Class Name="EastIPSystem.Module.BusinessObjects.CaseBase">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="ApplicantCodes" Caption="申请人代码" />
+        <Member Name="ApplicantNames" Caption="申请人名称" />
+        <Member Name="Note" Caption="备注" />
+        <Member Name="IsSpecified" Caption="申请人指定" />
+        <Member Name="OurNo" Caption="我方卷号" />
+        <Member Name="ReceiveDate" Caption="接案日" />
+        <Member Name="TransferDate" Caption="去案日" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+</Application>

@@ -158,6 +158,15 @@ namespace EastIPSystem.Module.BusinessObjects
             set { SetPropertyValue("b_IsReexamCase", ref _bIsReexamCase, value); }
         }
 
+        private SysUser handler;
+        [NoForeignKey]
+        [Persistent("g_HandlerId")]
+        public SysUser Handler
+        {
+            get { return handler; }
+            set { SetPropertyValue("Handler", ref handler, value); }
+        }
+
         [Association("PatentSubmitList-PatentPayments")]
         public XPCollection<PatentPayment> PatentPayments => GetCollection<PatentPayment>("PatentPayments");
 
@@ -270,14 +279,23 @@ namespace EastIPSystem.Module.BusinessObjects
                 {
                     var tempInvoice = Session.FindObject<InternalInvoice>(CriteriaOperator.Parse("OurNo = ? And PatentSubmitLists.Count = 0", _sOurNo));
                     if (tempInvoice != null)
+                    {
                         InternalInvoice = tempInvoice;
+                        if (tempInvoice.PermissionPolicyUser != null)
+                            Handler = tempInvoice.PermissionPolicyUser;
+                    }
+
                 }
 
                 if (PatentPayments.Count == 0)
                 {
                     var listPatentPayments = new XPQuery<PatentPayment>(Session).Where(p => p.PatentSubmitList == null && p.s_OurNo == _sOurNo).ToList();
                     if (listPatentPayments.Count > 0)
+                    {
                         PatentPayments.AddRange(listPatentPayments);
+                        if (listPatentPayments.Any(p => p.Creator != null))
+                            Handler = listPatentPayments.First(p => p.Creator != null).Creator;
+                    }
                 }
             }
             catch (Exception exception)

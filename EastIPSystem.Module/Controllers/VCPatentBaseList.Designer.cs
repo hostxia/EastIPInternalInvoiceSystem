@@ -39,7 +39,7 @@
             this.scaFilter.Category = "FullTextSearch";
             this.scaFilter.ConfirmationMessage = null;
             this.scaFilter.Id = "baa8a9d8-1ce7-44e0-bfea-d918cd46e55d";
-            choiceActionItem1.Caption = "仅查询未递交的案件";
+            choiceActionItem1.Caption = "仅查询未完成的案件";
             choiceActionItem1.Data = "1";
             choiceActionItem1.ImageName = null;
             choiceActionItem1.Shortcut = null;

@@ -120,7 +120,8 @@
             提醒IPR反馈,
             修改IPR稿,
             已定稿等递交指示,
-            已递交
+            已递交,
+            指示放弃
         }
 
         public enum PatentDirection
@@ -188,6 +189,31 @@
             中间,
             OA,
             年费
+        }
+
+        public enum Language
+        {
+            中文简体,
+            英文,
+            中文繁体,
+            日文,
+            韩文
+        }
+
+        public enum Currency
+        {
+            人民币,
+            美元,
+            欧元,
+            日元,
+            韩元,
+            英镑
+        }
+
+        public enum DiscountType
+        {
+            比例,
+            金额
         }
     }
 }

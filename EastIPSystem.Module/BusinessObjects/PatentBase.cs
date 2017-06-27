@@ -58,6 +58,8 @@ namespace EastIPSystem.Module.BusinessObjects
             set { SetPropertyValue("dt_ReceiveDate", ref _dtReceiveDate, value); }
         }
 
+        public int n_ReceiveDays => (DateTime.Now.Date - _dtReceiveDate.Date).Days;
+
         private Corporation client;
         public Corporation Client
         {

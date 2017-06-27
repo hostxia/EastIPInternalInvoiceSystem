@@ -90,8 +90,8 @@ namespace EastIPSystem.Module.Win.Controllers
             }
 
 
-            var dtMinTransfer = listTransferCase.Cast<CaseBase>().Min(c => c.TransferDate);
-            var dtMinReceive = listTransferCase.Cast<CaseBase>().Min(c => c.ReceiveDate);
+            var dtMinTransfer = listTransferCase.Cast<CaseBase>().Min(c => c.dt_TransferDate);
+            var dtMinReceive = listTransferCase.Cast<CaseBase>().Min(c => c.dt_ReceiveDate);
 
             var dtMin = dtMinTransfer > dtMinReceive ? dtMinReceive : dtMinTransfer;
             if (dtMinTransfer == DateTime.MinValue)
@@ -99,8 +99,8 @@ namespace EastIPSystem.Module.Win.Controllers
             if (dtMinReceive == DateTime.MinValue)
                 dtMin = dtMinTransfer;
 
-            var dtMaxTransfer = listTransferCase.Cast<CaseBase>().Max(c => c.TransferDate);
-            var dtMaxReceive = listTransferCase.Cast<CaseBase>().Max(c => c.ReceiveDate);
+            var dtMaxTransfer = listTransferCase.Cast<CaseBase>().Max(c => c.dt_TransferDate);
+            var dtMaxReceive = listTransferCase.Cast<CaseBase>().Max(c => c.dt_ReceiveDate);
             var dtMax = dtMaxTransfer > dtMaxReceive ? dtMaxTransfer : dtMaxReceive;
 
             if (dtMaxTransfer == DateTime.MinValue)
@@ -132,21 +132,21 @@ namespace EastIPSystem.Module.Win.Controllers
                     baseCell[row, -4].Value = listCorporationName[row].Name;
                     baseCell[row, -3].Value = listCorporationName[row].s_Name;
 
-                    var listReceived = listReceiveCase.Cast<CaseBase>().Where(c => c.ReceiveDate >= dtMonthBegin.AddMonths(col) && c.ReceiveDate < dtMonthBegin.AddMonths(col + 1) && c.Client?.Name == listCorporationName[row].Name);
-                    var listTransfer = listTransferCase.Cast<CaseBase>().Where(c => c.TransferDate >= dtMonthBegin.AddMonths(col) && c.TransferDate < dtMonthBegin.AddMonths(col + 1) && c.Agency?.Name == listCorporationName[row].Name);
+                    var listReceived = listReceiveCase.Cast<CaseBase>().Where(c => c.dt_ReceiveDate >= dtMonthBegin.AddMonths(col) && c.dt_ReceiveDate < dtMonthBegin.AddMonths(col + 1) && c.Client?.Name == listCorporationName[row].Name);
+                    var listTransfer = listTransferCase.Cast<CaseBase>().Where(c => c.dt_TransferDate >= dtMonthBegin.AddMonths(col) && c.dt_TransferDate < dtMonthBegin.AddMonths(col + 1) && c.Agency?.Name == listCorporationName[row].Name);
 
 
                     if (listTransfer.Any())
                     {
                         baseCell[row, col * 2].Value = listTransfer.Count();
                         nTransfer += listTransfer.Count();
-                        AddComments(sscReport, baseCell[row, col * 2], "System", string.Join("\r\n", listTransfer.Select(t => t.OurNo)));
+                        AddComments(sscReport, baseCell[row, col * 2], "System", string.Join("\r\n", listTransfer.Select(t => t.s_OurNo)));
                     }
                     if (listReceived.Any())
                     {
                         baseCell[row, col * 2 + 1].Value = listReceived.Count();
                         nReceived += listReceived.Count();
-                        AddComments(sscReport, baseCell[row, col * 2 + 1], "System", string.Join("\r\n", listReceived.Select(t => t.OurNo)));
+                        AddComments(sscReport, baseCell[row, col * 2 + 1], "System", string.Join("\r\n", listReceived.Select(t => t.s_OurNo)));
                     }
 
                 }

@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views Id="Views">
+    <DetailView Id="CaseBase_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="Item3">
+            <LayoutItem Id="Note" ViewItem="Note" />
+          </LayoutGroup>
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Autocabbe7e4-37ed-4c48-bf52-89b161a3cc49">
+              <LayoutGroup Id="Auto21990a81-61d8-4e75-b38f-5f11b11c478f">
+                <LayoutItem Id="IsSpecified" ViewItem="IsSpecified" />
+                <LayoutItem Id="TransferDate" ViewItem="TransferDate" />
+              </LayoutGroup>
+              <LayoutGroup Id="Auto69cd71de-0029-4497-adc4-43e2e63d3c52">
+                <LayoutItem Id="ReceiveDate" ViewItem="ReceiveDate" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutItem Id="OurNo" ViewItem="OurNo" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>
