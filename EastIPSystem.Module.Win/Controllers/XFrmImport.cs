@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Windows.Forms;
 using DevExpress.ExpressApp;
 using DevExpress.XtraEditors;
@@ -16,11 +17,27 @@ namespace EastIPSystem.Module.Win.Controllers
         private List<string> _listSheetsName;
         private readonly IObjectSpace _objectSpace;
 
-        public XFrmImport(IObjectSpace objectSpace)
+        public enum FormType
+        {
+            Invoice,
+            Case
+        }
+
+        public XFrmImport(IObjectSpace objectSpace, FormType formType)
         {
             InitializeComponent();
+            if (formType == FormType.Invoice)
+            {
+                Text = "导入草单";
+                xlueFormatType.Properties.DataSource = FormatterHelper.FormatterType.Where(f => "ABC".Contains(f.Key)).ToList();
+            }
+            else if (formType == FormType.Case)
+            {
+                Text = "导入案件";
+                xlueFormatType.Properties.DataSource = FormatterHelper.FormatterType.Where(f => "DE".Contains(f.Key)).ToList();
+            }
             _listSheetsName = new List<string>();
-            xlueFormatType.Properties.DataSource = FormatterHelper.FormatterType;
+            //xlueFormatType.Properties.DataSource = FormatterHelper.FormatterType;
             xlueFormatType.ItemIndex = 0;
             _objectSpace = objectSpace;
         }
@@ -100,6 +117,12 @@ namespace EastIPSystem.Module.Win.Controllers
                     break;
                 case "C":
                     xgcResult.DataSource = FormatterHelper.ImportInvoiceNo(_dtExcelData, _objectSpace);
+                    break;
+                case "D":
+                    xgcResult.DataSource = FormatterHelper.ImportReceiveCaseBase(_dtExcelData, _objectSpace);
+                    break;
+                case "E":
+                    xgcResult.DataSource = FormatterHelper.ImportTransferCaseBase(_dtExcelData, _objectSpace);
                     break;
                 default:
                     break;

@@ -366,6 +366,19 @@ namespace EastIPSystem.Module.BusinessObjects
         {
             base.OnSaving();
         }
+        [Browsable(false)]
+        public bool InternalNoUnique
+        {
+            get
+            {
+                if (string.IsNullOrWhiteSpace(InternalNo)) return true;
+                XPCollection<InternalInvoice> xpc;
+                using (xpc = new XPCollection<InternalInvoice>(new UnitOfWork(Session.DataLayer), CriteriaOperator.Parse($"InternalNo = '{InternalNo}' And Oid != '{Oid}'")))
+                {
+                    return xpc.Count == 0;
+                }
+            }
+        }
 
         public void GenerateInternalNo()
         {

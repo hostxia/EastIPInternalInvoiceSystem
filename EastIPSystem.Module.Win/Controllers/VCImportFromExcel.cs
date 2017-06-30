@@ -22,7 +22,7 @@ namespace EastIPSystem.Module.Win.Controllers
 
         private void saImportData_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
-            new XFrmImport(Frame.View.ObjectSpace).Show();
+            new XFrmImport(Frame.View.ObjectSpace, XFrmImport.FormType.Invoice).Show();
         }
     }
 }

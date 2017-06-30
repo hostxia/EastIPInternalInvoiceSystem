@@ -38,6 +38,13 @@ namespace EastIPSystem.Module.BusinessObjects
             set { SetPropertyValue("s_OurNo", ref _sOurNo, value); }
         }
 
+        private string _sCaseName;
+        public string s_CaseName
+        {
+            get { return _sCaseName; }
+            set { SetPropertyValue("s_CaseName", ref _sCaseName, value); }
+        }
+
         private string _sAppNo;
         public string s_AppNo
         {
@@ -96,6 +103,14 @@ namespace EastIPSystem.Module.BusinessObjects
             set { SetPropertyValue("s_Reason", ref _sReason, value); }
         }
 
+        private string _sDiscountNote;
+        [Size(2000)]
+        public string s_DiscountNote
+        {
+            get { return _sDiscountNote; }
+            set { SetPropertyValue("s_DiscountNote", ref _sDiscountNote, value); }
+        }
+
         private string _sNote;
         [Size(2000)]
         public string s_Note
@@ -131,6 +146,14 @@ namespace EastIPSystem.Module.BusinessObjects
             get { return _bIsMiddleCase; }
             set { SetPropertyValue("b_IsMiddleCase", ref _bIsMiddleCase, value); }
         }
+
+        private EnumsAll.InvoiceState _nState;
+        public EnumsAll.InvoiceState n_State
+        {
+            get { return _nState; }
+            set { SetPropertyValue("n_State", ref _nState, value); }
+        }
+
 
         private EnumsAll.Currency _nCurrency;
         public EnumsAll.Currency n_Currency
@@ -263,13 +286,17 @@ namespace EastIPSystem.Module.BusinessObjects
             if (string.IsNullOrWhiteSpace(internalInvoice?.OurNo)) return;
             s_InternalNo = internalInvoice.InternalNo;
             s_Reason = internalInvoice.Content;
-            var drs = DbHelperOra.Query($"select CLIENT,CLIENT_NAME,APPLICATION_NO,CLIENT_NUMBER,OURNO,APP_REF,BILLING_CONTACT,MAILING_ADDR,APPLICANT1,APPLICANT2,APPLICANT3,APPLICANT4,APPLICANT5 from patentcase where OURNO LIKE '%{internalInvoice.OurNo}%'").Tables[0].Rows;
+            var drs = DbHelperOra.Query($"select CLIENT,CLIENT_NAME,APPLICATION_NO,CLIENT_NUMBER,OURNO,TITLE_CHINESE,TITLE,APP_REF,BILLING_CONTACT,MAILING_ADDR,APPLICANT1,APPLICANT2,APPLICANT3,APPLICANT4,APPLICANT5 from patentcase where OURNO LIKE '%{internalInvoice.OurNo}%'").Tables[0].Rows;
             if (drs.Count < 1) return;
             s_OurNo = drs[0]["OURNO"].ToString();
             s_AppCaseNo = drs[0]["APP_REF"].ToString();
             s_AppNo = drs[0]["APPLICATION_NO"].ToString();
             s_ClientCaseNo = drs[0]["CLIENT_NUMBER"].ToString();
             s_ClientName = drs[0]["CLIENT_NAME"].ToString();
+            s_CaseName = string.IsNullOrWhiteSpace(drs[0]["TITLE_CHINESE"].ToString())
+                ? drs[0]["TITLE"].ToString()
+                : drs[0]["TITLE_CHINESE"].ToString();
+
             var listAppName = new List<string>();
             for (int i = 1; i <= 5; i++)
             {

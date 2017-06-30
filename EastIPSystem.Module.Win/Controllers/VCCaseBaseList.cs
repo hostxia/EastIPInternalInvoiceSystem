@@ -1,24 +1,14 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using DevExpress.Data.Filtering;
+using System.Windows.Forms;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
-using DevExpress.ExpressApp.Editors;
-using DevExpress.ExpressApp.Layout;
-using DevExpress.ExpressApp.Model.NodeGenerators;
-using DevExpress.ExpressApp.SystemModule;
-using DevExpress.ExpressApp.Templates;
-using DevExpress.ExpressApp.Utils;
-using DevExpress.Persistent.Base;
-using DevExpress.Persistent.Validation;
 using DevExpress.Spreadsheet;
-using DevExpress.SpreadsheetSource.Implementation;
-using DevExpress.XtraEditors;
+using DevExpress.XtraSpreadsheet;
 using EastIPSystem.Module.BusinessObjects;
+using ListView = DevExpress.ExpressApp.ListView;
 
 namespace EastIPSystem.Module.Win.Controllers
 {
@@ -28,70 +18,33 @@ namespace EastIPSystem.Module.Win.Controllers
         {
             InitializeComponent();
         }
-        protected override void OnActivated()
+
+        private void saCaseBaseImport_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
-            base.OnActivated();
-        }
-        protected override void OnViewControlsCreated()
-        {
-            base.OnViewControlsCreated();
-        }
-        protected override void OnDeactivated()
-        {
-            base.OnDeactivated();
+            new XFrmImport(ObjectSpace, XFrmImport.FormType.Case).Show();
         }
 
-        private void pwsaCaseBaseReport_CustomizePopupWindowParams(object sender, CustomizePopupWindowParamsEventArgs e)
-        {
-            var view = Application.CreateDetailView(Application.CreateObjectSpace(), "CaseBaseReportView", false);
-            //((PropertyEditor)view.FindItem("CaseBase.ExportFile"))
-            e.View = view;
-        }
 
-        private void pwsaCaseBaseReport_Execute(object sender, PopupWindowShowActionExecuteEventArgs e)
+        private void saCaseBaseReport_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
-            var view = e.PopupWindowView as DetailView;
-            if (view == null) return;
-            var dtReceiveDateBegin = ((DateEdit)view.FindItem("CaseBase.ReceiveDateBegin").Control).DateTime;
-            var dtReceiveDateEnd = ((DateEdit)view.FindItem("CaseBase.ReceiveDateEnd").Control).DateTime;
-            var dtTransferDateBegin = ((DateEdit)view.FindItem("CaseBase.TransferDateBegin").Control).DateTime;
-            var dtTransferDateEnd = ((DateEdit)view.FindItem("CaseBase.TransferDateEnd").Control).DateTime;
-            var sExportFile = ((ButtonEdit)view.FindItem("CaseBase.ExportFile").Control).Text;
-            var sType = ((LookUpEdit)view.FindItem("CaseBase.ReportType").Control).EditValue?.ToString();
-            GenerateCaseBaseExcelReport(dtReceiveDateBegin, dtReceiveDateEnd, dtTransferDateBegin, dtTransferDateEnd, sExportFile, sType);
-        }
-
-        private void GenerateCaseBaseExcelReport(DateTime dtReceiveDateBegin, DateTime dtReceiveDateEnd, DateTime dtTransferDateBegin, DateTime dtTransferDateEnd, string sExportFile, string sType)
-        {
-            var listReceiveCase = ObjectSpace.CreateCollection(typeof(CaseBase), CriteriaOperator.Parse("TransferDate Is Null And ReceiveDate >= ? And ReceiveDate < ?", dtReceiveDateBegin.Date, dtReceiveDateEnd.Date.AddDays(1)));
-            var listTransferCase = ObjectSpace.CreateCollection(typeof(CaseBase), CriteriaOperator.Parse("TransferDate >= ? And TransferDate < ?", dtTransferDateBegin.Date, dtTransferDateEnd.Date.AddDays(1)));
-            var listTMH = new[] { "TW", "MO", "HK" };
-            if (sType != "1")
+            var saveFileDialog = new SaveFileDialog
             {
-                listReceiveCase =
-                    listReceiveCase.Cast<CaseBase>()
-                        .Where(c => listTMH.Contains(c.Client?.Country?.s_Code))
-                        .ToList();
-                listTransferCase =
-                    listTransferCase.Cast<CaseBase>()
-                        .Where(c => listTMH.Contains(c.Agency?.Country?.s_Code))
-                        .ToList();
-            }
-            else
-            {
-                listReceiveCase =
-                    listReceiveCase.Cast<CaseBase>()
-                        .Where(c => !listTMH.Contains(c.Client?.Country?.s_Code))
-                        .ToList();
-                listTransferCase =
-                    listTransferCase.Cast<CaseBase>()
-                        .Where(c => !listTMH.Contains(c.Agency?.Country?.s_Code))
-                        .ToList();
-            }
+                Filter = "Excel文件|*.xlsx",
+                FileName = "Result.xlsx"
+            };
+            if (saveFileDialog.ShowDialog() != DialogResult.OK) return;
+            GenerateCaseBaseExcelReport(saveFileDialog.FileName);
+        }
 
+        private void GenerateCaseBaseExcelReport(string sExportFile)
+        {
+            var listCase = ((ListView)View).SelectedObjects.Cast<CaseBase>().ToList();
 
-            var dtMinTransfer = listTransferCase.Cast<CaseBase>().Min(c => c.dt_TransferDate);
-            var dtMinReceive = listTransferCase.Cast<CaseBase>().Min(c => c.dt_ReceiveDate);
+            var listReceiveCase = listCase.Where(c => c.dt_TransferDate == DateTime.MinValue).ToList();
+            var listTransferCase = listCase.Where(c => c.dt_TransferDate != DateTime.MinValue).ToList();
+
+            var dtMinTransfer = listTransferCase.Count == 0 ? DateTime.Today : listTransferCase.Min(c => c.dt_TransferDate);
+            var dtMinReceive = listReceiveCase.Count == 0 ? DateTime.Today : listReceiveCase.Min(c => c.dt_ReceiveDate);
 
             var dtMin = dtMinTransfer > dtMinReceive ? dtMinReceive : dtMinTransfer;
             if (dtMinTransfer == DateTime.MinValue)
@@ -99,8 +52,8 @@ namespace EastIPSystem.Module.Win.Controllers
             if (dtMinReceive == DateTime.MinValue)
                 dtMin = dtMinTransfer;
 
-            var dtMaxTransfer = listTransferCase.Cast<CaseBase>().Max(c => c.dt_TransferDate);
-            var dtMaxReceive = listTransferCase.Cast<CaseBase>().Max(c => c.dt_ReceiveDate);
+            var dtMaxTransfer = listTransferCase.Max(c => c.dt_TransferDate);
+            var dtMaxReceive = listTransferCase.Max(c => c.dt_ReceiveDate);
             var dtMax = dtMaxTransfer > dtMaxReceive ? dtMaxTransfer : dtMaxReceive;
 
             if (dtMaxTransfer == DateTime.MinValue)
@@ -108,16 +61,18 @@ namespace EastIPSystem.Module.Win.Controllers
             if (dtMaxReceive == DateTime.MinValue)
                 dtMax = dtMaxTransfer;
 
+
+
             var dtMonthBegin = new DateTime(dtMin.Year, dtMin.Month, 1);
 
-            var listCorporationName = listReceiveCase.Cast<CaseBase>().Select(c => new { c.Client?.Code, c.Client?.Name, c.Client?.Country?.s_Name }).ToList();
-            listCorporationName.AddRange(listTransferCase.Cast<CaseBase>().Select(c => new { c.Agency?.Code, c.Agency?.Name, c.Agency?.Country?.s_Name }).ToList());
+            var listCorporationName = listReceiveCase.Select(c => new { c.Client?.Code, c.Client?.Name, c.Client?.Country?.s_Name }).ToList();
+            listCorporationName.AddRange(listTransferCase.Select(c => new { c.Agency?.Code, c.Agency?.Name, c.Agency?.Country?.s_Name }).ToList());
             listCorporationName = listCorporationName.Where(c => !string.IsNullOrWhiteSpace(c.Name)).Distinct().OrderBy(c => c.Name).ToList();
 
-            var sscReport = new DevExpress.XtraSpreadsheet.SpreadsheetControl();
+            var sscReport = new SpreadsheetControl();
             File.Copy(System.Windows.Forms.Application.StartupPath + "\\Template\\外代交换案件.xlsx", sExportFile, true);
             sscReport.LoadDocument(sExportFile);
-            var baseCell = sscReport.ActiveWorksheet.Cells["G5"];
+            var baseCell = sscReport.Document.Worksheets["全部"].Cells["G5"];
 
 
             for (int row = 0; row < listCorporationName.Count; row++)
@@ -132,21 +87,21 @@ namespace EastIPSystem.Module.Win.Controllers
                     baseCell[row, -4].Value = listCorporationName[row].Name;
                     baseCell[row, -3].Value = listCorporationName[row].s_Name;
 
-                    var listReceived = listReceiveCase.Cast<CaseBase>().Where(c => c.dt_ReceiveDate >= dtMonthBegin.AddMonths(col) && c.dt_ReceiveDate < dtMonthBegin.AddMonths(col + 1) && c.Client?.Name == listCorporationName[row].Name);
-                    var listTransfer = listTransferCase.Cast<CaseBase>().Where(c => c.dt_TransferDate >= dtMonthBegin.AddMonths(col) && c.dt_TransferDate < dtMonthBegin.AddMonths(col + 1) && c.Agency?.Name == listCorporationName[row].Name);
+                    var listReceived = listReceiveCase.Where(c => c.dt_ReceiveDate >= dtMonthBegin.AddMonths(col) && c.dt_ReceiveDate < dtMonthBegin.AddMonths(col + 1) && c.Client?.Name == listCorporationName[row].Name);
+                    var listTransfer = listTransferCase.Where(c => c.dt_TransferDate >= dtMonthBegin.AddMonths(col) && c.dt_TransferDate < dtMonthBegin.AddMonths(col + 1) && c.Agency?.Name == listCorporationName[row].Name);
 
 
                     if (listTransfer.Any())
                     {
                         baseCell[row, col * 2].Value = listTransfer.Count();
                         nTransfer += listTransfer.Count();
-                        AddComments(sscReport, baseCell[row, col * 2], "System", string.Join("\r\n", listTransfer.Select(t => t.s_OurNo)));
+                        AddComments(sscReport.Document.Worksheets["全部"], baseCell[row, col * 2], "System", string.Join("\r\n", listTransfer.Select(t => t.s_OurNo)));
                     }
                     if (listReceived.Any())
                     {
                         baseCell[row, col * 2 + 1].Value = listReceived.Count();
                         nReceived += listReceived.Count();
-                        AddComments(sscReport, baseCell[row, col * 2 + 1], "System", string.Join("\r\n", listReceived.Select(t => t.s_OurNo)));
+                        AddComments(sscReport.Document.Worksheets["全部"], baseCell[row, col * 2 + 1], "System", string.Join("\r\n", listReceived.Select(t => t.s_OurNo)));
                     }
 
                 }
@@ -155,18 +110,75 @@ namespace EastIPSystem.Module.Win.Controllers
                 if (nReceived > 0)
                     baseCell[row, -1].Value = nReceived;
             }
-
+            GenerateSubCaseReport(listCase.Where(c => c.b_IsAppDemand).ToList(), sscReport.Document.Worksheets["申请人指定"], true);
+            GenerateSubCaseReport(listCase.Where(c => c.b_IsApplication).ToList(), sscReport.Document.Worksheets["新申请"], false);
+            GenerateSubCaseReport(listCase.Where(c => c.b_IsSepcial).ToList(), sscReport.Document.Worksheets["特殊案"], false);
+            GenerateSubCaseReport(listCase.Where(c => c.b_IsMiddle).ToList(), sscReport.Document.Worksheets["转入案"], false);
+            GenerateSubCaseReport(listCase.Where(c => c.b_IsDivCase).ToList(), sscReport.Document.Worksheets["分案"], false);
             sscReport.SaveDocument();
         }
 
-        private void AddComments(DevExpress.XtraSpreadsheet.SpreadsheetControl xsscReport, Range range, string author, string text)
+        private void GenerateSubCaseReport(List<CaseBase> listCases, Worksheet worksheet, bool bIsTransfer)
         {
-            var comments = xsscReport.ActiveWorksheet.Comments.GetComments(range);
+            if (listCases.Count == 0) return;
+            var dtMin = bIsTransfer ? listCases.Where(c => c.dt_TransferDate != DateTime.MinValue).Min(c => c.dt_TransferDate) : listCases.Where(c => c.dt_ReceiveDate != DateTime.MinValue).Min(c => c.dt_ReceiveDate);
+            var dtMax = bIsTransfer ? listCases.Max(c => c.dt_TransferDate) : listCases.Max(c => c.dt_ReceiveDate);
+
+            if (dtMin == DateTime.MinValue)
+                dtMin = dtMax;
+            if (dtMax == DateTime.MinValue)
+                dtMax = dtMin;
+
+            var dtMonthBegin = new DateTime(dtMin.Year, dtMin.Month, 1);
+
+            var listCorporationName = bIsTransfer ? listCases.Select(c => new { c.Agency?.Code, c.Agency?.Name, c.Agency?.Country?.s_Name }).ToList() : listCases.Select(c => new { c.Client?.Code, c.Client?.Name, c.Client?.Country?.s_Name }).ToList();
+            listCorporationName = listCorporationName.Where(c => !string.IsNullOrWhiteSpace(c.Name)).Distinct().OrderBy(c => c.Name).ToList();
+
+            var baseCell = worksheet.Cells["F5"];
+
+            for (int row = 0; row < listCorporationName.Count; row++)
+            {
+                int nCount = 0;
+                for (int col = 0; dtMonthBegin.AddMonths(col) < dtMax; col++)
+                {
+                    baseCell[-2, col].Value = $"{dtMonthBegin.AddMonths(col).Year}年{dtMonthBegin.AddMonths(col).Month}月";
+                    baseCell[-1, col].Value = bIsTransfer ? $"发出案件" : $"返回案件";
+                    baseCell[row, -3].Value = listCorporationName[row].Name;
+                    baseCell[row, -2].Value = listCorporationName[row].s_Name;
+
+                    var listCase = bIsTransfer
+                        ? listCases.Where(
+                            c =>
+                                c.dt_TransferDate >= dtMonthBegin.AddMonths(col) &&
+                                c.dt_TransferDate < dtMonthBegin.AddMonths(col + 1) &&
+                                c.Agency?.Name == listCorporationName[row].Name).ToList()
+                        : listCases.Where(
+                            c =>
+                                c.dt_ReceiveDate >= dtMonthBegin.AddMonths(col) &&
+                                c.dt_ReceiveDate < dtMonthBegin.AddMonths(col + 1) &&
+                                c.Client?.Name == listCorporationName[row].Name).ToList();
+
+
+                    if (listCase.Any())
+                    {
+                        baseCell[row, col].Value = listCase.Count();
+                        nCount += listCase.Count();
+                        AddComments(worksheet, baseCell[row, col], "System", string.Join("\r\n", listCase.Select(t => t.s_OurNo)));
+                    }
+                }
+                if (nCount > 0)
+                    baseCell[row, -1].Value = nCount;
+            }
+
+        }
+
+        private void AddComments(Worksheet worksheet, Range range, string author, string text)
+        {
+            var comments = worksheet.Comments.GetComments(range);
             if (comments.Count > 0)
                 comments[0].Text += text;
             else
-                xsscReport.ActiveWorksheet.Comments.Add(range, author, text);
+                worksheet.Comments.Add(range, author, text);
         }
-
     }
 }

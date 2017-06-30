@@ -32,12 +32,12 @@
             未通过
         }
 
-        public enum InvoiceState
-        {
-            未提交,
-            未开账单,
-            已开账单,
-        }
+        //public enum InvoiceState
+        //{
+        //    未提交,
+        //    未开账单,
+        //    已开账单,
+        //}
 
         public enum FeeType
         {
@@ -214,6 +214,12 @@
         {
             比例,
             金额
+        }
+        public enum InvoiceState
+        {
+            未开,
+            已开,
+            作废
         }
     }
 }

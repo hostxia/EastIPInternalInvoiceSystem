@@ -29,28 +29,40 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.pwsaCaseBaseReport = new DevExpress.ExpressApp.Actions.PopupWindowShowAction(this.components);
+            this.saCaseBaseReport = new DevExpress.ExpressApp.Actions.SimpleAction(this.components);
+            this.saCaseBaseImport = new DevExpress.ExpressApp.Actions.SimpleAction(this.components);
             // 
-            // pwsaCaseBaseReport
+            // saCaseBaseReport
             // 
-            this.pwsaCaseBaseReport.AcceptButtonCaption = "导出";
-            this.pwsaCaseBaseReport.ActionMeaning = DevExpress.ExpressApp.Actions.ActionMeaning.Accept;
-            this.pwsaCaseBaseReport.CancelButtonCaption = "取消";
-            this.pwsaCaseBaseReport.Caption = "导出报表";
-            this.pwsaCaseBaseReport.Category = "RecordEdit";
-            this.pwsaCaseBaseReport.ConfirmationMessage = null;
-            this.pwsaCaseBaseReport.Id = "5a422c78-806c-4134-bfe2-b1a67f207b98";
-            this.pwsaCaseBaseReport.ImageName = "Action_Chart_Printing_Preview";
-            this.pwsaCaseBaseReport.TargetObjectType = typeof(EastIPSystem.Module.BusinessObjects.CaseBase);
-            this.pwsaCaseBaseReport.TargetViewType = DevExpress.ExpressApp.ViewType.ListView;
-            this.pwsaCaseBaseReport.ToolTip = null;
-            this.pwsaCaseBaseReport.TypeOfView = typeof(DevExpress.ExpressApp.ListView);
-            this.pwsaCaseBaseReport.CustomizePopupWindowParams += new DevExpress.ExpressApp.Actions.CustomizePopupWindowParamsEventHandler(this.pwsaCaseBaseReport_CustomizePopupWindowParams);
-            this.pwsaCaseBaseReport.Execute += new DevExpress.ExpressApp.Actions.PopupWindowShowActionExecuteEventHandler(this.pwsaCaseBaseReport_Execute);
+            this.saCaseBaseReport.Caption = "导出报表";
+            this.saCaseBaseReport.Category = "RecordEdit";
+            this.saCaseBaseReport.ConfirmationMessage = null;
+            this.saCaseBaseReport.Id = "CaseBase.ExportReport";
+            this.saCaseBaseReport.ImageName = "Action_Export_ToExcel";
+            this.saCaseBaseReport.SelectionDependencyType = DevExpress.ExpressApp.Actions.SelectionDependencyType.RequireMultipleObjects;
+            this.saCaseBaseReport.TargetObjectType = typeof(EastIPSystem.Module.BusinessObjects.CaseBase);
+            this.saCaseBaseReport.TargetViewType = DevExpress.ExpressApp.ViewType.ListView;
+            this.saCaseBaseReport.ToolTip = null;
+            this.saCaseBaseReport.TypeOfView = typeof(DevExpress.ExpressApp.ListView);
+            this.saCaseBaseReport.Execute += new DevExpress.ExpressApp.Actions.SimpleActionExecuteEventHandler(this.saCaseBaseReport_Execute);
+            // 
+            // saCaseBaseImport
+            // 
+            this.saCaseBaseImport.Caption = "导入案件";
+            this.saCaseBaseImport.Category = "RecordEdit";
+            this.saCaseBaseImport.ConfirmationMessage = null;
+            this.saCaseBaseImport.Id = "CaseBase.Import";
+            this.saCaseBaseImport.ImageName = "Action_Edit";
+            this.saCaseBaseImport.TargetObjectType = typeof(EastIPSystem.Module.BusinessObjects.CaseBase);
+            this.saCaseBaseImport.TargetViewType = DevExpress.ExpressApp.ViewType.ListView;
+            this.saCaseBaseImport.ToolTip = null;
+            this.saCaseBaseImport.TypeOfView = typeof(DevExpress.ExpressApp.ListView);
+            this.saCaseBaseImport.Execute += new DevExpress.ExpressApp.Actions.SimpleActionExecuteEventHandler(this.saCaseBaseImport_Execute);
             // 
             // VCCaseBaseList
             // 
-            this.Actions.Add(this.pwsaCaseBaseReport);
+            this.Actions.Add(this.saCaseBaseReport);
+            this.Actions.Add(this.saCaseBaseImport);
             this.TargetObjectType = typeof(EastIPSystem.Module.BusinessObjects.CaseBase);
             this.TargetViewType = DevExpress.ExpressApp.ViewType.ListView;
             this.TypeOfView = typeof(DevExpress.ExpressApp.ListView);
@@ -58,7 +70,7 @@
         }
 
         #endregion
-
-        private DevExpress.ExpressApp.Actions.PopupWindowShowAction pwsaCaseBaseReport;
+        private DevExpress.ExpressApp.Actions.SimpleAction saCaseBaseReport;
+        private DevExpress.ExpressApp.Actions.SimpleAction saCaseBaseImport;
     }
 }

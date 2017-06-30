@@ -597,10 +597,11 @@
       <OwnMembers>
         <Member Name="Agency" Caption="外代理" />
         <Member Name="Applicants" Caption="申请人" />
-        <Member Name="b_IsApplication" Caption="申请人指定" />
+        <Member Name="b_IsAppDemand" Caption="申请人指定" />
+        <Member Name="b_IsApplication" Caption="新申请" />
         <Member Name="b_IsDivCase" Caption="分案" />
         <Member Name="b_IsMiddle" Caption="转入案" />
-        <Member Name="b_IsSepcified" Caption="特殊案" />
+        <Member Name="b_IsSepcial" Caption="特殊案" />
         <Member Name="Client" Caption="委托人" />
         <Member Name="dt_ReceiveDate" Caption="来案日" />
         <Member Name="dt_TransferDate" Caption="去案日" />
@@ -675,13 +676,16 @@
         <Member Name="n_ExchangeCurrency" Caption="兑换币种" />
         <Member Name="n_ExchangeRate" Caption="兑换汇率" DisplayFormat="{0:n6}" EditMask="n6" />
         <Member Name="n_Rate" Caption="汇率" DisplayFormat="{0:n6}" EditMask="n6" />
+        <Member Name="n_State" Caption="账单状态" />
         <Member Name="n_TotalAmount" Caption="总金额" DisplayFormat="{0:n2}" EditMask="n2" />
         <Member Name="s_AppCaseNo" Caption="申请人卷号" />
         <Member Name="s_ApplicantName" Caption="申请人名称" />
         <Member Name="s_AppNo" Caption="申请号" />
+        <Member Name="s_CaseName" Caption="案件名称" />
         <Member Name="s_ClientCaseNo" Caption="委托人卷号" />
         <Member Name="s_ClientName" Caption="委托人名称" />
         <Member Name="s_Contact" Caption="账单地址" />
+        <Member Name="s_DiscountNote" Caption="折扣说明" />
         <Member Name="s_InternalNo" Caption="草单编号" />
         <Member Name="s_InvoiceNo" Caption="账单号" />
         <Member Name="s_Note" Caption="备注" />
@@ -958,6 +962,7 @@
       <RuleSearchObject MessageTemplateFoundObjects="找到以下对象︰" />
     </ErrorMessageTemplates>
     <Rules>
+      <RuleFromBoolProperty Id="InternalInvoice_InternalUnique" MessageTemplateMustBeTrue="&quot;草单编号&quot; 必须是唯一的。" />
       <RuleCombinationOfPropertiesIsUnique Id="PatentPayment_CombinUnique" CustomMessageTemplate="相同的案号及费用已存在" />
       <RuleUniqueValue Id="PermissionPolicyRoleBase_Name_RuleUniqueValue" CustomMessageTemplate="输入的名称与作用已注册系统内" />
       <RuleRequiredField Id="PermissionPolicyUser_Roles_RuleRequiredField" CustomMessageTemplate="活跃的用户必须具有至少一个角色分配" />
@@ -969,22 +974,20 @@
     <DetailView Id="CaseBase_DetailView">
       <Layout>
         <LayoutGroup Id="Main">
-          <LayoutGroup Id="SimpleEditors" Caption="SimpleEditors">
-            <LayoutGroup Id="Autocabbe7e4-37ed-4c48-bf52-89b161a3cc49" Caption="">
-              <LayoutGroup Id="Auto69cd71de-0029-4497-adc4-43e2e63d3c52" Caption="" />
-              <LayoutGroup Id="Auto21990a81-61d8-4e75-b38f-5f11b11c478f" Caption="" />
-            </LayoutGroup>
-            <LayoutGroup Id="CaseBase" Caption="案件信息">
-              <LayoutGroup Id="Auto8a957290-bc5d-4418-a716-8ac7af0ff3fa" Caption="Auto8a957290-bc5d-4418-a716-8ac7af0ff3fa(4)" />
-              <LayoutGroup Id="CaseBase_col1" Caption="CaseBase_col1">
-                <LayoutGroup Id="Autob76fef52-5c3a-47ef-b0cf-5e9e9b18d657" Caption="" />
-                <LayoutGroup Id="Auto40445710-8d28-4b4a-a39e-cc19d803a2f7" Caption="" />
-              </LayoutGroup>
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="CaseBase" Caption="基本信息">
               <LayoutGroup Id="CaseBase_col2" Caption="CaseBase_col2" />
             </LayoutGroup>
+            <LayoutGroup Id="Item1" Caption="来案信息">
+              <LayoutGroup Id="Auto3cfe02c3-e050-4c8f-b14e-833ebd70b8ba" Caption="Auto3cfe02c3-e050-4c8f-b14e-833ebd70b8ba(11)" />
+              <LayoutGroup Id="Auto8044ab5e-05df-4885-9e6b-97c9d73c10cf" Caption="Auto8044ab5e-05df-4885-9e6b-97c9d73c10cf(14)" />
+            </LayoutGroup>
+            <LayoutGroup Id="Item2" Caption="去案信息">
+              <LayoutGroup Id="Autod7851a08-84a8-40f9-8200-6dca31ca8750" Caption="Autod7851a08-84a8-40f9-8200-6dca31ca8750(18)" />
+              <LayoutGroup Id="Auto467af9d5-fb12-46ba-84e3-dc9e77bc7a8c" Caption="Auto467af9d5-fb12-46ba-84e3-dc9e77bc7a8c(19)" />
+            </LayoutGroup>
+            <LayoutGroup Id="Applicants_Group" Caption="申请人" />
           </LayoutGroup>
-          <LayoutGroup Id="Applicants_Group" Caption="申请人" />
-          <LayoutGroup Id="Item3" Caption="备注" />
         </LayoutGroup>
       </Layout>
     </DetailView>
@@ -1069,14 +1072,9 @@
       <Layout>
         <LayoutGroup Id="Main">
           <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Auto450144a7-c88b-4e04-9e7f-b23fe97e8428" Caption="Auto450144a7-c88b-4e04-9e7f-b23fe97e8428(14)" />
             <LayoutGroup Id="CommonInvoice" Caption="账单信息">
-              <LayoutGroup Id="CommonInvoice_col1">
-                <LayoutGroup Id="Auto47570a9a-aeac-4104-bfae-316e9e25777c" Caption="Auto47570a9a-aeac-4104-bfae-316e9e25777c(5)" />
-              </LayoutGroup>
-              <LayoutGroup Id="CommonInvoice_col2" Caption="CommonInvoice_col2">
-                <LayoutGroup Id="Auto41cf507d-4b71-4f07-b173-f57a19291da4" Caption="" />
-                <LayoutGroup Id="Auto450144a7-c88b-4e04-9e7f-b23fe97e8428" Caption="Auto450144a7-c88b-4e04-9e7f-b23fe97e8428(14)" />
-              </LayoutGroup>
+              <LayoutGroup Id="CommonInvoice_col2" Caption="CommonInvoice_col2" />
             </LayoutGroup>
           </LayoutGroup>
           <LayoutGroup Id="SizeableEditors" Caption="SizeableEditors" />

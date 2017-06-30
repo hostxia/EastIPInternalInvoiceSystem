@@ -6,6 +6,7 @@
       <Action Id="CommonInvoice.CreateInvoiceItem" ImageName="Action_Paste" />
       <Action Id="CommonInvoice.GetInvoiceInfo" ImageName="ActionGroup_EasyTestRecorder" />
       <Action Id="Expense.GetCaseInfo" ImageName="ActionGroup_EasyTestRecorder" Shortcut="CtrlQ" />
+      <Action Id="ExportModelDifferences" ImageName="" />
       <Action Id="PatentBase.GetPatentInfo" Shortcut="CtrlB" ImageName="ActionGroup_EasyTestRecorder" />
       <Action Id="PatentPayment.SetPaid" ImageName="Action_Change_State" />
       <Action Id="PatentSubmitList.CreateInternalInvoice" ImageName="BO_Invoice" />
@@ -204,6 +205,10 @@
     </Class>
   </BOModel>
   <CreatableItems>
+    <CreatableItem ClassName="EastIPSystem.Module.BusinessObjects.CommonInternalItem" Removed="True" />
+    <CreatableItem ClassName="EastIPSystem.Module.BusinessObjects.CommonInvoiceItem" Removed="True" />
+    <CreatableItem ClassName="EastIPSystem.Module.BusinessObjects.CommonInvoiceTypeItem" Removed="True" />
+    <CreatableItem ClassName="EastIPSystem.Module.BusinessObjects.Invoice" Removed="True" />
     <CreatableItem ClassName="EastIPSystem.Module.BusinessObjects.PatentProgress" Removed="True" />
   </CreatableItems>
   <NavigationItems StartupNavigationItem="InternalInvoice_ListView">
@@ -280,12 +285,12 @@
       <RuleRequiredField MessageTemplateMustNotBeEmpty="&quot;{TargetPropertyName}&quot;不能为空" />
     </ErrorMessageTemplates>
     <Rules>
-      <RuleUniqueValue Id="CaseBase_OurNoUnique" TargetType="EastIPSystem.Module.BusinessObjects.CaseBase" TargetPropertyName="OurNo" TargetContextIDs="Save" IsNewNode="True" />
+      <RuleUniqueValue Id="CaseBase_OurNoUnique" TargetType="EastIPSystem.Module.BusinessObjects.CaseBase" TargetPropertyName="s_OurNo" TargetContextIDs="Save" IsNewNode="True" />
       <RuleCombinationOfPropertiesIsUnique Id="ForeignInvoice_CombinUnique" TargetType="EastIPSystem.Module.BusinessObjects.InternalInvoice" TargetContextIDs="Save" CriteriaEvaluationBehavior="BeforeTransaction" TargetProperties="FirmNo,OurNo" IsNewNode="True" />
       <RuleRequiredField Id="InternalInvoice_ContentRequired" TargetType="EastIPSystem.Module.BusinessObjects.InternalInvoice" TargetPropertyName="Content" TargetContextIDs="Save" IsNewNode="True" />
       <RuleCombinationOfPropertiesIsUnique Id="InternalInvoice_InternalInvoiceCombinUnique" TargetType="EastIPSystem.Module.BusinessObjects.InternalInvoice" TargetProperties="OurNo,Content,InternalType" TargetContextIDs="Save" SkipNullOrEmptyValues="False" CriteriaEvaluationBehavior="BeforeTransaction" IsNewNode="True" />
-      <RuleUniqueValue Id="InternalInvoice_InternalNoUnique" TargetType="EastIPSystem.Module.BusinessObjects.InternalInvoice" TargetPropertyName="InternalNo" TargetContextIDs="Save" CriteriaEvaluationBehavior="BeforeTransaction" IsNewNode="True" />
       <RuleRequiredField Id="InternalInvoice_InternalTypeRequired" TargetType="EastIPSystem.Module.BusinessObjects.InternalInvoice" TargetPropertyName="InternalType" TargetContextIDs="Save" IsNewNode="True" />
+      <RuleFromBoolProperty Id="InternalInvoice_InternalUnique" TargetType="EastIPSystem.Module.BusinessObjects.InternalInvoice" TargetContextIDs="Save" TargetPropertyName="InternalNoUnique" UsedProperties="InternalNo" IsNewNode="True" />
       <RuleRequiredField Id="InternalInvoice_OurNoRequired" TargetType="EastIPSystem.Module.BusinessObjects.InternalInvoice" TargetPropertyName="OurNo" TargetContextIDs="Save" IsNewNode="True" />
       <RuleRequiredField Id="PatentBase_OurNoRequired" TargetType="EastIPSystem.Module.BusinessObjects.PatentBase" TargetPropertyName="s_OurNo" TargetContextIDs="Save" IsNewNode="True" />
       <RuleUniqueValue Id="PatentBase_OurNoUnique" TargetType="EastIPSystem.Module.BusinessObjects.PatentBase" TargetPropertyName="s_OurNo" TargetContextIDs="Save" CriteriaEvaluationBehavior="BeforeTransaction" IsNewNode="True" />
@@ -306,57 +311,75 @@
     <DetailView Id="CaseBase_DetailView">
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100">
-          <LayoutGroup Id="SimpleEditors" RelativeSize="13.681592039800995" Direction="Vertical">
-            <LayoutItem Id="OurNo" ViewItem="OurNo" Index="0" RelativeSize="29.09090909090909" IsNewNode="True" />
-            <LayoutGroup Id="Autocabbe7e4-37ed-4c48-bf52-89b161a3cc49" ShowCaption="False" Direction="Horizontal" Index="1" RelativeSize="70.9090909090909" IsNewNode="True">
-              <LayoutGroup Id="Auto69cd71de-0029-4497-adc4-43e2e63d3c52" ShowCaption="False" Index="0" RelativeSize="50" IsNewNode="True">
-                <LayoutItem Id="ReceiveDate" ViewItem="ReceiveDate" Index="0" RelativeSize="30.76923076923077" IsNewNode="True" />
-                <LayoutItem Id="Client" ViewItem="Client" Index="1" RelativeSize="30.76923076923077" IsNewNode="True" />
-                <LayoutItem Id="IsMiddle" ViewItem="IsMiddle" Index="2" RelativeSize="38.46153846153846" IsNewNode="True" />
-              </LayoutGroup>
-              <LayoutGroup Id="Auto21990a81-61d8-4e75-b38f-5f11b11c478f" ShowCaption="False" Index="1" RelativeSize="50" IsNewNode="True">
-                <LayoutItem Id="TransferDate" ViewItem="TransferDate" Index="0" RelativeSize="30.76923076923077" IsNewNode="True" />
-                <LayoutItem Id="Agency" ViewItem="Agency" Index="1" RelativeSize="30.76923076923077" IsNewNode="True" />
-                <LayoutItem Id="IsSpecified" ViewItem="IsSpecified" Index="2" RelativeSize="38.46153846153846" IsNewNode="True" />
-              </LayoutGroup>
-            </LayoutGroup>
-            <LayoutGroup Id="CaseBase" RelativeSize="47.169811320754718" Direction="Vertical" Removed="True">
-              <LayoutGroup Id="Auto8a957290-bc5d-4418-a716-8ac7af0ff3fa" ShowCaption="False" Index="0" RelativeSize="100" Direction="Horizontal" IsNewNode="True">
-                <LayoutItem Id="OurNo" ViewItem="OurNo" Index="0" RelativeSize="49.862258953168045" IsNewNode="True" />
-                <LayoutItem Id="IsMiddle" ViewItem="IsMiddle" Index="1" RelativeSize="50.137741046831955" IsNewNode="True" />
-              </LayoutGroup>
-              <LayoutGroup Id="CaseBase_col1" RelativeSize="100" Direction="Horizontal" Removed="True">
-                <LayoutGroup Id="Autob76fef52-5c3a-47ef-b0cf-5e9e9b18d657" ShowCaption="False" Index="0" RelativeSize="50" IsNewNode="True">
-                  <LayoutItem Id="OurNo" ViewItem="OurNo" Index="0" RelativeSize="4.2328042328042326" IsNewNode="True" />
-                  <LayoutItem Id="ReceiveDate" ViewItem="ReceiveDate" Index="1" RelativeSize="3.1746031746031744" IsNewNode="True" />
-                  <LayoutItem Id="TransferDate" ViewItem="TransferDate" Index="2" RelativeSize="92.5925925925926" IsNewNode="True" />
-                </LayoutGroup>
-                <LayoutItem Id="Agency" ViewItem="Agency" Index="1" RelativeSize="89.417989417989418" Removed="True" />
-                <LayoutItem Id="Applicant" RelativeSize="3.1746031746031744" Index="1" Removed="True" />
-                <LayoutGroup Id="Auto40445710-8d28-4b4a-a39e-cc19d803a2f7" ShowCaption="False" Index="1" RelativeSize="50" IsNewNode="True">
-                  <LayoutItem Id="Applicant" ViewItem="Applicant" Index="0" RelativeSize="4.2328042328042326" IsNewNode="True" />
-                  <LayoutItem Id="Client" ViewItem="Client" Index="1" RelativeSize="3.1746031746031744" IsNewNode="True" />
-                  <LayoutItem Id="Agency" ViewItem="Agency" Index="2" RelativeSize="92.5925925925926" IsNewNode="True" />
-                </LayoutGroup>
-                <LayoutItem Id="Client" RelativeSize="3.1746031746031744" Index="1" Removed="True" />
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="CaseBase" RelativeSize="12.390488110137673" Direction="Vertical">
+              <LayoutGroup Id="CaseBase_col1" RelativeSize="100">
+                <LayoutItem Id="s_OurNo" RelativeSize="50" Index="0" />
+                <LayoutItem Id="Agency" RelativeSize="17.647058823529413" Index="1" Removed="True" />
+                <LayoutItem Id="Client" RelativeSize="17.647058823529413" Index="1" Removed="True" />
+                <LayoutItem Id="dt_ReceiveDate" RelativeSize="21.428571428571427" Index="1" Removed="True" />
+                <LayoutItem Id="s_Note" ViewItem="s_Note" Index="1" RelativeSize="50" IsNewNode="True" />
+                <LayoutItem Id="b_IsSepcial" Index="2" RelativeSize="36.363636363636367" Removed="True" />
+                <LayoutItem Id="b_IsMiddle" Index="3" RelativeSize="5.8931860036832413" Removed="True" />
+                <LayoutItem Id="dt_TransferDate" RelativeSize="15" Removed="True" />
               </LayoutGroup>
               <LayoutGroup Id="CaseBase_col2" RelativeSize="50" Direction="Horizontal" Removed="True">
-                <LayoutItem Id="ReceiveDate" Index="0" RelativeSize="4.2328042328042326" Removed="True" />
-                <LayoutItem Id="TransferDate" Index="0" RelativeSize="100" Removed="True" />
-                <LayoutItem Id="OurNo" Removed="True" />
+                <LayoutItem Id="b_IsApplication" RelativeSize="36.363636363636367" Index="0" Removed="True" />
+                <LayoutItem Id="b_IsDivCase" RelativeSize="100" Index="0" Removed="True" />
+                <LayoutItem Id="s_Note" RelativeSize="63.636363636363633" Index="1" Removed="True" />
+                <LayoutItem Id="s_ApplicantCodes" RelativeSize="28.571428571428573" Index="3" Removed="True" />
+                <LayoutItem Id="s_ApplicantNames" RelativeSize="23.529411764705884" Index="4" Removed="True" />
+                <LayoutItem Id="b_IsMiddle" RelativeSize="20" Removed="True" />
               </LayoutGroup>
             </LayoutGroup>
+            <LayoutGroup Id="Item1" ShowCaption="True" CaptionLocation="Top" Direction="Horizontal" Index="1" RelativeSize="14.392991239048811" IsNewNode="True">
+              <LayoutGroup Id="Auto3cfe02c3-e050-4c8f-b14e-833ebd70b8ba" ShowCaption="False" Index="0" RelativeSize="49.562682215743443" IsNewNode="True">
+                <LayoutItem Id="dt_ReceiveDate" ViewItem="dt_ReceiveDate" Index="0" RelativeSize="36.363636363636367" IsNewNode="True" />
+                <LayoutItem Id="b_IsApplication" ViewItem="b_IsApplication" Index="1" RelativeSize="27.272727272727273" IsNewNode="True" />
+                <LayoutItem Id="b_IsSepcial" ViewItem="b_IsSepcial" Index="2" RelativeSize="36.363636363636367" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Auto8044ab5e-05df-4885-9e6b-97c9d73c10cf" ShowCaption="False" Index="1" RelativeSize="50.437317784256557" IsNewNode="True">
+                <LayoutItem Id="Client" ViewItem="Client" Index="0" RelativeSize="36.363636363636367" IsNewNode="True" />
+                <LayoutItem Id="b_IsDivCase" ViewItem="b_IsDivCase" Index="1" RelativeSize="27.272727272727273" IsNewNode="True" />
+                <LayoutItem Id="b_IsMiddle" ViewItem="b_IsMiddle" Index="2" RelativeSize="36.363636363636367" IsNewNode="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="Item2" ShowCaption="True" CaptionLocation="Top" Direction="Horizontal" Index="2" RelativeSize="11.389236545682103" IsNewNode="True">
+              <LayoutGroup Id="Autod7851a08-84a8-40f9-8200-6dca31ca8750" ShowCaption="False" Index="0" RelativeSize="49.562682215743443" IsNewNode="True">
+                <LayoutItem Id="dt_TransferDate" ViewItem="dt_TransferDate" Index="0" RelativeSize="50" IsNewNode="True" />
+                <LayoutItem Id="b_IsAppDemand" ViewItem="b_IsAppDemand" Index="1" RelativeSize="50" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Auto467af9d5-fb12-46ba-84e3-dc9e77bc7a8c" ShowCaption="False" Index="1" RelativeSize="50.437317784256557" Direction="Vertical" IsNewNode="True">
+                <LayoutItem Id="Agency" ViewItem="Agency" Index="0" RelativeSize="100" IsNewNode="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="Applicants_Group" ShowCaption="True" Index="3" RelativeSize="61.827284105131412" IsNewNode="True">
+              <LayoutItem Id="Applicants" ViewItem="Applicants" Index="0" RelativeSize="100" IsNewNode="True" />
+            </LayoutGroup>
           </LayoutGroup>
-          <LayoutGroup Id="Applicants_Group" Direction="Vertical" RelativeSize="44.651741293532339">
+          <LayoutGroup Id="Applicants_Group" Direction="Vertical" RelativeSize="60.075093867334168" Index="1" Removed="True">
             <LayoutItem Id="Applicants" RelativeSize="100" />
-          </LayoutGroup>
-          <LayoutGroup Id="Item3" ShowCaption="True" CaptionLocation="Top" Index="2" RelativeSize="41.666666666666664" IsNewNode="True">
-            <LayoutItem Id="Note" ViewItem="Note" Index="0" RelativeSize="100" ShowCaption="False" IsNewNode="True" />
           </LayoutGroup>
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <ListView Id="CaseBase_ListView" IsFooterVisible="True" />
+    <ListView Id="CaseBase_ListView" IsFooterVisible="True">
+      <Columns>
+        <ColumnInfo Id="s_OurNo" Index="0" SortIndex="0" SortOrder="Descending" Width="79" />
+        <ColumnInfo Id="s_Note" Index="1" Width="57" />
+        <ColumnInfo Id="s_ApplicantCodes" Index="2" Width="113" />
+        <ColumnInfo Id="s_ApplicantNames" Width="116" Index="3" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="Agency" Index="4" Width="56" />
+        <ColumnInfo Id="dt_TransferDate" Index="5" Width="66" />
+        <ColumnInfo Id="b_IsAppDemand" Index="6" Width="80" />
+        <ColumnInfo Id="Client" Index="7" Width="56" />
+        <ColumnInfo Id="dt_ReceiveDate" Index="8" Width="66" />
+        <ColumnInfo Id="b_IsApplication" Index="9" Width="56" />
+        <ColumnInfo Id="b_IsSepcial" Index="10" />
+        <ColumnInfo Id="b_IsMiddle" Index="11" Width="56" />
+        <ColumnInfo Id="b_IsDivCase" Index="12" Width="44" />
+      </Columns>
+    </ListView>
     <DetailView Id="CaseBaseReportView" ClassName="EastIPSystem.Module.BusinessObjects.CaseBase" AllowDelete="False" AllowNew="False" IsNewNode="True">
       <Items IsNewNode="True">
         <ControlDetailItem Id="CaseBase.ExportFile" ControlTypeName="DevExpress.XtraEditors.ButtonEdit" IsNewNode="True" />
@@ -595,57 +618,65 @@
     <DetailView Id="CommonInvoice_DetailView">
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100">
-          <LayoutGroup Id="SimpleEditors" RelativeSize="30.970149253731343">
-            <LayoutGroup Id="CommonInvoice" RelativeSize="100">
-              <LayoutGroup Id="CommonInvoice_col1" RelativeSize="33.333333333333336" Direction="Vertical">
-                <LayoutGroup Id="Auto47570a9a-aeac-4104-bfae-316e9e25777c" ShowCaption="False" Index="0" RelativeSize="100" IsNewNode="True">
-                  <LayoutItem Id="s_InvoiceNo" ViewItem="s_InvoiceNo" Index="0" RelativeSize="15.384615384615385" IsNewNode="True" />
-                  <LayoutItem Id="dt_ActionDate" ViewItem="dt_ActionDate" Index="1" RelativeSize="11.538461538461538" IsNewNode="True" />
-                  <LayoutItem Id="dt_BillingDate" ViewItem="dt_BillingDate" Index="2" RelativeSize="11.538461538461538" IsNewNode="True" />
-                  <LayoutItem Id="s_InternalNo" ViewItem="s_InternalNo" Index="3" RelativeSize="11.538461538461538" IsNewNode="True" />
-                  <LayoutItem Id="n_Currency" ViewItem="n_Currency" Index="4" RelativeSize="11.538461538461538" IsNewNode="True" />
-                  <LayoutItem Id="n_Rate" ViewItem="n_Rate" Index="5" RelativeSize="11.538461538461538" IsNewNode="True" />
-                  <LayoutItem Id="n_ExchangeCurrency" ViewItem="n_ExchangeCurrency" Index="6" RelativeSize="11.538461538461538" IsNewNode="True" />
-                  <LayoutItem Id="n_ExchangeRate" ViewItem="n_ExchangeRate" Index="7" RelativeSize="15.384615384615385" IsNewNode="True" />
-                </LayoutGroup>
-                <LayoutItem Id="dt_BillingDate" RelativeSize="6.8181818181818183" Index="1" Removed="True" />
-                <LayoutItem Id="s_AppCaseNo" RelativeSize="8.5714285714285712" Index="1" Removed="True" />
-                <LayoutItem Id="s_ApplicantName" Index="1" RelativeSize="7.8947368421052628" Removed="True" />
-                <LayoutItem Id="s_InternalNo" RelativeSize="7.3170731707317076" Index="1" Removed="True" />
-                <LayoutItem Id="s_ClientCaseNo" RelativeSize="7.3170731707317076" Index="2" Removed="True" />
-                <LayoutItem Id="s_ClientName" Index="3" RelativeSize="6.8181818181818183" Removed="True" />
-                <LayoutItem Id="s_AppNo" RelativeSize="6.3829787234042552" Index="4" Removed="True" />
-                <LayoutItem Id="s_OurNo" RelativeSize="6" Index="4" Removed="True" />
-                <LayoutItem Id="s_InvoiceNo" RelativeSize="8" Removed="True" />
+          <LayoutGroup Id="SimpleEditors" RelativeSize="28.785982478097623" Direction="Horizontal">
+            <LayoutGroup Id="CommonInvoice_col1" ShowCaption="False" Index="0" RelativeSize="33.379888268156428" IsNewNode="True">
+              <LayoutItem Id="s_InvoiceNo" ViewItem="s_InvoiceNo" Index="0" RelativeSize="13.913043478260869" IsNewNode="True" />
+              <LayoutItem Id="dt_ActionDate" ViewItem="dt_ActionDate" Index="1" RelativeSize="10.434782608695652" IsNewNode="True" />
+              <LayoutItem Id="dt_BillingDate" ViewItem="dt_BillingDate" Index="2" RelativeSize="10.434782608695652" IsNewNode="True" />
+              <LayoutItem Id="s_InternalNo" ViewItem="s_InternalNo" Index="3" RelativeSize="10.434782608695652" IsNewNode="True" />
+              <LayoutItem Id="n_Currency" ViewItem="n_Currency" Index="4" RelativeSize="10.434782608695652" IsNewNode="True" />
+              <LayoutItem Id="n_Rate" ViewItem="n_Rate" Index="5" RelativeSize="10.434782608695652" IsNewNode="True" />
+              <LayoutItem Id="n_ExchangeCurrency" ViewItem="n_ExchangeCurrency" Index="6" RelativeSize="10.434782608695652" IsNewNode="True" />
+              <LayoutItem Id="n_ExchangeRate" ViewItem="n_ExchangeRate" Index="7" RelativeSize="10.434782608695652" IsNewNode="True" />
+              <LayoutItem Id="n_State" ViewItem="n_State" Index="8" RelativeSize="13.043478260869565" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="CommonInvoice_col2" ShowCaption="False" Index="1" RelativeSize="33.240223463687151" IsNewNode="True">
+              <LayoutItem Id="s_Reason" ViewItem="s_Reason" Index="0" RelativeSize="26.956521739130434" IsNewNode="True" />
+              <LayoutItem Id="s_Contact" ViewItem="s_Contact" Index="1" RelativeSize="23.478260869565219" IsNewNode="True" />
+              <LayoutItem Id="s_DiscountNote" ViewItem="s_DiscountNote" Index="2" RelativeSize="23.478260869565219" IsNewNode="True" />
+              <LayoutItem Id="s_Note" ViewItem="s_Note" Index="3" RelativeSize="26.086956521739129" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="Auto450144a7-c88b-4e04-9e7f-b23fe97e8428" ShowCaption="False" Index="2" RelativeSize="33.379888268156428" IsNewNode="True">
+              <LayoutItem Id="s_OurNo" ViewItem="s_OurNo" Index="0" RelativeSize="13.913043478260869" IsNewNode="True" />
+              <LayoutItem Id="s_CaseName" ViewItem="s_CaseName" Index="1" RelativeSize="10.434782608695652" IsNewNode="True" />
+              <LayoutItem Id="s_AppNo" ViewItem="s_AppNo" Index="2" RelativeSize="10.434782608695652" IsNewNode="True" />
+              <LayoutItem Id="s_ClientName" ViewItem="s_ClientName" Index="3" RelativeSize="10.434782608695652" IsNewNode="True" />
+              <LayoutItem Id="s_ClientCaseNo" ViewItem="s_ClientCaseNo" Index="4" RelativeSize="10.434782608695652" IsNewNode="True" />
+              <LayoutItem Id="s_ApplicantName" ViewItem="s_ApplicantName" Index="5" RelativeSize="10.434782608695652" IsNewNode="True" />
+              <LayoutItem Id="s_AppCaseNo" ViewItem="s_AppCaseNo" Index="6" RelativeSize="10.434782608695652" IsNewNode="True" />
+              <LayoutItem Id="b_IsMiddleCase" ViewItem="b_IsMiddleCase" Index="7" RelativeSize="10.434782608695652" IsNewNode="True" />
+              <LayoutItem Id="b_IsWriteCase" ViewItem="b_IsWriteCase" Index="8" RelativeSize="13.043478260869565" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="CommonInvoice" RelativeSize="50" Removed="True">
+              <LayoutGroup Id="CommonInvoice_col1" ShowCaption="False" Index="0" RelativeSize="68.141592920353986" IsNewNode="True" Removed="True">
+                <LayoutItem Id="s_InvoiceNo" ViewItem="s_InvoiceNo" Index="0" RelativeSize="13.793103448275861" IsNewNode="True" />
+                <LayoutItem Id="dt_ActionDate" ViewItem="dt_ActionDate" Index="1" RelativeSize="10.344827586206897" IsNewNode="True" />
+                <LayoutItem Id="dt_BillingDate" ViewItem="dt_BillingDate" Index="2" RelativeSize="10.344827586206897" IsNewNode="True" />
+                <LayoutItem Id="s_InternalNo" ViewItem="s_InternalNo" Index="3" RelativeSize="10.344827586206897" IsNewNode="True" />
+                <LayoutItem Id="n_Currency" ViewItem="n_Currency" Index="4" RelativeSize="10.344827586206897" IsNewNode="True" />
+                <LayoutItem Id="n_Rate" ViewItem="n_Rate" Index="5" RelativeSize="10.344827586206897" IsNewNode="True" />
+                <LayoutItem Id="n_ExchangeCurrency" ViewItem="n_ExchangeCurrency" Index="6" RelativeSize="10.344827586206897" IsNewNode="True" />
+                <LayoutItem Id="n_ExchangeRate" ViewItem="n_ExchangeRate" Index="7" RelativeSize="10.344827586206897" IsNewNode="True" />
+                <LayoutItem Id="n_State" ViewItem="n_State" Index="8" RelativeSize="13.793103448275861" IsNewNode="True" />
               </LayoutGroup>
-              <LayoutGroup Id="CommonInvoice_col2" RelativeSize="66.666666666666671" Direction="Horizontal">
-                <LayoutGroup Id="Auto41cf507d-4b71-4f07-b173-f57a19291da4" ShowCaption="False" Index="0" RelativeSize="50" IsNewNode="True">
-                  <LayoutItem Id="s_Reason" ViewItem="s_Reason" Index="0" RelativeSize="33.17307692307692" IsNewNode="True" />
-                  <LayoutItem Id="s_Contact" ViewItem="s_Contact" Index="1" RelativeSize="33.653846153846153" IsNewNode="True" />
-                  <LayoutItem Id="s_Note" ViewItem="s_Note" Index="2" RelativeSize="33.17307692307692" IsNewNode="True" />
-                </LayoutGroup>
+              <LayoutGroup Id="CommonInvoice_col2" RelativeSize="31.858407079646017" Direction="Vertical">
                 <LayoutItem Id="b_IsMiddleCase" RelativeSize="13.793103448275861" Index="0" Removed="True" />
                 <LayoutItem Id="dt_ActionDate" Index="0" RelativeSize="9.75609756097561" ViewItem="dt_ActionDate" Removed="True" />
-                <LayoutGroup Id="Auto450144a7-c88b-4e04-9e7f-b23fe97e8428" ShowCaption="False" Index="1" RelativeSize="50" IsNewNode="True">
-                  <LayoutItem Id="s_OurNo" ViewItem="s_OurNo" Index="0" RelativeSize="15.384615384615385" IsNewNode="True" />
-                  <LayoutItem Id="s_AppNo" ViewItem="s_AppNo" Index="1" RelativeSize="11.538461538461538" IsNewNode="True" />
-                  <LayoutItem Id="s_ClientName" ViewItem="s_ClientName" Index="2" RelativeSize="11.538461538461538" IsNewNode="True" />
-                  <LayoutItem Id="s_ClientCaseNo" ViewItem="s_ClientCaseNo" Index="3" RelativeSize="11.538461538461538" IsNewNode="True" />
-                  <LayoutItem Id="s_ApplicantName" ViewItem="s_ApplicantName" Index="4" RelativeSize="11.538461538461538" IsNewNode="True" />
-                  <LayoutItem Id="s_AppCaseNo" ViewItem="s_AppCaseNo" Index="5" RelativeSize="11.538461538461538" IsNewNode="True" />
-                  <LayoutItem Id="b_IsMiddleCase" ViewItem="b_IsMiddleCase" Index="6" RelativeSize="11.538461538461538" IsNewNode="True" />
-                  <LayoutItem Id="b_IsWriteCase" ViewItem="b_IsWriteCase" Index="7" RelativeSize="15.384615384615385" IsNewNode="True" />
-                </LayoutGroup>
+                <LayoutItem Id="s_Reason" ViewItem="s_Reason" Index="0" RelativeSize="26.724137931034484" IsNewNode="True" />
                 <LayoutItem Id="n_Currency" RelativeSize="10.344827586206897" Index="1" Removed="True" />
                 <LayoutItem Id="n_ExchangeCurrency" RelativeSize="8.5714285714285712" Index="1" Removed="True" />
                 <LayoutItem Id="n_ExchangeRate" RelativeSize="7.8947368421052628" Index="1" Removed="True" />
                 <LayoutItem Id="n_TotalAmount" RelativeSize="90.2439024390244" Index="1" Removed="True" />
+                <LayoutItem Id="s_Contact" ViewItem="s_Contact" Index="1" RelativeSize="23.275862068965516" IsNewNode="True" />
                 <LayoutItem Id="n_Rate" RelativeSize="9.375" Index="2" Removed="True" />
+                <LayoutItem Id="s_DiscountNote" ViewItem="s_DiscountNote" Index="2" RelativeSize="23.275862068965516" IsNewNode="True" />
+                <LayoutItem Id="s_Note" ViewItem="s_Note" Index="3" RelativeSize="26.724137931034484" IsNewNode="True" />
                 <LayoutItem Id="b_IsWriteCase" RelativeSize="15.384615384615385" Removed="True" />
+                <LayoutItem Id="n_State" Removed="True" />
               </LayoutGroup>
             </LayoutGroup>
           </LayoutGroup>
-          <TabbedGroup Id="Tabs" RelativeSize="69.02985074626865" Index="1">
+          <TabbedGroup Id="Tabs" RelativeSize="71.214017521902377" Index="1">
             <LayoutGroup Id="CommonInternalItems" RelativeSize="100">
               <LayoutItem Id="CommonInternalItems" RelativeSize="100" />
             </LayoutGroup>

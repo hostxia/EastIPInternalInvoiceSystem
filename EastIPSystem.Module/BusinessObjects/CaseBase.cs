@@ -75,11 +75,11 @@ namespace EastIPSystem.Module.BusinessObjects
             set { SetPropertyValue("dt_TransferDate", ref _dtTransferDate, value); }
         }
 
-        private bool _bIsSepcified;
-        public bool b_IsSepcified
+        private bool _bIsSepcial;
+        public bool b_IsSepcial
         {
-            get { return _bIsSepcified; }
-            set { SetPropertyValue("b_IsSepcified", ref _bIsSepcified, value); }
+            get { return _bIsSepcial; }
+            set { SetPropertyValue("b_IsSepcial", ref _bIsSepcial, value); }
         }
 
         private bool _bIsMiddle;
@@ -94,6 +94,13 @@ namespace EastIPSystem.Module.BusinessObjects
         {
             get { return _bIsApplication; }
             set { SetPropertyValue("b_IsApplication", ref _bIsApplication, value); }
+        }
+
+        private bool _bIsAppDemand;
+        public bool b_IsAppDemand
+        {
+            get { return _bIsAppDemand; }
+            set { SetPropertyValue("b_IsAppDemand", ref _bIsAppDemand, value); }
         }
 
         private bool _bIsDivCase;
@@ -131,8 +138,9 @@ namespace EastIPSystem.Module.BusinessObjects
         public void GetCaseInfo()
         {
             EnumsAll.CaseType caseType = EnumsAll.CaseType.Internal;
-            s_OurNo = CommonFunction.GetOurNo(_sOurNo, ref caseType);
-            if (string.IsNullOrEmpty(s_OurNo)) return;
+            var sOurNo = CommonFunction.GetOurNo(_sOurNo, ref caseType);
+            if (string.IsNullOrEmpty(sOurNo)) return;
+            s_OurNo = sOurNo;
             switch (caseType)
             {
                 case EnumsAll.CaseType.Internal:
@@ -216,6 +224,46 @@ namespace EastIPSystem.Module.BusinessObjects
                                             ? dataRow["ORIG_NAME"].ToString()
                                             : dataRow["TRAN_NAME"].ToString()
                                 });
+                        }
+                        break;
+                    }
+                case EnumsAll.CaseType.Hongkong:
+                    {
+                        var dr = DbHelperOra.Query($"select cn_app_ref,RECEIVED from ex_hkcase where hk_app_ref = '{_sOurNo}'").Tables[0].Rows[0];
+                        if (!string.IsNullOrWhiteSpace(dr["RECEIVED"]?.ToString()))
+                        {
+                            dt_ReceiveDate = Convert.ToDateTime(dr["RECEIVED"].ToString());
+                        }
+                        if (!string.IsNullOrWhiteSpace(dr["cn_app_ref"]?.ToString()))
+                        {
+                            var drCN = DbHelperOra.Query(
+     $"select RECEIVED,CLIENT,CLIENT_NAME,APPL_CODE1,APPLICANT1,APPLICANT_CH1,APPL_CODE2,APPLICANT2,APPLICANT_CH2,APPL_CODE3,APPLICANT3,APPLICANT_CH3,APPL_CODE4,APPLICANT4,APPLICANT_CH4,APPL_CODE5,APPLICANT5,APPLICANT_CH5 from PATENTCASE where OURNO = '{dr["cn_app_ref"]?.ToString()}'").Tables[0].Rows[0];
+                            if (!string.IsNullOrWhiteSpace(drCN["CLIENT"].ToString()))
+                                Client =
+                                    Session.FindObject<Corporation>(CriteriaOperator.Parse($"Code = '{drCN["CLIENT"]}'")) ??
+                                    new Corporation(Session)
+                                    {
+                                        Code = drCN["CLIENT"].ToString(),
+                                        Name = drCN["CLIENT_NAME"].ToString()
+                                    };
+
+                            Applicants.ToList().ForEach(a => Applicants.Remove(a));
+                            for (int i = 1; i <= 5; i++)
+                            {
+                                if (!string.IsNullOrWhiteSpace(drCN[$"APPL_CODE{i}"].ToString()))
+                                {
+                                    Applicants.Add(
+                                        Session.FindObject<Corporation>(CriteriaOperator.Parse($"Code = '{drCN[$"APPL_CODE{i}"]}'")) ??
+                                        new Corporation(Session)
+                                        {
+                                            Code = drCN[$"APPL_CODE{i}"].ToString(),
+                                            Name =
+                                                string.IsNullOrWhiteSpace(drCN[$"APPLICANT{i}"].ToString())
+                                                    ? drCN[$"APPLICANT_CH{i}"].ToString()
+                                                    : drCN[$"APPLICANT{i}"].ToString()
+                                        });
+                                }
+                            }
                         }
                         break;
                     }

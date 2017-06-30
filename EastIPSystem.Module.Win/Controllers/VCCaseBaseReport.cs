@@ -11,6 +11,10 @@ namespace EastIPSystem.Module.Win.Controllers
 {
     public class VCCaseBaseReport : ObjectViewController<DetailView, CaseBase>
     {
+        public VCCaseBaseReport()
+        {
+            TargetViewId = "CaseBaseReportView";
+        }
         protected override void OnViewControlsCreated()
         {
             base.OnViewControlsCreated();

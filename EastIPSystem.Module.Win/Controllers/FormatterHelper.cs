@@ -18,6 +18,8 @@ namespace EastIPSystem.Module.Win.Controllers
             new KeyValuePair<string, string>("A", "1. 导入草单"),
             new KeyValuePair<string, string>("B", "2. 导入草单(旧)"),
             new KeyValuePair<string, string>("C", "3. 导入账单号"),
+            new KeyValuePair<string, string>("D", "4. 导入来案"),
+            new KeyValuePair<string, string>("E", "5. 导入去案"),
         };
 
         public static void LoadExcel(string sFilePath, int nIndex, ref List<string> listSheetsName,
@@ -206,8 +208,6 @@ namespace EastIPSystem.Module.Win.Controllers
             }
             return dtFormatData;
         }
-
-        //#region 旧数据导入
 
         /// <summary>
         ///     导入方法
@@ -417,106 +417,189 @@ namespace EastIPSystem.Module.Win.Controllers
             return dtFormatData;
         }
 
+        public static DataTable ImportReceiveCaseBase(DataTable dtExcelData, IObjectSpace objectSpace)
+        {
+            var dtFormatData = dtExcelData.Copy();
 
-        ///// <summary>
-        /////     导入方法
-        ///// </summary>
-        ///// <param name="dtExcelData"></param>
-        ///// <param name="objectSpace"></param>
-        ///// <returns></returns>
-        //public static DataTable ImportFData(DataTable dtExcelData, IObjectSpace objectSpace)
-        //{
-        //    var dtFormatData = dtExcelData.Copy();
-        //    dtFormatData.Columns.Add("导入结果");
-        //    dtFormatData.Columns.Add("相关信息");
-        //    //dtFormatData.Columns["导入结果"].SetOrdinal(0);
-        //    //dtFormatData.Columns.Add("相关信息").SetOrdinal(0);
-        //    foreach (DataRow drData in dtFormatData.Rows)
-        //        try
-        //        {
-        //            if (string.IsNullOrWhiteSpace(drData["卷号"]?.ToString()))
-        //            {
-        //                drData["导入结果"] = "失败";
-        //                drData["相关信息"] = "卷号为空";
-        //                continue;
-        //            }
-        //            if (string.IsNullOrWhiteSpace(drData["项目"]?.ToString()))
-        //            {
-        //                drData["导入结果"] = "失败";
-        //                drData["相关信息"] = "项目为空";
-        //                continue;
-        //            }
-        //            if (string.IsNullOrWhiteSpace(drData["草单编号"]?.ToString()))
-        //            {
-        //                drData["导入结果"] = "失败";
-        //                drData["相关信息"] = "草单编号为空";
-        //                continue;
-        //            }
-        //            if (string.IsNullOrWhiteSpace(drData["分类"]?.ToString()))
-        //            {
-        //                drData["导入结果"] = "失败";
-        //                drData["相关信息"] = "分类为空";
-        //                continue;
-        //            }
-        //            EnumsAll.InternalType internalType;
-        //            if (!Enum.TryParse(drData["分类"].ToString(), out internalType))
-        //            {
-        //                drData["导入结果"] = "失败";
-        //                drData["相关信息"] = "分类不正确";
-        //                continue;
-        //            }
-        //            var oldInterNo =
-        //                objectSpace.FindObject<InternalInvoice>(new BinaryOperator("InternalNo",
-        //                    drData["草单编号"].ToString()));
-        //            if (oldInterNo != null)
-        //            {
-        //                drData["导入结果"] = "失败";
-        //                drData["相关信息"] = "存在相同编号的草单";
-        //                continue;
-        //            }
-        //            var sCondition =
-        //                $"OurNo = '{drData["卷号"]}' And Content = '{drData["项目"]}' And InternalType = '{(int)internalType}'";
-        //            oldInterNo = objectSpace.FindObject<InternalInvoice>(CriteriaOperator.Parse(sCondition));
-        //            if (oldInterNo != null)
-        //            {
-        //                drData["导入结果"] = "失败";
-        //                drData["相关信息"] = "存在相同案卷&内容&类型的草单";
-        //                continue;
-        //            }
-        //            var internalInvoice = objectSpace.CreateObject<InternalInvoice>();
-        //            internalInvoice.InternalNo = drData["草单编号"].ToString();
-        //            internalInvoice.OurNo = drData["卷号"].ToString();
-        //            internalInvoice.SetCaseInfo(drData["卷号"].ToString());
-        //            internalInvoice.CreateDate = DateTime.Now;
-        //            internalInvoice.SendDate = internalInvoice.CreateDate.AddDays(3);
-        //            internalInvoice.Deadline = internalInvoice.CreateDate.AddDays(7);
-        //            internalInvoice.Type = drData["账单归属"]?.ToString();
-        //            internalInvoice.Content = drData["项目"].ToString();
-        //            internalInvoice.PermissionPolicyUser =
-        //                objectSpace.GetObjectByKey<PermissionPolicyUser>(SecuritySystem.CurrentUserId);
-        //            internalInvoice.InternalType = internalType;
-        //            if (!string.IsNullOrWhiteSpace(drData["第三方账单号"]?.ToString()))
-        //            {
-        //                internalInvoice.IsFAgencyInvoice = true;
-        //                internalInvoice.FirmNo = drData["第三方账单号"].ToString();
-        //            }
-        //            if (!string.IsNullOrWhiteSpace(drData["账单号"]?.ToString()))
-        //            {
-        //                internalInvoice.InvoiceNo = drData["账单号"].ToString();
-        //                internalInvoice.InvoiceLogDate = DateTime.Now;
-        //            }
-        //            internalInvoice.Save();
-        //            objectSpace.CommitChanges();
-        //            drData["导入结果"] = "成功";
-        //        }
-        //        catch (Exception e)
-        //        {
-        //            drData["导入结果"] = "失败";
-        //            drData["相关信息"] = e.ToString();
-        //            objectSpace.Rollback();
-        //        }
-        //    return dtFormatData;
-        //} 
-        //#endregion
+            dtFormatData.Columns.Add("导入结果");
+            dtFormatData.Columns.Add("相关信息");
+
+            if (!dtFormatData.Columns.Contains("我方卷号"))
+            {
+                var drData = dtFormatData.NewRow();
+                drData["导入结果"] = "失败";
+                drData["相关信息"] = "导入表中不存在我方卷号列";
+                dtFormatData.Rows.InsertAt(drData, 0);
+                return dtFormatData;
+            }
+            if (!dtFormatData.Columns.Contains("新申请"))
+            {
+                var drData = dtFormatData.NewRow();
+                drData["导入结果"] = "失败";
+                drData["相关信息"] = "导入表中不存在新申请列";
+                dtFormatData.Rows.InsertAt(drData, 0);
+                return dtFormatData;
+            }
+            if (!dtFormatData.Columns.Contains("转入案"))
+            {
+                var drData = dtFormatData.NewRow();
+                drData["导入结果"] = "失败";
+                drData["相关信息"] = "导入表中不存在转入案列";
+                dtFormatData.Rows.InsertAt(drData, 0);
+                return dtFormatData;
+            }
+            if (!dtFormatData.Columns.Contains("特殊案"))
+            {
+                var drData = dtFormatData.NewRow();
+                drData["导入结果"] = "失败";
+                drData["相关信息"] = "导入表中不存在特殊案列";
+                dtFormatData.Rows.InsertAt(drData, 0);
+                return dtFormatData;
+            }
+            if (!dtFormatData.Columns.Contains("分案"))
+            {
+                var drData = dtFormatData.NewRow();
+                drData["导入结果"] = "失败";
+                drData["相关信息"] = "导入表中不存在分案列";
+                dtFormatData.Rows.InsertAt(drData, 0);
+                return dtFormatData;
+            }
+
+            foreach (DataRow drData in dtFormatData.Rows)
+            {
+                try
+                {
+                    if (string.IsNullOrWhiteSpace(drData["我方卷号"]?.ToString()))
+                    {
+                        drData["导入结果"] = "失败";
+                        drData["相关信息"] = "我方卷号为空";
+                        continue;
+                    }
+                    var caseBase = objectSpace.FindObject<CaseBase>(CriteriaOperator.Parse($"s_OurNo = '{drData["我方卷号"]}'")) ??
+                                   objectSpace.CreateObject<CaseBase>();
+
+                    caseBase.s_OurNo = drData["我方卷号"]?.ToString().Trim();
+                    caseBase.b_IsApplication = drData["新申请"]?.ToString().Trim().ToUpper() == "Y";
+                    caseBase.b_IsDivCase = drData["分案"]?.ToString().Trim().ToUpper() == "Y";
+                    caseBase.b_IsMiddle = drData["转入案"]?.ToString().Trim().ToUpper() == "Y";
+                    caseBase.b_IsSepcial = drData["特殊案"]?.ToString().Trim().ToUpper() == "Y";
+                    caseBase.GetCaseInfo();
+                    caseBase.Save();
+                    objectSpace.CommitChanges();
+                    drData["导入结果"] = "成功";
+                }
+                catch (Exception e)
+                {
+                    drData["导入结果"] = "失败";
+                    drData["相关信息"] = e.ToString();
+                    objectSpace.Rollback();
+                }
+            }
+            return dtFormatData;
+        }
+
+        public static DataTable ImportTransferCaseBase(DataTable dtExcelData, IObjectSpace objectSpace)
+        {
+            var dtFormatData = dtExcelData.Copy();
+
+            dtFormatData.Columns.Add("导入结果");
+            dtFormatData.Columns.Add("相关信息");
+
+            if (!dtFormatData.Columns.Contains("我方卷号"))
+            {
+                var drData = dtFormatData.NewRow();
+                drData["导入结果"] = "失败";
+                drData["相关信息"] = "导入表中不存在我方卷号列";
+                dtFormatData.Rows.InsertAt(drData, 0);
+                return dtFormatData;
+            }
+            if (!dtFormatData.Columns.Contains("发出日期"))
+            {
+                var drData = dtFormatData.NewRow();
+                drData["导入结果"] = "失败";
+                drData["相关信息"] = "导入表中不存在发出日期列";
+                dtFormatData.Rows.InsertAt(drData, 0);
+                return dtFormatData;
+            }
+            if (!dtFormatData.Columns.Contains("申请人指定"))
+            {
+                var drData = dtFormatData.NewRow();
+                drData["导入结果"] = "失败";
+                drData["相关信息"] = "导入表中不存在申请人指定列";
+                dtFormatData.Rows.InsertAt(drData, 0);
+                return dtFormatData;
+            }
+            if (!dtFormatData.Columns.Contains("外代理编码"))
+            {
+                var drData = dtFormatData.NewRow();
+                drData["导入结果"] = "失败";
+                drData["相关信息"] = "导入表中不存在外代理编码列";
+                dtFormatData.Rows.InsertAt(drData, 0);
+                return dtFormatData;
+            }
+            if (!dtFormatData.Columns.Contains("外代理名称"))
+            {
+                var drData = dtFormatData.NewRow();
+                drData["导入结果"] = "失败";
+                drData["相关信息"] = "导入表中不存在外代理名称列";
+                dtFormatData.Rows.InsertAt(drData, 0);
+                return dtFormatData;
+            }
+            foreach (DataRow drData in dtFormatData.Rows)
+            {
+                try
+                {
+                    if (string.IsNullOrWhiteSpace(drData["我方卷号"]?.ToString()))
+                    {
+                        drData["导入结果"] = "失败";
+                        drData["相关信息"] = "我方卷号为空";
+                        continue;
+                    }
+                    if (string.IsNullOrWhiteSpace(drData["发出日期"]?.ToString()))
+                    {
+                        drData["导入结果"] = "失败";
+                        drData["相关信息"] = "发出日期为空";
+                        continue;
+                    }
+                    if (string.IsNullOrWhiteSpace(drData["外代理编码"]?.ToString()))
+                    {
+                        drData["导入结果"] = "失败";
+                        drData["相关信息"] = "外代理编码为空";
+                        continue;
+                    }
+                    if (string.IsNullOrWhiteSpace(drData["外代理名称"]?.ToString()))
+                    {
+                        drData["导入结果"] = "失败";
+                        drData["相关信息"] = "外代理名称为空";
+                        continue;
+                    }
+                    var caseBase = objectSpace.FindObject<CaseBase>(CriteriaOperator.Parse($"s_OurNo = '{drData["我方卷号"]}'")) ??
+                                   objectSpace.CreateObject<CaseBase>();
+
+                    caseBase.s_OurNo = drData["我方卷号"]?.ToString().Trim();
+                    caseBase.b_IsAppDemand = drData["申请人指定"]?.ToString().Trim().ToUpper() == "Y";
+                    caseBase.dt_TransferDate = Convert.ToDateTime(drData["发出日期"]);
+                    caseBase.GetCaseInfo();
+                    caseBase.Agency = objectSpace.FindObject<Corporation>(CriteriaOperator.Parse($"Code = '{drData["外代理编码"]}'"));
+                    if (caseBase.Agency == null)
+                    {
+                        caseBase.Agency = objectSpace.CreateObject<Corporation>();
+                        caseBase.Agency.Name = drData["外代理名称"].ToString();
+                        caseBase.Agency.Code = drData["外代理编码"].ToString();
+                    }
+                    caseBase.Save();
+
+                    objectSpace.CommitChanges();
+                    drData["导入结果"] = "成功";
+                }
+                catch (Exception e)
+                {
+                    drData["导入结果"] = "失败";
+                    drData["相关信息"] = e.ToString();
+                    objectSpace.Rollback();
+                }
+            }
+            return dtFormatData;
+        }
     }
 }
