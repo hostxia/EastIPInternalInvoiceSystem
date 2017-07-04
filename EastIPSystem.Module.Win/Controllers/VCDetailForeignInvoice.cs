@@ -2,6 +2,7 @@
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.XtraEditors;
+using EastIPSystem.Module.BusinessObjects;
 using EastIPSystem.Module.Win.Editors;
 
 namespace EastIPSystem.Module.Win.Controllers
@@ -11,7 +12,7 @@ namespace EastIPSystem.Module.Win.Controllers
         protected override void OnViewControlsCreated()
         {
             base.OnViewControlsCreated();
-
+            if (View.ObjectTypeInfo.Type == typeof(PatentPayment)) return;
             View.Items.Where(i => i.Control is MRUEdit).ToList().ForEach(i =>
             {
                 XafDataView xpDataView = ObjectSpace.CreateDataView(i.ObjectType, i.Id, null, null) as XafDataView;
