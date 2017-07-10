@@ -1,17 +1,25 @@
 ﻿using System;
 using System.Linq;
+using System.Text;
+using DevExpress.Xpo;
+using DevExpress.ExpressApp;
+using System.ComponentModel;
+using DevExpress.ExpressApp.DC;
 using DevExpress.Data.Filtering;
 using DevExpress.Persistent.Base;
+using System.Collections.Generic;
+using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.BaseImpl;
-using DevExpress.Xpo;
+using DevExpress.Persistent.Validation;
 using EastIPSystem.Module.DBUtility;
 
 namespace EastIPSystem.Module.BusinessObjects
 {
     [DefaultClassOptions]
-    public class CaseBase : BaseObject
+    [DefaultProperty("s_OurNo")]
+    public class FilePatent : BaseObject
     {
-        public CaseBase(Session session)
+        public FilePatent(Session session)
             : base(session)
         {
         }
@@ -27,29 +35,12 @@ namespace EastIPSystem.Module.BusinessObjects
             base.OnSaving();
         }
 
-        private Corporation client;
-        //[Association("Client-Cases")]
-        public Corporation Client
+        private DateTime _dtReceiveDate;
+        public DateTime dt_ReceiveDate
         {
-            get { return client; }
-            set { SetPropertyValue("Client", ref client, value); }
+            get { return _dtReceiveDate; }
+            set { SetPropertyValue("dt_ReceiveDate", ref _dtReceiveDate, value); }
         }
-
-        private Corporation agency;
-        //[Association("Agency-Cases")]
-        public Corporation Agency
-        {
-            get { return agency; }
-            set { SetPropertyValue("Agency", ref agency, value); }
-        }
-
-        //private Corporation introducer;
-
-        //public Corporation Introducer
-        //{
-        //    get { return introducer; }
-        //    set { SetPropertyValue("Introducer", ref introducer, value); }
-        //}
 
         private string _sOurNo;
         [ImmediatePostData]
@@ -59,65 +50,22 @@ namespace EastIPSystem.Module.BusinessObjects
             set { SetPropertyValue("s_OurNo", ref _sOurNo, value); }
         }
 
-        private DateTime _dtReceiveDate;
-        public DateTime dt_ReceiveDate
+        private string _sAppNo;
+        public string s_AppNo
         {
-            get { return _dtReceiveDate; }
-            set { SetPropertyValue("dt_ReceiveDate", ref _dtReceiveDate, value); }
+            get { return _sAppNo; }
+            set { SetPropertyValue("s_AppNo", ref _sAppNo, value); }
         }
 
-        private DateTime _dtTransferDate;
-        public DateTime dt_TransferDate
+        private Corporation client;
+        public Corporation Client
         {
-            get { return _dtTransferDate; }
-            set { SetPropertyValue("dt_TransferDate", ref _dtTransferDate, value); }
+            get { return client; }
+            set { SetPropertyValue("Client", ref client, value); }
         }
 
-        private bool _bIsSepcial;
-        public bool b_IsSepcial
-        {
-            get { return _bIsSepcial; }
-            set { SetPropertyValue("b_IsSepcial", ref _bIsSepcial, value); }
-        }
-
-        private bool _bIsMiddle;
-        public bool b_IsMiddle
-        {
-            get { return _bIsMiddle; }
-            set { SetPropertyValue("b_IsMiddle", ref _bIsMiddle, value); }
-        }
-
-        private bool _bIsApplication;
-        public bool b_IsApplication
-        {
-            get { return _bIsApplication; }
-            set { SetPropertyValue("b_IsApplication", ref _bIsApplication, value); }
-        }
-
-        private bool _bIsAppDemand;
-        public bool b_IsAppDemand
-        {
-            get { return _bIsAppDemand; }
-            set { SetPropertyValue("b_IsAppDemand", ref _bIsAppDemand, value); }
-        }
-
-        private bool _bIsDivCase;
-        public bool b_IsDivCase
-        {
-            get { return _bIsDivCase; }
-            set { SetPropertyValue("b_IsDivCase", ref _bIsDivCase, value); }
-        }
-
-        private string _sNote;
-        public string s_Note
-        {
-            get { return _sNote; }
-            set { SetPropertyValue("s_Note", ref _sNote, value); }
-        }
-
-        [Association("Applicants-Cases")]
+        [Association("Applicants-FilePatents")]
         public XPCollection<Corporation> Applicants => GetCollection<Corporation>("Applicants");
-
 
         private string _sApplicantCodes;
         public string s_ApplicantCodes
@@ -133,6 +81,20 @@ namespace EastIPSystem.Module.BusinessObjects
             set { SetPropertyValue("s_ApplicantNames", ref _sApplicantNames, value); }
         }
 
+        private string _sNote;
+        public string s_Note
+        {
+            get { return _sNote; }
+            set { SetPropertyValue("s_Note", ref _sNote, value); }
+        }
+
+        private bool _bIsFinish;
+        public bool b_IsFinish
+        {
+            get { return _bIsFinish; }
+            set { SetPropertyValue("b_IsFinish", ref _bIsFinish, value); }
+        }
+
         public void GetCaseInfo()
         {
             EnumsAll.CaseType caseType = EnumsAll.CaseType.Internal;
@@ -144,7 +106,7 @@ namespace EastIPSystem.Module.BusinessObjects
                 case EnumsAll.CaseType.Internal:
                     {
                         var dr = DbHelperOra.Query(
-                             $"select RECEIVED,CLIENT,CLIENT_NAME,APPL_CODE1,APPLICANT1,APPLICANT_CH1,APPL_CODE2,APPLICANT2,APPLICANT_CH2,APPL_CODE3,APPLICANT3,APPLICANT_CH3,APPL_CODE4,APPLICANT4,APPLICANT_CH4,APPL_CODE5,APPLICANT5,APPLICANT_CH5 from PATENTCASE where OURNO = '{_sOurNo}'").Tables[0].Rows[0];
+                             $"select RECEIVED,CLIENT,CLIENT_NAME,APPL_CODE1,APPLICANT1,APPLICANT_CH1,APPL_CODE2,APPLICANT2,APPLICANT_CH2,APPL_CODE3,APPLICANT3,APPLICANT_CH3,APPL_CODE4,APPLICANT4,APPLICANT_CH4,APPL_CODE5,APPLICANT5,APPLICANT_CH5,APPLICATION_NO,WITHDREW from PATENTCASE where OURNO = '{_sOurNo}'").Tables[0].Rows[0];
                         if (!string.IsNullOrWhiteSpace(dr["RECEIVED"].ToString()))
                             dt_ReceiveDate = Convert.ToDateTime(dr["RECEIVED"].ToString());
                         if (!string.IsNullOrWhiteSpace(dr["CLIENT"].ToString()))
@@ -173,6 +135,8 @@ namespace EastIPSystem.Module.BusinessObjects
                                     });
                             }
                         }
+                        s_AppNo = dr[$"APPLICATION_NO"].ToString();
+                        b_IsFinish = !string.IsNullOrWhiteSpace(dr[$"WITHDREW"].ToString());
                         break;
                     }
                 case EnumsAll.CaseType.Foreign:
@@ -196,17 +160,17 @@ namespace EastIPSystem.Module.BusinessObjects
                                                 : tempclient[0]["TRAN_NAME"].ToString()
                                 };
 
-                        var tempagency = dt.Select("ROLE = 'AGT'");
-                        if (tempagency.Length > 0)
-                            Agency =
-                                Session.FindObject<Corporation>(CriteriaOperator.Parse($"Code = '{tempagency[0]["EID"]}'")) ??
-                                new Corporation(Session)
-                                {
-                                    Code = tempagency[0]["EID"].ToString(),
-                                    Name = !string.IsNullOrWhiteSpace(tempagency[0]["ORIG_NAME"].ToString())
-                                                ? tempagency[0]["ORIG_NAME"].ToString()
-                                                : tempagency[0]["TRAN_NAME"].ToString()
-                                };
+                        //var tempagency = dt.Select("ROLE = 'AGT'");
+                        //if (tempagency.Length > 0)
+                        //    Agency =
+                        //        Session.FindObject<Corporation>(CriteriaOperator.Parse($"Code = '{tempagency[0]["EID"]}'")) ??
+                        //        new Corporation(Session)
+                        //        {
+                        //            Code = tempagency[0]["EID"].ToString(),
+                        //            Name = !string.IsNullOrWhiteSpace(tempagency[0]["ORIG_NAME"].ToString())
+                        //                        ? tempagency[0]["ORIG_NAME"].ToString()
+                        //                        : tempagency[0]["TRAN_NAME"].ToString()
+                        //        };
 
 
                         Applicants.ToList().ForEach(a => Applicants.Remove(a));

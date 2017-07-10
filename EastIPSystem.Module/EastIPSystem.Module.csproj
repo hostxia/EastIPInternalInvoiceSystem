@@ -89,6 +89,10 @@
     </Reference>
     <Reference Include="DevExpress.XtraReports.v16.2, Version=16.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraReports.v16.2.Extensions, Version=16.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.6.9.9\lib\net45\MySql.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System">
       <Name>System</Name>
       <Private>False</Private>
@@ -119,6 +123,9 @@
     <Compile Include="BusinessObjects\CommonInvoiceItem.cs" />
     <Compile Include="BusinessObjects\CommonInvoiceTypeItem.cs" />
     <Compile Include="BusinessObjects\Country.cs" />
+    <Compile Include="BusinessObjects\FileInOfficial.cs" />
+    <Compile Include="BusinessObjects\FileOutTemplate.cs" />
+    <Compile Include="BusinessObjects\FilePatent.cs" />
     <Compile Include="BusinessObjects\PatentBase.cs" />
     <Compile Include="BusinessObjects\PatentPaymentCode.cs" />
     <Compile Include="BusinessObjects\CommonFunction.cs" />
@@ -214,6 +221,8 @@
       <DependentUpon>VCPatentSubmitDetail.cs</DependentUpon>
     </Compile>
     <Compile Include="DatabaseUpdate\Updater.cs" />
+    <Compile Include="DBUtility\CommandInfo.cs" />
+    <Compile Include="DBUtility\DbHelperMySQL.cs" />
     <Compile Include="DBUtility\DbHelperOra.cs" />
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
@@ -273,7 +282,9 @@
     <EmbeddedResource Include="Properties\licenses.licx" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="FunctionalTests\ReadMe.txt" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <None Include="FunctionalTests\sample.ets" />

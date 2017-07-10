@@ -737,6 +737,45 @@
         <Member Name="dt_Created" Caption="创建时间" EditMask="G" DisplayFormat="{0:G}" />
       </OwnMembers>
     </Class>
+    <Class Name="EastIPSystem.Module.BusinessObjects.FileInOfficial" Caption="官方来文">
+      <OwnMembers>
+        <Member Name="b_IsNoNeedTransfer" Caption="无需转文" />
+        <Member Name="dt_OfficialSendDate" Caption="官方发出日" />
+        <Member Name="dt_ReceiveDate" Caption="收到日" />
+        <Member Name="dt_TransferDate" Caption="转文日" />
+        <Member Name="FilePatent" Caption="案件" />
+        <Member Name="Handler" Caption="处理人" />
+        <Member Name="InFileData" Caption="官文文件" />
+        <Member Name="OutFileData" Caption="转文文件" />
+        <Member Name="s_FileCode" Caption="官文代码" />
+        <Member Name="s_FileName" Caption="官文名称" />
+        <Member Name="s_Note" Caption="备注" />
+        <Member Name="s_OfficialNo" Caption="官方发文序号" />
+      </OwnMembers>
+    </Class>
+    <Class Name="EastIPSystem.Module.BusinessObjects.FileOutTemplate" Caption="转文模板">
+      <OwnMembers>
+        <Member Name="n_Language" Caption="文种" />
+        <Member Name="s_ClientNo" Caption="客户代码" />
+        <Member Name="s_FileCode" Caption="官文代码" />
+        <Member Name="s_FileName" Caption="转文命名" />
+        <Member Name="s_Name" Caption="模板名称" />
+        <Member Name="TemplateData" Caption="模板文件" />
+      </OwnMembers>
+    </Class>
+    <Class Name="EastIPSystem.Module.BusinessObjects.FilePatent" Caption="来文案件">
+      <OwnMembers>
+        <Member Name="Applicants" Caption="申请人" />
+        <Member Name="b_IsFinish" Caption="结案" />
+        <Member Name="Client" Caption="委托人" />
+        <Member Name="dt_ReceiveDate" Caption="接案日" />
+        <Member Name="s_ApplicantCodes" Caption="申请人代码" />
+        <Member Name="s_ApplicantNames" Caption="申请人名称" />
+        <Member Name="s_AppNo" Caption="申请号" />
+        <Member Name="s_Note" Caption="备注" />
+        <Member Name="s_OurNo" Caption="我方卷号" />
+      </OwnMembers>
+    </Class>
     <Class Name="EastIPSystem.Module.BusinessObjects.InternalInvoice">
       <OwnMembers>
         <Member Name="b_IsNotInternalInvoice" Caption="不开草单" />
@@ -1145,6 +1184,35 @@
               <LayoutGroup Id="Expense_col1">
                 <LayoutGroup Id="Auto5ad2d8b6-7e85-4e43-87b2-1753d3fc1203" Caption="" />
               </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="FileInOfficial_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="FileInOfficial" Caption="官方来文" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="FileOutTemplate_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="FileOutTemplate" Caption="转文模板" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="FilePatent_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="FilePatent" Caption="案件信息">
+              <LayoutGroup Id="FilePatent_col2" Caption="FilePatent_col2" />
             </LayoutGroup>
           </LayoutGroup>
         </LayoutGroup>

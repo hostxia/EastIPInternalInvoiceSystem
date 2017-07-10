@@ -27,7 +27,8 @@ namespace EastIPSystem.Module.BusinessObjects
         public override void AfterConstruction()
         {
             base.AfterConstruction();
-            dt_SubmitDate = dt_CreateDate = DateTime.Now;
+            dt_SubmitDate = DateTime.Now.Date;
+            dt_CreateDate = DateTime.Now;
             Creator = Session.GetObjectByKey<SysUser>(SecuritySystem.CurrentUserId);
         }
 

@@ -135,6 +135,22 @@
     <Reference Include="DevExpress.XtraReports.v16.2.Extensions, Version=16.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraSpreadsheet.v16.2, Version=16.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraTreeList.v16.2, Version=16.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DocX, Version=1.0.0.22, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocX.1.0.0.22\lib\net40\DocX.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.11.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.11\lib\itextsharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.6.9.9\lib\net45\MySql.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System">
@@ -153,6 +169,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Data.OracleClient" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Design" />
     <Reference Include="System.Drawing">
@@ -190,6 +207,12 @@
     </Compile>
     <Compile Include="Controllers\VCDetailForeignInvoice.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\VCFileOfficialList.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\VCFileOfficialList.Designer.cs">
+      <DependentUpon>VCFileOfficialList.cs</DependentUpon>
     </Compile>
     <Compile Include="Controllers\VCImportFile.cs">
       <SubType>Component</SubType>
@@ -240,6 +263,16 @@
       <DependentUpon>XFrmImport.cs</DependentUpon>
     </Compile>
     <Compile Include="Editors\MRUStringEditor.cs" />
+    <Compile Include="MarkCode\MarkCode.cs" />
+    <Compile Include="MarkCode\MarkCodeCollection.cs" />
+    <Compile Include="OfficialFileImport\CPCOfficialFile.cs" />
+    <Compile Include="OfficialFileImport\CPCOfficialFileConfig.cs" />
+    <Compile Include="OfficialFileImport\XFrmOfficialFileImport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OfficialFileImport\XFrmOfficialFileImport.designer.cs">
+      <DependentUpon>XFrmOfficialFileImport.cs</DependentUpon>
+    </Compile>
     <Compile Include="WinModule.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -251,6 +284,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Controllers\VCCaseBaseList.resx">
       <DependentUpon>VCCaseBaseList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\VCFileOfficialList.resx">
+      <DependentUpon>VCFileOfficialList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controllers\VCImportFile.resx">
       <DependentUpon>VCImportFile.cs</DependentUpon>
@@ -271,6 +307,9 @@
       <DependentUpon>XFrmImport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml" />
+    <EmbeddedResource Include="OfficialFileImport\XFrmOfficialFileImport.resx">
+      <DependentUpon>XFrmOfficialFileImport.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="WinModule.resx">
       <DependentUpon>WinModule.cs</DependentUpon>
@@ -278,11 +317,13 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="Images\ReadMe.txt" />
     <EmbeddedResource Include="Model.DesignedDiffs.Localization.zh-CHS.xafml">
       <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

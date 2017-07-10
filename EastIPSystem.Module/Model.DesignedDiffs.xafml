@@ -86,6 +86,9 @@
         <Member Name="s_Description" Caption="名称" />
       </OwnMembers>
     </Class>
+    <Class Name="EastIPSystem.Module.BusinessObjects.FileInOfficial" ImageName="BO_Product" />
+    <Class Name="EastIPSystem.Module.BusinessObjects.FileOutTemplate" ImageName="BO_Security_Permission_Navigate" />
+    <Class Name="EastIPSystem.Module.BusinessObjects.FilePatent" ImageName="NavigationOptions" />
     <Class Name="EastIPSystem.Module.BusinessObjects.InternalInvoice" Caption="草单管理" ObjectCaptionFormat="{0:InternalNo}" DefaultListViewShowAutoFilterRow="True" ImageName="BO_Invoice">
       <OwnMembers>
         <Member Name="Agent1" Caption="代理人1" Size="20" DataSourceProperty="" LookupProperty="CodeName" LookupEditorMode="AllItemsWithSearch" />
@@ -233,6 +236,8 @@
           <Item Id="WorkItem_ListView" ViewId="WorkItem_ListView" ObjectKey="" Index="4" IsNewNode="True" />
           <Item Id="CaseExtension_ListView" ViewId="CaseExtension_ListView" ObjectKey="" Index="5" IsNewNode="True" />
           <Item Id="PatentSubmitList_ListView" ViewId="PatentSubmitList_ListView" ObjectKey="" Index="6" IsNewNode="True" />
+          <Item Id="FilePatent_ListView" ViewId="FilePatent_ListView" ObjectKey="" Index="7" IsNewNode="True" />
+          <Item Id="FileInOfficial_ListView" ViewId="FileInOfficial_ListView" ObjectKey="" Index="8" IsNewNode="True" />
         </Items>
       </Item>
       <Item Id="Default" Caption="配置管理" Visible="True">
@@ -250,6 +255,8 @@
           <Item Id="Corporation_ListView" Removed="True" />
           <Item Id="Expense_ListView" Removed="True" />
           <Item Id="Fee_ListView" Removed="True" />
+          <Item Id="FileInOfficial_ListView" ViewId="FileInOfficial_ListView" ObjectKey="" Removed="True" />
+          <Item Id="FilePatent_ListView" Removed="True" />
           <Item Id="InternalInvoice_ListView" Removed="True" />
           <Item Id="Invoice_ListView" Removed="True" />
           <Item Id="PatentBase_ListView" Removed="True" />
@@ -295,6 +302,7 @@
       <RuleRequiredField Id="PatentBase_OurNoRequired" TargetType="EastIPSystem.Module.BusinessObjects.PatentBase" TargetPropertyName="s_OurNo" TargetContextIDs="Save" IsNewNode="True" />
       <RuleUniqueValue Id="PatentBase_OurNoUnique" TargetType="EastIPSystem.Module.BusinessObjects.PatentBase" TargetPropertyName="s_OurNo" TargetContextIDs="Save" CriteriaEvaluationBehavior="BeforeTransaction" IsNewNode="True" />
       <RuleCombinationOfPropertiesIsUnique Id="PatentPayment_CombinUnique" TargetType="EastIPSystem.Module.BusinessObjects.PatentPayment" TargetProperties="s_OurNo,s_FeeName" TargetContextIDs="Save" ResultType="Warning" CriteriaEvaluationBehavior="BeforeTransaction" IsNewNode="True" />
+      <RuleCombinationOfPropertiesIsUnique Id="PatentSubmitList_CombineUnique" TargetType="EastIPSystem.Module.BusinessObjects.PatentSubmitList" TargetContextIDs="Save" TargetProperties="s_OurNo,dt_SubmitDate,s_Content,PatentProcess" IsNewNode="True" />
     </Rules>
   </Validation>
   <Views>
@@ -587,8 +595,8 @@
       <Columns>
         <ColumnInfo Id="CodeFee" LookupProperty="s_Code" Index="0" Width="92" SortIndex="0" SortOrder="Ascending" />
         <ColumnInfo Id="s_Name" SortIndex="-1" SortOrder="None" Width="333" Index="1" />
-        <ColumnInfo Id="n_Price" Width="66" />
         <ColumnInfo Id="n_Amount" Index="3" Width="64" />
+        <ColumnInfo Id="n_Price" Width="66" />
         <ColumnInfo Id="n_Count" Width="64" />
         <ColumnInfo Id="n_Currency" Index="4" />
       </Columns>
@@ -608,8 +616,8 @@
     <ListView Id="CommonInvoice_CommonInvoiceTypeItems_ListView" AllowEdit="True" AllowLink="False" AllowUnlink="False" IsFooterVisible="True" AllowDelete="False" AllowNew="False">
       <Columns>
         <ColumnInfo Id="s_InvoiceType" Width="140" SortIndex="0" SortOrder="Ascending" />
-        <ColumnInfo Id="s_FormatText" Width="137" />
         <ColumnInfo Id="n_PayableAmount" Width="71" Index="2" />
+        <ColumnInfo Id="s_FormatText" Width="137" />
         <ColumnInfo Id="n_Amount" Width="68" Index="3" />
         <ColumnInfo Id="n_DiscountType" Width="68" Index="4" />
         <ColumnInfo Id="n_Discount" Width="44" Index="5" />
@@ -829,6 +837,103 @@
       </Layout>
     </DetailView>
     <ListView Id="Fee_ListView" IsFooterVisible="True" />
+    <DetailView Id="FileInOfficial_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="FileInOfficial" RelativeSize="100">
+              <LayoutGroup Id="FileInOfficial_col1" RelativeSize="50">
+                <LayoutItem Id="FilePatent" RelativeSize="4.2328042328042326" />
+                <LayoutItem Id="dt_OfficialSendDate" RelativeSize="3.1746031746031744" />
+                <LayoutItem Id="dt_ReceiveDate" RelativeSize="3.1746031746031744" />
+                <LayoutItem Id="s_FileName" ViewItem="s_FileName" Index="3" RelativeSize="3.1746031746031744" IsNewNode="True" />
+                <LayoutItem Id="s_FileCode" ViewItem="s_FileCode" Index="4" RelativeSize="3.1746031746031744" IsNewNode="True" />
+                <LayoutItem Id="s_OfficialNo" Index="5" RelativeSize="83.068783068783063" />
+                <LayoutItem Id="b_IsNoNeedTransfer" RelativeSize="3.1746031746031744" Index="6" Removed="True" />
+                <LayoutItem Id="dt_TransferDate" RelativeSize="79.8941798941799" Index="6" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="FileInOfficial_col2" RelativeSize="50">
+                <LayoutItem Id="InFileData" Index="0" RelativeSize="4.2328042328042326" />
+                <LayoutItem Id="Handler" Index="1" RelativeSize="3.1746031746031744" />
+                <LayoutItem Id="s_Note" RelativeSize="3.1746031746031744" Index="2" />
+                <LayoutItem Id="OutFileData" Index="3" RelativeSize="3.1746031746031744" />
+                <LayoutItem Id="dt_TransferDate" ViewItem="dt_TransferDate" Index="4" RelativeSize="3.1746031746031744" IsNewNode="True" />
+                <LayoutItem Id="b_IsNoNeedTransfer" ViewItem="b_IsNoNeedTransfer" Index="5" RelativeSize="83.068783068783063" IsNewNode="True" />
+                <LayoutItem Id="s_FileCode" RelativeSize="4.2328042328042326" Removed="True" />
+                <LayoutItem Id="s_FileName" RelativeSize="3.3946251768033946" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="FileInOfficial_ListView" IsFooterVisible="True">
+      <Columns>
+        <ColumnInfo Id="FilePatent" Index="-1" Width="44" Removed="True" />
+        <ColumnInfo Id="dt_ReceiveDate" SortIndex="0" SortOrder="Descending" Index="0" Width="67" />
+        <ColumnInfo Id="FilePatent.s_OurNo" PropertyName="FilePatent.s_OurNo" Index="1" IsNewNode="True" />
+        <ColumnInfo Id="FilePatent.s_AppNo" PropertyName="FilePatent.s_AppNo" Index="2" IsNewNode="True" />
+        <ColumnInfo Id="s_FileName" Width="78" SortIndex="-1" SortOrder="None" Index="3" />
+        <ColumnInfo Id="dt_OfficialSendDate" SortIndex="-1" SortOrder="None" Index="4" Width="80" />
+        <ColumnInfo Id="s_FileCode" Width="0" Index="5" />
+        <ColumnInfo Id="s_OfficialNo" Width="92" Index="6" />
+        <ColumnInfo Id="Handler" Width="56" Index="7" />
+        <ColumnInfo Id="InFileData" Width="68" Index="8" />
+        <ColumnInfo Id="b_IsNoNeedTransfer" Width="68" Index="9" />
+        <ColumnInfo Id="dt_TransferDate" Width="59" Index="10" />
+        <ColumnInfo Id="OutFileData" Width="68" Index="11" />
+        <ColumnInfo Id="s_Note" Width="57" Index="12" />
+      </Columns>
+    </ListView>
+    <DetailView Id="FileOutTemplate_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="FileOutTemplate" RelativeSize="100">
+              <LayoutGroup Id="FileOutTemplate_col1" RelativeSize="50">
+                <LayoutItem Id="s_FileCode" RelativeSize="4.2328042328042326" />
+                <LayoutItem Id="s_Name" RelativeSize="3.1746031746031744" />
+                <LayoutItem Id="TemplateData" ViewItem="TemplateData" Index="2" RelativeSize="92.5925925925926" IsNewNode="True" />
+                <LayoutItem Id="s_ClientNo" RelativeSize="92.079207920792072" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="FileOutTemplate_col2" RelativeSize="50">
+                <LayoutItem Id="n_Language" RelativeSize="4.2328042328042326" Index="0" />
+                <LayoutItem Id="s_FileName" ViewItem="s_FileName" Index="1" RelativeSize="3.1746031746031744" IsNewNode="True" Removed="True" />
+                <LayoutItem Id="s_ClientNo" ViewItem="s_ClientNo" Index="2" RelativeSize="92.5925925925926" IsNewNode="True" />
+                <LayoutItem Id="TemplateData" RelativeSize="92.5925925925926" Index="2" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="FileOutTemplate_ListView" IsFooterVisible="True" />
+    <DetailView Id="FilePatent_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="16.145181476846059">
+            <LayoutGroup Id="FilePatent" RelativeSize="100">
+              <LayoutGroup Id="FilePatent_col1" RelativeSize="50">
+                <LayoutItem Id="s_OurNo" RelativeSize="36.363636363636367" Index="0" />
+                <LayoutItem Id="dt_ReceiveDate" RelativeSize="27.272727272727273" Index="1" />
+                <LayoutItem Id="Client" RelativeSize="36.363636363636367" Index="2" />
+                <LayoutItem Id="s_AppNo" RelativeSize="21.428571428571427" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="FilePatent_col2" RelativeSize="50">
+                <LayoutItem Id="s_ApplicantNames" RelativeSize="28.571428571428573" Index="0" Removed="True" />
+                <LayoutItem Id="s_AppNo" ViewItem="s_AppNo" Index="0" RelativeSize="36.363636363636367" IsNewNode="True" />
+                <LayoutItem Id="s_Note" RelativeSize="63.636363636363633" Index="1" />
+                <LayoutItem Id="s_ApplicantCodes" RelativeSize="36.363636363636367" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="Applicants_Group" Direction="Vertical" RelativeSize="83.854818523153938">
+            <LayoutItem Id="Applicants" RelativeSize="100" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="FilePatent_ListView" IsFooterVisible="True" />
     <DetailView Id="ForeignInvoice_DetailView" ClassName="EastIPSystem.Module.BusinessObjects.InternalInvoice" Caption="第三方账单" ObjectCaptionFormat="{0:FirmNo}" ImageName="BO_Sale" DefaultFocusedItem="dt_DateForeignInvoice" IsNewNode="True">
       <Items IsNewNode="True">
         <PropertyEditor Id="b_IsNotInternalInvoice" PropertyName="b_IsNotInternalInvoice" IsNewNode="True" />

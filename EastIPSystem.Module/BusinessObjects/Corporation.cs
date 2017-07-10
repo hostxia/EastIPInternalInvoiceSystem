@@ -49,6 +49,13 @@ namespace EastIPSystem.Module.BusinessObjects
         }
 
         [Browsable(false)]
+        [Association("Applicants-FilePatents")]
+        public XPCollection<FilePatent> FilePatents
+        {
+            get { return GetCollection<FilePatent>("FilePatents"); }
+        }
+
+        [Browsable(false)]
         [Association("PatentBases-Applicants")]
         public XPCollection<PatentBase> PatentBases
         {

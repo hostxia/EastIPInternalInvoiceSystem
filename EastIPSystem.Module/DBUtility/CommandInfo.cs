@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data.SqlClient;
 
-namespace EastIPReportClient.DBUtility
+namespace BEOfficialFileImport.DBUtility
 {
     public enum EffentNextType
     {
