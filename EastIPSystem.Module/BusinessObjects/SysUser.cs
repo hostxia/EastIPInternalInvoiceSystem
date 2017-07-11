@@ -14,6 +14,8 @@ namespace EastIPSystem.Module.BusinessObjects
 
         private string _sName;
 
+        private string _sEName;
+
         public SysUser(Session session)
             : base(session)
         {
@@ -27,15 +29,20 @@ namespace EastIPSystem.Module.BusinessObjects
         public string Code
         {
             get { return _sCode; }
-            set { SetPropertyValue("s_Code", ref _sCode, value); }
+            set { SetPropertyValue("Code", ref _sCode, value); }
         }
 
         public string Name
         {
             get { return _sName; }
-            set { SetPropertyValue("s_Name", ref _sName, value); }
+            set { SetPropertyValue("Name", ref _sName, value); }
         }
 
+        public string EName
+        {
+            get { return _sEName; }
+            set { SetPropertyValue("EName", ref _sEName, value); }
+        }
 
         private string _sDepartment;
 

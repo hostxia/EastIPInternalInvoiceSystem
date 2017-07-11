@@ -67,9 +67,13 @@ namespace EastIPSystem.Module.Win.Controllers
 
         private void GenerateOutDoc(FileInOfficial fileInOfficial)
         {
-            var fileTemplate = ObjectSpace.FindObject<FileOutTemplate>(CriteriaOperator.Parse("s_FileCode = ? And s_ClientNo = ?", fileInOfficial.s_FileCode, fileInOfficial.FilePatent?.Client?.Code));
+            var fileTemplate = ObjectSpace.GetObjects<FileOutTemplate>(CriteriaOperator.Parse("s_FileCode = ? And s_ClientNo = ?", fileInOfficial.s_FileCode, fileInOfficial.FilePatent?.Client?.Code)).FirstOrDefault(f => (fileInOfficial.FilePatent?.s_ApplicantCodes ?? string.Empty).Split(';').Contains(f.s_ApplicantNo));//联合
             if (fileTemplate == null)
-                fileTemplate = ObjectSpace.FindObject<FileOutTemplate>(CriteriaOperator.Parse("s_FileCode = ?", fileInOfficial.s_FileCode));
+                fileTemplate = ObjectSpace.FindObject<FileOutTemplate>(new GroupOperator(GroupOperatorType.And, new InOperator("s_ApplicantNo", (fileInOfficial.FilePatent?.s_ApplicantCodes ?? string.Empty).Split(';')), CriteriaOperator.Parse("s_FileCode = ? And IsNullOrEmpty(s_ClientNo)", fileInOfficial.s_FileCode)));//申请人
+            if (fileTemplate == null)
+                fileTemplate = ObjectSpace.FindObject<FileOutTemplate>(CriteriaOperator.Parse("s_FileCode = ? And s_ClientNo = ? And IsNullOrEmpty(s_ApplicantNo)", fileInOfficial.s_FileCode, fileInOfficial.FilePatent?.Client?.Code));//客户
+            if (fileTemplate == null)
+                fileTemplate = ObjectSpace.FindObject<FileOutTemplate>(CriteriaOperator.Parse("s_FileCode = ? And IsNullOrEmpty(s_ClientNo) And IsNullOrEmpty(s_ApplicantNo)", fileInOfficial.s_FileCode));//默认
             if (fileTemplate == null || fileTemplate.TemplateData == null) return;
             using (var stream = new MemoryStream())
             {

@@ -595,8 +595,8 @@
       <Columns>
         <ColumnInfo Id="CodeFee" LookupProperty="s_Code" Index="0" Width="92" SortIndex="0" SortOrder="Ascending" />
         <ColumnInfo Id="s_Name" SortIndex="-1" SortOrder="None" Width="333" Index="1" />
-        <ColumnInfo Id="n_Amount" Index="3" Width="64" />
         <ColumnInfo Id="n_Price" Width="66" />
+        <ColumnInfo Id="n_Amount" Index="3" Width="64" />
         <ColumnInfo Id="n_Count" Width="64" />
         <ColumnInfo Id="n_Currency" Index="4" />
       </Columns>
@@ -616,8 +616,8 @@
     <ListView Id="CommonInvoice_CommonInvoiceTypeItems_ListView" AllowEdit="True" AllowLink="False" AllowUnlink="False" IsFooterVisible="True" AllowDelete="False" AllowNew="False">
       <Columns>
         <ColumnInfo Id="s_InvoiceType" Width="140" SortIndex="0" SortOrder="Ascending" />
-        <ColumnInfo Id="n_PayableAmount" Width="71" Index="2" />
         <ColumnInfo Id="s_FormatText" Width="137" />
+        <ColumnInfo Id="n_PayableAmount" Width="71" Index="2" />
         <ColumnInfo Id="n_Amount" Width="68" Index="3" />
         <ColumnInfo Id="n_DiscountType" Width="68" Index="4" />
         <ColumnInfo Id="n_Discount" Width="44" Index="5" />
@@ -890,16 +890,19 @@
         <LayoutGroup Id="Main" RelativeSize="100">
           <LayoutGroup Id="SimpleEditors" RelativeSize="100">
             <LayoutGroup Id="FileOutTemplate" RelativeSize="100">
-              <LayoutGroup Id="FileOutTemplate_col1" RelativeSize="50">
+              <LayoutGroup Id="FileOutTemplate_col1" RelativeSize="50.051921079958461">
                 <LayoutItem Id="s_FileCode" RelativeSize="4.2328042328042326" />
                 <LayoutItem Id="s_Name" RelativeSize="3.1746031746031744" />
-                <LayoutItem Id="TemplateData" ViewItem="TemplateData" Index="2" RelativeSize="92.5925925925926" IsNewNode="True" />
+                <LayoutItem Id="TemplateData" ViewItem="TemplateData" Index="2" RelativeSize="3.1746031746031744" IsNewNode="True" />
+                <LayoutItem Id="s_FileName" ViewItem="s_FileName" Index="3" RelativeSize="89.417989417989418" IsNewNode="True" />
+                <LayoutItem Id="s_ApplicantNo" Removed="True" />
                 <LayoutItem Id="s_ClientNo" RelativeSize="92.079207920792072" Removed="True" />
               </LayoutGroup>
-              <LayoutGroup Id="FileOutTemplate_col2" RelativeSize="50">
+              <LayoutGroup Id="FileOutTemplate_col2" RelativeSize="49.948078920041539">
                 <LayoutItem Id="n_Language" RelativeSize="4.2328042328042326" Index="0" />
-                <LayoutItem Id="s_FileName" ViewItem="s_FileName" Index="1" RelativeSize="3.1746031746031744" IsNewNode="True" Removed="True" />
-                <LayoutItem Id="s_ClientNo" ViewItem="s_ClientNo" Index="2" RelativeSize="92.5925925925926" IsNewNode="True" />
+                <LayoutItem Id="s_ClientNo" ViewItem="s_ClientNo" Index="1" RelativeSize="3.1746031746031744" IsNewNode="True" />
+                <LayoutItem Id="s_FileName" ViewItem="s_FileName" Index="1" RelativeSize="3.1746031746031744" Removed="True" />
+                <LayoutItem Id="s_ApplicantNo" ViewItem="s_ApplicantNo" Index="2" RelativeSize="92.5925925925926" IsNewNode="True" />
                 <LayoutItem Id="TemplateData" RelativeSize="92.5925925925926" Index="2" Removed="True" />
               </LayoutGroup>
             </LayoutGroup>
@@ -1652,6 +1655,28 @@
         <ColumnInfo Id="b_Receipted" Width="68" />
       </Columns>
     </ListView>
+    <DetailView Id="SysUser_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" ShowCaption="False" Index="0" RelativeSize="20.4" Direction="Horizontal" IsNewNode="True" Removed="True">
+            <LayoutGroup Id="SysUser" ShowCaption="True" Index="0" RelativeSize="50" IsNewNode="True">
+              <LayoutItem Id="Code" ViewItem="Code" Index="0" RelativeSize="28.571428571428573" IsNewNode="True" />
+              <LayoutItem Id="Name" ViewItem="Name" Index="1" RelativeSize="21.428571428571427" IsNewNode="True" />
+              <LayoutItem Id="EName" ViewItem="EName" Index="2" RelativeSize="21.428571428571427" IsNewNode="True" />
+              <LayoutItem Id="Department" ViewItem="Department" Index="3" RelativeSize="28.571428571428573" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="PermissionPolicyUser" ShowCaption="True" Index="1" RelativeSize="50" IsNewNode="True">
+              <LayoutItem Id="UserName" ViewItem="UserName" Index="0" RelativeSize="28.571428571428573" IsNewNode="True" />
+              <LayoutItem Id="ChangePasswordOnFirstLogon" ViewItem="ChangePasswordOnFirstLogon" Index="1" RelativeSize="21.428571428571427" IsNewNode="True" />
+              <LayoutItem Id="IsActive" ViewItem="IsActive" Index="2" RelativeSize="50" IsNewNode="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="Roles_Group" Direction="Vertical" RelativeSize="79.6">
+            <LayoutItem Id="Roles" RelativeSize="100" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
     <ListView Id="SysUser_ListView" IsFooterVisible="True" />
     <ListView Id="SysUser_LookupListView" AllowNew="False" Criteria="">
       <Columns>

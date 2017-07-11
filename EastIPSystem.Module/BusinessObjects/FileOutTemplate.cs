@@ -47,6 +47,13 @@ namespace EastIPSystem.Module.BusinessObjects
             set { SetPropertyValue("s_ClientNo", ref _sClientNo, value); }
         }
 
+        private string _sApplicantNo;
+        public string s_ApplicantNo
+        {
+            get { return _sApplicantNo; }
+            set { SetPropertyValue("s_ApplicantNo", ref _sApplicantNo, value); }
+        }
+
         private string _sFileName;
         public string s_FileName
         {

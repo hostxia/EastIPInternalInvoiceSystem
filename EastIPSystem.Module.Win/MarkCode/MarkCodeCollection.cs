@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DevExpress.Data.Filtering;
 using EastIPSystem.Module.BusinessObjects;
 using EastIPSystem.Module.DBUtility;
 
@@ -41,7 +42,8 @@ namespace EastIPSystem.Module.Win.MarkCode
             Add(new MarkCodePubVol());
             Add(new MarkCodePubVolNo());
             Add(new MarkCodePubInfo());
-            Add(new MarkCodeOfficialAgent1());
+            Add(new MarkCodeOfficialAgent1Name());
+            Add(new MarkCodeOfficialAgent1EName());
         }
     }
 
@@ -62,6 +64,16 @@ namespace EastIPSystem.Module.Win.MarkCode
         public override object GetValue(FileInOfficial fileInOfficial)
         {
             return DbHelperOra.GetSingle($"select SE_DATE from patentcase where ourno = '{fileInOfficial?.FilePatent?.s_OurNo}'");
+        }
+    }
+
+    public class MarkCodeFileSendDate : MarkCode
+    {
+        public override string MarkName => "官方发文日";
+        public override DataType DataType => DataType.DateTime;
+        public override object GetValue(FileInOfficial fileInOfficial)
+        {
+            return fileInOfficial?.dt_OfficialSendDate;
         }
     }
 
@@ -190,13 +202,27 @@ namespace EastIPSystem.Module.Win.MarkCode
         }
     }
 
-    public class MarkCodeOfficialAgent1 : MarkCode
+    public class MarkCodeOfficialAgent1Name : MarkCode
     {
-        public override string MarkName => "官方第一代理人";
+        public override string MarkName => "官方第一代理人中文";
         public override DataType DataType => DataType.String;
         public override object GetValue(FileInOfficial fileInOfficial)
         {
-            return DbHelperOra.GetSingle($"select OAGENT1 from patentcase where ourno = '{fileInOfficial?.FilePatent?.s_OurNo}'");
+            var objName = DbHelperOra.GetSingle($"select OAGENT1 from patentcase where ourno = '{fileInOfficial?.FilePatent?.s_OurNo}'");
+            if (string.IsNullOrWhiteSpace(objName?.ToString())) return string.Empty;
+            return fileInOfficial.Session.FindObject<SysUser>(CriteriaOperator.Parse("Code = ?", objName.ToString()))?.Name;
+        }
+    }
+
+    public class MarkCodeOfficialAgent1EName : MarkCode
+    {
+        public override string MarkName => "官方第一代理人英文";
+        public override DataType DataType => DataType.String;
+        public override object GetValue(FileInOfficial fileInOfficial)
+        {
+            var objName = DbHelperOra.GetSingle($"select OAGENT1 from patentcase where ourno = '{fileInOfficial?.FilePatent?.s_OurNo}'");
+            if (string.IsNullOrWhiteSpace(objName?.ToString())) return string.Empty;
+            return fileInOfficial.Session.FindObject<SysUser>(CriteriaOperator.Parse("Code = ?", objName.ToString()))?.EName;
         }
     }
 

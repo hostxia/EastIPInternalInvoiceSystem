@@ -756,6 +756,7 @@
     <Class Name="EastIPSystem.Module.BusinessObjects.FileOutTemplate" Caption="转文模板">
       <OwnMembers>
         <Member Name="n_Language" Caption="文种" />
+        <Member Name="s_ApplicantNo" Caption="申请人代码" />
         <Member Name="s_ClientNo" Caption="客户代码" />
         <Member Name="s_FileCode" Caption="官文代码" />
         <Member Name="s_FileName" Caption="转文命名" />
@@ -876,6 +877,7 @@
     <Class Name="EastIPSystem.Module.BusinessObjects.SysUser" Caption="系统用户" ObjectCaptionFormat="{0:Name}">
       <OwnMembers>
         <Member Name="Code" Caption="用户代码" />
+        <Member Name="EName" Caption="英文名称" />
         <Member Name="Name" Caption="名称" />
       </OwnMembers>
     </Class>
@@ -1710,9 +1712,18 @@
     </ListView>
     <DetailView Id="SysUser_DetailView">
       <Items>
+        <PropertyEditor Id="ChangePasswordOnFirstLogon" Caption="首次更改密码" />
         <PropertyEditor Id="Name" Caption="用户姓名" />
         <PropertyEditor Id="UserName" Caption="账号" />
       </Items>
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors" Caption="SimpleEditors">
+            <LayoutGroup Id="SysUser" Caption="基本信息" />
+            <LayoutGroup Id="PermissionPolicyUser" Caption="账号信息" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
     </DetailView>
     <ListView Id="SysUser_ListView">
       <Columns>
